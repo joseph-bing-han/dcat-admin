@@ -28,6 +28,7 @@ use Illuminate\Support\Traits\Macroable;
 use Illuminate\Validation\Validator;
 
 /**
+ * 覆盖原有的Form类，增加回退按钮
  * Class Form.
  *
  * @method Field\Text text($column, $label = '')
@@ -55,7 +56,7 @@ use Illuminate\Validation\Validator;
  * @method Field\TimeRange timeRange($start, $end, $label = '')
  * @method Field\Number number($column, $label = '')
  * @method Field\Currency currency($column, $label = '')
- * @method Field\SwitchField switch($column, $label = '')
+ * @method Field\SwitchField switch ($column, $label = '')
  * @method Field\Display display($column, $label = '')
  * @method Field\Rate rate($column, $label = '')
  * @method Field\Divide divider(string $title = null)
@@ -101,8 +102,8 @@ class Form implements Renderable
         __call as macroCall;
     }
 
-    const REQUEST_NAME = '_form_';
-    const CURRENT_URL_NAME = '_current_';
+    const REQUEST_NAME      = '_form_';
+    const CURRENT_URL_NAME  = '_current_';
     const LAZY_PAYLOAD_NAME = '_payload_';
 
     /**
@@ -140,7 +141,7 @@ class Form implements Renderable
      *
      * @var array
      */
-    protected $buttons = ['reset' => true, 'submit' => true];
+    protected $buttons = ['reset' => true, 'submit' => true, 'back' => true];
 
     /**
      * @var bool
@@ -173,8 +174,8 @@ class Form implements Renderable
     /**
      * Form constructor.
      *
-     * @param  array  $data
-     * @param  mixed  $key
+     * @param array $data
+     * @param mixed $key
      */
     public function __construct($data = [], $key = null)
     {
@@ -199,7 +200,7 @@ class Form implements Renderable
         $formData = [static::REQUEST_NAME => static::class];
 
         $this->resolvingField(function ($field) use ($formData) {
-            if (! method_exists($this, 'form')) {
+            if (!method_exists($this, 'form')) {
                 return;
             }
 
@@ -231,8 +232,8 @@ class Form implements Renderable
     protected function initFormAttributes()
     {
         $this->setHtmlAttribute([
-            'method'         => 'POST',
-            'class'          => 'form-horizontal',
+            'method' => 'POST',
+            'class' => 'form-horizontal',
             'accept-charset' => 'UTF-8',
             'pjax-container' => true,
         ]);
@@ -255,7 +256,7 @@ class Form implements Renderable
     /**
      * Action uri of the form.
      *
-     * @param  string  $action
+     * @param string $action
      * @return $this|string
      */
     public function action($action = null)
@@ -270,7 +271,7 @@ class Form implements Renderable
     /**
      * Method of the form.
      *
-     * @param  string  $method
+     * @param string $method
      * @return $this
      */
     public function method(string $method = 'POST')
@@ -279,8 +280,8 @@ class Form implements Renderable
     }
 
     /**
-     * @param  string  $title
-     * @param  string  $content
+     * @param string $title
+     * @param string $content
      * @return $this
      */
     public function confirm(?string $title = null, ?string $content = null)
@@ -294,7 +295,7 @@ class Form implements Renderable
     /**
      * 设置使用 Toastr 展示字段验证信息.
      *
-     * @param  bool  $value
+     * @param bool $value
      * @return $this
      */
     public function validationErrorToastr(bool $value = true)
@@ -307,7 +308,7 @@ class Form implements Renderable
     /**
      * Set primary key.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      * @return $this
      */
     public function setKey($value)
@@ -332,7 +333,7 @@ class Form implements Renderable
      */
     public function data()
     {
-        if (! $this->data) {
+        if (!$this->data) {
             $this->fill([]);
         }
 
@@ -340,7 +341,7 @@ class Form implements Renderable
     }
 
     /**
-     * @param  array|Arrayable|Closure  $data
+     * @param array|Arrayable|Closure $data
      * @return $this
      */
     public function fill($data)
@@ -369,8 +370,8 @@ class Form implements Renderable
     /**
      * Add a fieldset to form.
      *
-     * @param  string  $title
-     * @param  Closure  $setCallback
+     * @param string $title
+     * @param Closure $setCallback
      * @return Field\Fieldset
      */
     public function fieldset(string $title, Closure $setCallback)
@@ -389,7 +390,7 @@ class Form implements Renderable
     /**
      * Get specify field.
      *
-     * @param  string|Field  $name
+     * @param string|Field $name
      * @return Field|null
      */
     public function field($name)
@@ -420,7 +421,7 @@ class Form implements Renderable
     /**
      * Validate this form fields.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return bool|MessageBag
      */
     public function validate(Request $request)
@@ -429,11 +430,11 @@ class Form implements Renderable
 
         /** @var \Dcat\Admin\Form\Field $field */
         foreach ($this->fields() as $field) {
-            if (! $validator = $field->getValidator($request->all())) {
+            if (!$validator = $field->getValidator($request->all())) {
                 continue;
             }
 
-            if (($validator instanceof Validator) && ! $validator->passes()) {
+            if (($validator instanceof Validator) && !$validator->passes()) {
                 $failedValidators[] = $validator;
             }
         }
@@ -446,7 +447,7 @@ class Form implements Renderable
     /**
      * Merge validation messages from input validators.
      *
-     * @param  \Illuminate\Validation\Validator[]  $validators
+     * @param \Illuminate\Validation\Validator[] $validators
      * @return MessageBag
      */
     protected function mergeValidationMessages($validators)
@@ -468,7 +469,7 @@ class Form implements Renderable
     }
 
     /**
-     * @param  bool  $value
+     * @param bool $value
      * @return $this
      */
     public function submitButton(bool $value = true)
@@ -479,7 +480,7 @@ class Form implements Renderable
     }
 
     /**
-     * @param  bool  $value
+     * @param bool $value
      * @return $this
      */
     public function resetButton(bool $value = true)
@@ -489,33 +490,46 @@ class Form implements Renderable
         return $this;
     }
 
+    public function backButton(bool $value = true)
+    {
+        $this->buttons['back'] = $value;
+
+        return $this;
+    }
+
     /**
      * Disable reset button.
      *
-     * @param  bool  $value
+     * @param bool $value
      * @return $this
      */
     public function disableResetButton(bool $value = true)
     {
-        return $this->resetButton(! $value);
+        return $this->resetButton(!$value);
     }
 
     /**
      * Disable submit button.
      *
-     * @param  bool  $value
+     * @param bool $value
      * @return $this
      */
     public function disableSubmitButton(bool $value = true)
     {
-        return $this->submitButton(! $value);
+        return $this->submitButton(!$value);
     }
 
+
+    public function disableBackButton(bool $value = true)
+    {
+        return $this->backButton(!$value);
+
+    }
     /**
      * Set field and label width in current form.
      *
-     * @param  int  $fieldWidth
-     * @param  int  $labelWidth
+     * @param int $fieldWidth
+     * @param int $labelWidth
      * @return $this
      */
     public function width($fieldWidth = 8, $labelWidth = 2)
@@ -526,7 +540,7 @@ class Form implements Renderable
         ];
 
         $this->fields->each(function ($field) use ($fieldWidth, $labelWidth) {
-            /* @var Field $field  */
+            /* @var Field $field */
             $field->width($fieldWidth, $labelWidth);
         });
 
@@ -536,7 +550,7 @@ class Form implements Renderable
     /**
      * Find field class with given name.
      *
-     * @param  string  $method
+     * @param string $method
      * @return bool|string
      */
     public static function findFieldClass($method)
@@ -553,7 +567,7 @@ class Form implements Renderable
     /**
      * Add a form field to form.
      *
-     * @param  Field  $field
+     * @param Field $field
      * @return $this
      */
     public function pushField(Field $field)
@@ -597,15 +611,15 @@ class Form implements Renderable
         $this->fillFields($this->model()->toArray());
 
         return array_merge([
-            'start'     => $this->open(),
-            'end'       => $this->close(),
-            'fields'    => $this->fields,
-            'method'    => $this->getHtmlAttribute('method'),
-            'rows'      => $this->rows(),
-            'layout'    => $this->layout(),
+            'start' => $this->open(),
+            'end' => $this->close(),
+            'fields' => $this->fields,
+            'method' => $this->getHtmlAttribute('method'),
+            'rows' => $this->rows(),
+            'layout' => $this->layout(),
             'elementId' => $this->getElementId(),
-            'ajax'      => $this->ajax,
-            'footer'    => $this->renderFooter(),
+            'ajax' => $this->ajax,
+            'footer' => $this->renderFooter(),
         ], $this->variables);
     }
 
@@ -616,21 +630,21 @@ class Form implements Renderable
      */
     protected function renderFooter()
     {
-        if (empty($this->buttons['reset']) && empty($this->buttons['submit'])) {
+        if (empty($this->buttons['reset']) && empty($this->buttons['submit']) && empty($this->buttons['back'])) {
             return;
         }
 
         return <<<HTML
 <div class="box-footer row d-flex">
     <div class="col-md-2"> &nbsp;</div>
-    <div class="col-md-8">{$this->renderResetButton()}{$this->renderSubmitButton()}</div>
+    <div class="col-md-8">{$this->renderResetButton()}{$this->renderSubmitButton()}{$this->renderBackButton()}</div>
 </div>
 HTML;
     }
 
     protected function renderResetButton()
     {
-        if (! empty($this->buttons['reset'])) {
+        if (!empty($this->buttons['reset'])) {
             $reset = trans('admin.reset');
 
             return "<button type=\"reset\" class=\"btn btn-white pull-left\"><i class=\"feather icon-rotate-ccw\"></i> {$reset}</button>";
@@ -639,8 +653,16 @@ HTML;
 
     protected function renderSubmitButton()
     {
-        if (! empty($this->buttons['submit'])) {
+        if (!empty($this->buttons['submit'])) {
             return "<button type=\"submit\" class=\"btn btn-primary pull-right\"><i class=\"feather icon-save\"></i> {$this->getSubmitButtonLabel()}</button>";
+        }
+    }
+
+    protected function renderBackButton()
+    {
+        if (!empty($this->buttons['back'])) {
+            $title = trans('admin.back');
+            return "<a href=\"#\" onclick='history.back();' class=\"btn btn-default pull-right mr-2\"><i class=\"feather icon-arrow-left-circle\"></i>{$title}</a>";
         }
     }
 
@@ -657,7 +679,7 @@ HTML;
     /**
      * 设置视图变量.
      *
-     * @param  array  $variables
+     * @param array $variables
      * @return $this
      */
     public function addVariables(array $variables)
@@ -670,7 +692,7 @@ HTML;
     public function fillFields(array $data)
     {
         foreach ($this->fields as $field) {
-            if (! $field->hasAttribute(Field::BUILD_IGNORE)) {
+            if (!$field->hasAttribute(Field::BUILD_IGNORE)) {
                 $field->fill($data);
             }
         }
@@ -681,7 +703,7 @@ HTML;
      */
     protected function open()
     {
-        if (! $this->useFormTag) {
+        if (!$this->useFormTag) {
             return;
         }
 
@@ -695,7 +717,7 @@ HTML;
      */
     protected function close()
     {
-        if (! $this->useFormTag) {
+        if (!$this->useFormTag) {
             return;
         }
 
@@ -734,7 +756,7 @@ HTML;
      */
     public function getElementId()
     {
-        return $this->elementId ?: ($this->elementId = 'form-'.Str::random(8));
+        return $this->elementId ?: ($this->elementId = 'form-' . Str::random(8));
     }
 
     /**
@@ -750,7 +772,7 @@ HTML;
     }
 
     /**
-     * @param  bool  $disable
+     * @param bool $disable
      * @return $this
      */
     public function ajax(bool $value = true)
@@ -771,19 +793,15 @@ HTML;
     /**
      * @return string|void
      */
-    protected function savedScript()
-    {
-    }
+    protected function savedScript() {}
 
     /**
      * @return string|void
      */
-    protected function errorScript()
-    {
-    }
+    protected function errorScript() {}
 
     /**
-     * @param  array  $input
+     * @param array $input
      * @return array
      */
     public function sanitize(array $input)
@@ -800,7 +818,7 @@ HTML;
         foreach ($input as $column => $value) {
             $field = $this->field($column);
 
-            if (! $field instanceof Field) {
+            if (!$field instanceof Field) {
                 unset($input[$column]);
 
                 continue;
@@ -820,7 +838,7 @@ HTML;
 
     protected function prepareForm()
     {
-        if (! $this->data && method_exists($this, 'default')) {
+        if (!$this->data && method_exists($this, 'default')) {
             $data = $this->default();
 
             if (is_array($data)) {
@@ -842,7 +860,7 @@ HTML;
                 $this->hidden(static::REQUEST_NAME)->default(get_called_class());
                 $this->hidden(static::CURRENT_URL_NAME)->default($this->getCurrentUrl());
 
-                if (! empty($this->payload) && is_array($this->payload)) {
+                if (!empty($this->payload) && is_array($this->payload)) {
                     $this->hidden(static::LAZY_PAYLOAD_NAME)->default(json_encode($this->payload));
                 }
             };
@@ -868,7 +886,7 @@ HTML;
 
         $tabObj = $this->getTab();
 
-        if (! $tabObj->isEmpty()) {
+        if (!$tabObj->isEmpty()) {
             $tabObj->addScript();
         }
 
@@ -904,8 +922,8 @@ JS
     /**
      * Generate a Field object and add to form builder if Field exists.
      *
-     * @param  string  $method
-     * @param  array  $arguments
+     * @param string $method
+     * @param array $arguments
      * @return Field|null
      */
     public function __call($method, $arguments)
@@ -938,7 +956,7 @@ JS
     }
 
     /**
-     * @param  mixed  ...$params
+     * @param mixed ...$params
      * @return $this
      */
     public static function make(...$params)
