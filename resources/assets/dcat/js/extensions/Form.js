@@ -92,14 +92,14 @@ class Form {
                     }
                 }
 
-                $submitButton.each(function (button) {
-                    button.buttonLoading();
+                $submitButton.each(function () {
+                    $(this).buttonLoading();
                 });
             },
             success: function (response) {
                 setTimeout(function () {
-                    $submitButton.each(function (button) {
-                        button.buttonLoading(false);
+                    $submitButton.each(function () {
+                        $(this).buttonLoading(false);
                     });
                 }, 700);
 
@@ -126,8 +126,8 @@ class Form {
                 Dcat.handleJsonResponse(response);
             },
             error: function (response) {
-                $submitButton.each(function (button) {
-                    button.buttonLoading(false);
+                $submitButton.each(function () {
+                    $(this).buttonLoading(false);
                 });
 
                 if (options.after(false, response, _this) === false) {
