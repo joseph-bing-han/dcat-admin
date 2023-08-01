@@ -1,14 +1,24 @@
 {
     "name": "joseph-bing-han/laravel-admin",
-    "description": "dcat admin",
+    "replace": {
+        "dcat/laravel-admin": "2.2.2-beta"
+    },
+    "description": "modify dcat admin for my own use",
     "type": "library",
-    "keywords": ["dcat", "laravel", "admin", "grid", "form", "laravel admin"],
-    "homepage": "https://github.com/jqhph/dcat-admin",
+    "keywords": [
+        "dcat",
+        "laravel",
+        "admin",
+        "grid",
+        "form",
+        "laravel admin"
+    ],
+    "homepage": "https://github.com/joseph-bing-han/dcat-admin",
     "license": "MIT",
     "authors": [
         {
-            "name": "jqh",
-            "email": "841324345@qq.com"
+            "name": "Joseph",
+            "email": "joseph.bing.han@gmail.com"
         }
     ],
     "require": {
