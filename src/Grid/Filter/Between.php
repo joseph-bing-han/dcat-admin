@@ -162,11 +162,25 @@ class Between extends AbstractFilter
 
         DateTime::requireAssets();
 
-        $options['format'] = Arr::get($options, 'format', 'YYYY-MM-DD HH:mm:ss');
+        $options['format'] = Arr::get($options, 'format', config('app.datetime_format'));
+        $this->format = $options['format'];
+        $options['format'] = datetime_format_2_js($options['format']);
         $options['locale'] = Arr::get($options, 'locale', config('app.locale'));
 
         return $this->addVariables([
             'dateOptions' => $options,
         ]);
+    }
+
+    public function date()
+    {
+        $this->format = config('app.date_format');
+        return $this->datetime(['format' => config('app.date_format')]);
+    }
+
+    public function time()
+    {
+        $this->format = config('app.time_format');
+        return $this->datetime(['format' => config('app.time_format')]);
     }
 }
