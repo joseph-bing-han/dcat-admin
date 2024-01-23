@@ -193,7 +193,7 @@ class SelectTable extends Field
         $this->setUpTable();
         $this->formatOptions();
 
-        $this->prepend('<i class="feather icon-arrow-up"></i>')
+        $this->prepend('<i class="feather icon-zoom-in"></i>')
             ->defaultAttribute('class', 'form-control '.$this->getElementClassString())
             ->defaultAttribute('type', 'text')
             ->defaultAttribute('name', $this->getElementName());
@@ -214,7 +214,7 @@ class SelectTable extends Field
     {
         return <<<HTML
 <div class="btn btn-{$this->style}">
-    &nbsp;<i class="feather icon-arrow-up"></i>&nbsp;
+    &nbsp;<i class="feather icon-zoom-in"></i>&nbsp;
 </div>
 HTML;
     }

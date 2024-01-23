@@ -593,3 +593,77 @@ if (! function_exists('format_byte')) {
         return round($value, $dec).$prefix_arr[$i];
     }
 }
+
+if (!function_exists('datetime_format_2_js')) {
+
+    /**
+     * Convert PHP datetime format to Moment.js datetime format
+     * @param $phpFormat
+     * @return string
+     */
+    function datetime_format_2_js($phpFormat): string
+    {
+        // Define the mappings from PHP date format characters to Moment.js format characters
+        $formatMap = [
+            'd' => 'DD',
+            'D' => 'ddd',
+            'j' => 'D',
+            'l' => 'dddd',
+            'N' => 'E',
+            'S' => 'o',
+            'w' => 'e',
+            'z' => 'DDD',
+            'W' => 'W',
+            'F' => 'MMMM',
+            'm' => 'MM',
+            'M' => 'MMM',
+            'n' => 'M',
+            't' => '',
+            'L' => '',
+            'o' => 'Y',
+            'Y' => 'YYYY',
+            'y' => 'YY',
+            'a' => 'a',
+            'A' => 'A',
+            'B' => '',
+            'g' => 'h',
+            'G' => 'H',
+            'h' => 'hh',
+            'H' => 'HH',
+            'i' => 'mm',
+            's' => 'ss',
+            'u' => 'SSS',
+            'v' => 'SSS',
+            'e' => 'zz',
+            'I' => '',
+            'O' => '',
+            'P' => '',
+            'T' => '',
+            'Z' => '',
+            'c' => '',
+            'r' => '',
+            'U' => 'X',
+        ];
+
+        $momentFormat = "";
+
+        // Loop through each character
+        for ($i = 0; $i < strlen($phpFormat); $i++) {
+            $char = $phpFormat[$i];
+
+            // If the character is backslash, it's escaping the next character
+            if ($char === '\\') {
+                $i++;
+                $momentFormat .= '[' . $phpFormat[$i] . ']';
+            } else {
+                if (isset($formatMap[$char])) {
+                    $momentFormat .= $formatMap[$char];
+                } else {
+                    $momentFormat .= $char;
+                }
+            }
+        }
+
+        return $momentFormat;
+    }
+}

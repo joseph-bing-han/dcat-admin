@@ -74,6 +74,8 @@ return [
     'export'                => '匯出',
     'batch_delete'          => '批次刪除',
     'save'                  => '儲存',
+    'save_and_edit'         => '儲存 & 編輯',
+    'save_and_view'         => '儲存 & 查看',
     'refresh'               => '重新整理',
     'order'                 => '排序',
     'expand'                => '展開',

@@ -2,12 +2,24 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Carbon\Carbon;
+
 class Datetime extends Date
 {
-    protected $format = 'YYYY-MM-DD HH:mm:ss';
+    protected $format = 'Y-m-d H:i:s';
+
+    protected $key = 'app.datetime_format';
 
     public function render()
     {
+        try {
+            $time = Carbon::createFromFormat($this->format, $this->value());
+        } catch (\Exception $e) {
+            $time = Carbon::parse($this->value());
+        }
+
+        $this->value = $time->format($this->format);
+
         $this->defaultAttribute('style', 'width: 200px;flex:none');
 
         return parent::render();

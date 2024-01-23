@@ -78,6 +78,8 @@ return [
     'export'                => 'Export',
     'batch_delete'          => 'Batch delete',
     'save'                  => 'Save',
+    'save_and_edit'         => 'Save & Edit',
+    'save_and_view'         => 'Save & View',
     'refresh'               => 'Refresh',
     'order'                 => 'Order',
     'expand'                => 'Expand',

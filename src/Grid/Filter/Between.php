@@ -4,6 +4,8 @@ namespace Dcat\Admin\Grid\Filter;
 
 use Dcat\Admin\Grid\Filter\Presenter\DateTime;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class Between extends AbstractFilter
 {
@@ -22,6 +24,8 @@ class Between extends AbstractFilter
      */
     protected $timestamp = false;
 
+    protected $format;
+
     /**
      * Convert the datetime into unix timestamp.
      *
@@ -30,6 +34,13 @@ class Between extends AbstractFilter
     public function toTimestamp()
     {
         $this->timestamp = true;
+
+        return $this;
+    }
+
+    public function format($format)
+    {
+        $this->format = $format;
 
         return $this;
     }
@@ -83,7 +94,34 @@ class Between extends AbstractFilter
             return;
         }
 
-        $this->value = Arr::get($inputs, $this->column);
+        $original = null;
+        if (isset($inputs[$this->column])) {
+            $original = $inputs[$this->column];
+            $inputs[$this->column] = Collection::make($inputs[$this->column])->map(function ($value, $key) {
+                $inputFormat = $this->format;
+                if ($this->format === config('app.date_format', 'Y-m-d')) {
+                    $outFormat = 'Y-m-d H:i:s';
+                    $inputFormat .= ' H:i:s';
+                    if ($key === 'start') {
+                        $value = $value . ' 00:00:00';
+                    } else {
+                        $value = $value . ' 23:59:59';
+                    }
+                } elseif ($this->format === config('app.time_format')) {
+                    $outFormat = 'H:i:s';
+                } else {
+                    $outFormat = 'Y-m-d H:i:s';
+                }
+
+                return Carbon::createFromFormat($inputFormat, $value)->format($outFormat);
+            })->toArray();
+
+        }
+        if ($original) {
+            $this->value = $original;
+        } else {
+            $this->value = Arr::get($inputs, $this->column);
+        }
 
         $value = array_filter($this->value, function ($val) {
             return $val !== '';

@@ -2,6 +2,8 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Carbon\Carbon;
+
 class Date extends Text
 {
     public static $js = [
@@ -12,7 +14,16 @@ class Date extends Text
         '@bootstrap-datetimepicker',
     ];
 
-    protected $format = 'YYYY-MM-DD';
+    protected $format = 'Y-m-d';
+
+    protected $key = 'app.date_format';
+
+
+    public function __construct($column, $arguments = [])
+    {
+        parent::__construct($column, $arguments);
+        $this->format(config($this->key));
+    }
 
     public function format($format)
     {
@@ -21,18 +32,37 @@ class Date extends Text
         return $this;
     }
 
+
     protected function prepareInputValue($value)
     {
         if ($value === '') {
             $value = null;
         }
-
-        return $value;
+        try {
+            $time = Carbon::createFromFormat($this->format, $value);
+        } catch (\Exception $e) {
+            $time = Carbon::parse($value);
+        }
+        return $time->format('Y-m-d H:i:s');
     }
+
+    protected function getValueFromData($data, $column = null, $default = null)
+    {
+        $value = parent::getValueFromData($data, $column, $default);
+
+        try {
+            $time = Carbon::parse($value);
+        } catch (\Exception $e) {
+            $time = Carbon::createFromFormat($this->format, $value);
+        }
+
+        return $time->format($this->format);
+    }
+
 
     public function render()
     {
-        $this->options['format'] = $this->format;
+        $this->options['format'] = datetime_format_2_js($this->format);
         $this->options['locale'] = config('app.locale');
         $this->options['allowInputToggle'] = true;
 
@@ -45,7 +75,7 @@ Dcat.init('{$this->getElementClassSelector()}', function (self) {
 JS;
 
         $this->prepend('<i class="fa fa-calendar fa-fw"></i>')
-            ->defaultAttribute('style', 'width: 200px;flex:none');
+             ->defaultAttribute('style', 'width: 200px;flex:none');
 
         return parent::render();
     }
