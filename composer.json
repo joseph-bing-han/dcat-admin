@@ -3,7 +3,7 @@
     "replace": {
         "dcat/laravel-admin": "2.2.2-beta"
     },
-    "description": "modify dcat admin for my own use",
+    "description": "Enhanced Dcat Admin with localized time format support and minor adjustments for improved usability.",
     "type": "library",
     "keywords": [
         "dcat",
