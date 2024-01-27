@@ -162,7 +162,7 @@ class AuthController extends Controller
 
             $form->disableCreatingCheck();
             $form->disableEditingCheck();
-            $form->disableViewCheck();
+            //$form->disableViewCheck();
 
             $form->tools(function (Form\Tools $tools) {
                 $tools->disableView();

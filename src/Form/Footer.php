@@ -4,6 +4,7 @@ namespace Dcat\Admin\Form;
 
 use Dcat\Admin\Widgets\Checkbox;
 use Illuminate\Contracts\Support\Renderable;
+use function array_merge;
 
 /**
  * 覆盖原有的Footer类，增加自定义按钮功能及默认的回退按钮
@@ -53,6 +54,9 @@ class Footer implements Renderable
      */
     protected $defaultcheckeds = ['view' => false, 'continue_editing' => false, 'continue_creating' => false];
 
+
+    protected $width = [];
+
     /**
      * Footer constructor.
      *
@@ -67,6 +71,7 @@ class Footer implements Renderable
      * Disable reset button.
      *
      * @param bool $disable
+     *
      * @return $this
      */
     public function disableReset(bool $disable = true)
@@ -80,6 +85,7 @@ class Footer implements Renderable
      * Disable submit button.
      *
      * @param bool $disable
+     *
      * @return $this
      */
     public function disableSubmit(bool $disable = true)
@@ -93,6 +99,7 @@ class Footer implements Renderable
      * Disable back button.
      *
      * @param bool $disable
+     *
      * @return $this
      */
     public function disableBack(bool $disable = true)
@@ -106,6 +113,7 @@ class Footer implements Renderable
      * Disable View Checkbox.
      *
      * @param bool $disable
+     *
      * @return $this
      */
     public function disableViewCheck(bool $disable = true)
@@ -119,6 +127,7 @@ class Footer implements Renderable
      * Disable Editing Checkbox.
      *
      * @param bool $disable
+     *
      * @return $this
      */
     public function disableEditingCheck(bool $disable = true)
@@ -132,6 +141,7 @@ class Footer implements Renderable
      * Disable Creating Checkbox.
      *
      * @param bool $disable
+     *
      * @return $this
      */
     public function disableCreatingCheck(bool $disable = true)
@@ -145,6 +155,7 @@ class Footer implements Renderable
      * default View Checked.
      *
      * @param bool $checked
+     *
      * @return $this
      */
     public function defaultViewChecked(bool $checked = true)
@@ -158,6 +169,7 @@ class Footer implements Renderable
      * default Editing Checked.
      *
      * @param bool $checked
+     *
      * @return $this
      */
     public function defaultEditingChecked(bool $checked = true)
@@ -171,6 +183,7 @@ class Footer implements Renderable
      * default Creating Checked.
      *
      * @param bool $checked
+     *
      * @return $this
      */
     public function defaultCreatingChecked(bool $checked = true)
@@ -225,6 +238,12 @@ class Footer implements Renderable
         return (new Checkbox('after-save', $options))->check($checked)->inline()->circle(true);
     }
 
+    public function width($field = 12, $label = 0)
+    {
+        $this->width = ['field' => $field, 'label' => $label];
+        return $this;
+    }
+
     /**
      * Use custom view.
      *
@@ -246,11 +265,10 @@ class Footer implements Renderable
     public function render()
     {
         $data = [
-            'buttons' => $this->buttons,
+            'buttons' => array_merge($this->buttons, $this->checkboxes),
             'checkboxes' => $this->buildCheckboxes(),
-            'width' => $this->builder->getWidth(),
+            'width' => array_merge($this->builder->getWidth(), $this->width),
         ];
-
         $data = array_merge($data, $this->data);
 
         return view($this->view, $data)->render();

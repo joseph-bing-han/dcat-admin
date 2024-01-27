@@ -33,7 +33,7 @@ class Builder implements FieldsCollection
     /**
      * Modes constants.
      */
-    const MODE_EDIT = 'edit';
+    const MODE_EDIT   = 'edit';
     const MODE_CREATE = 'create';
     const MODE_DELETE = 'delete';
 
@@ -133,10 +133,13 @@ class Builder implements FieldsCollection
      */
     public $confirm = [];
 
+
+    protected $formWidth = 12;
+
     /**
      * Builder constructor.
      *
-     * @param  Form  $form
+     * @param Form $form
      */
     public function __construct(Form $form)
     {
@@ -147,7 +150,8 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  \Closure  $closure
+     * @param \Closure $closure
+     *
      * @return Layout
      */
     public function layout($closure = null)
@@ -160,7 +164,8 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  Closure  $closure
+     * @param Closure $closure
+     *
      * @return $this;
      */
     public function wrap(Closure $closure)
@@ -199,8 +204,9 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  string  $title
-     * @param  string  $content
+     * @param string $title
+     * @param string $content
+     *
      * @return $this
      */
     public function confirm(?string $title = null, ?string $content = null)
@@ -214,7 +220,8 @@ class Builder implements FieldsCollection
     /**
      * Set the builder mode.
      *
-     * @param  string  $mode
+     * @param string $mode
+     *
      * @return void|string
      */
     public function mode(string $mode = null)
@@ -230,6 +237,7 @@ class Builder implements FieldsCollection
      * Returns builder is $mode.
      *
      * @param $mode
+     *
      * @return bool
      */
     public function isMode($mode)
@@ -271,6 +279,7 @@ class Builder implements FieldsCollection
      * Set resource Id.
      *
      * @param $id
+     *
      * @return mixed|void
      */
     public function setResourceId($id)
@@ -302,8 +311,9 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  int  $field
-     * @param  int  $label
+     * @param int $field
+     * @param int $label
+     *
      * @return $this
      */
     public function width($field = 8, $label = 2)
@@ -312,6 +322,13 @@ class Builder implements FieldsCollection
             'label' => $label,
             'field' => $field,
         ];
+
+        return $this;
+    }
+
+    public function formWidth($width = 12)
+    {
+        $this->formWidth = $width;
 
         return $this;
     }
@@ -344,7 +361,7 @@ class Builder implements FieldsCollection
         }
 
         if ($this->isMode(static::MODE_EDIT)) {
-            return $this->form->resource().'/'.$this->id;
+            return $this->form->resource() . '/' . $this->id;
         }
 
         if ($this->isMode(static::MODE_CREATE)) {
@@ -357,7 +374,8 @@ class Builder implements FieldsCollection
     /**
      * Set view for this form.
      *
-     * @param  string  $view
+     * @param string $view
+     *
      * @return $this
      */
     public function view($view)
@@ -370,7 +388,8 @@ class Builder implements FieldsCollection
     /**
      * Get or set title for form.
      *
-     * @param  string  $title
+     * @param string $title
+     *
      * @return $this|string
      */
     public function title($title = null)
@@ -403,7 +422,7 @@ class Builder implements FieldsCollection
      */
     public function hasRows()
     {
-        return ! empty($this->form->rows());
+        return !empty($this->form->rows());
     }
 
     /**
@@ -433,7 +452,8 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  Field  $field
+     * @param Field $field
+     *
      * @return void
      */
     public function addHiddenField(Field $field)
@@ -444,7 +464,8 @@ class Builder implements FieldsCollection
     /**
      * Add or get options.
      *
-     * @param  array  $options
+     * @param array $options
+     *
      * @return array|null
      */
     public function options($options = [])
@@ -459,8 +480,9 @@ class Builder implements FieldsCollection
     /**
      * Get or set option.
      *
-     * @param  string  $option
-     * @param  mixed  $value
+     * @param string $option
+     * @param mixed $value
+     *
      * @return void
      */
     public function option($option, $value = null)
@@ -473,25 +495,28 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  bool  $disable
+     * @param bool $disable
+     *
      * @return void
      */
     public function disableHeader(bool $disable = true)
     {
-        $this->showHeader = ! $disable;
+        $this->showHeader = !$disable;
     }
 
     /**
-     * @param  bool  $disable
+     * @param bool $disable
+     *
      * @return void
      */
     public function disableFooter(bool $disable = true)
     {
-        $this->showFooter = ! $disable;
+        $this->showFooter = !$disable;
     }
 
     /**
      * @param $id
+     *
      * @return void
      */
     public function setElementId($id)
@@ -504,7 +529,7 @@ class Builder implements FieldsCollection
      */
     public function getElementId()
     {
-        return $this->elementId ?: ($this->elementId = 'form-'.Str::random(8));
+        return $this->elementId ?: ($this->elementId = 'form-' . Str::random(8));
     }
 
     /**
@@ -532,13 +557,13 @@ class Builder implements FieldsCollection
     {
         $previous = Helper::getPreviousUrl();
 
-        if (! $previous || $previous == URL::current()) {
+        if (!$previous || $previous == URL::current()) {
             return;
         }
 
         if (
             Str::contains($previous, url($this->resource()))
-            && ! Helper::urlHasQuery($previous, [DialogForm::QUERY_NAME])
+            && !Helper::urlHasQuery($previous, [DialogForm::QUERY_NAME])
         ) {
             $this->addHiddenField(
                 (new Hidden(static::PREVIOUS_URL_KEY))->value($previous)
@@ -549,7 +574,8 @@ class Builder implements FieldsCollection
     /**
      * Open up a new HTML form.
      *
-     * @param  array  $options
+     * @param array $options
+     *
      * @return string
      */
     public function open($options = [])
@@ -578,7 +604,7 @@ class Builder implements FieldsCollection
             $html[] = "$name=\"$value\"";
         }
 
-        return '<form '.implode(' ', $html).' '.Admin::getPjaxContainerId().'>';
+        return '<form ' . implode(' ', $html) . ' ' . Admin::getPjaxContainerId() . '>';
     }
 
     /**
@@ -613,7 +639,7 @@ class Builder implements FieldsCollection
      */
     protected function removeReservedFields()
     {
-        if (! $this->isMode(static::MODE_CREATE)) {
+        if (!$this->isMode(static::MODE_CREATE)) {
             return;
         }
 
@@ -643,7 +669,7 @@ class Builder implements FieldsCollection
 
         if ($this->form->hasTab()) {
             $this->form->getTab()->getTabs()->transform(function ($item) use ($reject) {
-                if (! empty($item['fields'])) {
+                if (!empty($item['fields'])) {
                     $item['fields'] = $item['fields']->reject($reject);
                 }
 
@@ -669,7 +695,7 @@ class Builder implements FieldsCollection
      */
     public function renderFooter()
     {
-        if (! $this->showFooter) {
+        if (!$this->showFooter) {
             return;
         }
 
@@ -679,14 +705,14 @@ class Builder implements FieldsCollection
     protected function defaultVariables()
     {
         return [
-            'form'       => $this,
-            'tabObj'     => $this->form->getTab(),
-            'width'      => $this->width,
-            'elementId'  => $this->getElementId(),
+            'form' => $this,
+            'tabObj' => $this->form->getTab(),
+            'width' => $this->width,
+            'elementId' => $this->getElementId(),
             'showHeader' => $this->showHeader,
-            'fields'     => $this->fields(),
-            'rows'       => $this->rows(),
-            'layout'     => $this->layout(),
+            'fields' => $this->fields(),
+            'rows' => $this->rows(),
+            'layout' => $this->layout(),
         ];
     }
 
@@ -702,7 +728,7 @@ class Builder implements FieldsCollection
 
         $tabObj = $this->form->getTab();
 
-        if (! $tabObj->isEmpty()) {
+        if (!$tabObj->isEmpty()) {
             $tabObj->addScript();
         }
 
@@ -715,9 +741,9 @@ class Builder implements FieldsCollection
         if ($this->layout->hasColumns()) {
             $content = $this->doWrap(view($this->view, $this->variables()));
         } else {
-            if (! $this->layout->hasBlocks()) {
+            if (!$this->layout->hasBlocks()) {
                 $this->layout->prepend(
-                    12,
+                    $this->formWidth,
                     $this->doWrap(view($this->view, $this->variables()))
                 );
             }
@@ -731,7 +757,8 @@ class Builder implements FieldsCollection
     }
 
     /**
-     * @param  Renderable  $view
+     * @param Renderable $view
+     *
      * @return string
      */
     protected function doWrap(Renderable $view)
@@ -767,7 +794,7 @@ JS
         $html = '';
 
         foreach ($this->hiddenFields as $field) {
-            if (! $field->hasAttribute(Field::BUILD_IGNORE)) {
+            if (!$field->hasAttribute(Field::BUILD_IGNORE)) {
                 $html .= $field->render();
             }
         }

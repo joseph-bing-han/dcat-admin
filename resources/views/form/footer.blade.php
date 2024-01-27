@@ -4,18 +4,21 @@
   <div class="col-md-{{$width['label']}} d-md-block" style="display: none"></div>
 
   <div class="col-md-{{$width['field']}}">
-
     @if(!empty($buttons['submit']))
-      <div class="btn-group pull-right">
-        <button class="btn btn-info submit" onclick="$('#{{$id}}-after-save').val('3');">
-          <i class="feather icon-eye"></i> {{ trans('admin.save_and_view') }}
-        </button>
-      </div>
-      <div class="btn-group pull-right mr-2">
-        <button class="btn btn-primary submit" onclick="$('#{{$id}}-after-save').val('1');">
-          <i class="feather icon-save"></i> {{ trans('admin.save_and_edit') }}
-        </button>
-      </div>
+      @if($buttons['view'])
+        <div class="btn-group pull-right">
+          <button class="btn btn-info submit" onclick="$('#{{$id}}-after-save').val('3');">
+            <i class="feather icon-eye"></i> {{ trans('admin.save_and_view') }}
+          </button>
+        </div>
+      @endif
+      @if($buttons['continue_editing'])
+        <div class="btn-group pull-right mr-2">
+          <button class="btn btn-primary submit" onclick="$('#{{$id}}-after-save').val('1');">
+            <i class="feather icon-save"></i> {{ trans('admin.save_and_edit') }}
+          </button>
+        </div>
+      @endif
       @foreach($buttons as $button)
         @if($button instanceof  App\Admin\Extensions\Form\Button)
           {!! $button->render() !!}
