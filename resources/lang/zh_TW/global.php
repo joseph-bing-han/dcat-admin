@@ -30,12 +30,11 @@ return [
         'create'   => '創建',
         'root'     => 'root',
         'scaffold' => '代碼生成器',
+        'to' => '至'
     ],
 
     'options' => [
-        'permissions' => [
-
-        ],
+        'permissions' => [],
     ],
 
 ];

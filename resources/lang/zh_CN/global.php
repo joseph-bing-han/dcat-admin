@@ -30,6 +30,7 @@ return [
         'create'   => '创建',
         'root'     => '顶级',
         'scaffold' => '代码生成器',
+        'to' => '至'
     ],
     'options' => [
         //
