@@ -169,8 +169,9 @@ if (!function_exists('admin_trans_field')) {
      */
     function admin_trans_field($field, $locale = null)
     {
-        $result = app('admin.translator')->transField(trim(str_replace([' ', '.'], '_', strtolower($field))), $locale);
-        return $result ?: app('admin.translator')->transField($field, $locale);
+        $titleTranslation = trim(str_replace([' ', '.'], '_', strtolower($field)));
+        $result = app('admin.translator')->transField($titleTranslation, $locale);
+        return $result == $titleTranslation ? app('admin.translator')->transField($field, $locale) : $result;
     }
 }
 
@@ -188,7 +189,7 @@ if (!function_exists('admin_trans_label')) {
     {
         $titleTranslation = trim(str_replace([' ', '.'], '_', strtolower($label)));
         $result = app('admin.translator')->transLabel($titleTranslation, $replace, $locale);
-        return empty($result) ? $label : $result;
+        return $result == $titleTranslation ? $label : $result;
     }
 }
 
