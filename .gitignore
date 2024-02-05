@@ -11,3 +11,4 @@ pre-dist
 *.bak.*
 .DS_Store
 yarn.lock
+/.vscode

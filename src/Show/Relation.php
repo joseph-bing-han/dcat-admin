@@ -43,12 +43,16 @@ class Relation extends Field
      */
     public $width = 12;
 
+    protected $prependHtml = '';
+
+    protected $appendHtml = '';
+
     /**
      * Relation constructor.
      *
-     * @param  string  $name
-     * @param  \Closure  $builder
-     * @param  string  $title
+     * @param string $name
+     * @param \Closure $builder
+     * @param string $title
      */
     public function __construct($name, $builder, $title = '')
     {
@@ -60,7 +64,8 @@ class Relation extends Field
     /**
      * Set parent model for relation.
      *
-     * @param  Fluent|Model  $model
+     * @param Fluent|Model $model
+     *
      * @return $this|Fluent
      */
     public function model($model = null)
@@ -75,7 +80,8 @@ class Relation extends Field
     }
 
     /**
-     * @param  int  $width
+     * @param int $width
+     *
      * @return $this
      */
     public function width(int $width, int $_ = 2)
@@ -97,12 +103,26 @@ class Relation extends Field
 
         if ($view instanceof Grid) {
             return $view->setName($this->name)
-                ->title($this->title)
-                ->disableBatchDelete()
-                ->render();
+                        ->title($this->title)
+                        ->disableBatchDelete()
+                        ->render();
         }
 
         return Helper::render($view);
+    }
+
+    public function prepend($html)
+    {
+        $this->prependHtml = $html;
+
+        return $this;
+    }
+
+    public function append($html)
+    {
+        $this->appendHtml = $html;
+
+        return $this;
     }
 
     /**
@@ -113,7 +133,7 @@ class Relation extends Field
     public function render()
     {
         return <<<HTML
-<div class="mt-1-5">{$this->build()}</div>
+<div class="mt-1-5">{$this->prependHtml}{$this->build()}{$this->appendHtml}</div>
 HTML;
     }
 }
