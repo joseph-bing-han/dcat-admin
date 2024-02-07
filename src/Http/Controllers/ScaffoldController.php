@@ -164,7 +164,8 @@ class ScaffoldController extends Controller
             }
 
             // Make ide helper file.
-            if (in_array('migrate', $creates) || in_array('controller', $creates)) {
+            if ((in_array('migrate', $creates) || in_array('controller',
+                        $creates)) && !config('admin.scaffold_disable_ide_helper', false)) {
                 try {
                     Artisan::call('admin:ide-helper', ['-c' => $controller]);
 
