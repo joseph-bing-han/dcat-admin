@@ -89,7 +89,7 @@ class Row implements Renderable
      * @param  string  $label
      * @return \Dcat\Admin\Show\Field
      */
-    public function field($name, $label = '')
+    public function field($name, $label = null)
     {
         $field = $this->show->field($name, $label);
 

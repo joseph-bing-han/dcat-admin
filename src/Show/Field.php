@@ -100,7 +100,7 @@ class Field implements Renderable
      * @param  string  $name
      * @param  string  $label
      */
-    public function __construct($name = '', $label = '')
+    public function __construct($name = '', $label = null)
     {
         $this->name = $name;
         $this->label = $this->formatLabel($label);
@@ -154,7 +154,7 @@ class Field implements Renderable
      */
     protected function formatLabel($label)
     {
-        if ($label) {
+        if (!is_null($label)) {
             return $label;
         }
 
