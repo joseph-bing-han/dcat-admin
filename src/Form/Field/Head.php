@@ -27,19 +27,23 @@ class Head extends Html
 
     public function h(int $size): static
     {
-        $this->size = $size ?: $this->size;
+        $this->size = $size > 0 ? $size : 0;
         return $this;
-
     }
 
 
     public function render()
     {
-        $this->html = <<<HTML
+        if ($this->size > 0) {
+            $this->html = <<<HTML
 <h{$this->size} class="mt-2 text-center mb-2 form-divider">{$this->title}</h{$this->size}>
 HTML;
+        } else {
+            $this->html = <<<HTML
+<div class="text-center">{$this->title}</div>
+HTML;
+        }
+
         return parent::render();
     }
-
-
 }
