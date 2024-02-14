@@ -42,7 +42,22 @@ html body {
 @include scrollbar('.iconpicker .iconpicker-items');
 
 // 字体
-body, .header-navbar, .navigation, .breadcrumb, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+body,
+.header-navbar,
+.navigation,
+.breadcrumb,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   font-family: $font-family-sans-serif;
 }
 

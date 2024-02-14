@@ -31,6 +31,9 @@ class Asset
             //'css' => 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,800,800i,900,900i',
             'css' => '@admin/dcat/css/nunito.css',
         ],
+        '@bootstrap-icons' => [
+            'css' => '@admin/dcat/css/bootstrap-icons.css',
+        ],
         '@dcat' => [
             'js'  => '@admin/dcat/js/dcat-app.js',
             'css' => '@admin/dcat/css/dcat-app.css',
@@ -257,6 +260,7 @@ class Asset
      */
     public $fonts = [
         '@nunito',
+        '@bootstrap-icons',
     ];
 
     /**
