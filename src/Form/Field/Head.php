@@ -40,7 +40,7 @@ class Head extends Html
 HTML;
         } else {
             $this->html = <<<HTML
-<div class="text-center">{$this->title}</div>
+<div class="px-50">{$this->title}</div>
 HTML;
         }
 
