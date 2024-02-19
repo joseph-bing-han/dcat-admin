@@ -60,6 +60,7 @@ use Illuminate\Support\Collection;
  * @method Field\Tel tel($column, $label = '')
  * @method Field\Markdown markdown($column, $label = '')
  * @method Field\Range range($start, $end, $label = '')
+ * @method Field\Head head($title, $arguments = [])
  */
 class Row implements Renderable
 {

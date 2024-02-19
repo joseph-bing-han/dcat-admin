@@ -9,7 +9,7 @@ class Head extends Html
 {
     protected $width = [
         'label' => 0,
-        'field' => 8,
+        'field' => 12,
     ];
     protected int $size = 4;
 
@@ -20,7 +20,7 @@ class Head extends Html
         parent::__construct('', []);
     }
 
-    public function width($field = 8, $label = 0): static
+    public function width($field = 12, $label = 0): static
     {
         return parent::width($field, 0);
     }
