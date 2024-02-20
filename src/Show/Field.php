@@ -16,14 +16,17 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use function array_merge;
+use function array_unique;
+use function implode;
 
 class Field implements Renderable
 {
     use HasBuilderEvents;
     use HasVariables;
     use Macroable {
-            __call as macroCall;
-        }
+        __call as macroCall;
+    }
 
     /**
      * @var array
@@ -94,11 +97,14 @@ class Field implements Renderable
      */
     protected $width = ['field' => 8, 'label' => 2];
 
+    protected $labelClass = [];
+    protected $fieldClass = [];
+
     /**
      * Field constructor.
      *
-     * @param  string  $name
-     * @param  string  $label
+     * @param string $name
+     * @param string $label
      */
     public function __construct($name = '', $label = null)
     {
@@ -112,7 +118,8 @@ class Field implements Renderable
     /**
      * Set parent show instance.
      *
-     * @param  Show  $show
+     * @param Show $show
+     *
      * @return $this
      */
     public function setParent(Show $show)
@@ -120,6 +127,34 @@ class Field implements Renderable
         $this->parent = $show;
 
         return $this;
+    }
+
+    public function setLabelClass($labelClass, bool $append = true)
+    {
+        $this->labelClass = $append
+            ? array_unique(array_merge($this->labelClass, (array) $labelClass))
+            : (array) $labelClass;
+
+        return $this;
+    }
+
+    public function getLabelClass()
+    {
+        return implode(' ', $this->labelClass);
+    }
+
+    public function setFieldClass($class, bool $append = true)
+    {
+        $this->fieldClass = $append
+            ? array_unique(array_merge($this->fieldClass, (array) $class))
+            : (array) $class;
+
+        return $this;
+    }
+
+    public function getFieldClass()
+    {
+        return implode(' ', $this->fieldClass);
     }
 
     /**
@@ -133,7 +168,8 @@ class Field implements Renderable
     }
 
     /**
-     * @param  int  $width
+     * @param int $width
+     *
      * @return $this|array
      */
     public function width(int $field, int $label = 2)
@@ -150,6 +186,7 @@ class Field implements Renderable
      * Format label.
      *
      * @param $label
+     *
      * @return mixed
      */
     protected function formatLabel($label)
@@ -176,7 +213,8 @@ class Field implements Renderable
     /**
      * Field display callback.
      *
-     * @param  mixed  $callable
+     * @param mixed $callable
+     *
      * @return $this
      */
     public function as($callable, ...$params)
@@ -189,8 +227,9 @@ class Field implements Renderable
     /**
      * Display field using array value map.
      *
-     * @param  array  $values
-     * @param  null  $default
+     * @param array $values
+     * @param null $default
+     *
      * @return $this
      */
     public function using(array $values, $default = null)
@@ -207,9 +246,10 @@ class Field implements Renderable
     /**
      * Show field as a image.
      *
-     * @param  string  $server
-     * @param  int  $width
-     * @param  int  $height
+     * @param string $server
+     * @param int $width
+     * @param int $height
+     *
      * @return $this
      */
     public function image($server = '', $width = 200, $height = 200)
@@ -225,7 +265,7 @@ class Field implements Renderable
                 if (url()->isValidUrl($path)) {
                     $src = $path;
                 } elseif ($server) {
-                    $src = rtrim($server, '/').'/'.ltrim($path, '/');
+                    $src = rtrim($server, '/') . '/' . ltrim($path, '/');
                 } else {
                     $disk = config('admin.upload.disk');
 
@@ -244,8 +284,9 @@ class Field implements Renderable
     /**
      * Show field as a file.
      *
-     * @param  string  $server
-     * @param  bool  $download
+     * @param string $server
+     * @param bool $download
+     *
      * @return Field
      */
     public function file($server = '', $download = true)
@@ -269,16 +310,16 @@ class Field implements Renderable
                 if (url()->isValidUrl($path)) {
                     $url = $path;
                 } elseif ($server) {
-                    $url = $server.$path;
+                    $url = $server . $path;
                 } else {
                     $storage = Storage::disk(config('admin.upload.disk'));
                     if ($storage->exists($path)) {
                         $url = $storage->url($path);
-                        $size = ($storage->size($path) / 1000).'KB';
+                        $size = ($storage->size($path) / 1000) . 'KB';
                     }
                 }
 
-                if (! $url) {
+                if (!$url) {
                     return '';
                 }
 
@@ -307,8 +348,9 @@ HTML;
     /**
      * Show field as a link.
      *
-     * @param  string  $href
-     * @param  string  $target
+     * @param string $href
+     * @param string $target
+     *
      * @return Field
      */
     public function link($href = '', $target = '_blank')
@@ -323,7 +365,8 @@ HTML;
     /**
      * Show field as labels.
      *
-     * @param  string  $style
+     * @param string $style
+     *
      * @return Field
      */
     public function label($style = 'primary')
@@ -342,8 +385,9 @@ HTML;
     /**
      * Add a `dot` before column text.
      *
-     * @param  array  $options
-     * @param  string  $default
+     * @param array $options
+     * @param string $default
+     *
      * @return $this
      */
     public function dot($options = [], $default = 'default')
@@ -362,7 +406,8 @@ HTML;
     /**
      * Show field as badges.
      *
-     * @param  string  $style
+     * @param string $style
+     *
      * @return Field
      */
     public function badge($style = 'blue')
@@ -380,6 +425,7 @@ HTML;
 
     /**
      * @param $style
+     *
      * @return array
      */
     public function formatStyle($style)
@@ -416,7 +462,8 @@ HTML;
     }
 
     /**
-     * @param  string  $val
+     * @param string $val
+     *
      * @return $this
      */
     public function prepend($val)
@@ -436,12 +483,13 @@ HTML;
                 return $v->prepend($val);
             }
 
-            return $val.$v;
+            return $val . $v;
         });
     }
 
     /**
-     * @param  string  $val
+     * @param string $val
+     *
      * @return $this
      */
     public function append($val)
@@ -461,14 +509,15 @@ HTML;
                 return $v->push($val);
             }
 
-            return $v.$val;
+            return $v . $val;
         });
     }
 
     /**
      * Split a string by string.
      *
-     * @param  string  $d
+     * @param string $d
+     *
      * @return $this
      */
     public function explode(string $d = ',')
@@ -485,8 +534,9 @@ HTML;
     /**
      * Render this column with the given view.
      *
-     * @param  string  $view
-     * @param  array  $data
+     * @param string $view
+     * @param array $data
+     *
      * @return $this
      */
     public function view($view, array $data = [])
@@ -503,7 +553,8 @@ HTML;
     /**
      * Set escape or not for this field.
      *
-     * @param  bool  $escape
+     * @param bool $escape
+     *
      * @return $this
      */
     public function escape($escape = true)
@@ -524,7 +575,8 @@ HTML;
     }
 
     /**
-     * @param  Fluent|\Illuminate\Database\Eloquent\Model  $model
+     * @param Fluent|\Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     public function fill($model)
@@ -535,7 +587,8 @@ HTML;
     /**
      * Get or set value for this field.
      *
-     * @param  mixed  $value
+     * @param mixed $value
+     *
      * @return $this|mixed
      */
     public function value($value = null)
@@ -560,7 +613,8 @@ HTML;
     }
 
     /**
-     * @param  string  $color
+     * @param string $color
+     *
      * @return $this
      */
     public function bold($color = null)
@@ -568,7 +622,7 @@ HTML;
         $color = $color ?: Admin::color()->dark80();
 
         return $this->unescape()->as(function ($value) use ($color) {
-            if (! $value) {
+            if (!$value) {
                 return $value;
             }
 
@@ -579,8 +633,9 @@ HTML;
     /**
      * Display field as boolean , `✓` for true, and `✗` for false.
      *
-     * @param  array  $map
-     * @param  bool  $default
+     * @param array $map
+     * @param bool $default
+     *
      * @return $this
      */
     public function bool(array $map = [], $default = false)
@@ -593,8 +648,9 @@ HTML;
     }
 
     /**
-     * @param  mixed  $value
-     * @param  callable  $callback
+     * @param mixed $value
+     * @param callable $callback
+     *
      * @return $this|mixed
      */
     public function when($value, $callback)
@@ -607,8 +663,9 @@ HTML;
     }
 
     /**
-     * @param  string  $method
-     * @param  array  $arguments
+     * @param string $method
+     * @param array $arguments
+     *
      * @return $this
      */
     public function __call($method, $arguments = [])
@@ -627,8 +684,9 @@ HTML;
     /**
      * Call extended field.
      *
-     * @param  string|AbstractField|\Closure  $abstract
-     * @param  array  $arguments
+     * @param string|AbstractField|\Closure $abstract
+     * @param array $arguments
+     *
      * @return Field
      */
     protected function callExtendedField($abstract, $arguments = [])
@@ -647,20 +705,20 @@ HTML;
             $extend = $abstract;
         }
 
-        if (! isset($extend)) {
+        if (!isset($extend)) {
             admin_warning("[$abstract] is not a valid Show field.");
 
             return $this;
         }
 
-        if (! $extend->escape) {
+        if (!$extend->escape) {
             $this->unescape();
         }
 
         $field = $this;
 
         return $this->as(function ($value) use ($extend, $field, $arguments) {
-            if (! $extend->border) {
+            if (!$extend->border) {
                 $field->wrap(false);
             }
 
@@ -673,8 +731,9 @@ HTML;
     /**
      * Call Illuminate/Support.
      *
-     * @param  string  $abstract
-     * @param  array  $arguments
+     * @param string $abstract
+     * @param array $arguments
+     *
      * @return $this
      */
     protected function callSupportDisplayer($abstract, $arguments)
@@ -701,10 +760,12 @@ HTML;
     {
         return [
             'content' => $this->value,
-            'escape'  => $this->escape,
-            'label'   => $this->getLabel(),
+            'escape' => $this->escape,
+            'label' => $this->getLabel(),
             'wrapped' => $this->border,
-            'width'   => $this->width,
+            'width' => $this->width,
+            'labelClass' => $this->getLabelClass(),
+            'fieldClass' => $this->getFieldClass(),
         ];
     }
 
@@ -719,7 +780,7 @@ HTML;
             $this->showAs->each(function ($callable) {
                 [$callable, $params] = $callable;
 
-                if (! $callable instanceof \Closure) {
+                if (!$callable instanceof \Closure) {
                     $this->value = $callable;
 
                     return;
@@ -739,8 +800,9 @@ HTML;
     /**
      * Register custom field.
      *
-     * @param  string  $abstract
-     * @param  string  $class
+     * @param string $abstract
+     * @param string $class
+     *
      * @return void
      */
     public static function extend($abstract, $class)
@@ -759,7 +821,8 @@ HTML;
     /**
      * set file size.
      *
-     * @param  int  $dec
+     * @param int $dec
+     *
      * @return Field
      */
     public function filesize($dec = 0)
