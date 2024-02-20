@@ -332,7 +332,7 @@ class Show implements Renderable
      *
      * @return Field
      */
-    public function field($name, $label = '')
+    public function field($name, $label = null)
     {
         return $this->addField($name, $label);
     }
