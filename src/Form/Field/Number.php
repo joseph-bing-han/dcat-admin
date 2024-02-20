@@ -54,6 +54,15 @@ class Number extends Text
         return $this;
     }
 
+    public function readOnly(bool $value = true)
+    {
+        $result = parent::readOnly($value);
+
+        $this->options['disabled'] = $value;
+
+        return $this;
+    }
+
     /**
      * {@inheritDoc}
      */

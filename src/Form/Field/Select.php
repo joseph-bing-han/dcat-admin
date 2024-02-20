@@ -221,13 +221,18 @@ class Select extends Field
             ],
         ]);
 
+        if ($this->attributes['readonly'] ?? false) {
+            $this->disable(true);
+        }
+
         $this->formatOptions();
 
         $this->addVariables([
-            'options'       => $this->options,
-            'groups'        => $this->groups,
-            'configs'       => $this->config,
+            'options' => $this->options,
+            'groups' => $this->groups,
+            'configs' => $this->config,
             'cascadeScript' => $this->getCascadeScript(),
+            'readOnly' => $this->attributes['readonly'] ?? false,
         ]);
 
         $this->initSize();

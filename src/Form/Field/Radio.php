@@ -74,6 +74,10 @@ class Radio extends Field
             $radio->disable();
         }
 
+        if ($this->attributes['readonly'] ?? false) {
+            $radio->readOnly();
+        }
+
         $radio
             ->inline($this->inline)
             ->check($this->value())
