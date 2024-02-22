@@ -14,7 +14,7 @@
         @endif
     </div>
 @endforeach
-@if($readOnly && !empty($name) && !empty($checked))<input type="hidden" name="{{ $name }}" value="{{ $checked }}">@endif
+@if($readOnly && !empty($name))<input type="hidden" name="{{ $name }}" value="{{ $checked }}">@endif
 @if($inline)
 </div>
 @endif
