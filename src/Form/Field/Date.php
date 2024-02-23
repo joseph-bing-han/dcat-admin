@@ -50,6 +50,10 @@ class Date extends Text
     {
         $value = parent::getValueFromData($data, $column, $default);
 
+        if (is_null($value)) {
+            return $value;
+        }
+        
         try {
             $time = Carbon::parse($value);
         } catch (\Exception $e) {

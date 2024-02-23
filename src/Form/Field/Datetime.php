@@ -12,13 +12,16 @@ class Datetime extends Date
 
     public function render()
     {
-        try {
-            $time = Carbon::createFromFormat($this->format, $this->value());
-        } catch (\Exception $e) {
-            $time = Carbon::parse($this->value());
+        if ($this->value()) {
+            try {
+                $time = Carbon::createFromFormat($this->format, $this->value());
+            } catch (\Exception $e) {
+                $time = Carbon::parse($this->value());
+            }
+            $this->value = $time->format($this->format);
+        } else {
+            $this->value = null;
         }
-
-        $this->value = $time->format($this->format);
 
         $this->defaultAttribute('style', 'width: 200px;flex:none');
 
