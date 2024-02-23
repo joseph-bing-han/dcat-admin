@@ -55,6 +55,10 @@ class Html extends Field
      */
     public function render()
     {
+        if(empty($this->label)){
+            $this->setLabelClass('hidden');
+        }
+        
         if ($this->html instanceof \Closure) {
             $this->html = Helper::render(
                 $this->html->call($this->values(), $this->form)
