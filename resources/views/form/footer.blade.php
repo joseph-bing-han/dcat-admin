@@ -20,7 +20,7 @@
         </div>
       @endif
       @foreach($buttons as $button)
-        @if($button instanceof  App\Admin\Extensions\Form\Button)
+        @if($button instanceof  Dcat\Admin\Form\Field\Button)
           {!! $button->render() !!}
         @elseif($button instanceof  Dcat\Admin\Form\AbstractTool)
           {!! $button->render(1, true) !!}
