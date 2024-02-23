@@ -35,8 +35,8 @@ class Date extends Text
 
     protected function prepareInputValue($value)
     {
-        if ($value === '') {
-            $value = null;
+        if (empty($value)) {
+            return null;
         }
         try {
             $time = Carbon::createFromFormat($this->format, $value);
@@ -53,7 +53,7 @@ class Date extends Text
         if (is_null($value)) {
             return $value;
         }
-        
+
         try {
             $time = Carbon::parse($value);
         } catch (\Exception $e) {
