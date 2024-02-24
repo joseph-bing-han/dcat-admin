@@ -15,6 +15,7 @@ class Radio extends Widget
     protected $size;
     protected $inline = false;
     protected $readOnly = false;
+    protected $cancelable = false;
 
     public function __construct(
         ?string $name = null,
@@ -91,6 +92,12 @@ class Radio extends Widget
     {
         $this->readOnly = $value;
         return $this->setHtmlAttribute('disabled', 'disabled');
+    }
+
+    public function cancelable(bool $value = true)
+    {
+        $this->cancelable = $value;
+        return $this;
     }
 
     /**
@@ -176,6 +183,7 @@ class Radio extends Widget
             'size' => $this->size,
             'inline' => $this->inline,
             'name' => $this->getHtmlAttribute('name'),
+            'cancelable' => $this->cancelable,
         ];
     }
 

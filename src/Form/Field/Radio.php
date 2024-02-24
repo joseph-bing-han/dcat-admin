@@ -18,8 +18,11 @@ class Radio extends Field
 
     protected $inline = true;
 
+    protected $cancelable = false;
+
     /**
-     * @param  array|\Closure|string  $options
+     * @param array|\Closure|string $options
+     *
      * @return $this
      */
     public function options($options = [])
@@ -45,12 +48,20 @@ class Radio extends Field
     /**
      * "info", "primary", "inverse", "danger", "success", "purple".
      *
-     * @param  string  $style
+     * @param string $style
+     *
      * @return $this
      */
     public function style(string $style)
     {
         $this->style = $style;
+
+        return $this;
+    }
+
+    public function cancelable(bool $cancelable = true)
+    {
+        $this->cancelable = $cancelable;
 
         return $this;
     }
@@ -82,7 +93,8 @@ class Radio extends Field
             ->inline($this->inline)
             ->check($this->value())
             ->class($this->getElementClassString())
-            ->size($this->size);
+            ->size($this->size)
+            ->cancelable($this->cancelable);
 
         $this->addVariables([
             'radio' => $radio,
