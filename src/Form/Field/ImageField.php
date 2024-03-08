@@ -48,7 +48,7 @@ trait ImageField
      */
     public function callInterventionMethods($target, $mime)
     {
-        if (! empty($this->interventionCalls)) {
+        if (!empty($this->interventionCalls)) {
             $image = ImageManagerStatic::make($target);
 
             $mime = $mime ?: finfo_file(finfo_open(FILEINFO_MIME_TYPE), $target);
@@ -79,7 +79,7 @@ trait ImageField
             return parent::__call($method, $arguments);
         }
 
-        if (! class_exists(ImageManagerStatic::class)) {
+        if (!class_exists(ImageManagerStatic::class)) {
             throw new AdminException('To use image handling and manipulation, please install [intervention/image] first.');
         }
 
@@ -121,18 +121,20 @@ trait ImageField
      */
     public function destroyThumbnail($file = null, bool $force = false)
     {
-        if ($this->retainable && ! $force) {
+        if ($this->retainable && !$force) {
             return;
         }
 
         $file = $file ?: $this->original;
-        if (! $file) {
+        if (!$file) {
             return;
         }
 
         if (is_array($file)) {
             foreach ($file as $f) {
-                $this->destroyThumbnail($f, $force);
+                if (!empty($f)) {
+                    $this->destroyThumbnail($f, $force);
+                }
             }
 
             return;
@@ -143,10 +145,10 @@ trait ImageField
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
             // We remove extension from file name so we can append thumbnail type
-            $path = Str::replaceLast('.'.$ext, '', $file);
+            $path = Str::replaceLast('.' . $ext, '', $file);
 
             // We merge original name + thumbnail name + extension
-            $path = $path.'-'.$name.'.'.$ext;
+            $path = $path . '-' . $name . '.' . $ext;
 
             if ($this->getStorage()->exists($path)) {
                 $this->getStorage()->delete($path);
@@ -167,10 +169,10 @@ trait ImageField
             $ext = pathinfo($this->name, PATHINFO_EXTENSION);
 
             // We remove extension from file name so we can append thumbnail type
-            $path = Str::replaceLast('.'.$ext, '', $this->name);
+            $path = Str::replaceLast('.' . $ext, '', $this->name);
 
             // We merge original name + thumbnail name + extension
-            $path = $path.'-'.$name.'.'.$ext;
+            $path = $path . '-' . $name . '.' . $ext;
 
             /** @var \Intervention\Image\Image $image */
             $image = InterventionImage::make($file);
@@ -181,14 +183,14 @@ trait ImageField
                 $constraint->aspectRatio();
             });
 
-            if (! is_null($this->storagePermission)) {
+            if (!is_null($this->storagePermission)) {
                 $this->getStorage()->put("{$this->getDirectory()}/{$path}", $image->encode()->stream(), $this->storagePermission);
             } else {
                 $this->getStorage()->put("{$this->getDirectory()}/{$path}", $image->encode()->stream());
             }
         }
 
-        if (! is_array($this->original)) {
+        if (!is_array($this->original)) {
             $this->destroyThumbnail();
         }
 

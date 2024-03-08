@@ -85,7 +85,7 @@ trait UploadField
     {
         $this->disk(config('admin.upload.disk'));
 
-        if (! $this->storage) {
+        if (!$this->storage) {
             $this->storage = false;
         }
     }
@@ -184,7 +184,7 @@ trait UploadField
 
         $id = $request->get('_id');
 
-        if (! $id) {
+        if (!$id) {
             return $this->responseErrorMessage('Missing id');
         }
 
@@ -202,7 +202,7 @@ trait UploadField
 
         $this->prepareFile($file);
 
-        if (! is_null($this->storagePermission)) {
+        if (!is_null($this->storagePermission)) {
             $result = $this->getStorage()->putFileAs($this->getDirectory(), $file, $this->name, $this->storagePermission);
         } else {
             $result = $this->getStorage()->putFileAs($this->getDirectory(), $file, $this->name);
@@ -312,7 +312,7 @@ trait UploadField
      */
     protected function generateUniqueName(UploadedFile $file)
     {
-        return md5(uniqid()).'.'.$file->getClientOriginalExtension();
+        return md5(uniqid()) . '.' . $file->getClientOriginalExtension();
     }
 
     /**
@@ -326,11 +326,11 @@ trait UploadField
         $index = 1;
         $extension = $file->getClientOriginalExtension();
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $newName = $originalName.'_'.$index.'.'.$extension;
+        $newName = $originalName . '_' . $index . '.' . $extension;
 
         while ($this->getStorage()->exists("{$this->getDirectory()}/$newName")) {
             $index++;
-            $newName = $originalName.'_'.$index.'.'.$extension;
+            $newName = $originalName . '_' . $index . '.' . $extension;
         }
 
         return $newName;
@@ -349,7 +349,7 @@ trait UploadField
             return $file->getErrorMessage();
         }
 
-        if (! $fieldRules = $this->getRules()) {
+        if (!$fieldRules = $this->getRules()) {
             return false;
         }
 
@@ -360,7 +360,7 @@ trait UploadField
         /* @var \Illuminate\Validation\Validator $validator */
         $validator = Validator::make($data, $rules, $this->validationMessages, $attributes);
 
-        if (! $validator->passes()) {
+        if (!$validator->passes()) {
             $errors = $validator->errors()->getMessages()[$this->column];
 
             return implode('<br> ', $errors);
@@ -384,7 +384,7 @@ trait UploadField
      */
     public function destroyIfChanged($file)
     {
-        if (! $file || ! $this->original) {
+        if (!$file || !$this->original) {
             return $this->destroy();
         }
 
@@ -401,7 +401,7 @@ trait UploadField
      */
     public function deleteFile($paths)
     {
-        if (! $paths || $this->retainable) {
+        if (!$paths || $this->retainable) {
             return;
         }
 
@@ -412,6 +412,9 @@ trait UploadField
         $storage = $this->getStorage();
 
         foreach ((array) $paths as $path) {
+            if (empty($path)) {
+                continue;
+            }
             if ($storage->exists($path)) {
                 $storage->delete($path);
             } else {
@@ -452,7 +455,7 @@ trait UploadField
         try {
             $this->storage = Storage::disk($disk);
         } catch (\Exception $exception) {
-            if (! array_key_exists($disk, config('filesystems.disks'))) {
+            if (!array_key_exists($disk, config('filesystems.disks'))) {
                 admin_error(
                     'Config error.',
                     "Disk [$disk] not configured, please add a disk config in `config/filesystems.php`."
