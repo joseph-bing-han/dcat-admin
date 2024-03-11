@@ -43,6 +43,13 @@ class Date extends Text
         } catch (\Exception $e) {
             $time = Carbon::parse($value);
         }
+        
+        if ($this->key == 'app.year_format' || strlen($this->format) < 5) {
+            return $time->format('Y');
+        } elseif ($this->key == 'app.date_format' || strlen($this->format) < 10) {
+            return $time->format('Y-m-d');
+        }
+
         return $time->format('Y-m-d H:i:s');
     }
 
