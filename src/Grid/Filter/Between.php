@@ -183,4 +183,10 @@ class Between extends AbstractFilter
         $this->format = config('app.time_format');
         return $this->datetime(['format' => config('app.time_format')]);
     }
+
+    public function year()
+    {
+        $this->format = 'Y';
+        return $this->datetime(['format' => 'Y']);
+    }
 }
