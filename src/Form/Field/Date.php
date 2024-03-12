@@ -43,11 +43,13 @@ class Date extends Text
         } catch (\Exception $e) {
             $time = Carbon::parse($value);
         }
-        
-        if ($this->key == 'app.year_format' || strlen($this->format) < 5) {
+
+        if ($this->key == 'app.year_format') {
             return $time->format('Y');
-        } elseif ($this->key == 'app.date_format' || strlen($this->format) < 10) {
+        } elseif ($this->key == 'app.date_format') {
             return $time->format('Y-m-d');
+        } elseif ($this->key == 'app.time_format') {
+            return $time->format('H:i:s');
         }
 
         return $time->format('Y-m-d H:i:s');
@@ -86,7 +88,7 @@ Dcat.init('{$this->getElementClassSelector()}', function (self) {
 JS;
 
         $this->prepend('<i class="fa fa-calendar fa-fw"></i>')
-             ->defaultAttribute('style', 'width: 200px;flex:none');
+            ->defaultAttribute('style', 'width: 200px;flex:none');
 
         return parent::render();
     }
