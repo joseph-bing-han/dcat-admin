@@ -28,7 +28,6 @@ class Date extends Text
     public function format($format)
     {
         $this->format = $format;
-        $this->key = null;
         return $this;
     }
 
