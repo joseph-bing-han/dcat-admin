@@ -45,6 +45,8 @@ class DialogForm
         $this->title($title);
 
         $this->url($url);
+
+        $this->setUpOptions();
     }
 
     /**
@@ -218,8 +220,6 @@ class DialogForm
      */
     protected function render()
     {
-        $this->setUpOptions();
-
         $opts = json_encode($this->options);
 
         Admin::script(
