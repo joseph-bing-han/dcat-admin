@@ -37,6 +37,7 @@ class CreateButton implements Renderable
             ->click(".{$class}")
             ->success('Dcat.reload()')
             ->dimensions($width, $height)
+            ->forceRefresh()
             ->resetButton(!$this->grid->isDisableDialogRestButton());
 
         return "<button data-url='$url' class='btn btn-primary {$class}'><i class='feather icon-plus'></i><span class='d-none d-sm-inline'>&nbsp; $new</span></button>";
