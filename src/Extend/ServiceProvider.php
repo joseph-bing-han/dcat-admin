@@ -141,7 +141,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     public function getName()
     {
-        return $this->name ?: ($this->name = str_replace('/', '.', $this->getPackageName()));
+        return $this->name ?: ($this->name = str_replace('/', '.', $this->getPackageName() ?? ''));
     }
 
     /**
