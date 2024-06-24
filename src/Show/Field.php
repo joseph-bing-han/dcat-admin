@@ -97,6 +97,8 @@ class Field implements Renderable
      */
     protected $width = ['field' => 8, 'label' => 2];
 
+    public $offset = 0;
+
     protected $labelClass = [];
     protected $fieldClass = [];
 
@@ -182,6 +184,17 @@ class Field implements Renderable
         return $this;
     }
 
+    public function offset(int $offset = null)
+    {
+        if(is_null($offset)) {
+            return $this->offset;
+        }
+
+        $this->offset = $offset;
+
+        return $this;
+    }
+    
     /**
      * Format label.
      *
