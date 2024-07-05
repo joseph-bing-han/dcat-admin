@@ -117,11 +117,11 @@ class Between extends AbstractFilter
             })->toArray();
 
         }
-        if ($original) {
-            $this->value = $original;
-        } else {
-            $this->value = Arr::get($inputs, $this->column);
-        }
+        // if ($original) {
+        //     $this->value = $original;
+        // } else {
+        $this->value = Arr::get($inputs, $this->column);
+        // }
 
         $value = array_filter($this->value, function ($val) {
             return $val !== '';
