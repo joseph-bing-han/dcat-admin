@@ -27,7 +27,7 @@
 
 @if($cancelable)
 <script>
-  Dcat.ready(function () {
+  $(document).ready(function () {
     let input_{{$id}} = '';
     $('#{{$id}} input').on('click', function () {
       if (input_{{$id}} === $(this).val()) {
