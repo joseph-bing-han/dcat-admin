@@ -1,6 +1,6 @@
 <div class="show-field form-group row">
     <div class="col-sm-{{ $width['label'] }} control-label {{ $labelClass }}">
-        <span>{{ $label }}</span>
+        <span>{!! $label !!}</span>
     </div>
 
     <div class="col-sm-{{ $width['field'] }} {{$fieldClass}}">
