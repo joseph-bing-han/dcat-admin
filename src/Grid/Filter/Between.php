@@ -48,7 +48,8 @@ class Between extends AbstractFilter
     /**
      * Format id.
      *
-     * @param  string  $column
+     * @param string $column
+     *
      * @return array|string
      */
     public function formatId($column)
@@ -62,7 +63,8 @@ class Between extends AbstractFilter
     /**
      * Format two field names of this filter.
      *
-     * @param  string  $column
+     * @param string $column
+     *
      * @return array
      */
     protected function formatName($column)
@@ -85,19 +87,20 @@ class Between extends AbstractFilter
     /**
      * Get condition of this filter.
      *
-     * @param  array  $inputs
+     * @param array $inputs
+     *
      * @return mixed
      */
     public function condition($inputs)
     {
-        if (! Arr::has($inputs, $this->column)) {
+        if (!Arr::has($inputs, $this->column)) {
             return;
         }
 
         $original = null;
-        if (isset($inputs[$this->column])) {
-            $original = $inputs[$this->column];
-            $inputs[$this->column] = Collection::make($inputs[$this->column])->map(function ($value, $key) {
+        if (Arr::has($inputs, $this->column)) {
+            $original = Arr::get($inputs, $this->column);
+            Arr::set($inputs, $this->column, Collection::make($original)->map(function ($value, $key) {
                 $inputFormat = $this->format;
                 if ($this->format === config('app.date_format', 'Y-m-d')) {
                     $outFormat = 'Y-m-d H:i:s';
@@ -114,7 +117,7 @@ class Between extends AbstractFilter
                 }
 
                 return Carbon::createFromFormat($inputFormat, $value)->format($outFormat);
-            })->toArray();
+            })->toArray());
 
         }
         // if ($original) {
@@ -139,11 +142,11 @@ class Between extends AbstractFilter
             return;
         }
 
-        if (! isset($value['start']) && isset($value['end'])) {
+        if (!isset($value['start']) && isset($value['end'])) {
             return $this->buildCondition($this->column, '<=', $value['end']);
         }
 
-        if (! isset($value['end']) && isset($value['start'])) {
+        if (!isset($value['end']) && isset($value['start'])) {
             return $this->buildCondition($this->column, '>=', $value['start']);
         }
 
@@ -153,7 +156,8 @@ class Between extends AbstractFilter
     }
 
     /**
-     * @param  array  $options
+     * @param array $options
+     *
      * @return $this
      */
     public function datetime($options = [])
