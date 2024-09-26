@@ -47,7 +47,7 @@ class Rate extends Text
 
     public function render()
     {
-        $this->defaultAttribute('style', 'width: 140px; flex:none;');
+        $this->defaultAttribute('style', 'width: 140px; flex:none; text-align: right;');
         $this->defaultAttribute('placeholder', 0);
 
         return parent::render();
