@@ -6,6 +6,14 @@
   <div class="col-md-{{$width['field']}}">
     @if(!empty($buttons['submit']))
       @php($renderButton=false)
+      @if($buttons['continue_creating'])
+        <div class="btn-group pull-right ml-2">
+          <button class="btn bg-blue-1 text-white submit" onclick="$('#{{$id}}-after-save').val('2');">
+            <i class="feather icon-plus"></i> {{ trans('admin.save_and_create') }}
+          </button>
+        </div>
+        @php($renderButton=true)
+      @endif
       @if($buttons['view'])
         <div class="btn-group pull-right">
           <button class="btn btn-info submit" onclick="$('#{{$id}}-after-save').val('3');">
