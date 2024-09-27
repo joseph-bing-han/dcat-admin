@@ -25,6 +25,11 @@ class Select extends Presenter
     /**
      * @var array
      */
+    protected $groups = [];
+
+    /**
+     * @var array
+     */
     protected $config = [];
 
     /**
@@ -45,7 +50,7 @@ class Select extends Presenter
     /**
      * Select constructor.
      *
-     * @param  mixed  $options
+     * @param mixed $options
      */
     public function __construct($options)
     {
@@ -53,12 +58,38 @@ class Select extends Presenter
     }
 
     /**
+     * Set option groups.
+     *
+     * eg: $group = [
+     *        [
+     *        'label' => 'xxxx',
+     *        'options' => [
+     *            1 => 'foo',
+     *            2 => 'bar',
+     *            ...
+     *        ],
+     *        ...
+     *     ]
+     *
+     * @param array $groups
+     *
+     * @return $this
+     */
+    public function groups(array $groups)
+    {
+        $this->groups = $groups;
+
+        return $this;
+    }
+
+    /**
      * Set config for select2.
      *
      * all configurations see https://select2.org/configuration/options-api
      *
-     * @param  string|array  $key
-     * @param  mixed  $val
+     * @param string|array $key
+     * @param mixed $val
+     *
      * @return $this
      */
     public function config($key, $val = null)
@@ -102,9 +133,9 @@ class Select extends Presenter
         }
 
         $this->addDefaultConfig([
-            'allowClear'  => true,
+            'allowClear' => true,
             'placeholder' => [
-                'id'   => '',
+                'id' => '',
                 'text' => $this->placeholder(),
             ],
         ]);
@@ -115,15 +146,16 @@ class Select extends Presenter
     /**
      * Load options from current selected resource(s).
      *
-     * @param  string  $model
-     * @param  string  $idField
-     * @param  string  $textField
+     * @param string $model
+     * @param string $idField
+     * @param string $textField
+     *
      * @return $this
      */
     public function model($model, string $idField = 'id', string $textField = 'name')
     {
-        if (! class_exists($model)
-            || ! in_array(Model::class, class_parents($model))
+        if (!class_exists($model)
+            || !in_array(Model::class, class_parents($model))
         ) {
             throw new RuntimeException("[$model] must be a valid model class");
         }
@@ -154,9 +186,10 @@ class Select extends Presenter
     /**
      * Load options from remote.
      *
-     * @param  string  $url
-     * @param  array  $parameters
-     * @param  array  $options
+     * @param string $url
+     * @param array $parameters
+     * @param array $options
+     *
      * @return $this
      */
     protected function loadRemoteOptions(string $url, array $parameters = [], array $options = [])
@@ -165,9 +198,9 @@ class Select extends Presenter
             'url' => Helper::urlWithQuery(admin_url($url), $parameters),
         ];
         $this->config([
-            'allowClear'  => true,
+            'allowClear' => true,
             'placeholder' => [
-                'id'   => '',
+                'id' => '',
                 'text' => $this->placeholder(),
             ],
         ]);
@@ -182,8 +215,9 @@ class Select extends Presenter
     }
 
     /**
-     * @param  string|array  $key
-     * @param  mixed  $value
+     * @param string|array $key
+     * @param mixed $value
+     *
      * @return $this
      */
     public function addDefaultConfig($key, $value = null)
@@ -196,7 +230,7 @@ class Select extends Presenter
             return $this;
         }
 
-        if (! isset($this->config[$key])) {
+        if (!isset($this->config[$key])) {
             $this->config[$key] = $value;
         }
 
@@ -206,7 +240,8 @@ class Select extends Presenter
     /**
      * Set input placeholder.
      *
-     * @param  string  $placeholder
+     * @param string $placeholder
+     *
      * @return $this|string
      */
     public function placeholder(string $placeholder = null)
@@ -223,16 +258,17 @@ class Select extends Presenter
     /**
      * Load options from ajax.
      *
-     * @param  string  $resourceUrl
+     * @param string $resourceUrl
      * @param $idField
      * @param $textField
+     *
      * @return $this
      */
     public function ajax(string $resourceUrl, string $idField = 'id', string $textField = 'text')
     {
         $this->config([
-            'allowClear'         => true,
-            'placeholder'        => $this->placeholder(),
+            'allowClear' => true,
+            'placeholder' => $this->placeholder(),
             'minimumInputLength' => 1,
         ]);
 
@@ -247,17 +283,18 @@ class Select extends Presenter
     public function defaultVariables(): array
     {
         return [
-            'options'   => $this->buildOptions(),
-            'class'     => $this->getElementClass(),
-            'selector'  => $this->getElementClassSelector(),
+            'options' => $this->buildOptions(),
+            'groups' => $this->groups,
+            'class' => $this->getElementClass(),
+            'selector' => $this->getElementClassSelector(),
             'selectAll' => $this->selectAll,
-            'configs'   => $this->config,
+            'configs' => $this->config,
         ];
     }
 
     public function getElementClassSelector()
     {
-        return '.'.$this->getElementClass();
+        return '.' . $this->getElementClass();
     }
 
     /**
@@ -272,10 +309,11 @@ class Select extends Presenter
     /**
      * Load options for other select when change.
      *
-     * @param  string  $target
-     * @param  string  $resourceUrl
-     * @param  string  $idField
-     * @param  string  $textField
+     * @param string $target
+     * @param string $resourceUrl
+     * @param string $idField
+     * @param string $textField
+     *
      * @return $this
      */
     public function load($target, string $resourceUrl, string $idField = 'id', string $textField = 'text'): self
@@ -286,10 +324,11 @@ class Select extends Presenter
     /**
      * 联动加载多个字段.
      *
-     * @param  array|string  $fields
-     * @param  array|string  $sourceUrls
-     * @param  string  $idField
-     * @param  string  $textField
+     * @param array|string $fields
+     * @param array|string $sourceUrls
+     * @param string $idField
+     * @param string $textField
+     *
      * @return $this
      */
     public function loads($fields = [], $sourceUrls = [], string $idField = 'id', string $textField = 'text')
@@ -301,19 +340,22 @@ class Select extends Presenter
             return admin_url($url);
         }, (array) $sourceUrls));
 
-        return $this->addVariables(['loads' => [
-            'fields'    => $fieldsStr,
-            'urls'      => $urlsStr,
-            'idField'   => $idField,
-            'textField' => $textField,
-            'group'     => 'form',
-        ]]);
+        return $this->addVariables([
+            'loads' => [
+                'fields' => $fieldsStr,
+                'urls' => $urlsStr,
+                'idField' => $idField,
+                'textField' => $textField,
+                'group' => 'form',
+            ],
+        ]);
     }
 
     /**
      * Get form element class.
      *
-     * @param  string  $target
+     * @param string $target
+     *
      * @return mixed
      */
     protected function getClass($target): string
