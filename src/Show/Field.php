@@ -375,22 +375,29 @@ HTML;
         });
     }
 
-    /**
-     * Show field as labels.
-     *
-     * @param string $style
-     *
-     * @return Field
-     */
+    
     public function label($style = 'primary')
     {
         $self = $this;
-
         return $this->unescape()->as(function ($value) use ($self, $style) {
-            [$class, $background] = $self->formatStyle($style);
+            $styles = [];
+            if (!is_array($style)) {
+                [$class, $background] = $self->formatStyle($style);
+                $class = "label bg-{$class}";
 
-            return collect($value)->map(function ($name) use ($class, $background) {
-                return "<span class='label bg-{$class}' $background>$name</span>";
+            } else {
+                $class = 'label';
+                $background = 'style="background:#d2d6de;color: #555"';
+                foreach ($style as $key => $styleValue) {
+                    $styleColor = Admin::color()->get($styleValue, $styleValue);
+                    $styles[$key] = "style='background:{$styleColor}'";
+                }
+            }
+            return collect($value)->map(function ($name) use ($class, $background, $styles) {
+                if (!empty($styles)) {
+                    $background = is_scalar($name) ? ($styles[$name] ?? $background) : $background;
+                }
+                return "<span class='{$class}' {$background}>{$name}</span>";
             })->implode(' ');
         });
     }
