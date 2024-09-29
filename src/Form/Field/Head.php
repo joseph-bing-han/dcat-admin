@@ -11,6 +11,7 @@ class Head extends Html
         'label' => 0,
         'field' => 12,
     ];
+    protected $textClass = 'text-center';
     protected int $size = 4;
 
     public function __construct(protected string $title, array $arguments = [])
@@ -31,12 +32,29 @@ class Head extends Html
         return $this;
     }
 
+    public function textLeft()
+    {
+        $this->textClass = 'pl-4 text-left';
+        return $this;
+    }
+
+    public function textCenter()
+    {
+        $this->textClass = 'text-center';
+        return $this;
+    }
+
+    public function textRight()
+    {
+        $this->textClass = 'pr-4 text-right';
+        return $this;
+    }
 
     public function render()
     {
         if ($this->size > 0) {
             $this->html = <<<HTML
-<h{$this->size} class="mt-2 text-center mb-2 form-divider">{$this->title}</h{$this->size}>
+<h{$this->size} class="mt-2 mb-2 form-divider {$this->textClass}">{$this->title}</h{$this->size}>
 HTML;
         } else {
             $this->html = <<<HTML
