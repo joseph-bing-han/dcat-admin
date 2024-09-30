@@ -29,7 +29,8 @@ class Select extends Field
     /**
      * Set options.
      *
-     * @param  array|\Closure|string  $options
+     * @param array|\Closure|string $options
+     *
      * @return $this|mixed
      */
     public function options($options = [])
@@ -56,7 +57,7 @@ class Select extends Field
     }
 
     /**
-     * @param  array  $groups
+     * @param array $groups
      */
 
     /**
@@ -73,7 +74,8 @@ class Select extends Field
      *        ...
      *     ]
      *
-     * @param  array  $groups
+     * @param array $groups
+     *
      * @return $this
      */
     public function groups(array $groups)
@@ -86,15 +88,16 @@ class Select extends Field
     /**
      * Load options from current selected resource(s).
      *
-     * @param  string  $model
-     * @param  string  $idField
-     * @param  string  $textField
+     * @param string $model
+     * @param string $idField
+     * @param string $textField
+     *
      * @return $this
      */
     public function model($model, string $idField = 'id', string $textField = 'name')
     {
-        if (! class_exists($model)
-            || ! in_array(Model::class, class_parents($model))
+        if (!class_exists($model)
+            || !in_array(Model::class, class_parents($model))
         ) {
             throw new RuntimeException("[$model] must be a valid model class");
         }
@@ -125,15 +128,16 @@ class Select extends Field
     /**
      * Load options from remote.
      *
-     * @param  string  $url
-     * @param  array  $parameters
-     * @param  array  $options
+     * @param string $url
+     * @param array $parameters
+     * @param array $options
+     *
      * @return $this
      */
     protected function loadRemoteOptions(string $url, array $parameters = [], array $options = [])
     {
         $ajaxOptions = [
-            'url' => admin_url($url.'?'.http_build_query($parameters)),
+            'url' => admin_url($url . '?' . http_build_query($parameters)),
         ];
 
         $ajaxOptions = array_merge($ajaxOptions, $options);
@@ -142,8 +146,9 @@ class Select extends Field
     }
 
     /**
-     * @param  string|array  $key
-     * @param  mixed  $value
+     * @param string|array $key
+     * @param mixed $value
+     *
      * @return $this
      */
     public function addDefaultConfig($key, $value = null)
@@ -156,7 +161,7 @@ class Select extends Field
             return $this;
         }
 
-        if (! isset($this->config[$key])) {
+        if (!isset($this->config[$key])) {
             $this->config[$key] = $value;
         }
 
@@ -166,9 +171,10 @@ class Select extends Field
     /**
      * Load options from ajax results.
      *
-     * @param  string  $url
+     * @param string $url
      * @param $idField
      * @param $textField
+     *
      * @return $this
      */
     public function ajax(string $url, string $idField = 'id', string $textField = 'text')
@@ -187,8 +193,9 @@ class Select extends Field
      *
      * all configurations see https://select2.org/configuration/options-api
      *
-     * @param  string  $key
-     * @param  mixed  $val
+     * @param string $key
+     * @param mixed $val
+     *
      * @return $this
      */
     public function config(string $key, $val)
@@ -213,10 +220,13 @@ class Select extends Field
      */
     public function render()
     {
+
+        $this->defaultAttribute('style', 'width: 100%');
+
         $this->addDefaultConfig([
-            'allowClear'  => true,
+            'allowClear' => true,
             'placeholder' => [
-                'id'   => '',
+                'id' => '',
                 'text' => $this->placeholder(),
             ],
         ]);
