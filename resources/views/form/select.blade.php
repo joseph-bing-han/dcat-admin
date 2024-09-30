@@ -10,7 +10,7 @@
 
         <input type="hidden" name="{{$name}}" @if($readOnly)value="{{ $value }}"@endif/>
 
-        <select class="form-control {{$class}}" style="width: 100%;" name="{{$name}}" {!! $attributes !!} >
+        <select class="form-control {{$class}}"  name="{{$name}}" {!! $attributes !!} >
             <option value=""></option>
             @if($groups)
                 @foreach($groups as $group)
