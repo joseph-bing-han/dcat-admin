@@ -7,7 +7,7 @@ if (top && w.layer) {
 
 export default class DialogForm {
     constructor(Dcat, options) {
-        let self = this, nullFun = function () {};
+        let self = this, nullFun = function () { };
 
         self.options = $.extend({
             // 弹窗标题
@@ -63,7 +63,7 @@ export default class DialogForm {
 
             let counter = self.$target.attr('counter'), url;
 
-            if (! counter) {
+            if (!counter) {
                 counter = self._counter;
 
                 self.$target.attr('counter', counter);
@@ -92,7 +92,7 @@ export default class DialogForm {
         let self = this,
             $btn = self.$target;
 
-        if (! url || self.rendering) {
+        if (!url || self.rendering) {
             return;
         }
 
@@ -145,24 +145,32 @@ export default class DialogForm {
 
         // 加载js代码
         template = Dcat.assets.resolveHtml(template).render();
-        
+
         let btns = [options.lang.submit],
             dialogOpts = {
                 type: 1,
                 area: (function (v) {
-                        // 屏幕小于800则最大化展示
-                        if (w.screen.width <= 800) {
-                            return ['100%', '100%',];
-                        }
-    
-                        return v;
-                    })(options.area),
+                    // 屏幕小于800则最大化展示
+                    if (w.screen.width <= 800) {
+                        return ['100%', '100%',];
+                    }
+
+                    return v;
+                })(options.area),
                 content: template,
                 title: options.title,
                 yes: function () {
                     self.submit()
                 },
                 cancel: function () {
+                    if (options.forceRefresh) { // 是否强制刷新
+                        self._dialogs[counter] = self._idx[counter] = null;
+                    } else {
+                        self._dialogs[counter].hide();
+                        return false;
+                    }
+                },
+                end: function () {
                     if (options.forceRefresh) { // 是否强制刷新
                         self._dialogs[counter] = self._idx[counter] = null;
                     } else {
@@ -177,12 +185,17 @@ export default class DialogForm {
 
             dialogOpts.btn2 = function () { // 重置按钮
                 self.$form.trigger('reset');
-                
+
                 return false;
             };
         }
 
         dialogOpts.btn = btns;
+
+        // 如果 options.ext 存在, 则覆盖合并到 dialogOpts
+        if (options.ext) {
+            dialogOpts = $.extend(dialogOpts, options.ext);
+        }
 
         self._idx[counter] = self._dialog.open(dialogOpts);
         self._dialogs[counter] = w.$('#layui-layer' + self._idx[counter]);
@@ -202,7 +215,7 @@ export default class DialogForm {
 
     // 提交表单
     submit() {
-        let self = this, 
+        let self = this,
             options = self.options,
             counter = self.$target.attr('counter'),
             $submitBtn = self._dialogs[counter].find('.layui-layer-btn0');
@@ -236,7 +249,7 @@ export default class DialogForm {
                     return false;
                 }
 
-                if (! status) {
+                if (!status) {
                     return options.error(status, response);
                 }
                 if (response.status) {
