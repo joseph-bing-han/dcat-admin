@@ -13,8 +13,8 @@
             <table class="table table-has-many has-many-table-{{$columnClass}}" style="table-layout: fixed;">
                 <thead>
                 <tr>
-                    @foreach($headers as $header)
-                        <th class="{{$viewClass['label']}}">{{ $header }}</th>
+                @foreach($headers as $key=>$header)
+                        <th class="{{$viewClass['label']}} {{$headerWidths[$key]??''}}">{{ $header }}</th>
                     @endforeach
 
                     <th class="hidden"></th>

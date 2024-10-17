@@ -588,6 +588,7 @@ class HasMany extends Field
     protected function renderTable()
     {
         $headers = [];
+        $headerWidths = [];
         $fields = [];
         $hidden = [];
 
@@ -596,6 +597,7 @@ class HasMany extends Field
             if (is_a($field, Hidden::class)) {
                 $hidden[] = $field->render();
             } else {
+                $headerWidths[] = $field->getViewElementClasses()['field'];
                 /* Hide label and set field width 100% */
                 $field->setLabelClass(['hidden']);
                 $field->width(12, 0);
@@ -619,6 +621,7 @@ class HasMany extends Field
 
         $this->addVariables([
             'headers'      => $headers,
+            'headerWidths' => $headerWidths,
             'forms'        => $this->buildRelatedForms(),
             'template'     => $template,
             'relationName' => $this->relationName,
