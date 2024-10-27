@@ -213,7 +213,7 @@ abstract class AbstractFilter
             return $columns;
         }
 
-        return $this->parent->grid()->makeName('filter-column-'.str_replace('.', '-', $columns));
+        return $this->parent->grid()->makeName('filter-column-' . str_replace('.', '-', $columns));
     }
 
     /**
@@ -561,7 +561,8 @@ abstract class AbstractFilter
 
         $column = explode('.', $this->column);
 
-        if (count($column) == 1) {
+        // 修复查询主表字段时, 被当作管理模型字段查询的问题
+        if (count($column) == 1 || $column[0] == $this?->parent()?->model()?->repository()?->model()?->getTable()) {
             return [$this->query => &$params];
         }
 
@@ -585,7 +586,7 @@ abstract class AbstractFilter
         $method = class_exists(WhereHasInServiceProvider::class) ? 'whereHasIn' : 'whereHas';
 
         return [$method => [implode('.', $column), function ($q) use ($relColumn, $params) {
-            $relColumn = is_string($relColumn) ? $q->getModel()->getTable().'.'.$relColumn : $relColumn;
+            $relColumn = is_string($relColumn) ? $q->getModel()->getTable() . '.' . $relColumn : $relColumn;
             array_unshift($params, $relColumn);
 
             call_user_func_array([$q, $this->query], $params);
@@ -668,7 +669,9 @@ abstract class AbstractFilter
         }
 
         throw new RuntimeException(sprintf(
-            'Call to undefined method %s::%s()', static::class, $method
+            'Call to undefined method %s::%s()',
+            static::class,
+            $method
         ));
     }
 }
