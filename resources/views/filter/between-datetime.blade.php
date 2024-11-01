@@ -17,7 +17,6 @@
     var options = {!! admin_javascript_json($dateOptions) !!};
     if ($('#{{ $id['start'] }}').val() !== '') {
         const start = moment($('#{{ $id['start'] }}').val()).format(options.format);
-        console.log('--36:', start, isNaN(start));
         if (start) {
             $('#{{ $id['start'] }}').val(start);
         }
