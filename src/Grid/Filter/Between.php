@@ -169,7 +169,7 @@ class Between extends AbstractFilter
         $options['format'] = Arr::get($options, 'format', config('app.datetime_format'));
         $this->format = $options['format'];
         $options['format'] = datetime_format_2_js($options['format']);
-        $options['locale'] = Arr::get($options, 'locale', config('app.locale'));
+        $options['locale'] = strtolower(Arr::get($options, 'locale', config('app.locale')));
 
         return $this->addVariables([
             'dateOptions' => $options,
