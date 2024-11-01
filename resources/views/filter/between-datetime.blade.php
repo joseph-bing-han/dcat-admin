@@ -15,7 +15,19 @@
 
 <script require="@moment,@bootstrap-datetimepicker">
     var options = {!! admin_javascript_json($dateOptions) !!};
-
+    if ($('#{{ $id['start'] }}').val() !== '') {
+        const start = moment($('#{{ $id['start'] }}').val()).format(options.format);
+        console.log('--36:', start, isNaN(start));
+        if (start) {
+            $('#{{ $id['start'] }}').val(start);
+        }
+    }
+    if ($('#{{ $id['end'] }}').val() !== '') {
+        const end = moment($('#{{ $id['end'] }}').val()).format(options.format);
+        if (end) {
+            $('#{{ $id['end'] }}').val(end);
+        }
+    }
     $('#{{ $id['start'] }}').datetimepicker(options);
     $('#{{ $id['end'] }}').datetimepicker($.extend(options, {useCurrent: false}));
     $("#{{ $id['start'] }}").on("dp.change", function (e) {
