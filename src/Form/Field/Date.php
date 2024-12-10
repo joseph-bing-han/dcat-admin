@@ -64,6 +64,9 @@ class Date extends Text
 
         try {
             $time = Carbon::parse($value);
+            if($this->format === 'Y'){
+               $time->setYear($value);
+            }
         } catch (\Exception $e) {
             $time = Carbon::createFromFormat($this->format, $value);
         }
