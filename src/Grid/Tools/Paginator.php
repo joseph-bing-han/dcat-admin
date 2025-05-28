@@ -98,8 +98,26 @@ class Paginator implements Renderable
      */
     public function render()
     {
-        return $this->paginationRanger().
-            $this->paginationLinks().
+        $html = $this->paginationRanger() .
+            $this->paginationLinks() .
             $this->perPageSelector();
+
+        // 自动为分页链接加上当前hash
+        $html .= <<<HTML
+            <script>
+            (function() {
+                var hash = window.location.hash;
+                if (!hash) return;
+                var paginators = document.querySelectorAll('.pagination a, .pagination li a');
+                paginators.forEach(function(a) {
+                    if (a.href && a.href.indexOf('#') === -1) {
+                        a.href += hash;
+                    }
+                });
+            })();
+            </script>
+            HTML;
+
+        return $html;
     }
 }
