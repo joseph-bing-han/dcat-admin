@@ -15,16 +15,65 @@
 
 <script require="@moment,@bootstrap-datetimepicker">
     var options = {!! admin_javascript_json($dateOptions) !!};
-    if ($('#{{ $id['start'] }}').val() !== '') {
-        const start = moment($('#{{ $id['start'] }}').val()).format(options.format);
-        if (start) {
-            $('#{{ $id['start'] }}').val(start);
+    
+    // 设置moment.js的locale
+    if (options.locale) {
+        moment.locale(options.locale.toLowerCase());
+    }
+    
+    // 从URL参数中获取并设置日期值
+    const urlParams = new URLSearchParams(window.location.search);
+    const startParamName = '{{ $name['start'] }}';
+    const endParamName = '{{ $name['end'] }}';
+    
+    // 获取URL参数值
+    let startParamValue = urlParams.get(startParamName);
+    let endParamValue = urlParams.get(endParamName);
+    
+    // 根据Laravel配置构建可能的日期格式数组
+    const possibleFormats = [];
+    
+    // 添加当前配置的格式
+    if (options.format) {
+        possibleFormats.push(options.format);
+    }
+    
+    // 使用框架提供的函数转换Laravel日期格式
+    const laravelJsFormat = '{!! datetime_format_2_js(config('app.date_format', 'd/m/Y')) !!}';
+    possibleFormats.push(laravelJsFormat);
+    
+    // 添加一些常用的备选格式
+    possibleFormats.push('DD/MM/YYYY', 'D/M/YYYY', 'YYYY-MM-DD');
+    
+    // 去重
+    const uniqueFormats = [...new Set(possibleFormats)];
+    
+    // 如果URL参数存在，设置到输入字段并格式化
+    if (startParamValue) {
+        const startMoment = moment(startParamValue, uniqueFormats, true);
+        if (startMoment.isValid()) {
+            $('#{{ $id['start'] }}').val(startMoment.format(options.format));
+        }
+    } else if ($('#{{ $id['start'] }}').val() !== '') {
+        // 如果没有URL参数但字段有值，格式化现有值
+        const startValue = $('#{{ $id['start'] }}').val();
+        const start = moment(startValue, uniqueFormats, true);
+        if (start.isValid()) {
+            $('#{{ $id['start'] }}').val(start.format(options.format));
         }
     }
-    if ($('#{{ $id['end'] }}').val() !== '') {
-        const end = moment($('#{{ $id['end'] }}').val()).format(options.format);
-        if (end) {
-            $('#{{ $id['end'] }}').val(end);
+    
+    if (endParamValue) {
+        const endMoment = moment(endParamValue, uniqueFormats, true);
+        if (endMoment.isValid()) {
+            $('#{{ $id['end'] }}').val(endMoment.format(options.format));
+        }
+    } else if ($('#{{ $id['end'] }}').val() !== '') {
+        // 如果没有URL参数但字段有值，格式化现有值
+        const endValue = $('#{{ $id['end'] }}').val();
+        const end = moment(endValue, uniqueFormats, true);
+        if (end.isValid()) {
+            $('#{{ $id['end'] }}').val(end.format(options.format));
         }
     }
     $('#{{ $id['start'] }}').datetimepicker(options);
