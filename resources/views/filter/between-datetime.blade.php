@@ -15,7 +15,7 @@
 
 <script require="@moment,@bootstrap-datetimepicker">
     var options = {!! admin_javascript_json($dateOptions) !!};
-    
+
     // 设置moment.js的locale
     if (options.locale) {
         moment.locale(options.locale.toLowerCase());
