@@ -25,6 +25,10 @@ class Chart extends Widget
     protected $containerSelector;
 
     protected $built = false;
+    
+    protected $scriptAdded = false;
+    
+    protected static $globalScriptAdded = [];
 
     public function __construct($selector = null, $options = [])
     {
@@ -199,12 +203,15 @@ class Chart extends Widget
 
         return <<<JS
 (function () {
+    var container = $("{$this->containerSelector}")[0];
+    
+    // 防止重复渲染：如果容器中已经有图表，直接返回
+    if (container && container.querySelector('.apexcharts-canvas')) {
+        return;
+    }
+    
     var options = {$options};
-
-    var chart = new ApexCharts(
-        $("{$this->containerSelector}")[0], 
-        options
-    );
+    var chart = new ApexCharts(container, options);
     chart.render();
 })();
 JS;
@@ -215,6 +222,16 @@ JS;
      */
     public function addScript()
     {
+        // 使用容器ID作为唯一标识，防止同一个图表的脚本被重复添加
+        $chartId = $this->containerSelector ?: 'default';
+        
+        if ($this->scriptAdded || isset(static::$globalScriptAdded[$chartId])) {
+            return $this->script;
+        }
+        
+        $this->scriptAdded = true;
+        static::$globalScriptAdded[$chartId] = true;
+        
         if (! $this->allowBuildRequest()) {
             return $this->script = $this->buildDefaultScript();
         }
@@ -253,6 +270,15 @@ JS
             return;
         }
         $this->built = true;
+        
+        // 如果脚本已经通过 Card::addScript() 添加过，不再重复输出
+        if ($this->scriptAdded) {
+            $originalRunScript = $this->runScript;
+            $this->runScript = false;
+            $result = parent::render();
+            $this->runScript = $originalRunScript;
+            return $result;
+        }
 
         return parent::render();
     }
@@ -268,7 +294,10 @@ JS
             $this->selector('#'.$id);
         }
 
-        $this->addScript();
+        // 只在脚本未添加时才添加（防止 Card 已经添加过）
+        if (! $this->scriptAdded) {
+            $this->addScript();
+        }
 
         if ($hasSelector) {
             return;
