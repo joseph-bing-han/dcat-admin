@@ -34,7 +34,13 @@ class DateRange extends Field
     {
         $this->options['locale'] = config('app.locale');
 
-        $this->addVariables(['options' => $this->options]);
+        $this->addVariables([
+            'options' => $this->options,
+            'rangeLabels' => $this->hasAttribute('aria-label') || $this->hasAttribute('aria-labelledby') ? [] : [
+                'start' => strip_tags($this->label).' '.trans('admin.range_start'),
+                'end' => strip_tags($this->label).' '.trans('admin.range_end'),
+            ],
+        ]);
 
         return parent::render();
     }

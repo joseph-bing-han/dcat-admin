@@ -592,19 +592,29 @@ class Builder implements FieldsCollection
         $attributes['action'] = $this->action();
         $attributes['method'] = Arr::get($options, 'method', 'post');
         $attributes['accept-charset'] = 'UTF-8';
-        $attributes['data-toggle'] = 'validator';
         $attributes['class'] = Arr::get($options, 'class');
+
+        $modern = Admin::modern()->available('form') && Admin::modern()->capabilityEnabled('form.basic');
+        if ($modern) {
+            $attributes['data-dcat-modern-family'] = 'form';
+            $attributes['data-dcat-react-component'] = 'form.basic';
+        } else {
+            $attributes['data-toggle'] = 'validator';
+        }
 
         if ($this->hasFile()) {
             $attributes['enctype'] = 'multipart/form-data';
         }
+
+        $modernPayload = $modern ? \Dcat\Admin\Modern\FormViewModel::make($this) : null;
 
         $html = [];
         foreach ($attributes as $name => $value) {
             $html[] = "$name=\"$value\"";
         }
 
-        return '<form ' . implode(' ', $html) . ' ' . Admin::getPjaxContainerId() . '>';
+        return '<form ' . implode(' ', $html) . ' ' . Admin::getPjaxContainerId() . '>'
+            .($modern ? Admin::modern()->payload('form.basic', $modernPayload, 'form').'<div data-dcat-modern-fallback>' : '');
     }
 
     /**
@@ -617,7 +627,7 @@ class Builder implements FieldsCollection
         $this->form = null;
         $this->resetFields();
 
-        return '</form>';
+        return (Admin::modern()->available('form') && Admin::modern()->capabilityEnabled('form.basic') ? '</div>' : '').'</form>';
     }
 
     /**
@@ -777,11 +787,18 @@ class Builder implements FieldsCollection
     {
         $confirm = admin_javascript_json($this->confirm);
         $toastr = $this->form->validationErrorToastr ? 'true' : 'false';
+        if (Admin::modern()->available('form') && Admin::modern()->capabilityEnabled('form.basic')) {
+            $selector = json_encode('#'.$this->getElementId(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+            Admin::script("Dcat.bindForm({$selector}, {confirm: {$confirm}, validationErrorToastr: {$toastr}});");
+
+            return;
+        }
+        $validate = 'true';
 
         Admin::script(
             <<<JS
 $('#{$this->getElementId()}').form({
-    validate: true,
+    validate: {$validate},
     confirm: {$confirm},
     validationErrorToastr: $toastr,
 });

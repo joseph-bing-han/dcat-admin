@@ -1,24 +1,33 @@
-<div class="card-header pb-1 with-border" style="padding:.9rem 1rem">
+@php
+    $modernTree = Dcat\Admin\Admin::modern()->available('tree') && Dcat\Admin\Admin::modern()->capabilityEnabled('tree.page');
+    $modernTreePayload = $modernTree ? ($modernTreePayload ?? null) : null;
+    $modernTreeNative = $modernTree && (bool) data_get($modernTreePayload, 'data.native', false);
+@endphp
+@if($modernTree)
+<div data-dcat-react-component="tree.page">
+    <div data-dcat-modern-fallback>
+@endif
+<div class="card-header pb-1 with-border" style="padding:.9rem 1rem"{!! $modernTree ? ' data-dcat-modern-slot="tree-toolbar"' : '' !!}>
 
     <div>
         <div class="btn-group" style="margin-right:3px">
-            <button class="btn btn-primary btn-sm {{ $id }}-tree-tools" data-action="expand">
+            <button class="btn btn-primary btn-sm {{ $id }}-tree-tools" data-action="expand" aria-label="{{ trans('admin.expand') }}">
                 <i class="feather icon-plus-square"></i>&nbsp;<span class="d-none d-sm-inline">{{ trans('admin.expand') }}</span>
             </button>
-            <button class="btn btn-primary btn-sm {{ $id }}-tree-tools" data-action="collapse">
+            <button class="btn btn-primary btn-sm {{ $id }}-tree-tools" data-action="collapse" aria-label="{{ trans('admin.collapse') }}">
                 <i class="feather icon-minus-square"></i><span class="d-none d-sm-inline">&nbsp;{{ trans('admin.collapse') }}</span>
             </button>
         </div>
 
         @if($useSave)
             &nbsp;<div class="btn-group" style="margin-right:3px">
-                <button class="btn btn-primary btn-sm {{ $id }}-save" ><i class="feather icon-save"></i><span class="d-none d-sm-inline">&nbsp;{{ trans('admin.save') }}</span></button>
+                <button class="btn btn-primary btn-sm {{ $id }}-save" aria-label="{{ trans('admin.save') }}"><i class="feather icon-save"></i><span class="d-none d-sm-inline">&nbsp;{{ trans('admin.save') }}</span></button>
             </div>
         @endif
 
         @if($useRefresh)
             &nbsp;<div class="btn-group" style="margin-right:3px">
-                <button class="btn btn-outline-primary btn-sm" data-action="refresh" ><i class="feather icon-refresh-cw"></i><span class="d-none d-sm-inline">&nbsp;{{ trans('admin.refresh') }}</span></button>
+                <button class="btn btn-outline-primary btn-sm" data-action="refresh" aria-label="{{ trans('admin.refresh') }}"><i class="feather icon-refresh-cw"></i><span class="d-none d-sm-inline">&nbsp;{{ trans('admin.refresh') }}</span></button>
             </div>
         @endif
 
@@ -35,8 +44,8 @@
 
 </div>
 
-<div class="card-body table-responsive">
-    <div class="dd" id="{{ $id }}">
+<div class="card-body table-responsive"{!! $modernTree ? ' data-dcat-modern-slot="tree-items"' : '' !!}>
+    <div class="dd" id="{{ $id }}"{!! Dcat\Admin\Admin::modern()->available('tree') ? ' data-dcat-modern-family="tree"' : '' !!}>
         <ol class="dd-list">
             @if($items)
                 @foreach($items as $branch)
@@ -49,6 +58,13 @@
     </div>
 </div>
 
+@if($modernTree)
+    </div>
+</div>
+{!! Dcat\Admin\Admin::modern()->payload('tree.page', $modernTreePayload, 'tree') !!}
+@endif
+
+@unless($modernTreeNative)
 <script require="@jquery.nestable">
     var id = '{{ $id }}';
     var tree = $('#'+id);
@@ -85,3 +101,4 @@
     tree.nestable('collapseAll')
     @endif
 </script>
+@endunless

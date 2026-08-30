@@ -350,6 +350,16 @@ class Admin
     }
 
     /**
+     * Modern view layer manager.
+     *
+     * @return \Dcat\Admin\Modern\Manager
+     */
+    public static function modern()
+    {
+        return app('admin.modern');
+    }
+
+    /**
      * @param  array|string  $name
      * @return void
      */

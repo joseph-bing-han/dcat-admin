@@ -1,4 +1,4 @@
-<div class="show-field form-group row">
+<div class="show-field form-group row" @if($modernShowSlot) data-dcat-modern-show-field-slot="{{ $modernShowSlot }}" @endif>
     <div class="col-sm-{{ $width['label'] }} control-label {{ $labelClass }}">
         <span>{!! $label !!}</span>
     </div>

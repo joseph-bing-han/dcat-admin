@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "implemented",
+  "bridge": {
+    "namespace": "window.DcatReact",
+    "version": "1.0.0",
+    "api": ["register", "registerReact", "unregister", "createElement", "canMount", "mount", "unmount", "start", "stop", "notify", "confirm", "openDrawer", "closeDrawer", "fallback", "status"]
+  },
+  "payload": {
+    "version": "1.0.0",
+    "embedding": "application/json",
+    "unknownMajorBehavior": "reject",
+    "htmlSpecialCharacters": "hex-escaped-by-server"
+  },
+  "lifecycle": {
+    "unmountEvents": ["pjax:send", "pjax:beforeReplace"],
+    "mountEvents": ["pjax:loaded", "pjax:end"],
+    "sharedDomRootsAllowed": true,
+    "repeatedStartIdempotent": true,
+    "extensionReactCommitBeforeFallbackHide": true,
+    "committedFallbackDomPolicy": "detach-from-live-dom-and-restore-same-node-on-unmount",
+    "extensionRenderErrorKeepsLegacyFallback": true,
+    "requestEligibilityMarker": "[data-dcat-modern-request=\"1\"]",
+    "runtimeLoadPolicy": "global-for-every-admin-request",
+    "cssRootActivationPolicy": "server-request-marker-required",
+    "cleanup": ["react-root", "capability-cleanup", "overlay-state", "jquery-namespaced-handlers"]
+  },
+  "fallback": {
+    "renderer": "dcat-compat-shell-when-manifest-missing",
+    "forcedQueryKey": null,
+    "runtimeAssetFailurePolicy": "telemetry-and-notice-without-renderer-navigation",
+    "writeReplayAllowed": false
+  },
+  "telemetry": {
+    "event": "dcat:modern:telemetry",
+    "sensitivePayloadAllowed": false
+  }
+}
+

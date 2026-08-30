@@ -69,6 +69,22 @@ class Column implements Renderable
     }
 
     /**
+     * Read-only layout metadata used by first-party ViewModel builders.
+     */
+    public function widths()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Read-only layout contents used by first-party ViewModel builders.
+     */
+    public function contents()
+    {
+        return $this->contents;
+    }
+
+    /**
      * Add a row for column.
      *
      * @param $content

@@ -119,6 +119,9 @@ class QuickSearch extends AbstractTool
 
     protected function setupScript()
     {
+        if (Admin::modern()->available('grid') && Admin::modern()->capabilityEnabled('grid.interactions')) {
+            return;
+        }
         $script = <<<'JS'
 (function () {
     var inputting = false,

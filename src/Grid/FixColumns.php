@@ -228,7 +228,10 @@ class FixColumns
 
 JS;
 
-        Admin::script($script, true);
+        // Modern pages load the opt-in jQuery compatibility runtime with the
+        // page asset bundle near the end of <body>. Keep this inside Dcat.ready
+        // so the fixed-column script never runs before `$` exists.
+        Admin::script($script);
 
         return $this;
     }

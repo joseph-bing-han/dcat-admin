@@ -24,10 +24,31 @@
     }
 </style>
 
-<div class="dashboard-title card bg-primary">
+@php
+    $modernDashboard = Dcat\Admin\Admin::modern()->available('widget') && Dcat\Admin\Admin::modern()->capabilityEnabled('widget.surface');
+    $dashboardLinks = [
+        ['label' => 'Github', 'url' => 'https://github.com/jqhph/dcat-admin'],
+        ['label' => __('admin.documentation'), 'url' => 'http://www.dcatadmin.com/'],
+        ['label' => __('admin.extensions'), 'url' => 'http://www.dcatadmin.com/'],
+        ['label' => __('admin.demo'), 'url' => 'https://jqhph.github.io/dcat-admin/demo.html'],
+    ];
+    $modernDashboardPayload = $modernDashboard ? Dcat\Admin\Modern\ViewModel::make('widget', 'widget.surface', [
+        'variant' => 'dashboard',
+        'title' => 'Dcat Admin',
+        'logoUrl' => admin_asset('@admin/images/logo.png'),
+        'links' => $dashboardLinks,
+    ], [
+        'componentId' => 'dashboard-title',
+        'slots' => [],
+        'compatRequirements' => ['customSlots' => false],
+    ]) : null;
+@endphp
+
+<div class="dashboard-title{{ $modernDashboard ? '' : ' card bg-primary' }}"{!! $modernDashboard ? ' data-dcat-react-component="widget.surface" data-dcat-modern-family="widget"' : '' !!}>
+    @if($modernDashboard)<div data-dcat-modern-fallback>@endif
     <div class="card-body">
         <div class="text-center ">
-            <img class="avatar img-circle shadow mt-1" src="{{ admin_asset('@admin/images/logo.png') }}">
+            <img class="avatar img-circle shadow mt-1" src="{{ admin_asset('@admin/images/logo.png') }}" alt="">
 
             <div class="text-center mb-1">
                 <h1 class="mb-3 mt-2 text-white">Dcat Admin</h1>
@@ -40,4 +61,8 @@
             </div>
         </div>
     </div>
+    @if($modernDashboard)</div>@endif
 </div>
+@if($modernDashboard)
+{!! Dcat\Admin\Admin::modern()->payload('widget.surface', $modernDashboardPayload, 'widget') !!}
+@endif

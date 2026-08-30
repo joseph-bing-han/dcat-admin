@@ -16,7 +16,7 @@
 - `composer test` 在 `composer.json` 中定义为运行 `vendor/bin/phpunit`，但仓库根目录没有 `phpunit.xml` 或 `phpunit.xml.dist`，因此不能作为有效的默认测试入口；实际测试按下方 `laravel-tests`/Dusk 流程执行。
 - `composer phpstan` 执行 `vendor/bin/phpstan analyse`。
 - `npm install` 安装前端依赖；`npm run dev` 构建开发资源，`npm run watch` 持续监听，`npm run prod` 构建生产资源。
-- Dusk 需按 `.github/workflows/dusk.yml` 准备对应 Laravel 版本的 `laravel-tests` 和 MySQL，再依次运行 `sh tests/bin/install-dep.sh`、`sh tests/bin/install-admin.sh`、`sh tests/bin/start.sh`，最后在 `laravel-tests` 中执行 `php artisan dusk`。
+- Dusk 使用当前 PHP/Laravel 版本的 `laravel-tests` 与 MySQL；本地环境脚本位于 `tests/bin/install-dep.sh`、`tests/bin/install-admin.sh` 和 `tests/bin/start.sh`，最后在 `laravel-tests` 中执行 `php artisan dusk`。
 
 ## 编码风格与命名约定
 
@@ -25,6 +25,10 @@ PHP 遵循 Laravel/PSR-4 风格，使用 4 个空格缩进；类名使用 `Studl
 ## 测试指南
 
 测试框架为 PHPUnit，浏览器测试使用 Laravel Dusk。测试文件以 `Test.php` 结尾，测试方法使用 `test...` 前缀。行为变更应补充对应的 `Feature` 或 `Browser` 测试；提交前至少运行受影响的测试，并在环境允许时运行完整套件。仓库未规定固定覆盖率门槛。
+
+按用户 2026-09-26 的决定，PHP/Laravel 只验证当前实际使用的版本，不安装或验证其它版本组合。旧规格中的多版本矩阵仅作历史参考，不作为当前 Task 完成或发布就绪的阻断条件；测试报告应写明实际 PHP/Laravel 版本，不将当前环境的结果扩大为其它版本已验证。
+
+按同日用户决定，项目不使用 `.github` 目录、GitHub Actions 或 stale 自动化，不创建或恢复这些配置。验收使用本地脚本，不要求安装 CI workflow。
 
 ## 提交与拉取请求
 

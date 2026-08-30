@@ -1,4 +1,4 @@
-<thead>
+<thead data-dcat-modern-slot="grid-quick-create">
 <tr class="{{ $elementClass }} quick-create" style="cursor: pointer">
     <td colspan="{{ $columnCount }}" style="background: {{ Dcat\Admin\Admin::color()->darken('#ededed', 1) }}">
         <span class="create cursor-pointer" style="display: block;">
@@ -6,6 +6,7 @@
         </span>
 
         <form class="form-inline create-form" style="display: none;" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             @foreach($fields as $field)
                 &nbsp;{!! $field->render() !!}
             @endforeach

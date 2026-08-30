@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ Dcat\Admin\Admin::modern()->runtimeAvailable() ? 'dcat-modern-root' : '' }}">
 
 <head>
     <meta charset="utf-8">
@@ -18,24 +18,49 @@
         <link rel="shortcut icon" href="{{$favicon}}">
     @endif
 
-    {!! admin_section(Dcat\Admin\Admin::SECTION['HEAD']) !!}
+    @php
+        $headSectionHtml = (string) admin_section(Dcat\Admin\Admin::SECTION['HEAD']);
+        Dcat\Admin\Admin::asset()->prepareHtml($headSectionHtml);
+        $modernHead = Dcat\Admin\Admin::modern()->runtimeAvailable();
+    @endphp
 
-    {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
+    @if($modernHead)
+        {!! Dcat\Admin\Admin::modern()->headHtml() !!}
+        {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
+        {!! $headSectionHtml !!}
+    @else
+        {!! $headSectionHtml !!}
+        {!! Dcat\Admin\Admin::modern()->headHtml() !!}
+        {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
+    @endif
 
     {!! Dcat\Admin\Admin::asset()->cssToHtml() !!}
 </head>
 
-<body class="dcat-admin-body full-page {{ $configData['body_class'] }}">
+@php
+    $modernFullPage = Dcat\Admin\Admin::modern()->available('layout') && Dcat\Admin\Admin::modern()->capabilityEnabled('layout.full-page');
+    $modernFullPagePayload = $modernFullPage ? Dcat\Admin\Modern\ViewModel::make('layout', 'layout.full-page', [
+        'pjaxContainerId' => (string) $pjaxContainerId,
+        'bodyClass' => (string) $configData['body_class'],
+    ], [
+        'componentId' => 'full-page',
+    ]) : null;
+@endphp
+<body class="dcat-admin-body full-page {{ $configData['body_class'] }}"{!! $modernFullPage ? ' data-dcat-react-component="layout.full-page"' : '' !!}>
 
 <script>
     var Dcat = CreateDcat({!! Dcat\Admin\Admin::jsVariables() !!});
 </script>
 
+@if($modernFullPage)
+{!! Dcat\Admin\Admin::modern()->payload('layout.full-page', $modernFullPagePayload, 'layout') !!}
+@endif
+
 {{-- 页面埋点 --}}
 {!! admin_section(Dcat\Admin\Admin::SECTION['BODY_INNER_BEFORE']) !!}
 
 <div class="app-content content">
-    <div class="wrapper" id="{{ $pjaxContainerId }}">
+    <div class="wrapper" id="{{ $pjaxContainerId }}" role="main">
         @yield('app')
     </div>
 </div>
@@ -43,6 +68,7 @@
 {!! admin_section(Dcat\Admin\Admin::SECTION['BODY_INNER_AFTER']) !!}
 
 {!! Dcat\Admin\Admin::asset()->jsToHtml() !!}
+
 
 <script>Dcat.boot();</script>
 

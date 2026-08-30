@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "1.0.0",
+  "namespace": "window.DcatReact",
+  "api": ["register", "registerReact", "unregister", "createElement", "canMount", "mount", "unmount", "start", "stop", "notify", "confirm", "openDrawer", "closeDrawer", "fallback", "status"],
+  "pjax": {
+    "unmount": ["pjax:send", "pjax:beforeReplace"],
+    "mount": ["pjax:loaded", "pjax:end"],
+    "jqueryNamespace": ".dcatModern"
+  },
+  "mountSemantics": {
+    "sharedDomRootsAllowed": true,
+    "sameCapabilitySameRootIdempotent": true,
+    "extensionFallbackRestoredOnUnmount": true,
+    "extensionFallbackRetainedOnRenderFailure": true,
+    "reactViewHiddenFromA11yTree": false,
+    "requestEligibilityMarker": "[data-dcat-modern-request=\"1\"]",
+    "runtimeLoadPolicy": "global-for-every-admin-request"
+  },
+  "fallback": {
+    "renderer": "dcat-compat-shell-when-manifest-missing",
+    "forcedQueryKey": null,
+    "runtimeAssetFailurePolicy": "telemetry-and-notice-without-renderer-navigation",
+    "writeReplayAllowed": false
+  },
+  "telemetryEvent": "dcat:modern:telemetry"
+}
+

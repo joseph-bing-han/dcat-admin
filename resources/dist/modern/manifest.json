@@ -1,0 +1,12 @@
+{
+  "resources/modern/index.tsx": {
+    "file": "assets/dcat-modern-DSKKiJ_i.js",
+    "name": "index",
+    "src": "resources/modern/index.tsx",
+    "isEntry": true
+  },
+  "style.css": {
+    "file": "assets/dcat-modern-B5gzLpNK.css",
+    "src": "style.css"
+  }
+}

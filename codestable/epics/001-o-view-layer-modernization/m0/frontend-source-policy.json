@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-29",
+  "status": "frozen",
+  "source": {
+    "name": "Untitled UI React",
+    "officialSite": "https://www.untitledui.com/react",
+    "repository": "https://github.com/untitleduico/react",
+    "revision": "c981a73bcd6b6c68d2a54070f20f020191212828",
+    "licenseFile": "resources/modern/vendor/untitled-ui/LICENSE",
+    "provenanceFile": "resources/modern/vendor/untitled-ui/PROVENANCE.json",
+    "selectedClass": "components explicitly published as open source under MIT",
+    "requiredLicense": "MIT",
+    "proSourceAllowed": false,
+    "commercialRawSourceAllowed": false
+  },
+  "selectedSources": [
+    {
+      "path": "components/base/buttons/button.tsx",
+      "use": "Interaction and pending-state model only; Tailwind class system and source implementation are not copied into Dcat."
+    },
+    {
+      "path": "components/base/toggle/toggle.tsx",
+      "use": "React Aria switch state model only; Tailwind class system and source implementation are not copied into Dcat."
+    }
+  ],
+  "adaptation": {
+    "strategy": "react-aria-state-model-with-dcat-scoped-css",
+    "tailwindImported": false,
+    "untitledUtilityCodeCopied": false,
+    "reactAria": {
+      "package": "react-aria-components",
+      "version": "1.20.0",
+      "license": "Apache-2.0"
+    }
+  },
+  "rules": [
+    "Only a component whose official source has explicit MIT provenance may be copied, adapted, vendored, or distributed by this package.",
+    "Untitled UI PRO components, page examples, templates, assets, and commercial raw source must not be committed or redistributed by this public package.",
+    "The selected upstream revision is pinned before the first Untitled-derived interaction model is committed, and its MIT notice is retained in the package.",
+    "A visual resemblance to an Untitled UI PRO component is not sufficient provenance; implementation must use MIT source or an independently authored project component.",
+    "No external font, telemetry, hosted asset, or network dependency is authorized by this source decision."
+  ],
+  "referenceStackAtCapture": {
+    "react": "19.2",
+    "tailwindCss": "4.3",
+    "typescript": "5.9",
+    "reactAria": "1.20",
+    "informationalOnly": true
+  },
+  "evidence": [
+    {
+      "url": "https://www.untitledui.com/react/docs/introduction",
+      "purpose": "Official React project and reference-stack description"
+    },
+    {
+      "url": "https://www.untitledui.com/license",
+      "purpose": "Official distinction between MIT open-source React components and restricted commercial source"
+    },
+    {
+      "url": "https://www.untitledui.com/faqs",
+      "purpose": "Official statement that base components are free/open-source under MIT while advanced PRO material is commercial"
+    },
+    {
+      "url": "https://www.untitledui.com/react/components",
+      "purpose": "Official open-source component catalog entry point"
+    },
+    {
+      "url": "https://github.com/untitleduico/react/tree/c981a73bcd6b6c68d2a54070f20f020191212828",
+      "purpose": "Pinned official MIT source revision used for provenance"
+    }
+  ]
+}
+

@@ -1,5 +1,5 @@
-<span class="dropdown column-selector" >
-    <button class="btn btn-primary btn-outline dropdown-toggle" data-toggle="dropdown">
+<span class="dropdown column-selector" data-dcat-column-name="{{ $columnName }}" data-dcat-column-defaults="{{ implode(',', $defaults) }}">
+    <button class="btn btn-primary btn-outline dropdown-toggle" data-toggle="dropdown"{!! Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.interactions') ? ' data-dcat-modern-owned-toggle="1"' : '' !!} aria-label="{{ __('Columns') }}">
         <i class="fa fa-table"></i>
         <span class="caret"></span>
     </button>
@@ -18,6 +18,7 @@
     </ul>
 </span>
 
+@unless(Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.interactions'))
 <script once>
     $('.column-selector input[name="_all_"]').on('change', function () {
         $(this).parents('.column-selector').find('.column-select-item').prop('checked', this.checked).change()
@@ -52,3 +53,4 @@
         submit($(this));
     });
 </script>
+@endunless

@@ -12,6 +12,8 @@ use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Menu;
 use Dcat\Admin\Layout\Navbar;
 use Dcat\Admin\Layout\SectionManager;
+use Dcat\Admin\Modern\Manager as ModernManager;
+use Dcat\Admin\Modern\Manifest as ModernManifest;
 use Dcat\Admin\Support\Context;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Support\Setting;
@@ -38,7 +40,6 @@ class AdminServiceProvider extends ServiceProvider
         Console\FormCommand::class,
         Console\ActionCommand::class,
         Console\MenuCacheCommand::class,
-        Console\MinifyCommand::class,
         Console\AppCommand::class,
         Console\ExtensionMakeCommand::class,
         Console\ExtensionInstallCommand::class,
@@ -236,6 +237,12 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton('admin.web-uploader', WebUploader::class);
         $this->app->singleton(ExceptionHandler::class, config('admin.exception_handler') ?: Handler::class);
         $this->app->singleton('admin.translator', Translator::class);
+        $this->app->singleton('admin.modern.manifest', function () {
+            return new ModernManifest();
+        });
+        $this->app->singleton('admin.modern', function () {
+            return new ModernManager(app('admin.modern.manifest'));
+        });
     }
 
     public function registerExtensions()

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "1.0.0",
+  "mediaType": "application/json",
+  "envelope": {
+    "required": ["version", "capability", "payload"],
+    "version": "semver",
+    "capability": "string",
+    "payload": "json-value"
+  },
+  "unknownMajorBehavior": "reject-capability-payload",
+  "unknownMinorFields": "ignore",
+  "serverEncoding": ["JSON_HEX_TAG", "JSON_HEX_AMP", "JSON_HEX_APOS", "JSON_HEX_QUOT"],
+  "scriptStringConcatenationAllowed": false,
+  "businessStateAuthority": "server",
+  "implicitWriteRetryAllowed": false
+}
+

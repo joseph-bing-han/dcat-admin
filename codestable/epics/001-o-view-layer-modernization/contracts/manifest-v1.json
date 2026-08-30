@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "1.0.0",
+  "entry": "resources/modern/index.tsx",
+  "format": "iife",
+  "singleEntry": true,
+  "dynamicImportAllowed": false,
+  "outputRoot": "resources/dist/modern",
+  "manifestFile": "manifest.json",
+  "contentHashedAssets": true,
+  "productionSourceMaps": false,
+  "cssIsolationRoot": ".dcat-modern-active",
+  "manifestMissingBehavior": "legacy",
+  "entryMissingBehavior": "legacy",
+  "productionConsumerNodeRequired": false,
+  "developmentLockfile": "package-lock.json",
+  "cspNonceSupported": true,
+  "browserTarget": ["chrome111", "edge111", "firefox114", "safari16.4"]
+}
+

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "project": "Untitled UI React",
+  "repository": "https://github.com/untitleduico/react",
+  "revision": "c981a73bcd6b6c68d2a54070f20f020191212828",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2025 Untitled UI",
+  "selectedSources": [
+    "components/base/buttons/button.tsx",
+    "components/base/toggle/toggle.tsx"
+  ],
+  "adaptation": "Dcat uses the pinned components as interaction/state-model references. The implementation delegates Button and Switch interaction semantics to react-aria-components 1.20.0 and supplies independent Dcat-scoped CSS/tokens. Untitled Tailwind classes, cx utilities, application examples and PRO/commercial source are not vendored."
+}

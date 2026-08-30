@@ -74,6 +74,16 @@ class Tree implements Renderable
      */
     protected $branchCallback = null;
 
+    protected $branchCustomized = false;
+
+    protected $modernDefaultActions = [
+        'delete' => true,
+        'quickEdit' => true,
+        'edit' => false,
+    ];
+
+    protected $modernCustomActions = false;
+
     /**
      * @var string
      */
@@ -220,6 +230,7 @@ class Tree implements Renderable
     public function branch(\Closure $branchCallback)
     {
         $this->branchCallback = $branchCallback;
+        $this->branchCustomized = true;
 
         return $this;
     }
@@ -343,7 +354,8 @@ class Tree implements Renderable
 
     public function disableQuickEditButton(bool $value = true)
     {
-        $this->actions(function (Actions $actions) use ($value) {
+        $this->modernDefaultActions['quickEdit'] = ! $value;
+        $this->configureDefaultActions(function (Actions $actions) use ($value) {
             $actions->disableQuickEdit($value);
         });
     }
@@ -355,7 +367,8 @@ class Tree implements Renderable
 
     public function disableEditButton(bool $value = true)
     {
-        $this->actions(function (Actions $actions) use ($value) {
+        $this->modernDefaultActions['edit'] = ! $value;
+        $this->configureDefaultActions(function (Actions $actions) use ($value) {
             $actions->disableEdit($value);
         });
     }
@@ -367,7 +380,8 @@ class Tree implements Renderable
 
     public function disableDeleteButton(bool $value = true)
     {
-        $this->actions(function (Actions $actions) use ($value) {
+        $this->modernDefaultActions['delete'] = ! $value;
+        $this->configureDefaultActions(function (Actions $actions) use ($value) {
             $actions->disableDelete($value);
         });
     }
@@ -478,6 +492,51 @@ class Tree implements Renderable
         return $this;
     }
 
+    protected function configureDefaultActions(\Closure $callback)
+    {
+        $this->actionCallbacks[] = $callback;
+
+        return $this;
+    }
+
+    public function modernViewData(array $items)
+    {
+        return Modern\TreeViewModel::make($this, $items);
+    }
+
+    public function isModernNativeCandidate()
+    {
+        return $this->view === 'admin::tree.container'
+            && $this->branchView === 'admin::tree.branch'
+            && ! $this->hasWrapper()
+            && ! $this->branchCustomized
+            && ! $this->useQuickCreate
+            && $this->tools->isEmpty();
+    }
+
+    public function hasModernActionCompat()
+    {
+        return $this->modernCustomActions || in_array(true, $this->modernDefaultActions, true);
+    }
+
+    public function modernMaxDepth()
+    {
+        return max(1, (int) ($this->nestableOptions['maxDepth'] ?? 5));
+    }
+
+    public function modernId()
+    {
+        return $this->elementId;
+    }
+
+    public function modernColumns()
+    {
+        return [
+            'id' => $this->repository->getPrimaryKeyColumn(),
+            'title' => $this->repository->getTitleColumn(),
+        ];
+    }
+
     /**
      * 设置行操作回调.
      *
@@ -486,6 +545,7 @@ class Tree implements Renderable
      */
     public function actions($callback)
     {
+        $this->modernCustomActions = true;
         if ($callback instanceof \Closure) {
             $this->actionCallbacks[] = $callback;
         } else {
@@ -520,10 +580,16 @@ class Tree implements Renderable
      */
     public function defaultVariables()
     {
+        $items = $this->getItems();
+        $modernTreePayload = null;
+        if (Admin::modern()->available('tree') && Admin::modern()->capabilityEnabled('tree.page')) {
+            $modernTreePayload = $this->modernViewData($items);
+        }
+
         return [
             'id'              => $this->elementId,
             'tools'           => $this->tools->render(),
-            'items'           => $this->getItems(),
+            'items'           => $items,
             'useCreate'       => $this->useCreate,
             'useQuickCreate'  => $this->useQuickCreate,
             'useSave'         => $this->useSave,
@@ -533,6 +599,8 @@ class Tree implements Renderable
             'url'             => $this->url,
             'resolveAction'   => $this->resolveAction(),
             'expand'          => $this->expand,
+            'modernTreePayload' => $modernTreePayload,
+            'modernTreeNative' => (bool) ($modernTreePayload['data']['native'] ?? false),
         ];
     }
 

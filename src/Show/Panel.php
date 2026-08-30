@@ -156,6 +156,22 @@ class Panel implements Renderable
         return $this->wrapper ? true : false;
     }
 
+    public function usesDefaultView()
+    {
+        return $this->view === 'admin::show.panel' && ! $this->hasWrapper();
+    }
+
+    public function modernViewData()
+    {
+        $variables = $this->variables();
+
+        return [
+            'title' => trim(html_entity_decode(strip_tags((string) ($variables['title'] ?? '')), ENT_QUOTES, 'UTF-8')),
+            'defaultView' => $this->usesDefaultView(),
+            'tools' => $this->tools()->modernViewData(),
+        ];
+    }
+
     /**
      * Build panel tools.
      *

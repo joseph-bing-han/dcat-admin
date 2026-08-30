@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-30",
+  "status": "passed",
+  "scope": "Official dcat-admin-demo upgraded to Laravel 10 and validated against the current local View-modernization worktree",
+  "consumer": {
+    "path": "dcat-admin-demo",
+    "framework": "laravel/framework 10.50.3",
+    "php": "8.1.32",
+    "composer": "2.8.4",
+    "database": "isolated MySQL 8.0.46",
+    "browser": "Chrome 152.0.7977.64",
+    "package": "joseph-bing-han/laravel-admin dev-next",
+    "packageInstallMode": "Composer path repository with symlink=true",
+    "localWorktreeVerified": true
+  },
+  "demoControllerBaseline": {
+    "sourceCommit": "1db1183",
+    "minimumPageRoutes": 81,
+    "minimumActiveMenuRoutes": 33,
+    "files": [
+      "ArticleController.php",
+      "AuthController.php",
+      "BorderTableController.php",
+      "Components/AccordionController.php",
+      "Components/AlertController.php",
+      "Components/BoxController.php",
+      "Components/ChartController.php",
+      "Components/CheckboxController.php",
+      "Components/DataCardController.php",
+      "Components/DialogController.php",
+      "Components/DropdownMenuController.php",
+      "Components/LayerController.php",
+      "Components/LoadingController.php",
+      "Components/MarkdownController.php",
+      "Components/MetricCardController.php",
+      "Components/ModalController.php",
+      "Components/NavbarController.php",
+      "Components/SparklineController.php",
+      "Components/TabController.php",
+      "Components/TooltipController.php",
+      "CustomGridController.php",
+      "EditorController.php",
+      "ExampleController.php",
+      "Extensions/UeditorController.php",
+      "FixedController.php",
+      "FormBlockController.php",
+      "FormColumnController.php",
+      "FormController.php",
+      "FormRowController.php",
+      "FormTabController.php",
+      "FormWhenController.php",
+      "FullPageController.php",
+      "GridController.php",
+      "GridTreeController.php",
+      "HomeController.php",
+      "LayoutController.php",
+      "ModalFormController.php",
+      "Movies/ComingSoonController.php",
+      "Movies/InTheaterController.php",
+      "Movies/Top250Controller.php",
+      "PostController.php",
+      "PreviewCode.php",
+      "ReportController.php",
+      "RowSpaceController.php",
+      "SelectorController.php",
+      "SimpleController.php",
+      "SimplePatinationController.php",
+      "StepFormController.php",
+      "UserController.php"
+    ],
+    "policy": "Every baseline file must remain in the Demo app and its page routes must stay above the frozen minimum; additions are allowed."
+  },
+  "installation": {
+    "composerDependencies": "passed",
+    "packageDiscovery": "passed",
+    "migrateFresh": "passed",
+    "adminInstall": "passed",
+    "demoSeed": "passed",
+    "adminPublishFromLocalWorktree": "passed",
+    "configCache": "passed",
+    "viewCache": "passed",
+    "routeCache": "passed"
+  },
+  "browserRegression": {
+    "harness": "scripts/dcat-admin-demo-browser.mjs",
+    "finalEvidence": "artifacts/dcat-admin-demo/final-local-laravel10-cached/demo-browser-report.json",
+    "pagesChecked": 81,
+    "pageFailures": 0,
+    "activeMenuPagesExpected": 33,
+    "activeMenuPagesMissing": 0,
+    "responsiveChecks": 12,
+    "responsiveFailures": 0,
+    "interactionChecks": 8,
+    "interactionFailures": 0,
+    "localHttpResourceErrors": 0,
+    "actionableConsoleErrors": 0,
+    "uncaughtPageErrors": 0,
+    "interactionCoverage": [
+      "PJAX menu navigation",
+      "Grid controls",
+      "Form controls",
+      "Tabs",
+      "Dropdown",
+      "Modal",
+      "Tree grid",
+      "Markdown editor"
+    ],
+    "responsiveViewports": [
+      "390x844",
+      "768x1024",
+      "1440x900"
+    ],
+    "responsivePages": [
+      "/admin",
+      "/admin/components/grid",
+      "/admin/form",
+      "/admin/full"
+    ]
+  },
+  "officialBaselineComparison": {
+    "baselinePackage": "dcat/laravel-admin 2.2.3-beta",
+    "baselineEvidence": "artifacts/dcat-admin-demo/official-2.2.3-beta/demo-browser-report.json",
+    "anchorsCompared": [
+      ".main-sidebar",
+      ".main-menu-content",
+      ".header-navbar",
+      ".app-content.content",
+      ".content-wrapper",
+      ".content-body#app",
+      ".main-footer"
+    ],
+    "rawGeometryDifferences": 31,
+    "blockingLargeDifferences": 0,
+    "largeDifferenceThreshold": "x/y > 48px, relative width > 15%, or relative height > 25%; footer Y is excluded because it follows nondeterministic page content height",
+    "finding": "No large shell/layout shift was detected. Remaining differences are non-blocking content-height changes; several official Demo repositories generate Faker content on every request.",
+    "officialBaselineKnownFailure": "The official 2.2.3-beta Markdown form throws a browser TypeError because the editor-md language pack executes before editormd.min.js. The local refactor fixes this ordering and passes the same page with zero page errors."
+  },
+  "externalResourceWarnings": {
+    "total": 24,
+    "blocking": false,
+    "hosts": {
+      "cdn.learnku.com": 20,
+      "img9.doubanio.com": 3,
+      "laravel.com": 1
+    },
+    "reason": "These URLs are remote content referenced by the official Demo; local JS/CSS/HTTP failures remain blocking and were zero."
+  },
+  "phpRegression": {
+    "phpunit": "passed-2-tests-2-assertions-phpunit-10.5.64",
+    "phpSyntax": "passed-209-demo-php-files",
+    "mainModernVerify": "passed-42-vitest-cases-artifact-and-chrome-self-test"
+  },
+  "demoLaravel10Adaptations": [
+    "Upgraded Laravel 6 skeleton middleware, exception-handler and route-provider contracts to Laravel 10 conventions.",
+    "Upgraded PHPUnit configuration and the default feature smoke test to the real /admin/auth/login entry.",
+    "Added the Demo's required Guzzle runtime dependency for movie API repositories.",
+    "Updated the Demo Administrator repository namespace used by the iframe user page.",
+    "Preserve the original Layer component Dropdown::withoutTextButton() call; its Dcat API and accessible icon-only Modern view are part of the Demo coverage.",
+    "Replaced the custom users resource route with its actual GET-only index route so Laravel 10 route caching has no duplicate Dcat route names."
+  ],
+  "mainPackageRegressionFixed": {
+    "file": "src/Form/Field/Markdown.php",
+    "problem": "editor-md language assets were registered before the editor runtime, causing window.editormd to be undefined",
+    "fix": "Register the field/editor runtime via parent::render() before appending the language pack",
+    "verifiedByOfficialDemo": true
+  },
+  "coverageNotes": [
+    "All 33 non-empty routes from the official Demo app/Admin/menu.php are required by and covered by the browser harness.",
+    "Static Admin GET routes plus reachable built-in dynamic user/role/permission/menu edit/show pages are included in the 81-page sweep.",
+    "Preview routes are code fragments and are checked for HTTP/resource/JavaScript errors without requiring a full Admin shell.",
+    "The UEditor menu entry is commented out in the official Demo and is therefore not treated as an active original feature page.",
+    "The built-in permission Show route is not an active UI flow because the Dcat PermissionController disables the view action; permission index/create/edit remain covered."
+  ],
+  "releaseMeaning": "This is official-Demo compatibility evidence for the recorded current PHP/Laravel environment only. Other PHP/Laravel combinations are historical references and are not required by the maintainer's 2026-09-26 decision. This evidence does not authorize a release candidate or capability promotion.",
+  "currentRun": {
+    "capturedAt": "2026-09-26T04:31:48.998Z",
+    "environment": {
+      "php": "8.1.34",
+      "laravel": "10.50.3",
+      "composer": "2.10.3",
+      "consumer": "dcat-admin-demo",
+      "verificationScope": "current-environment-only"
+    },
+    "installationAndRuntime": {
+      "composerDependencies": "installed-and-locked; composer check-platform-reqs --no-dev passed",
+      "packageDiscovery": "passed",
+      "resourcePublish": "php artisan vendor:publish --tag=dcat-admin-assets --force passed",
+      "configCache": "passed",
+      "viewCache": "passed",
+      "routeCache": "passed",
+      "cacheCleanup": "passed"
+    },
+    "phpRegression": {
+      "demoPhpunit": "passed-2-tests-2-assertions-phpunit-10.5.64",
+      "assetModernization": "passed-8-tests-60-assertions",
+      "modernRenderer": "passed-10-tests-51-assertions"
+    },
+    "modernVerification": {
+      "command": "npm run modern:verify",
+      "status": "passed",
+      "coverage": "303 inventory entries, 296 visible mappings, 870 dependency-signal files",
+      "vitest": "16 files, 107 tests passed",
+      "artifactGzipBytes": {
+        "javascript": 98059,
+        "css": 12360,
+        "total": 110419
+      },
+      "browserHarness": "Chrome 154.0.8037.57 self-test passed"
+    },
+    "officialDemoBrowser": {
+      "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/demo-browser-report.json",
+      "pages": 81,
+      "controllers": "49 of 49",
+      "activeMenuPages": "33 of 33",
+      "responsiveChecks": "30 passed across 390x844, 768x1024, 1024x768, 1366x768 and 1440x900",
+      "interactions": "22 passed",
+      "pageResponsiveInteractionFailures": 0,
+      "layoutBlockingDifferences": 0,
+      "externalWarnings": 24
+    },
+    "modernBrowserContracts": {
+      "evidence": "artifacts/view-modernization-browser/browser-contracts.json",
+      "captures": 25,
+      "pageFamilies": 6,
+      "accessibilityFailures": 0,
+      "keyboard": "passed",
+      "reducedMotion": "passed",
+      "quickEdit": "form and submit controls rendered in dialog"
+    },
+    "lighthouseAccessibility": {
+      "dashboard": {"score": 1, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/dashboard-lighthouse.json"},
+      "form": {"score": 1, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/form-lighthouse.json"},
+      "grid": {"score": 1, "tdHasHeaderScore": 1, "tdHasHeaderViolationNodes": 0, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/grid-lighthouse.json"},
+      "layer": {"score": 1, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/layer-lighthouse.json"}
+    },
+    "packageRollbackRehearsal": {
+      "capturedAt": "2026-09-26T07:10:34Z",
+      "status": "packagist-artifact-rollback-rehearsal-passed",
+      "environment": {
+        "php": "8.1.34",
+        "laravel": "10.50.3",
+        "composer": "2.10.3"
+      },
+      "packageTransition": "In an isolated copy of dcat-admin-demo, removed joseph-bing-han/laravel-admin dev-next and local repository overrides, then installed Packagist dcat/laravel-admin 2.2.3-beta; lock source reference f8ef27cc4d6a79dc346f89d0efb925d4e28ee763",
+      "composerResolution": "composer update dcat/laravel-admin --with-dependencies passed; laravel/framework remained v10.50.3",
+      "cleanConsumerResolution": "A new no-lock Laravel 10.50.3 consumer with config.policy.advisories.block=false resolved and installed dcat/laravel-admin 2.2.3-beta. The resolver policy was set in the consumer root because this package's composer.json config is not inherited by consumers.",
+      "platformRequirements": "composer check-platform-reqs --no-dev passed on PHP 8.1.34",
+      "packageDiscovery": "php artisan package:discover passed",
+      "resourcePublish": "php artisan vendor:publish --tag=dcat-admin-assets --force passed",
+      "cacheCleanup": "config/view/route clear passed",
+      "runtimeSmoke": {
+        "adminRoutes": 121,
+        "loginPage": "HTTP 200",
+        "adminlteCss": "HTTP 200",
+        "adminlteJs": "HTTP 200"
+      },
+      "database": "No migration or database command ran; the copied SQLite file remained byte-identical to the source Demo (SHA-256 3d0e5f0460fdee9faf7d0588062a55b91fecab6f777cd06a67581a0176198ca7).",
+      "frontendBuild": "not-run",
+      "composerAudit": "composer audit --locked exited 1 with three advisories affecting laravel/framework v10.50.3: PKSA-m5cs-t1y6-qpcs (medium), PKSA-3r5d-mb8f-1qw9 (high), and PKSA-mdq4-51ck-6kdq (CVE-2026-48019).",
+      "advisoryPolicy": "The maintainer explicitly requested config.policy.advisories.block=false; Composer resolution proceeds, while audit findings remain visible.",
+      "distributionLimit": "Packagist artifact installation and rollback smoke are verified for 2.2.3-beta in the existing Laravel 10.50.3 consumer lock. A no-lock consumer also resolves and installs with advisory blocking disabled. Packagist 2.2.2-beta remains incompatible with Laravel 10 and is not used."
+    },
+    "legacyRegressionAttempt": {
+      "status": "blocked-by-environment",
+      "suite": "tests/Feature/InstallTest.php and tests/Feature/SectionTest.php (6 tests, 30 assertions)",
+      "sqliteAttempt": "All 30 assertions were reached, but Laravel 10 teardown failed because the SQLite driver rejects multiple dropColumn/renameColumn calls in one modification.",
+      "mysqlAttempt": "The project .env.testing MySQL connection to the local laravel database returned SQLSTATE 1045 access denied.",
+      "databaseMcp": "unavailable",
+      "resolution": "Requires the configured MySQL test connection; no alternate database was used."
+    },
+    "localAccessibilityTooling": {
+      "screenReader": "No Orca, speech-dispatcher, spd-say, espeak-ng, or espeak executable found on PATH.",
+      "browserChromeControl": "No xdotool or wmctrl executable found; Chrome DevTools MCP remains page-scoped."
+    },
+    "actualBrowserUiZoomVerified": false,
+    "zoomEvidence": "The visible Chrome DevTools MCP sent Ctrl+Plus to the page without changing browser zoom; chrome://settings navigation is not allowed. Existing device-metrics emulation is not represented as native browser UI zoom evidence.",
+    "remainingReleaseGates": [
+      "Manual screen-reader reading-order review and actual browser UI 200% zoom review",
+      "Representative legacy regression suite beyond the focused and Demo smoke tests recorded above"
+    ]
+  }
+}

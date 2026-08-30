@@ -9,7 +9,9 @@
 
 <table class="grid-switch-group">
     @foreach($columns as $column => $label)
-        @php($checked = Illuminate\Support\Arr::get($row, $column) ? 'checked' : '')
+        @php
+            $checked = Illuminate\Support\Arr::get($row, $column) ? 'checked' : '';
+        @endphp
 
         <tr style="box-shadow: none;background: transparent">
             <td>{{ $label }}:&nbsp;&nbsp;&nbsp;</td>

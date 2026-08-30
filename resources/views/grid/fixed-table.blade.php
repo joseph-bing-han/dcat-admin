@@ -1,3 +1,9 @@
+@php
+    $modernFixedGrid = Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.read');
+@endphp
+@if($modernFixedGrid)
+    @include('admin::grid.table')
+@else
 <div class="dcat-box custom-data-table">
     @include('admin::grid.table-toolbar')
 
@@ -144,3 +150,4 @@
 
     {!! $grid->renderPagination() !!}
 </div>
+@endif

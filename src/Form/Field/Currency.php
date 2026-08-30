@@ -55,9 +55,16 @@ class Currency extends Text
     /**
      * {@inheritdoc}
      */
+    public function modernInputAffixes()
+    {
+        return ['prepend' => $this->symbol, 'append' => null];
+    }
+
     public function render()
     {
-        $this->inputmask($this->options);
+        if (! $this->isModernNative()) {
+            $this->inputmask($this->options);
+        }
 
         $this->prepend($this->symbol)
             ->defaultAttribute('style', 'width: 200px');

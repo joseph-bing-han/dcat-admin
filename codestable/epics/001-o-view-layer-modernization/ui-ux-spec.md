@@ -2,9 +2,9 @@
 doc_type: ui-ux-spec
 title: View 层现代化 UI/UE 规范
 status: frozen
-version: 1.0.0
+version: 1.1.0
 created: 2026-08-29
-updated: 2026-08-29
+updated: 2026-09-26
 scope: modern renderer
 ---
 
@@ -12,7 +12,7 @@ scope: modern renderer
 
 ## 规范地位
 
-本文从 `1.0.0` 起作为 modern View 的冻结设计与验收权威。所有设计稿、React 组件、页面实现、视觉测试和 AI 生成代码都必须记录所使用的规范版本或内容哈希，并引用本文令牌和规则。未定义的模式不得在业务页面自行创造，应先通过独立 Issue 补充规范和跨组件证据。
+本文从 `1.0.0` 起作为 modern View 的冻结设计与验收权威。`1.1.0` 根据用户 2026-09-25 的视觉优化要求更新控件和表面样式；稳定布局、品牌色、字段与动作顺序不变。所有实现与视觉证据须引用本版本；公共模式统一维护，不能在业务页面各自补丁。
 
 目标是现代化视觉、可访问性和实现质量，不改变老用户已经形成的页面布局、导航方向、动作位置和任务顺序。Untitled UI 提供组件参考，不取代本项目的兼容契约和设计令牌。
 
@@ -23,7 +23,7 @@ scope: modern renderer
 3. 密度可控：桌面保持现有高效密度，触控环境扩大操作目标但不隐藏关键能力。
 4. 状态明确：默认、悬停、焦点、激活、禁用、加载、成功、警告和错误必须可区分，不能只依赖颜色。
 5. 一致可测：所有尺寸来自令牌；动态内容不能推动固定工具栏、表格列和图标按钮跳动。
-6. 渐进兼容：modern 与 legacy 并存时视觉层次协调，但 modern 样式不得污染 legacy DOM。
+6. 内容兼容：新版 native 与 compat 内容使用一致的视觉层次；compat island 承载原 Controller 输出，不引入旧版整页 renderer。
 
 ## 基础令牌
 
@@ -119,15 +119,17 @@ font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 | 令牌 | 值 | 用途 |
 |---|---:|---|
 | `radius-none` | 0 | 表格连续边缘 |
-| `radius-sm` | 4px | 输入、按钮、标签 |
+| `radius-sm` | 4px | 紧凑标签、内部元素 |
 | `radius-md` | 6px | 下拉、Popover、Toast |
-| `radius-lg` | 8px | Modal、Drawer、单个内容卡片上限 |
+| `radius-lg` | 8px | Modal、Drawer |
+| `radius-control` | 8px | 输入、按钮、导航项、Select2 |
+| `radius-panel` | 12px | 独立表单、表格和内容表面 |
 | `border-default` | 1px | 所有普通边界 |
 
-- 圆角不得超过 8px，胶囊形只用于状态徽标或头像，不用于普通文字按钮。
+- 浮层圆角不超过 8px，独立内容表面不超过 12px；胶囊形只用于状态徽标、开关或头像，不用于普通文字按钮。
 - 页面区块使用分隔线、背景或留白组织，不把每个区块做成浮动卡片。
 - 禁止卡片嵌套卡片。重复独立条目、Modal 和真正需要框定的工具才可使用卡片。
-- 阴影仅用于浮层：Popover/菜单使用 `0 4px 12px rgba(17,24,39,.12)`；Modal 使用 `0 12px 32px rgba(17,24,39,.18)`。静态页面区块不得靠阴影制造层级。
+- 输入与按钮允许 `shadow-control: 0 1px 2px rgba(17,24,39,.05)`；静态表面仍以白底、细边框与留白区分，不用大阴影。Popover/菜单使用 `shadow-overlay: 0 4px 12px rgba(17,24,39,.12)`；Modal 使用 `shadow-modal: 0 12px 32px rgba(17,24,39,.18)`。
 
 ### 图标
 
@@ -140,8 +142,8 @@ font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
 | 元素 | 桌面 | 触控/移动 |
 |---|---:|---:|
-| 默认控件高度 | 34px | 44px |
-| 紧凑控件高度 | 30px | 不使用 |
+| 默认控件高度 | 40px (`control-height`) | 44px (`control-height-touch`) |
+| 紧凑控件高度 | 32px (`control-height-compact`) | 44px |
 | 大控件高度 | 40px | 48px |
 | 图标按钮可见框 | 34x34px | 44x44px |
 | 表格行最小高度 | 40px | 48px |
@@ -150,6 +152,10 @@ font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 | 折叠侧栏宽度 | 5.4rem，按现有根字号约 75.6px | 不适用 |
 
 固定格式组件必须使用稳定高度、网格轨道、`min/max` 或 `aspect-ratio`；loading、hover、错误文字和计数变化不得造成工具栏、按钮或表头跳动。
+
+原生控件和旧字段适配器共享上述视觉尺寸。上传区采用白底、细虚线边界和品牌 hover/focus 状态；保留原上传图标、按钮、拖拽与错误反馈。Select2 的关闭、展开、选择与禁用状态使用同组令牌，不能退回旧主题。表单标签列宽和字段顺序、导航宽度、Grid 列顺序与横向滚动保持既有契约。
+
+兼容 Widget Form、自定义 Blade 和原生 Form 共享控件外观，不能以是否挂载 React 作为样式生效条件。带前缀或后缀的输入组保持连续边框，外侧圆角为 8px、内部相接角为 0；图标保留原节点和点击行为。只读内容保持可读文字色，禁用状态单独区分。旧主题后加载时不得覆盖 modern 导航项的 8px 圆角。
 
 ## 页面布局
 
@@ -226,6 +232,22 @@ Brand/sidebar | Top navigation
 - Tab 表示同一任务内的并列视图，使用正确 ARIA 模式和方向键；不得把页面导航伪装为 Tab。
 - 菜单保留分组、图标和顺序；当前项同时具有视觉和语义选中状态。
 - 折叠侧栏的图标项必须提供 tooltip；有子菜单时键盘和屏幕阅读器可以展开。
+- 数据库菜单与 `Menu::add()` 添加的菜单共享展开行为。二级和三级分组通过点击或键盘切换，`aria-expanded` 与子菜单可见性同步；展开不改变当前 URL，选择叶子菜单才导航。
+
+### Dashboard Metrics 与下拉留白
+
+2026-09-26 用户反馈的修复目标：Metrics 内容沿用 `space-4`（16px）内边距，标题、数值和说明与面板边缘有一致留白；显式设置为零内边距的内容仍尊重其设置。
+
+```text
+Metrics panel
+|  Title                     [Range v] |
+|  Value                     +--------+
+|  Description               |  Item  |
+|                            |  Item  |
+                             +--------+
+```
+
+图示为目标展开态：下拉面板以触发器的对齐边锚定，宽度随内容且受视口边界限制，不能拉伸至视口右侧。面板内部使用 `space-2`（8px）留白、条目横向使用 `space-3`（12px）留白；菜单浮于内容上方，不推动卡片或触发器。窄视口、滚动和关闭后的焦点恢复均需实测。
 
 ### Modal、Drawer、Popover 与 Tooltip
 
@@ -275,7 +297,7 @@ AI 生成设计或代码时必须遵守：
 2. 不改变稳定布局、动作顺序、字段名称、查询参数或请求语义。
 3. 不新增渐变、装饰性背景、超大标题、营销式 hero、嵌套卡片或超过 8px 圆角。
 4. 不在单个页面复制基础组件或写私有颜色/间距；复用受控组件。
-5. 每个组件实现全部状态、键盘路径、焦点规则、响应式约束和 legacy 回退。
+5. 每个组件实现全部状态、键盘路径、焦点规则、响应式约束和新版 compat 内容路径。
 6. 引入 Untitled UI 代码前记录来源、版本和许可证；不得假定 PRO 组件可用。
 7. 截图更新必须对应规范条款和人工确认，不能将意外差异批量设为新基线。
 8. 完成前扫描 CSS 颜色、间距、圆角、z-index 和字体声明，拒绝未令牌化值。
@@ -287,7 +309,7 @@ AI 生成设计或代码时必须遵守：
 - 默认、hover、focus、active、disabled、loading、success、warning、error 和 permission 状态均有证据。
 - 浮层在视口边缘、滚动容器、sticky 导航和 PJAX 切换中正确定位并清理。
 - 亮色、现有深色/主色侧栏配置及高对比模式达到对比度门槛。
-- 390px 触控目标不小于 44px；桌面 34px 密度不因文字或 loading 改变。
+- 390px 触控目标不小于 44px；桌面普通控件 40px、紧凑控件 32px，尺寸不因文字或 loading 改变。
 - 字体缺失和超长翻译时布局仍稳定；没有外部字体请求。
 
 ## 规范变更流程

@@ -66,31 +66,29 @@ class Sorter implements Renderable
         return $this->grid->model()->getSortName();
     }
 
-    /**
-     * @return string
-     */
-    public function render()
+    public function modernPayload()
     {
         $type = 'desc';
         $icon = 'down';
         $active = '';
+        $currentType = null;
 
         if ($this->isSorted()) {
-            $type = $this->sort['type'] == 'desc' ? 'asc' : 'desc';
+            $currentType = $this->sort['type'] ?? null;
+            $type = $currentType == 'desc' ? 'asc' : 'desc';
             $active = 'active';
 
-            if ($this->sort['type'] === 'asc') {
+            if ($currentType === 'asc') {
                 $icon = 'up';
             }
         }
 
         $sort = ['column' => $this->columnName, 'type' => $type];
-
         if ($this->cast) {
             $sort['cast'] = $this->cast;
         }
 
-        if (! $this->isSorted() || $this->sort['type'] != 'asc') {
+        if (! $this->isSorted() || ($this->sort['type'] ?? null) != 'asc') {
             $url = request()->fullUrlWithQuery([
                 $this->getSortName() => $sort,
             ]);
@@ -100,6 +98,26 @@ class Sorter implements Renderable
             ]);
         }
 
-        return "&nbsp;<a href='{$url}' class='grid-sort feather icon-arrow-{$icon} {$active}'></a>";
+        $label = trans('admin.order').' '.$this->columnName;
+
+        return [
+            'href' => $url,
+            'icon' => $icon,
+            'active' => $active === 'active',
+            'currentType' => $currentType,
+            'nextType' => $type,
+            'className' => trim('grid-sort feather icon-arrow-'.$icon.' '.$active),
+            'label' => (string) $label,
+        ];
     }
-}
+
+    /**
+     * @return string
+     */
+    public function render()
+    {
+        $payload = $this->modernPayload();
+        $label = e($payload['label']);
+
+        return "&nbsp;<a href='{$payload['href']}' class='{$payload['className']}' aria-label='{$label}' title='{$label}'></a>";
+    }}

@@ -15,7 +15,9 @@ class Mobile extends Text
 
     public function render()
     {
-        $this->inputmask($this->options);
+        if (! $this->isModernNative()) {
+            $this->inputmask($this->options);
+        }
 
         $this->defaultAttribute('style', 'width: 160px;flex:none');
 

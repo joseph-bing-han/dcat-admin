@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-29",
+  "status": "current-environment-required-historical-matrix-reference",
+  "updatedAt": "2026-09-26",
+  "phpLaravel": {
+    "projectPhpConstraint": ">=8.0.0",
+    "projectLaravelConstraint": "^8.0|^9.0|^10.0",
+    "verificationStatus": "current-environment-verified-release-gates-pending",
+    "verificationScope": "current-environment-only",
+    "currentEnvironment": {
+      "php": "8.1",
+      "phpVersion": "8.1.34",
+      "laravelSeries": "10",
+      "frameworkVersion": "10.50.3",
+      "consumer": "dcat-admin-demo"
+    },
+    "requiredCurrentEnvironment": [
+      "composer-install",
+      "resource-resolution",
+      "modern-native-compat-smoke",
+      "shared-contract-tests"
+    ],
+    "currentEnvironmentEvidence": {
+      "capturedAt": "2026-09-26",
+      "composerPlatformRequirements": "passed",
+      "packageDiscovery": "passed",
+      "resourcePublish": "passed",
+      "configViewRouteCache": "passed",
+      "demoPhpunit": "passed-2-tests-2-assertions",
+      "modernVerification": "passed-npm-run-modern:verify",
+      "officialDemoBrowser": "81-pages-30-responsive-checks-22-interactions-passed",
+      "modernBrowserContracts": "25-captures-6-page-families-passed",
+      "actualBrowserUiZoomVerified": false,
+      "demoEvidence": "../m11-demo-laravel10-validation.json#currentRun"
+    },
+    "partialEvidence": "../m11-php81-validation.json",
+    "supportFloorStatus": "reconciled-php80-minimum",
+    "supportFloorFinding": "The package minimum is intentionally PHP >=8.0 with Laravel 8-10. A Composer dry-run with platform.php=8.0.0 resolves a compatible Laravel 8 dependency graph.",
+    "requiredPerCombination": [
+      "composer-install",
+      "resource-resolution",
+      "legacy-smoke",
+      "shared-contract-tests"
+    ],
+    "matrix": [
+      {
+        "laravelSeries": "8",
+        "referenceVersion": "8.83.29",
+        "frameworkPhpConstraint": "^8.0",
+        "effectiveProjectMinimum": "8.0.0",
+        "ciPhpVersions": ["8.0", "8.1"],
+        "evidence": "https://laravel.com/docs/10.x/releases"
+      },
+      {
+        "laravelSeries": "9",
+        "referenceVersion": "9.52.16",
+        "frameworkPhpConstraint": "^8.0.2",
+        "effectiveProjectMinimum": "8.0.2",
+        "ciPhpVersions": ["8.0", "8.1", "8.2"],
+        "evidence": "https://laravel.com/docs/10.x/releases"
+      },
+      {
+        "laravelSeries": "10",
+        "referenceVersion": "10.48.29",
+        "frameworkPhpConstraint": "^8.1",
+        "effectiveProjectMinimum": "8.1.0",
+        "ciPhpVersions": ["8.1", "8.2", "8.3"],
+        "evidence": "https://laravel.com/docs/10.x/releases"
+      }
+    ],
+    "policy": "User decision on 2026-09-26: validate only currentEnvironment. The matrix and requiredPerCombination fields are historical references, not required validation targets. Do not install or test other PHP/Laravel combinations or treat their missing evidence as a blocker. Evidence applies only to the recorded environment; the Composer support range is unchanged."
+  },
+  "browser": {
+    "legacySupport": "unchanged-by-modernization",
+    "modern": {
+      "baseline": "Vite Baseline Widely Available 2026-01-01",
+      "minimums": {
+        "chrome": 111,
+        "edge": 111,
+        "firefox": 114,
+        "safari": 16.4
+      },
+      "buildTargetMustBeExplicit": true,
+      "unsupportedBrowserBehavior": "modern-compat",
+      "evidence": [
+        "https://vite.dev/guide/build",
+        "https://vite.dev/guide/migration"
+      ]
+    },
+    "matrixHarness": {
+      "driver": "playwright-core-system-chrome",
+      "script": "scripts/view-modernization-browser.mjs",
+      "independentFromHistoricalDuskChromedriver": true,
+      "reason": "The current PHP/Laravel consumer exercises modern browser contracts independently of the ChromeDriver binary bundled by historical Dusk releases."
+    },
+    "legacyDuskReference": {
+      "laravelSeries": "8",
+      "php": "8.0",
+      "duskVersion": "6.25.2",
+      "scope": "Historical reference only; this other-version environment is not required by the current validation policy.",
+      "evidence": "https://packagist.org/packages/laravel/dusk"
+    }
+  },
+  "productionConsumer": {
+    "nodeRequired": false,
+    "prebuiltAssetsRequired": true
+  }
+}

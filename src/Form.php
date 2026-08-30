@@ -330,7 +330,9 @@ class Form implements Renderable
 
         $this->callResolvingFieldCallbacks($field);
 
-        $field::requireAssets();
+        if (! (Admin::modern()->available('form') && Admin::modern()->capabilityEnabled('form.basic'))) {
+            $field::requireAssets();
+        }
 
         return $this;
     }

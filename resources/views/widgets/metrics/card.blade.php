@@ -10,7 +10,7 @@
             @endif
 
             @if($title)
-                <h4 class="card-title mb-1">{!! $title !!}</h4>
+                <h2 class="card-title mb-1">{!! $title !!}</h2>
             @endif
 
             <div class="metric-header">{!! $header !!}</div>

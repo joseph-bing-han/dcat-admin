@@ -22,7 +22,10 @@ class Date extends Text
     public function __construct($column, $arguments = [])
     {
         parent::__construct($column, $arguments);
-        $this->format(config($this->key));
+
+        if ($format = config($this->key)) {
+            $this->format($format);
+        }
     }
 
     public function format($format)
@@ -77,6 +80,17 @@ class Date extends Text
 
     public function render()
     {
+        if ($this->isModernNative()) {
+            $type = $this instanceof Time
+                ? 'time'
+                : (($this instanceof Month || $this instanceof Year) ? 'number' : ($this instanceof Datetime ? 'text' : 'date'));
+
+            $this->type($type)
+                ->defaultAttribute('style', 'width: 200px;flex:none');
+
+            return parent::render();
+        }
+
         $this->options['format'] = datetime_format_2_js($this->format);
         $this->options['locale'] = config('app.locale');
         $this->options['allowInputToggle'] = true;

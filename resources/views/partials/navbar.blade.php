@@ -1,10 +1,13 @@
 
 {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_BEFORE']) !!}
 
+@php
+    $modernNavbar = Dcat\Admin\Admin::modern()->available('layout') && Dcat\Admin\Admin::modern()->capabilityEnabled('layout.navbar');
+@endphp
 <nav class="header-navbar navbar-expand-lg navbar
     navbar-with-menu {{ $configData['navbar_class'] }}
     {{ $configData['navbar_color'] }}
-        navbar-light navbar-shadow " style="top: 0;">
+        navbar-light navbar-shadow " style="top: 0;"{!! $modernNavbar ? ' data-dcat-react-component="layout.navbar"' : '' !!}>
 
     <div class="navbar-wrapper">
         <div class="navbar-container content">

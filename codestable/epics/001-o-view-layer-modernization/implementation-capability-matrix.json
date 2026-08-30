@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-26",
+  "status": "b0-b9-complete-b10-b12-in-progress",
+  "impactGraphUsable": false,
+  "revalidationRequired": true,
+  "promotionRule": "Gen1 experimental capabilities cannot be promoted under compatibility contract 4.0.0 until B0 coverage registry and Bootstrap-free browser evidence exist",
+  "localVerification": {
+    "status": "current-environment-modern-verification-passed-release-evidence-pending",
+    "command": "npm run modern:verify",
+    "renderingContract": "codestable/epics/001-o-view-layer-modernization/m4-m10-rendering-contract.json",
+    "runtimeEvidence": "artifacts/view-modernization-browser/browser-contracts.json",
+    "currentEnvironment": "PHP 8.1.34 / Laravel 10.50.3",
+    "capturedAt": "2026-09-26",
+    "modernVerification": "303-inventory-296-visible-870-signals-16-vitest-files-107-tests",
+    "artifactGzipBytes": {"javascript": 98059, "css": 12360, "total": 110419},
+    "officialDemoEvidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/demo-browser-report.json",
+    "lighthouseAccessibilityEvidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility",
+    "actualBrowserUiZoomVerified": false
+  },
+  "contracts": {
+    "uiUx": {
+      "version": "1.0.0",
+      "sha256": "5f926ab91eb4f12610e9f92403b864a8f042802a92f14cd3539f57152db239f3"
+    },
+    "compatibility": {
+      "version": "2.0.0",
+      "sha256": "63e20ddbf496f08263da5bf23ba7206f21c18b9d13a8d068d5a7da7910b3ef1a"
+    },
+    "manifest": {
+      "version": "1.0.0",
+      "path": "codestable/epics/001-o-view-layer-modernization/contracts/manifest-v1.json",
+      "sha256": "b5d9d528e99ddcd2d99cfe3389c0b214a6cb9fe3bf8067357e702792f34aa8b1"
+    },
+    "payload": {
+      "version": "1.1.0",
+      "path": "codestable/epics/001-o-view-layer-modernization/contracts/payload-v1.1.json",
+      "sha256": "502017fb80cd4286db4e10fc3fe60c167319eac76b1df544016becf9f0ddf417"
+    },
+    "bridge": {
+      "version": "1.0.0",
+      "path": "codestable/epics/001-o-view-layer-modernization/contracts/bridge-v1.json",
+      "sha256": "a6a0eb6d6638d660f69ebc92f3b559e7d5bde4971d65de9c640909ab1a8016bc"
+    }
+  },
+  "targetContracts": {
+    "epicSpec": {
+      "sha256": "dab59b59a5942241855d055ea2e153677f84abff402df0bd91d41d6adb229307"
+    },
+    "compatibility": {
+      "version": "4.0.0",
+      "sha256": "04be1237379b9baa197853d3497354eedbdd77b0c3ef5fb76b21383791f5a8ff"
+    },
+    "uiUx": {
+      "version": "1.1.0",
+      "sha256": "f5676062a700da59882629a067eed3d4c2dd59e7f930c9cd9b823cd5d758c54f"
+    }
+  },
+  "capabilities": [
+    {
+      "capabilityId": "SYS-LEGACY-RUNTIME-001",
+      "pageFamily": "System",
+      "modernCapabilityIds": [],
+      "modernStatus": "experimental",
+      "fallbackScope": "global",
+      "dependsOn": [],
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix"
+    },
+    {
+      "capabilityId": "LAYOUT-VERTICAL-001",
+      "pageFamily": "Layout",
+      "modernCapabilityIds": [
+        "layout.shell",
+        "layout.navigation",
+        "layout.menu",
+        "layout.header",
+        "layout.navbar",
+        "layout.footer"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "stable-anchor-in-place-react-lifecycle-plus-controlled-menu-header-rendering",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "LAYOUT-HORIZONTAL-001",
+      "pageFamily": "Layout",
+      "modernCapabilityIds": [
+        "layout.navigation",
+        "layout.menu",
+        "layout.horizontal"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "stable-anchor-in-place-react-lifecycle-plus-controlled-menu-rendering",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "LAYOUT-FULLPAGE-001",
+      "pageFamily": "Layout",
+      "modernCapabilityIds": [
+        "layout.full-page"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "stable-anchor-in-place-react-lifecycle",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "LAYOUT-PJAX-OFF-001",
+      "pageFamily": "Layout",
+      "modernCapabilityIds": [
+        "layout.shell"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "bridge-lifecycle-compatible",
+      "fallbackScope": "route",
+      "dependsOn": [
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "GRID-READ-001",
+      "pageFamily": "Grid",
+      "modernCapabilityIds": [
+        "grid.read"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "structured-react-table-with-displayer-islands",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "LAYOUT-VERTICAL-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "GRID-INTERACTION-001",
+      "pageFamily": "Grid",
+      "modernCapabilityIds": [
+        "grid.interactions"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "react-composition-exact-legacy-http-transport",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "GRID-READ-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "FORM-BASIC-001",
+      "pageFamily": "Form",
+      "modernCapabilityIds": [
+        "form.basic"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "react-layout-exact-control-transport",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "LAYOUT-VERTICAL-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "FORM-ADVANCED-001",
+      "pageFamily": "Form",
+      "modernCapabilityIds": [
+        "form.advanced"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "explicit-legacy-plugin-islands",
+      "fallbackScope": "component",
+      "dependsOn": [
+        "FORM-BASIC-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "SHOW-001",
+      "pageFamily": "Show",
+      "modernCapabilityIds": [
+        "show.detail"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "structured-react-standard-fields",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "LAYOUT-VERTICAL-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "TREE-001",
+      "pageFamily": "Tree",
+      "modernCapabilityIds": [
+        "tree.page"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "payload-react-native-reorder-with-custom-action-slots",
+      "fallbackScope": "page",
+      "dependsOn": [
+        "LAYOUT-VERTICAL-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "WIDGET-001",
+      "pageFamily": "Widget",
+      "modernCapabilityIds": [
+        "widget.surface"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "payload-react-native-box-card-datacard-dashboard-native-dropdown-bounded-modal-compat",
+      "fallbackScope": "component",
+      "dependsOn": [
+        "LAYOUT-VERTICAL-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "SYSTEM-PAGES-001",
+      "pageFamily": "System",
+      "modernCapabilityIds": [
+        "system.page"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "implementationMode": "payload-react-native-login-feedback-exception-with-bootstrap-free-server-fallback",
+      "fallbackScope": "route",
+      "dependsOn": [
+        "LAYOUT-FULLPAGE-001",
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    },
+    {
+      "capabilityId": "EXTENSION-SURFACES-001",
+      "pageFamily": "Extension",
+      "modernCapabilityIds": [
+        "extension.island"
+      ],
+      "modernStatus": "experimental",
+      "implementationStatus": "complete-local-gates-passing",
+      "implementationMode": "versioned-extension-api-with-legacy-fallback",
+      "fallbackScope": "component",
+      "dependsOn": [
+        "SYS-LEGACY-RUNTIME-001"
+      ]
+    }
+  ],
+  "verificationScope": "current-environment-only",
+  "releaseEvidenceStatus": "official-demo-and-automated-browser-gates-passed-packagist-rollback-rehearsed-manual-a11y-and-legacy-regression-pending"
+}

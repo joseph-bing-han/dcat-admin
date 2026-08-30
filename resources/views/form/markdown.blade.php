@@ -27,7 +27,24 @@
 </script>
 
 <script require="@editor-md-form" init="{!! $selector !!}">
-    editormd(id, {!! $options !!});
+    var markdownEditor = editormd(id, {!! $options !!});
+
+    $this.data('dcatModernCleanup', function () {
+        if (!markdownEditor) return;
+        try {
+            if (markdownEditor.codeMirror && typeof markdownEditor.codeMirror.toTextArea === 'function') {
+                markdownEditor.codeMirror.toTextArea();
+            } else if (markdownEditor.codeMirror && typeof markdownEditor.codeMirror.remove === 'function') {
+                markdownEditor.codeMirror.remove();
+            }
+        } catch (e) {}
+        try {
+            if (markdownEditor.editor && typeof markdownEditor.editor.remove === 'function') {
+                markdownEditor.editor.remove();
+            }
+        } catch (e) {}
+        markdownEditor = null;
+    });
 
     Element.prototype.matches = Dcat.eMatches;
 </script>

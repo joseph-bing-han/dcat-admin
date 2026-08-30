@@ -1,14 +1,40 @@
 @if(isset($errors) && $errors->hasBag('exception'))
     <?php $error = $errors->getBag('exception'); ?>
-    <div class="alert alert-warning alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4>
-            <i class="icon fa fa-warning"></i>
-            <i style="border-bottom: 1px dotted #fff;cursor: pointer;" title="{{ $error->get('type')[0] }}" ondblclick="var f=this.innerHTML;this.innerHTML=this.title;this.title=f;">{{ class_basename($error->get('type')[0]) }}</i>
-            In <i title="{{ $error->get('file')[0] }} line {{ $error->get('line')[0] }}" style="border-bottom: 1px dotted #fff;cursor: pointer;" ondblclick="var f=this.innerHTML;this.innerHTML=this.title;this.title=f;">{{ basename($error->get('file')[0]) }} line {{ $error->get('line')[0] }}</i> :
-        </h4>
-        <p><a style="cursor: pointer;" onclick="$('#dcat-admin-exception-trace').toggleClass('hidden');$('i', this).toggleClass('fa-angle-double-down fa-angle-double-up');"><i class="fa fa-angle-double-down"></i>&nbsp;&nbsp;{!! $error->first('message') !!}</a></p>
-
-        <p class="hidden" id="dcat-admin-exception-trace"><br>{!! nl2br($error->first('trace')) !!}</p>
+    @php
+        $modernSystem = Dcat\Admin\Admin::modern()->available('system') && Dcat\Admin\Admin::modern()->capabilityEnabled('system.page');
+        $exceptionType = (string) ($error->get('type')[0] ?? 'Exception');
+        $exceptionFile = (string) ($error->get('file')[0] ?? '');
+        $exceptionLine = (string) ($error->get('line')[0] ?? '');
+        $exceptionMessage = trim(html_entity_decode(strip_tags((string) $error->first('message')), ENT_QUOTES, 'UTF-8'));
+        $exceptionTrace = (string) $error->first('trace');
+        $modernSystemPayload = $modernSystem ? Dcat\Admin\Modern\ViewModel::make('system', 'system.page', [
+            'page' => 'exception',
+            'renderer' => 'native',
+            'exception' => [
+                'type' => class_basename($exceptionType),
+                'file' => basename($exceptionFile),
+                'line' => $exceptionLine,
+                'message' => $exceptionMessage,
+                'trace' => $exceptionTrace,
+            ],
+        ], [
+            'componentId' => 'system-exception',
+            'slots' => [],
+            'compatRequirements' => ['jquery' => false, 'pluginAdapters' => [], 'customSlots' => false],
+        ]) : null;
+    @endphp
+    <div class="dcat-system-fallback-exception"{!! $modernSystem ? ' data-dcat-react-component="system.page" data-dcat-modern-family="system" data-dcat-modern-server-fallback="1"' : '' !!}>
+        @if($modernSystem)<div data-dcat-modern-fallback>@endif
+        <div class="alert alert-warning" role="alert">
+            <h4>{{ class_basename($exceptionType) }} in {{ basename($exceptionFile) }} line {{ $exceptionLine }}</h4>
+            <details>
+                <summary>{{ $exceptionMessage }}</summary>
+                <pre>{{ $exceptionTrace }}</pre>
+            </details>
+        </div>
+        @if($modernSystem)</div>@endif
     </div>
+    @if($modernSystem)
+        {!! Dcat\Admin\Admin::modern()->payload('system.page', $modernSystemPayload, 'system') !!}
+    @endif
 @endif

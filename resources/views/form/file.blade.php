@@ -59,7 +59,8 @@
 
 <script require="@webuploader" init="{!! $selector !!}">
     var uploader,
-        newPage,
+        resizeTimer,
+        destroyed = false,
         options = {!! $options !!},
         events = options.events;
 
@@ -86,6 +87,30 @@
         uploader.build();
         uploader.preview();
 
+        function cleanup() {
+            if (destroyed) return;
+            destroyed = true;
+
+            if (resizeTimer) {
+                clearTimeout(resizeTimer);
+                resizeTimer = null;
+            }
+
+            if (uploader && uploader.uploader && typeof uploader.uploader.destroy === 'function') {
+                try {
+                    uploader.uploader.destroy();
+                } catch (e) {
+                    // Cleanup must be idempotent across classic PJAX and the
+                    // Modern field-island lifecycle.
+                }
+            }
+
+            uploader = null;
+        }
+
+        $this.data('dcatModernCleanup', cleanup);
+        $(document).one('pjax:complete', cleanup);
+
         for (var i = 0; i < events.length; i++) {
             var evt = events[i];
             if (evt.event && evt.script) {
@@ -98,18 +123,13 @@
         }
 
         function resize() {
-            setTimeout(function () {
-                if (! uploader) return;
+            if (destroyed) return;
+
+            resizeTimer = setTimeout(function () {
+                if (destroyed || ! uploader) return;
 
                 uploader.refreshButton();
                 resize();
-
-                if (! newPage) {
-                    newPage = 1;
-                    $(document).one('pjax:complete', function () {
-                        uploader = null;
-                    });
-                }
             }, 250);
         }
         resize();

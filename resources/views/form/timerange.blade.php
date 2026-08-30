@@ -12,7 +12,7 @@
                     <span class="input-group-prepend">
                         <span class="input-group-text bg-white"><i class="fa fa-clock-o fa-fw"></i></span>
                     </span>
-                    <input autocomplete="off" type="text" name="{{$name['start']}}" value="{{ $value['start'] ?? null }}" class="form-control {{$class['start']}}" style="width: 150px" {!! $attributes !!} />
+                    <input autocomplete="off" type="text" name="{{$name['start']}}" value="{{ $value['start'] ?? null }}" class="form-control {{$class['start']}}" style="width: 150px" @isset($rangeLabels['start']) aria-label="{{ $rangeLabels['start'] }}" @endisset {!! $attributes !!} />
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                     <span class="input-group-prepend">
                         <span class="input-group-text bg-white"><i class="fa fa-clock-o fa-fw"></i></span>
                     </span>
-                    <input autocomplete="off" type="text" name="{{$name['end']}}" value="{{ $value['end'] ?? null }}" class="form-control {{$class['end']}}" style="width: 150px" {!! $attributes !!} />
+                    <input autocomplete="off" type="text" name="{{$name['end']}}" value="{{ $value['end'] ?? null }}" class="form-control {{$class['end']}}" style="width: 150px" @isset($rangeLabels['end']) aria-label="{{ $rangeLabels['end'] }}" @endisset {!! $attributes !!} />
                 </div>
             </div>
         </div>
@@ -31,6 +31,7 @@
     </div>
 </div>
 
+@unless($modernNative)
 <script require="@moment,@bootstrap-datetimepicker" init="{!! $selector['start'] !!}">
     var options = {!! admin_javascript_json($options) !!};
     var $end = $('{!! $selector['end'] !!}');
@@ -44,4 +45,4 @@
         $this.data("DateTimePicker").maxDate(e.date);
     });
 </script>
-
+@endunless

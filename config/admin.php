@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" width="35"> &nbsp;Dcat Admin',
+    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" alt="" width="35"> &nbsp;Dcat Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<img src="/vendor/dcat-admin/images/logo.png">',
+    'logo-mini' => '<img src="/vendor/dcat-admin/images/logo.png" alt="Dcat Admin">',
 
     /*
     |--------------------------------------------------------------------------
@@ -336,6 +336,25 @@ return [
 
         // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
         'navbar_color' => '',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Modern view layer
+    |--------------------------------------------------------------------------
+    |
+    | The modern React view layer is the only renderer. The legacy Bootstrap /
+    | AdminLTE UI and its classic fallback were removed, so there is no
+    | configuration switch back to the old UI. Content that cannot render
+    | natively degrades into the Dcat compat island instead.
+    |
+    */
+    'modern' => [
+        'manifest' => null,
+        'csp_nonce' => null,
+        'telemetry' => true,
+        // 兼容层迁移诊断；null 时跟随 app.debug。
+        'diagnostics' => null,
     ],
 
     /*

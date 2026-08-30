@@ -3,6 +3,8 @@
             class="btn btn-primary {{ $btn_class }}"
             @if($only_scopes)data-toggle="dropdown"@endif
             @if($scopes->isNotEmpty()) style="border-right: 0" @endif
+            aria-label="{{ trans('admin.filter') }}"
+            title="{{ trans('admin.filter') }}"
     >
         <i class="feather icon-filter"></i>@if($filter_text)<span class="d-none d-sm-inline">&nbsp;&nbsp;{{ trans('admin.filter') }}</span>@endif
 

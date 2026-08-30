@@ -1,0 +1,933 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "4.0.0",
+  "generatedAt": "2026-09-05",
+  "generator": "scripts/view-modernization-grid-capabilities.js",
+  "policy": {
+    "statusValues": [
+      "native",
+      "compat"
+    ],
+    "rule": "Every inventoried Grid displayer, filter, and action/tool must have an explicit native or compat conclusion. Missing/new files fail the gate.",
+    "compatBoundary": "Compat is component/cell/filter-control scoped; page-level rollback is not a capability classification."
+  },
+  "summary": {
+    "displayers": {
+      "total": 28,
+      "native": 10,
+      "compat": 18
+    },
+    "filters": {
+      "total": 36,
+      "native": 0,
+      "compat": 36
+    },
+    "actions": {
+      "total": 22,
+      "native": 14,
+      "compat": 8
+    }
+  },
+  "displayers": [
+    {
+      "path": "src/Grid/Displayers/AbstractDisplayer.php",
+      "status": "native",
+      "renderOwner": "native-contract",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "derived-base:text-cell"
+    },
+    {
+      "path": "src/Grid/Displayers/Actions.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "actions:default"
+    },
+    {
+      "path": "src/Grid/Displayers/Badge.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:badge"
+    },
+    {
+      "path": "src/Grid/Displayers/Button.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:button"
+    },
+    {
+      "path": "src/Grid/Displayers/Checkbox.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "editable:checkbox"
+    },
+    {
+      "path": "src/Grid/Displayers/ContextMenuActions.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "actions:contextmenu"
+    },
+    {
+      "path": "src/Grid/Displayers/Copyable.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "render:.grid-column-copyable"
+    },
+    {
+      "path": "src/Grid/Displayers/DialogTree.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "interaction:dialog-tree"
+    },
+    {
+      "path": "src/Grid/Displayers/Downloadable.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:download"
+    },
+    {
+      "path": "src/Grid/Displayers/DropdownActions.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "interaction:dropdown-actions"
+    },
+    {
+      "path": "src/Grid/Displayers/Editable.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "derived-base:editable-input"
+    },
+    {
+      "path": "src/Grid/Displayers/Expand.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "react",
+      "fallback": "cell-compat-for-remote-or-raw-html",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "interaction:expand-toggle"
+    },
+    {
+      "path": "src/Grid/Displayers/Image.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:image"
+    },
+    {
+      "path": "src/Grid/Displayers/Input.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "editable:input"
+    },
+    {
+      "path": "src/Grid/Displayers/Label.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:label"
+    },
+    {
+      "path": "src/Grid/Displayers/Limit.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "interaction:limit-toggle"
+    },
+    {
+      "path": "src/Grid/Displayers/Link.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:link"
+    },
+    {
+      "path": "src/Grid/Displayers/Modal.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "interaction:modal"
+    },
+    {
+      "path": "src/Grid/Displayers/Orderable.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "render:orderable-controls"
+    },
+    {
+      "path": "src/Grid/Displayers/ProgressBar.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:progress"
+    },
+    {
+      "path": "src/Grid/Displayers/QRCode.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "interaction:qrcode-popover"
+    },
+    {
+      "path": "src/Grid/Displayers/Radio.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "editable:radio"
+    },
+    {
+      "path": "src/Grid/Displayers/Select.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "render:.grid-column-select"
+    },
+    {
+      "path": "src/Grid/Displayers/SwitchDisplay.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "render:.grid-column-switch"
+    },
+    {
+      "path": "src/Grid/Displayers/SwitchGroup.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "render:.grid-column-switch-group"
+    },
+    {
+      "path": "src/Grid/Displayers/Table.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-grid-view",
+      "fallback": "cell-compat-if-payload-rejected",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "payload:nested-table"
+    },
+    {
+      "path": "src/Grid/Displayers/Textarea.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "editable:textarea"
+    },
+    {
+      "path": "src/Grid/Displayers/Tree.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "fallback": "cell-compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "render:tree-load-children"
+    }
+  ],
+  "filters": [
+    {
+      "path": "src/Grid/Filter/AbstractFilter.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "derived-control:cap_equal",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Between.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_between",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Date.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_date",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Day.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_day",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/EndWith.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_end_with",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Equal.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_equal",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/FindInSet.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_find_in_set",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Group.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_group",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Gt.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_gt",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Hidden.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_hidden",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Ilike.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_ilike",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/In.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_in",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Layout/Column.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "structure:.filter-input",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Layout/Layout.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "structure:.grid-filter-form",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Like.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_like",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Lt.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_lt",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Month.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_month",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Newline.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "structure:.grid-filter-form .col-md-12",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Ngt.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_ngt",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Nlt.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_nlt",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/NotEqual.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_not_equal",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/NotIn.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_not_in",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/Checkbox.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_checkbox",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/DateTime.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_datetime",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/MultipleSelect.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_multiple",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/MultipleSelectTable.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_multiple_select_table",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/Presenter.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "derived-presenter:cap_presenter_select",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/Radio.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_radio",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/Select.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_select",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/SelectTable.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_presenter_select_table",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/Text.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "default-presenter:cap_equal",
+      "note": "Presenter markup/plugin initialization remains compat; drawer/query submit is native."
+    },
+    {
+      "path": "src/Grid/Filter/Scope.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "scope:cap_scope",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/StartWith.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_start_with",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Where.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_where",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/WhereBetween.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_where_between",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    },
+    {
+      "path": "src/Grid/Filter/Year.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "fallback": "compat-filter-script-for-plugin-specific-control-behavior",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-filter-matrix",
+      "browserTestId": "grid-filter-matrix",
+      "browserWitness": "control:cap_year",
+      "note": "Server predicate contract unchanged; form/drawer/query submit is native while field markup remains compat."
+    }
+  ],
+  "actions": [
+    {
+      "path": "src/Grid/Actions/Delete.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "standard request + native confirm overlay",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "native-confirm+request-probe"
+    },
+    {
+      "path": "src/Grid/Actions/Edit.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-pjax",
+      "note": "link navigation",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers?actions=default",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "actions:edit-link"
+    },
+    {
+      "path": "src/Grid/Actions/QuickEdit.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "inline edit keeps legacy extension lifecycle",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-action-matrix",
+      "browserTestId": "grid-action-matrix",
+      "browserWitness": "interaction:quick-edit-dialog"
+    },
+    {
+      "path": "src/Grid/Actions/Show.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-pjax",
+      "note": "link navigation",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-compat-displayers?actions=default",
+      "browserTestId": "grid-compat-displayers",
+      "browserWitness": "actions:show-link"
+    },
+    {
+      "path": "src/Grid/BatchAction.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "custom batch callbacks may register arbitrary scripts",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "derived:batch-delete"
+    },
+    {
+      "path": "src/Grid/GridAction.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "custom action base may register arbitrary scripts",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "derived:delete-action"
+    },
+    {
+      "path": "src/Grid/RowAction.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "custom row action base may register arbitrary scripts",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "derived:delete-action"
+    },
+    {
+      "path": "src/Grid/Tools/AbstractTool.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "abstract/custom tool contract",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "derived:filter-button"
+    },
+    {
+      "path": "src/Grid/Tools/ActionDivider.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "presentational divider",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "render:batch-divider"
+    },
+    {
+      "path": "src/Grid/Tools/BatchActions.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "selection state + dropdown ownership",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:batch-dropdown"
+    },
+    {
+      "path": "src/Grid/Tools/BatchDelete.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "standard batch request + native confirm overlay",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:batch-delete-protocol"
+    },
+    {
+      "path": "src/Grid/Tools/ColumnSelector.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "debounced PJAX query ownership",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:column-selector"
+    },
+    {
+      "path": "src/Grid/Tools/CreateButton.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "plain links are native-navigation compatible; dialog variant remains compat",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-action-matrix",
+      "browserTestId": "grid-action-matrix",
+      "browserWitness": "interaction:dialog-create"
+    },
+    {
+      "path": "src/Grid/Tools/ExportButton.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "native dropdown + selected-key substitution",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-action-matrix",
+      "browserTestId": "grid-action-matrix",
+      "browserWitness": "interaction:export-selected"
+    },
+    {
+      "path": "src/Grid/Tools/FilterButton.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "native filter drawer/scope dropdown ownership",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:filter-drawer"
+    },
+    {
+      "path": "src/Grid/Tools/Paginator.php",
+      "status": "native",
+      "renderOwner": "react-payload",
+      "interactionOwner": "native-pjax",
+      "note": "server pagination payload",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-displayers?multi=1",
+      "browserTestId": "grid-read-only",
+      "browserWitness": "interaction:pagination"
+    },
+    {
+      "path": "src/Grid/Tools/PerPageSelector.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-pjax",
+      "note": "native dropdown + link navigation",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-action-matrix",
+      "browserTestId": "grid-action-matrix",
+      "browserWitness": "interaction:per-page-link"
+    },
+    {
+      "path": "src/Grid/Tools/QuickCreate.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "inline create form remains legacy extension surface",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-action-matrix",
+      "browserTestId": "grid-action-matrix",
+      "browserWitness": "interaction:quick-create-protocol"
+    },
+    {
+      "path": "src/Grid/Tools/QuickSearch.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "IME-safe debounced native PJAX query",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:quick-search"
+    },
+    {
+      "path": "src/Grid/Tools/RefreshButton.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "native PJAX refresh",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:refresh"
+    },
+    {
+      "path": "src/Grid/Tools/RowSelector.php",
+      "status": "native",
+      "renderOwner": "compat-island",
+      "interactionOwner": "native-grid-runtime",
+      "note": "row/select-all state + batch visibility",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-interactions",
+      "browserTestId": "grid-interactions",
+      "browserWitness": "interaction:row-select"
+    },
+    {
+      "path": "src/Grid/Tools/Selector.php",
+      "status": "compat",
+      "renderOwner": "compat-island",
+      "interactionOwner": "compat",
+      "note": "generic custom selector surface",
+      "fixtureRoute": "/tests/view-baseline/modern-grid-action-matrix",
+      "browserTestId": "grid-action-matrix",
+      "browserWitness": "interaction:selector-query"
+    }
+  ]
+}

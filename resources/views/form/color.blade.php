@@ -25,8 +25,10 @@
     </div>
 </div>
 
+@unless($modernNative)
 <script require="@color" init="{!! $selector !!}">
     $this.colorpicker({!! admin_javascript_json($options) !!}).on('colorpickerChange', function(event) {
         $(this).parents('.input-group').find('.input-group-prepend i').css('background-color', event.color.toString());
     });
 </script>
+@endunless

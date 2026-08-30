@@ -622,6 +622,11 @@ class Show implements Renderable
         return $this;
     }
 
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
     /**
      * Add field and relation dynamically.
      *
@@ -701,10 +706,16 @@ class Show implements Renderable
 
         $this->callComposing();
 
+        $modernPayload = null;
+        if (Admin::modern()->available('show') && Admin::modern()->capabilityEnabled('show.detail')) {
+            $modernPayload = Modern\ShowViewModel::make($this);
+        }
+
         $data = [
             'width' => $this->width,
             'panel' => $this->panel->fill($this->fields),
             'relations' => $this->relations,
+            'modernShowPayload' => $modernPayload,
         ];
 
         return view($this->view, $data)->render();

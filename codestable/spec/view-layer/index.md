@@ -2,31 +2,37 @@
 
 > **图示状态：当前。** 本文只记录已经成立的 View 层真相，不包含现代化目标。
 
+> **当前事实（2026-09-26）：** Admin 页面由新版 View runtime 接管。manifest 有效时使用 native React View；native 不适用或 manifest 缺失时使用 Dcat-owned compat shell/island。旧版 Bootstrap/AdminLTE 整页 renderer、renderer 开关和 classic 回退已从当前实现中移除。兼容契约保留 PHP Controller/API、HTTP/表单协议和登记的稳定锚点，不承诺旧版整页 View、任意 Bootstrap class 或私有 DOM 等价。当前环境的完整复验和 GA 仍未闭合；进度见 [View 现代化 Epic](../../epics/001-o-view-layer-modernization/spec.md)。
+
+验证范围按用户 2026-09-26 的决定限定为当前实际使用的 PHP/Laravel 版本，本轮是官方 Demo 的 PHP 8.1.34 / Laravel 10.50.3。不要求验证其它版本组合；旧多版本矩阵仅作历史参考，不能将单环境证据写成其它版本已通过。
+
+项目已按用户要求移除 `.github` 与 workflow 草案；View 验收通过本地脚本执行，不依赖 GitHub Actions。
+
 ## 页面怎样产生
 
-Dcat Admin 不是独立 SPA。应用控制器使用 `Content`、`Grid`、`Form`、`Show`、`Tree` 和 Widgets 等 PHP API 组织页面，包内 Blade 把对象渲染成 HTML，浏览器端再由全局 Dcat 运行时和按需插件增强行为。
+Dcat Admin 不是独立 SPA。应用控制器使用 `Content`、`Grid`、`Form`、`Show`、`Tree` 和 Widgets 等 PHP API 组织页面；新版 ViewModel/payload adapter 将内建语义交给 Modern runtime。自定义 Blade、Renderable 和扩展内容通过明确的 compat island 显示在新版页面中。
 
 ```text
 Laravel route/controller
         |
         v
-PHP page builders and extension renderables
+PHP page builders -> ViewModel / payload adapters
         |
         v
-Blade layout + component templates
+Modern View runtime / PJAX
         |
-        +------> Section / custom Blade / raw HTML injection
-        |
-        v
-Admin asset resolver + Dcat runtime
-        |
-        +------> AdminLTE / Bootstrap / jQuery / PJAX / plugins
+        +------> Native React View
         |
         v
-Browser-visible admin page
+ Dcat-owned compat islands
+        |
+        +------> custom Blade / Renderable / plugin nodes
+        |
+        v
+Browser-visible modern admin page
 ```
 
-完整页面由布局模板输出；PJAX 请求只返回内容片段及本页增量资源。`Admin::resolveHtml()` 还会从渲染结果中提取 `link`、`style`、`script` 和 `template`，合并到统一资源与初始化生命周期中。
+新版 runtime 始终拥有页面 renderer；PJAX 请求只返回内容片段及本页增量资源。`Admin::resolveHtml()` 从 Controller/Renderable 输出中提取 `link`、`style`、`script` 和 `template`，交给统一资源和初始化生命周期。compat island 是新版页面中的内容边界，不是完整旧 View。
 
 ## 稳定布局
 
@@ -65,17 +71,17 @@ Browser-visible admin page
 - `.wrapper`、sidebar、navbar、`.content-wrapper#pjax-container`、`#app` 等页面锚点。
 - `Dcat.boot()`、`Dcat.ready/init/wait`、PJAX 事件和 jQuery 插件生命周期。
 - `data-action`、`pjax-container`、表单 `name/id`、Grid 查询参数及现有 Dusk/扩展使用的关键选择器。
-- `@adminlte`、`@vendors`、`@dcat`、`@pjax`、`@select2` 等资源别名和发布路径。
+- Dcat-owned resource alias/facade、`@pjax`、`@select2` 等登记入口和发布路径；不得加载旧版整页 renderer 或 Bootstrap/AdminLTE runtime。
 
-任意扩展可能依赖未文档化的内部 DOM。现代渲染器无法证明任意内部选择器都等价，因此完整兼容必须由可选择的旧渲染回退保障，不能只靠新 DOM 模拟。
+任意扩展可能依赖未文档化的内部 DOM。此类内容可以留在新版 compat island；未知内部选择器和旧版整页布局不属于稳定契约，也不提供旧 renderer 回退。
 
 ## 当前规模与验证缺口
 
-- 包内有 139 个 Blade 模板、1077 个资源文件，至少 117 个 PHP/Blade 文件直接注入脚本、样式或运行时资源。
-- 现有 Dusk 覆盖登录、首页、菜单、部分 Grid、Form 和上传路径，但明显依赖旧 class 与 jQuery。
-- 当前没有布局几何基线、视觉回归、移动端矩阵、React/PJAX 挂载生命周期或新旧渲染等价测试。
+- B11 当前源码盘点为 140 个 Blade、821 个受盘点资源文件；旧 AdminLTE 与 Bootstrap 源码/编译目录已从 core 移除，包仍发布 modern 和 modern-compat 产物及 Dcat facade。
+- 官方 Demo 基线记录了 81 个可达页面、33 个活动菜单入口；完整新版 View crawl 已在 [已归档执行记录](../../tasks/archived/2026-09-26-002-modern-view-single-renderer-demo-coverage.md) 中完成并按维护者决定收尾。
+- 当前 PHP 8.1.34 / Laravel 10.50.3 环境的资源发布、五视口浏览器合同、Demo 全路由 crawl 与自动无障碍检查已通过；Dashboard、Form、Grid、Layer Lighthouse accessibility 均为 100。Packagist `dcat/laravel-admin:2.2.3-beta` 回退、资源重发与运行 smoke 已通过；`2.2.2-beta` 不满足 Laravel 10 约束。原生浏览器 UI 200% 缩放、人工屏幕阅读顺序和当前环境代表性 legacy regression 尚未核验，因此不能宣称达到 GA。legacy suite 因 SQLite teardown 不兼容且 MySQL 测试连接返回 SQLSTATE 1045 而未通过。其它 PHP/Laravel 组合已排除在验收范围外。最新证据见 [当前环境验证记录](../../epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json) 与 `artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/`。
 
-这些缺口意味着迁移的第一批必须建立基线和兼容清单，不能直接替换模板。
+历史 classic 基线仅作为对照证据；后续验证不要求部署旧 View，而以新版 native/compat 行为、稳定后端契约和 Demo 页面覆盖为准。
 
 ## 证据索引
 
@@ -83,6 +89,6 @@ Browser-visible admin page
 - `src/Layout/Content.php`：页面内容构建与布局配置。
 - `src/Layout/Asset.php`、`src/Traits/HasAssets.php`、`src/Traits/HasHtml.php`：资源、内联代码与 HTML 解析协议。
 - `resources/views/layouts/`、`resources/views/partials/`：页面骨架和稳定插入点。
-- `resources/assets/dcat/js/`：Dcat 与 PJAX 生命周期。
-- `webpack.mix.js`、`package.json`：当前构建链。
+- `resources/modern/`：新版 View、bridge、native/compat runtime 与样式。
+- `scripts/view-modernization-bootstrap-absence.js`、`package.json`：旧 UI 依赖门禁与构建/验证入口。
 - `tests/Browser/`：已有浏览器行为证据及选择器依赖。

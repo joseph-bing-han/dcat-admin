@@ -514,7 +514,7 @@ class Content implements Renderable
             'theme' => $data['theme'],
             'sidebar_collapsed' => $data['sidebar_collapsed'],
             'navbar_color' => $data['navbar_color'],
-            'navbar_class' => $allOptions['navbar_class'][$data['navbar_class']],
+            'navbar_class' => $data['navbar_class'],
             'sidebar_class' => $data['sidebar_collapsed'] ? 'sidebar-collapse' : '',
             'body_class' => implode(' ', $data['body_class']),
             'sidebar_style' => $data['sidebar_style'],
@@ -533,6 +533,7 @@ class Content implements Renderable
         $this->shareDefaultErrors();
 
         $this->variables['content'] = $this->build();
+        Admin::asset()->prepareHtml($this->variables['content']);
 
         $this->callComposed();
 

@@ -20,4 +20,6 @@
     </div>
 </div>
 
+@unless($modernNative)
 @include('admin::form.select-script')
+@endunless

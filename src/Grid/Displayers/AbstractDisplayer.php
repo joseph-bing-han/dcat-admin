@@ -128,6 +128,41 @@ abstract class AbstractDisplayer
     }
 
     /**
+     * Optional structured payload for the Bootstrap-free Grid renderer.
+     * Returning null keeps this displayer inside a cell-level compat island.
+     *
+     * @return array|null
+     */
+    public function modernPayload(...$arguments)
+    {
+        return null;
+    }
+
+    /**
+     * Convert legacy entity-encoded scalar content into React-safe text.
+     * Raw HTML remains a compat-island concern so custom markup semantics are preserved.
+     *
+     * @param mixed $value
+     * @return string|null
+     */
+    protected function modernText($value)
+    {
+        if ($value === null) {
+            return '';
+        }
+        if (! is_scalar($value)) {
+            return null;
+        }
+
+        $value = (string) $value;
+        if (strip_tags($value) !== $value) {
+            return null;
+        }
+
+        return html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    /**
      * Display method.
      *
      * @return mixed

@@ -13,6 +13,7 @@
     </div>
 </div>
 
+@unless($modernNative)
 <script require="@switchery" init="{!! $selector !!}">
     $this.parent().find('.switchery').remove();
 
@@ -20,3 +21,4 @@
         new Switchery($(this)[0], $(this).data())
     })
 </script>
+@endunless

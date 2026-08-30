@@ -211,6 +211,10 @@ class Chart extends Widget
     }
     
     var options = {$options};
+    if (Dcat.charts) {
+        Dcat.charts.mount(container, options);
+        return;
+    }
     var chart = new ApexCharts(container, options);
     chart.render();
 })();
@@ -245,6 +249,7 @@ if (! response.status) {
 var chartBox = $(response.selector || '{$this->containerSelector}');
 
 if (chartBox.length) {
+    if (Dcat.charts) Dcat.charts.destroy(chartBox[0]);
     chartBox.html('');
 
     if (typeof response.options === 'string') {
@@ -252,7 +257,9 @@ if (chartBox.length) {
     }
     
     setTimeout(function () {
-        new ApexCharts(chartBox[0], response.options).render();
+        if (! chartBox[0].isConnected) return;
+        if (Dcat.charts) Dcat.charts.mount(chartBox[0], response.options);
+        else new ApexCharts(chartBox[0], response.options).render();
     }, 50);
 }
 JS

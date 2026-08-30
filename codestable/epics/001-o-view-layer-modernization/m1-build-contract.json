@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "status": "implemented",
+  "topology": {
+    "format": "iife",
+    "singleEntry": true,
+    "dynamicImportAllowed": false,
+    "sourceEntry": "resources/modern/index.tsx",
+    "manifest": "resources/dist/modern/manifest.json",
+    "contentHashedAssets": true
+  },
+  "cssIsolation": {
+    "strategy": "root-scope",
+    "rootSelector": ".dcat-modern-active",
+    "preflightAllowed": false,
+    "externalFontRequestsAllowed": false
+  },
+  "runtime": {
+    "productionNodeRequired": false,
+    "legacyBuildReplaced": false,
+    "manifestFailureBehavior": "legacy",
+    "cspNonceSupported": true
+  },
+  "reproducibility": {
+    "lockfile": "package-lock.json",
+    "cleanInstall": "npm ci"
+  },
+  "verification": [
+    "npm run modern:typecheck",
+    "npm run modern:test",
+    "npm run modern:build",
+    "npm run modern:artifact"
+  ]
+}
+

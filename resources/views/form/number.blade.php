@@ -29,6 +29,8 @@
     </div>
 </div>
 
+@unless($modernNative)
 <script require="@number-input" init="{!! $selector !!}">
     $this.bootstrapNumber({!! admin_javascript_json($options) !!});
 </script>
+@endunless

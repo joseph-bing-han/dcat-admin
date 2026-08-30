@@ -44,4 +44,50 @@ class Table extends AbstractDisplayer
 
         return view('admin::grid.displayer.table', $variables)->render();
     }
+
+    public function modernPayload(...$arguments)
+    {
+        if (empty($this->value) || ! is_array($this->value)) {
+            return empty($this->value) ? ['kind' => 'table', 'headers' => [], 'rows' => []] : null;
+        }
+
+        $titles = $arguments[0] ?? [];
+        if (empty($titles)) {
+            $first = reset($this->value);
+            if (! is_array($first)) {
+                return null;
+            }
+            $titles = array_keys($first);
+        }
+
+        if (Arr::isAssoc($titles)) {
+            $columns = array_keys($titles);
+            $headers = array_values($titles);
+        } else {
+            $columns = array_values($titles);
+            $headers = array_values($titles);
+        }
+
+        $rows = [];
+        foreach ($this->value as $item) {
+            if (! is_array($item)) {
+                return null;
+            }
+            $row = [];
+            foreach ($columns as $column) {
+                $text = $this->modernText($item[$column] ?? '');
+                if ($text === null) {
+                    return null;
+                }
+                $row[] = $text;
+            }
+            $rows[] = $row;
+        }
+
+        return [
+            'kind' => 'table',
+            'headers' => array_map('strval', $headers),
+            'rows' => $rows,
+        ];
+    }
 }

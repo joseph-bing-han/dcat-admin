@@ -21,7 +21,37 @@
     }
 </style>
 
-<div class="login-page bg-40">
+@php
+    $modernSystem = Dcat\Admin\Admin::modern()->available('system') && Dcat\Admin\Admin::modern()->capabilityEnabled('system.page');
+    $modernSystemPayload = $modernSystem ? Dcat\Admin\Modern\ViewModel::make('system', 'system.page', [
+        'page' => 'login',
+        'action' => admin_url('auth/login'),
+        'remember' => (bool) config('admin.auth.remember'),
+        'csrf' => csrf_token(),
+        'adminName' => trim(strip_tags((string) config('admin.name'))),
+        'welcome' => __('admin.welcome_back'),
+        'submitLabel' => __('admin.login'),
+        'labels' => [
+            'username' => trans('admin.username'),
+            'password' => trans('admin.password'),
+            'remember' => trans('admin.remember_me'),
+        ],
+        'old' => [
+            'username' => old('username'),
+            'remember' => (bool) old('remember'),
+        ],
+        'errors' => [
+            'username' => $errors->get('username'),
+            'password' => $errors->get('password'),
+        ],
+    ], [
+        'componentId' => 'login-page',
+        'slots' => [],
+        'compatRequirements' => ['jquery' => false, 'pluginAdapters' => [], 'customSlots' => false],
+    ]) : null;
+@endphp
+<div class="login-page bg-40"{!! $modernSystem ? ' data-dcat-react-component="system.page" data-dcat-modern-family="system" data-dcat-modern-server-fallback="1"' : '' !!}>
+    @if($modernSystem)<div data-dcat-modern-fallback>@endif
     <div class="login-box">
         <div class="login-logo mb-2">
             {{ config('admin.name') }}
@@ -30,7 +60,7 @@
             <div class="card-body login-card-body shadow-100">
                 <p class="login-box-msg mt-1 mb-1">{{ __('admin.welcome_back') }}</p>
 
-                <form id="login-form" method="POST" action="{{ admin_url('auth/login') }}">
+                <form id="login-form" method="POST" action="{{ admin_url('auth/login') }}"{!! $modernSystem ? ' data-dcat-modern-slot="login-form"' : '' !!}>
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
@@ -117,8 +147,14 @@
             </div>
         </div>
     </div>
+    @if($modernSystem)</div>@endif
 </div>
 
+@if($modernSystem)
+{!! Dcat\Admin\Admin::modern()->payload('system.page', $modernSystemPayload, 'system') !!}
+@endif
+
+@unless($modernSystem)
 <script>
 Dcat.ready(function () {
     // ajax表单提交
@@ -127,3 +163,4 @@ Dcat.ready(function () {
     });
 });
 </script>
+@endunless

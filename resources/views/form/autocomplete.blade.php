@@ -97,4 +97,11 @@
     @endif
 
     $this.autocomplete(configs);
+
+    $this.data('dcatModernCleanup', function () {
+        try {
+            $this.autocomplete('dispose');
+        } catch (e) {}
+        $this.closest('form').off('.depends');
+    });
 </script>

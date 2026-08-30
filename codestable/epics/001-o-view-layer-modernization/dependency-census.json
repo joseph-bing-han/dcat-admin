@@ -1,0 +1,6439 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "4.0.0",
+  "generatedAt": "2026-09-04",
+  "generator": "scripts/view-modernization-coverage.js",
+  "roots": [
+    "resources/assets",
+    "resources/views",
+    "src",
+    "resources/dist"
+  ],
+  "totals": {
+    "scannedFiles": 1764,
+    "filesWithSignals": 870,
+    "bootstrapClassFiles": 647,
+    "bootstrapPluginFiles": 90,
+    "adminlteFiles": 31,
+    "jqueryFiles": 424
+  },
+  "ownership": {
+    "dcatCore": 258,
+    "bundledThirdParty": 292,
+    "publishedOutput": 320
+  },
+  "entries": [
+    {
+      "path": "resources/assets/dcat/extra/Grid/AsyncTable.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/Grid/Helper.js",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/Grid/Orderable.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/Grid/Tree.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/Upload/AddFile.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/Upload/AddUploadedFile.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/action.js",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/grid-extend.js",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/select-table.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/upload.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/extra/upload.scss",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/js/extensions/DialogForm.js",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/js/extensions/Grid.js",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/js/extensions/RowSelector.js",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/autocomplete/jquery.autocomplete.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/autocomplete/jquery.autocomplete.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-duallistbox/dist/bootstrap-duallistbox.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker-iconset-all.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker-iconset-all.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.bundle.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-validator/validator.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/bootstrap-validator/validator.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/charts/apexcharts.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/charts/apexcharts.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/charts/apexcharts.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/Gulpfile.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/css/editormd.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/css/editormd.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/css/editormd.preview.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/css/editormd.preview.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/editormd.amd.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/editormd.amd.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/editormd.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/editormd.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/hint/html-hint.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/hint/javascript-hint.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/lint/lint.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/lint/lint.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/search/search.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/tern/tern.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addon/tern/tern.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/addons.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/codemirror.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/lib/codemirror.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/css/css.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/ecl/ecl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/javascript/test.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/livescript/livescript.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/perl/perl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/php/test.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/shell/test.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/sql/sql.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/stex/test.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/mode/stylus/stylus.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/codemirror/modes.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/jquery.flowchart.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/marked.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/raphael.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/lib/sequence-diagram.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/code-block-dialog/code-block-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/emoji-dialog/emoji-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/emoji-dialog/emoji.json",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/goto-line-dialog/goto-line-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/help-dialog/help-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/html-entities-dialog/html-entities-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/image-dialog/image-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/link-dialog/link-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/plugin-template.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/preformatted-text-dialog/preformatted-text-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/reference-link-dialog/reference-link-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/table-dialog/table-dialog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/plugins/test-plugin/test-plugin.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/scss/editormd.form.scss",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/scss/editormd.grid.scss",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/scss/editormd.menu.scss",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/scss/editormd.preview.scss",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/scss/font-awesome.scss",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/editor-md/src/editormd.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/extensions/sweetalert2.all.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/extensions/sweetalert2.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/extensions/toastr.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/input-mask/jquery.inputmask.bundle.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/ionslider/ion.rangeSlider.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery-pjax/jquery.pjax.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery-pjax/jquery.pjax.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery-qrcode/dist/jquery-qrcode.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery-qrcode/dist/jquery-qrcode.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery.initialize/jquery.initialize.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery.initialize/jquery.initialize.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jstree-theme/jstree.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jstree-theme/jstree.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jstree-theme/themes/proton/style.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/layer/layer.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/layer/mobile/layer.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/layer/theme/default/layer.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/nestable/jquery.nestable.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/nestable/jquery.nestable.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/number-input/bootstrap-number-input.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/af.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ar.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/az.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/bg.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/bn.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/bs.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ca.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/cs.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/da.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/de.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/dsb.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/el.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/en.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/eo.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/es.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/et.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/eu.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/fa.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/fi.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/fr.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/gl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/he.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/hi.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/hr.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/hsb.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/hu.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/hy.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/id.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/is.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/it.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ja.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ka.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/km.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ko.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/lt.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/lv.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/mk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ms.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/nb.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ne.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/nl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/pa.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/pl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ps.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/pt-BR.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/pt.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ro.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/ru.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/sk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/sl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/sq.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/sr-Cyrl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/sr.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/sv.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/th.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/tk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/tr.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/uk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/vi.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/zh-CN.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/i18n/zh-TW.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/select2.full.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/select2.full.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/select2.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/select/select2.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/sortable/Sortable.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tables/datatable/datatables.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/icons/default/icons.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/jquery.tinymce.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ar.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/bg_BG.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/bn_BD.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ca.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/cs.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/cy.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/da.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/de.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/el.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/eo.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/es.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/es_ES.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/es_MX.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/et.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/eu.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/fa.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/fa_IR.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/fi.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/fr_FR.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/gl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/he_IL.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/hr.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/hu_HU.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/hy.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/id.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/it.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/it_IT.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ja.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/kab.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/kk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ko_KR.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ku.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/lt.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/nb_NO.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/nl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/pl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/pt_BR.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/pt_PT.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ro.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ro_RO.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ru.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/sk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/sl.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/sl_SI.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/sv_SE.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ta.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/ta_IN.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/th_TH.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/tr.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/tr_TR.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/uk.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/vi.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/zh_CN.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/langs/zh_TW.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/advlist/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/anchor/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/autosave/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/charmap/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/code/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/codesample/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/directionality/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/emoticons/js/emojiimages.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/emoticons/js/emojiimages.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/emoticons/js/emojis.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/emoticons/js/emojis.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/emoticons/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/fullpage/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/fullscreen/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/help/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/hr/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/image/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/imagetools/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/insertdatetime/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/link/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/lists/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/media/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/nonbreaking/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/pagebreak/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/paste/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/preview/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/print/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/quickbars/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/save/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/searchreplace/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/spellchecker/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/table/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/template/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/textpattern/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/toc/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/visualblocks/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/visualchars/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/plugins/wordcount/plugin.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide-dark/content.inline.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide-dark/content.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide-dark/skin.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide-dark/skin.mobile.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide/content.inline.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide/content.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide/skin.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/skins/ui/oxide/skin.mobile.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/themes/mobile/theme.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/themes/silver/theme.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/tinymce.d.ts",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/tinymce/tinymce.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/vendors.min.css",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/vendors.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.custom.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.custom.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.fis.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.flashonly.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.flashonly.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.html5only.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.html5only.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.noimage.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.noimage.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.nolog.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.nolog.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.withoutimage.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/webuploader/webuploader.withoutimage.min.js",
+      "owner": "bundled-third-party",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/sass/bootstrap-icons.css",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/dcat/sass/variables/_variables.scss",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/bootstrap-icons/bootstrap-icons.css",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/bootstrap-icons/bootstrap-icons.json",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/bootstrap-icons/bootstrap-icons.min.css",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/bootstrap-icons/bootstrap-icons.scss",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/feather/iconfont.css",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/font-awesome/css/font-awesome.css",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/assets/fonts/font-awesome/css/font-awesome.min.css",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/adminlte/adminlte-blue-light.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/adminlte/adminlte-blue.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/adminlte/adminlte-green.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/adminlte/adminlte.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/adminlte/adminlte.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/css/bootstrap-icons.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/css/dcat-app-blue-light.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/css/dcat-app-blue.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/css/dcat-app-green.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/css/dcat-app.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/extra/action.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/extra/grid-extend.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/extra/select-table.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/extra/upload.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/js/dcat-app.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/autocomplete/jquery.autocomplete.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/autocomplete/jquery.autocomplete.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-duallistbox/dist/bootstrap-duallistbox.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker-iconset-all.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker-iconset-all.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.bundle.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-validator/validator.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/bootstrap-validator/validator.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/charts/apexcharts.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/charts/apexcharts.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/charts/apexcharts.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/Gulpfile.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/css/editormd.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/css/editormd.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/css/editormd.preview.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/css/editormd.preview.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/editormd.amd.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/editormd.amd.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/editormd.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/editormd.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/hint/html-hint.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/hint/javascript-hint.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/lint/lint.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/lint/lint.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/search/search.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/tern/tern.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addon/tern/tern.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/addons.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/codemirror.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/lib/codemirror.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/css/css.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/ecl/ecl.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/javascript/test.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/livescript/livescript.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/perl/perl.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/php/test.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/shell/test.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/sql/sql.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/stex/test.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/mode/stylus/stylus.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/codemirror/modes.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/jquery.flowchart.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/marked.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/raphael.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/lib/sequence-diagram.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/code-block-dialog/code-block-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/emoji-dialog/emoji-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/emoji-dialog/emoji.json",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/goto-line-dialog/goto-line-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/help-dialog/help-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/html-entities-dialog/html-entities-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/image-dialog/image-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/link-dialog/link-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/plugin-template.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/preformatted-text-dialog/preformatted-text-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/reference-link-dialog/reference-link-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/table-dialog/table-dialog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/plugins/test-plugin/test-plugin.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/scss/editormd.form.scss",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/scss/editormd.grid.scss",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/scss/editormd.menu.scss",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/scss/editormd.preview.scss",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/scss/font-awesome.scss",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/editor-md/src/editormd.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/extensions/sweetalert2.all.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/extensions/sweetalert2.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/extensions/toastr.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/input-mask/jquery.inputmask.bundle.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/ionslider/ion.rangeSlider.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jquery-pjax/jquery.pjax.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jquery-pjax/jquery.pjax.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jquery-qrcode/dist/jquery-qrcode.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jquery-qrcode/dist/jquery-qrcode.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jquery.initialize/jquery.initialize.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jquery.initialize/jquery.initialize.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jstree-theme/jstree.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jstree-theme/jstree.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/jstree-theme/themes/proton/style.css",
+      "owner": "published-output",
+      "signals": [
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/layer/layer.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/layer/mobile/layer.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/layer/theme/default/layer.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/nestable/jquery.nestable.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/nestable/jquery.nestable.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/number-input/bootstrap-number-input.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/af.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ar.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/az.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/bg.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/bn.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/bs.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ca.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/cs.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/da.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/de.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/dsb.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/el.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/en.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/eo.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/es.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/et.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/eu.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/fa.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/fi.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/fr.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/gl.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/he.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/hi.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/hr.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/hsb.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/hu.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/hy.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/id.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/is.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/it.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ja.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ka.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/km.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ko.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/lt.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/lv.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/mk.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ms.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/nb.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ne.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/nl.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/pa.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/pl.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ps.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/pt-BR.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/pt.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ro.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/ru.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/sk.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/sl.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/sq.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/sr-Cyrl.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/sr.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/sv.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/th.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/tk.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/tr.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/uk.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/vi.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/zh-CN.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/i18n/zh-TW.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/select2.full.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/select2.full.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/select2.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/select/select2.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/sortable/Sortable.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tables/datatable/datatables.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/icons/default/icons.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/jquery.tinymce.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ar.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/bg_BG.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/bn_BD.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ca.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/cs.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/cy.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/da.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/de.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/el.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/eo.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/es.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/es_ES.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/es_MX.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/et.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/eu.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/fa.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/fa_IR.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/fi.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/fr_FR.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/gl.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/he_IL.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/hr.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/hu_HU.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/hy.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/id.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/it.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/it_IT.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ja.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/kab.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/kk.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ko_KR.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ku.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/lt.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/nb_NO.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/nl.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/pl.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/pt_BR.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/pt_PT.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ro.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ro_RO.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ru.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/sk.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/sl.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/sl_SI.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/sv_SE.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ta.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/ta_IN.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/th_TH.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/tr.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/tr_TR.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/uk.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/vi.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/zh_CN.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/langs/zh_TW.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/advlist/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/anchor/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/autosave/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/charmap/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/code/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/codesample/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/directionality/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/emoticons/js/emojiimages.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/emoticons/js/emojiimages.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/emoticons/js/emojis.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/emoticons/js/emojis.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/emoticons/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/fullpage/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/fullscreen/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/help/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/hr/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/image/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/imagetools/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/insertdatetime/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/link/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/lists/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/media/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/nonbreaking/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/pagebreak/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/paste/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/preview/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/print/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/quickbars/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/save/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/searchreplace/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/spellchecker/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/table/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/template/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/textpattern/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/toc/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/visualblocks/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/visualchars/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/plugins/wordcount/plugin.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide-dark/content.inline.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide-dark/content.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide-dark/skin.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide-dark/skin.mobile.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide/content.inline.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide/content.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide/skin.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/skins/ui/oxide/skin.mobile.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/themes/mobile/theme.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/themes/silver/theme.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/tinymce.d.ts",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/tinymce/tinymce.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/vendors-rtl.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/vendors.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/vendors.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.custom.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.custom.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.fis.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.flashonly.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.flashonly.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.html5only.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.html5only.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.noimage.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.noimage.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.nolog.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.nolog.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.withoutimage.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/dcat/plugins/webuploader/webuploader.withoutimage.min.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/bootstrap-icons/bootstrap-icons.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/bootstrap-icons/bootstrap-icons.json",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/bootstrap-icons/bootstrap-icons.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/bootstrap-icons/bootstrap-icons.scss",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/feather/iconfont.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/font-awesome/css/font-awesome.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/fonts/font-awesome/css/font-awesome.min.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/dist/modern-compat/assets/dcat-fallback.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/modern-compat/assets/dcat-fallback.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/modern-compat/assets/dcat-modern-compat.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/modern/assets/dcat-modern-B5gzLpNK.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/dist/modern/assets/dcat-modern-DSKKiJ_i.js",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/dashboard/dependencies.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/dashboard/environment.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/dashboard/extensions.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/dashboard/title.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/between-datetime.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/filter/between.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/button.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/checkbox.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/container.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/datetime.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/filter/multipleselect.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/filter/radio.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/right-side-container.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/select.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/filter/selecttable.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/simple-container.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/filter/text.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/button.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/captcha.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/checkbox.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/color.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/daterange.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/datetimerange.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/editor.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/embeds.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/fields.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/file.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/footer.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/hasmany.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/hasmanytab.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/hasmanytable.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/iconbutton.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/id.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/input.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/keyvalue.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/listbox.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/listfield.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/map.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/multipleselect.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/number.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/radio.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/range.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/rate.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/row.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/select-script.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/select.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/selecttable.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/switchfield.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/tab.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/tags.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/textarea.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/form/timerange.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/form/tree.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/async-fixed-table.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/async-table.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/batch-actions.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/column-selector.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/dialogtree.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/editinline/checkbox.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/editinline/input.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/editinline/radio.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/editinline/template.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/editinline/textarea.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/expand.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/extensions/description.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/extensions/name.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/select.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/switch.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/displayer/switchgroup.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/dropdown-actions.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/fixed-table.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/image.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/date.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/form.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/multipleselect.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/select.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/selectresource.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/tags.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-create/text.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/quick-search.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/table-toolbar.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/grid/table.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/helpers/feather.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/helpers/font-awesome.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/helpers/scaffold.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/layouts/container.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/layouts/form-content.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/pages/login.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/partials/alerts.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/partials/exception.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/partials/menu.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/views/partials/modern-alert.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/partials/navbar-user-panel.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/partials/navbar.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/views/partials/sidebar.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/views/partials/toastr.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/scripts/select.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/show/container.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/show/field.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/show/panel.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/show/row.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/tree/branch.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "adminlte"
+      ]
+    },
+    {
+      "path": "resources/views/tree/container.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/alert.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/card.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/data-card.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/data-card/chart.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/data-card/line-chart.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/dialogtable.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/dropdown.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/metrics/card.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/radio.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/tab.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/table.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "resources/views/widgets/tree.blade.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Console/ActionCommand.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/AbstractTool.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Builder.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Concerns/HasFieldValidator.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "src/Form/Concerns/HasRows.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Field.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Autocomplete.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Button.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Field/CanCascadeFields.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Date.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Fieldset.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Field/HasMany.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Icon.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Listbox.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-plugin"
+      ]
+    },
+    {
+      "path": "src/Form/Field/SelectTable.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Sizeable.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Field/Text.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Layout.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Row.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Form/Tab.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Form/Tools.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Column.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/Filter.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/Filter/Between.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/Filter/Checkbox.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/Filter/Equal.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/Filter/Input.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/HasDisplayers.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/HasHeader.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/Help.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Column/ValueFilter.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Concerns/HasExporter.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Concerns/HasFilter.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Concerns/HasNames.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Concerns/HasQuickSearch.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/AbstractDisplayer.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Actions.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Button.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/ContextMenuActions.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Copyable.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/DialogTree.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Expand.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Input.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Limit.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Link.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Modal.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/QRCode.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Select.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/SwitchDisplay.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/SwitchGroup.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Displayers/Table.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Exporters/AbstractExporter.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Filter/Group.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Filter/Newline.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/MultipleSelect.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/SelectTable.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Filter/Presenter/Text.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/FixColumns.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Row.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/RowAction.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/AbstractTool.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/CreateButton.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/ExportButton.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/FilterButton.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/PerPageSelector.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/QuickSearch.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/RefreshButton.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Grid/Tools/RowSelector.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Actions/Extensions/InstallFromLocal.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Actions/Extensions/Marketplace.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Actions/Extensions/Update.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Actions/ImportButton.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Http/Controllers/IconController.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Controllers/MenuController.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "src/Http/Controllers/PermissionController.php",
+      "owner": "dcat-core",
+      "signals": [
+        "adminlte"
+      ]
+    },
+    {
+      "path": "src/Http/Controllers/RoleController.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Displayers/Extensions/Description.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/Displayers/Extensions/Name.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Http/JsonResponse.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Layout/Asset.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Layout/Column.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Layout/Content.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Layout/Row.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Modern/FormViewModel.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Modern/GridViewModel.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Modern/Manager.php",
+      "owner": "dcat-core",
+      "signals": [
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Modern/ShowViewModel.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Modern/TreeViewModel.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Modern/ViewModel.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Show.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/AbstractTool.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/Divider.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/Field.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/Newline.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/Panel.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/Row.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Show/Tools.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Traits/InteractsWithApi.php",
+      "owner": "dcat-core",
+      "signals": [
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Tree.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "adminlte"
+      ]
+    },
+    {
+      "path": "src/Tree/AbstractTool.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Tree/Actions.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Tree/RowAction.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Alert.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/ApexCharts/Chart.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Widgets/Callout.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Card.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Code.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Dropdown.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Form.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Widgets/Metrics/Bar.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Metrics/Card.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Widgets/Metrics/Donut.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Metrics/Line.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Metrics/RadialBar.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class"
+      ]
+    },
+    {
+      "path": "src/Widgets/Modal.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Widgets/Tab.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ]
+    },
+    {
+      "path": "src/Widgets/Tooltip.php",
+      "owner": "dcat-core",
+      "signals": [
+        "bootstrap-class",
+        "jquery"
+      ]
+    }
+  ]
+}

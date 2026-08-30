@@ -239,7 +239,10 @@ export default class Status {
                 setTimeout(function () {
                     if (options.upload.fileNumLimit == 1) {
                         // 单文件上传，需要重置文件上传个数
-                        uploader.request('get-stats').numOfSuccess = 0;
+                        var queueStats = uploader.request('get-stats');
+                        if (queueStats) {
+                            queueStats.numOfSuccess = 0;
+                        }
                     }
                 }, 10);
 

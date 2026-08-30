@@ -170,6 +170,27 @@ class Column
     protected $displayCallbacks = [];
 
     /**
+     * Built-in displayUsing callbacks that can optionally emit native ViewModel payloads.
+     *
+     * @var array
+     */
+    protected $modernDisplayerCallbacks = [];
+
+    /**
+     * Row-scoped native payloads keyed by row index and display callback index.
+     *
+     * @var array
+     */
+    protected $modernCellPayloads = [];
+
+    /**
+     * Row index currently being processed by fill().
+     *
+     * @var int|null
+     */
+    protected $modernCurrentRowIndex;
+
+    /**
      * @var array
      */
     protected $titleHtmlAttributes = [];
@@ -491,6 +512,51 @@ class Column
         return $this->displayCallbacks;
     }
 
+    public function registerModernDisplayer(int $callbackIndex, string $abstract, array $arguments = [])
+    {
+        $this->modernDisplayerCallbacks[$callbackIndex] = [
+            'class' => $abstract,
+            'arguments' => $arguments,
+        ];
+
+        return $this;
+    }
+
+    public function recordModernCellPayload($rowIndex, int $callbackIndex, $payload)
+    {
+        if ($rowIndex === null) {
+            $rowIndex = $this->modernCurrentRowIndex;
+        }
+        if ($rowIndex === null || ! is_array($payload)) {
+            return $this;
+        }
+
+        $this->modernCellPayloads[(int) $rowIndex][$callbackIndex] = $payload;
+
+        return $this;
+    }
+
+    public function getModernCellPayload(int $rowIndex)
+    {
+        if (count($this->displayCallbacks) !== 1 || count($this->modernDisplayerCallbacks) !== 1) {
+            return null;
+        }
+
+        $callbackIndex = array_key_first($this->modernDisplayerCallbacks);
+        if ($callbackIndex !== 0) {
+            return null;
+        }
+
+        return $this->modernCellPayloads[$rowIndex][$callbackIndex] ?? null;
+    }
+
+    public function hasOnlyModernDisplayer(): bool
+    {
+        return count($this->displayCallbacks) === 1
+            && count($this->modernDisplayerCallbacks) === 1
+            && array_key_first($this->modernDisplayerCallbacks) === 0;
+    }
+
     /**
      * Call all of the "display" callbacks column.
      *
@@ -546,6 +612,7 @@ class Column
         $i = 0;
 
         $data->transform(function ($row, $key) use (&$i) {
+            $this->modernCurrentRowIndex = $i;
             $this->setOriginalModel(static::$originalGridModels[$key]);
 
             $this->originalModel['_index'] = $row['_index'] = $i;
@@ -695,12 +762,21 @@ class Column
         if (is_subclass_of($abstract, AbstractDisplayer::class)) {
             $grid = $this->grid;
             $column = $this;
+            $callbackIndex = count($column->getDisplayCallbacks());
+            $column->registerModernDisplayer($callbackIndex, $abstract, $arguments);
 
-            return $this->display(function ($value) use ($abstract, $grid, $column, $arguments) {
+            return $this->display(function ($value) use ($abstract, $grid, $column, $arguments, $callbackIndex) {
                 /** @var AbstractDisplayer $displayer */
                 $displayer = new $abstract($value, $grid, $column, $this);
+                $rendered = $displayer->display(...$arguments);
 
-                return $displayer->display(...$arguments);
+                $column->recordModernCellPayload(
+                    null,
+                    $callbackIndex,
+                    $displayer->modernPayload(...$arguments)
+                );
+
+                return $rendered;
             });
         }
 
@@ -742,6 +818,11 @@ class Column
     /**
      * @return string
      */
+    public function getHeaderAttributes()
+    {
+        return $this->titleHtmlAttributes;
+    }
+
     public function formatTitleAttributes()
     {
         $attrArr = [];

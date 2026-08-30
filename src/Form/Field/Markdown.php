@@ -158,11 +158,16 @@ class Markdown extends Field
             $this->options['imageUploadURL'] = $this->defaultImageUploadUrl();
         }
 
-        $this->requireLang();
-
         $this->addVariables(['options' => JavaScript::format($this->options)]);
 
-        return parent::render();
+        $html = parent::render();
+
+        // The Blade template registers @editor-md-form. Language packs execute
+        // immediately and expect window.editormd to exist, so they must be
+        // appended only after the editor runtime has been registered.
+        $this->requireLang();
+
+        return $html;
     }
 
     protected function requireLang()

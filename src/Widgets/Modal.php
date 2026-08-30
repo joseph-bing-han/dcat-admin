@@ -353,6 +353,14 @@ JS
      */
     public function render()
     {
+        if (Admin::modern()->available('widget') && Admin::modern()->capabilityEnabled('widget.surface')) {
+            // Modal keeps the historical Bootstrap event contract for B8, but
+            // the dependency is now explicit and scoped to the Dcat compat
+            // chunk instead of assuming a page-global jQuery/Bootstrap runtime.
+            Admin::asset()->require('@dcat-compat');
+            $this->setHtmlAttribute('data-dcat-modern-widget-compat', 'modal');
+        }
+
         $this->addLoadRenderableScript();
         $this->addScript();
 
@@ -419,8 +427,12 @@ HTML;
             $button = "<a href=\"javascript:void(0)\">{$button}</a>";
         }
 
+        $compat = Admin::modern()->available('widget') && Admin::modern()->capabilityEnabled('widget.surface')
+            ? ' data-dcat-modern-widget-compat-trigger="modal"'
+            : '';
+
         return <<<HTML
-<span style="cursor: pointer" data-toggle="modal" data-target="#{$this->id()}">{$button}</span>
+<span style="cursor: pointer" data-toggle="modal" data-target="#{$this->id()}"{$compat}>{$button}</span>
 HTML;
     }
 }

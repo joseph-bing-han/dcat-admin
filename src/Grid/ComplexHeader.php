@@ -84,6 +84,11 @@ class ComplexHeader extends Widget
         return $this->label;
     }
 
+    public function hasCustomHtml(): bool
+    {
+        return ! empty($this->html);
+    }
+
     /**
      * @param  string  $html
      * @return $this

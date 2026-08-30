@@ -16,7 +16,9 @@ class Decimal extends Text
 
     public function render()
     {
-        $this->inputmask($this->options);
+        if (! $this->isModernNative()) {
+            $this->inputmask($this->options);
+        }
 
         $this->prepend('<i class="fa fa-terminal fa-fw"></i>');
 

@@ -10,6 +10,10 @@ class Time extends Date
 
     public function render()
     {
+        if ($this->isModernNative()) {
+            return parent::render();
+        }
+
         $this->prepend('<i class="fa fa-clock-o fa-fw"></i>')
             ->defaultAttribute('style', 'width: 200px;flex:none');
 

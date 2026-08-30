@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-29",
+  "status": "frozen-initial",
+  "views": {
+    "root": "resources/views",
+    "pattern": "*.blade.php",
+    "total": 140,
+    "families": {
+      "dashboard": 4,
+      "filter": 16,
+      "form": 44,
+      "grid": 33,
+      "helpers": 3,
+      "layouts": 6,
+      "pages": 1,
+      "partials": 10,
+      "scripts": 1,
+      "show": 4,
+      "tree": 2,
+      "widgets": 16
+    }
+  },
+  "assets": {
+    "root": "resources/assets",
+    "totalFiles": 821
+  },
+  "contracts": {
+    "compatibility": {
+      "path": "codestable/epics/001-o-view-layer-modernization/compatibility-contract.md",
+      "version": "1.0.0",
+      "sha256": "63e20ddbf496f08263da5bf23ba7206f21c18b9d13a8d068d5a7da7910b3ef1a"
+    },
+    "uiUx": {
+      "path": "codestable/epics/001-o-view-layer-modernization/ui-ux-spec.md",
+      "version": "1.0.0",
+      "sha256": "5f926ab91eb4f12610e9f92403b864a8f042802a92f14cd3539f57152db239f3"
+    }
+  },
+  "notes": [
+    "This is an M0 compatibility baseline, not a claim that the current View implementation is complete or bug-free.",
+    "Any intentional inventory or frozen-contract change must update this file in the same implementation batch and expand verification according to the compatibility contract."
+  ]
+}
+

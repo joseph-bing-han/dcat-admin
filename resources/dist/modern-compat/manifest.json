@@ -1,0 +1,8 @@
+{
+  "resources/modern/compat.js": {
+    "file": "assets/dcat-modern-compat.js",
+    "name": "compat",
+    "src": "resources/modern/compat.js",
+    "isEntry": true
+  }
+}

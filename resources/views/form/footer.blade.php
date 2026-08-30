@@ -1,42 +1,56 @@
-@php($id=uniqid())
+@php
+    $id = uniqid();
+@endphp
 <div class="box-footer">
 
   <div class="col-md-{{$width['label']}} d-md-block" style="display: none"></div>
 
   <div class="col-md-{{$width['field']}}">
     @if(!empty($buttons['submit']))
-      @php($renderButton=false)
+      @php
+          $renderButton = false;
+      @endphp
       @if($buttons['continue_creating'])
         <div class="btn-group pull-right ml-2">
-          <button class="btn bg-blue-1 text-white submit" onclick="$('#{{$id}}-after-save').val('2');">
+          <button class="btn bg-blue-1 text-white submit" onclick="this.form.elements['after-save'].value='2';">
             <i class="feather icon-plus"></i> {{ trans('admin.save_and_create') }}
           </button>
         </div>
-        @php($renderButton=true)
+        @php
+            $renderButton = true;
+        @endphp
       @endif
       @if($buttons['view'])
         <div class="btn-group pull-right">
-          <button class="btn btn-info submit" onclick="$('#{{$id}}-after-save').val('3');">
+          <button class="btn btn-info submit" onclick="this.form.elements['after-save'].value='3';">
             <i class="feather icon-eye"></i> {{ trans('admin.save_and_view') }}
           </button>
         </div>
-        @php($renderButton=true)
+        @php
+            $renderButton = true;
+        @endphp
       @endif
       @if($buttons['continue_editing'])
         <div class="btn-group pull-right mr-2">
-          <button class="btn btn-primary submit" onclick="$('#{{$id}}-after-save').val('1');">
+          <button class="btn btn-primary submit" onclick="this.form.elements['after-save'].value='1';">
             <i class="feather icon-save"></i> {{ trans('admin.save_and_edit') }}
           </button>
         </div>
-        @php($renderButton=true)
+        @php
+            $renderButton = true;
+        @endphp
       @endif
       @foreach($buttons as $button)
         @if($button instanceof  Dcat\Admin\Form\Field\Button)
           {!! $button->render() !!}
-          @php($renderButton=true)
+          @php
+              $renderButton = true;
+          @endphp
         @elseif($button instanceof  Dcat\Admin\Form\AbstractTool)
           {!! $button->render(1, true) !!}
-          @php($renderButton=true)
+          @php
+              $renderButton = true;
+          @endphp
         @endif
       @endforeach
 

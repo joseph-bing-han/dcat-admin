@@ -22,6 +22,14 @@ trait PlainInput
         return $this;
     }
 
+    public function modernInputAffixes()
+    {
+        return [
+            'prepend' => $this->prepend,
+            'append' => $this->append,
+        ];
+    }
+
     protected function initPlainInput()
     {
         if (empty($this->view)) {

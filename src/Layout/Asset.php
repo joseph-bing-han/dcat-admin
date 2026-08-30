@@ -8,6 +8,32 @@ use Illuminate\Support\Str;
 
 class Asset
 {
+    protected $inlineCompat = false;
+
+    protected $renderedScripts = [];
+
+    protected $renderedStylesheets = [];
+
+    // 保留旧自定义 Blade 的内联脚本执行时机，仅提前装载其依赖。
+    public function prepareHtml(string $html)
+    {
+        $hasLegacyToggle = preg_match('/data-toggle\s*=\s*[\x22\x27](?:modal|dropdown|tab|pill|collapse|popover|tooltip)[\x22\x27]/i', $html);
+        $hasNativeOwner = $this->isModernRequest() && $this->containsNativeModernComponent($html);
+        $hasCompatDescriptor = preg_match('/data-dcat-compat\s*=/i', $html);
+        $hasUnownedLegacyToggle = $this->containsUnownedLegacyToggle($html);
+        if ($hasLegacyToggle && (! $hasNativeOwner || $hasCompatDescriptor || $hasUnownedLegacyToggle)) {
+            $this->inlineCompat = true;
+        }
+        preg_match_all('/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/i', $html, $scripts, PREG_SET_ORDER);
+        foreach ($scripts as $script) {
+            if (preg_match('/\btype\s*=\s*[\x22\x27](?!text\/javascript|application\/javascript|module)[^\x22\x27]+/i', $script[1])) {
+                continue;
+            }
+            if (preg_match('/\bsrc\s*=/i', $script[1]) || $this->scriptNeedsCompat($script[2])) {
+                $this->inlineCompat = true;
+            }
+        }
+    }
     /**
      * 别名.
      *
@@ -18,6 +44,13 @@ class Asset
         '@admin' => 'vendor/dcat-admin',
         // Dcat Acmin扩展静态资源路径别名
         '@extension' => 'vendor/dcat-admin-extensions',
+
+        // Dcat-owned compatibility runtime. This intentionally lives outside
+        // the native modern bundle and is loaded only when a legacy plugin is
+        // explicitly requested on a modern page.
+        '@dcat-compat' => [
+            'js' => '@admin/modern-compat/assets/dcat-modern-compat.js',
+        ],
 
         '@adminlte' => [
             'js' => [
@@ -452,10 +485,37 @@ class Asset
         if (! $js) {
             return;
         }
-        $this->js = array_merge(
-            $this->js,
-            (array) $js
-        );
+
+        $files = (array) $js;
+
+        // Most historical field/grid/widget classes register their assets via
+        // Admin::js() rather than Admin::requireAssets(). On a modern request
+        // those scripts must still see the opt-in jQuery compatibility runtime
+        // before they execute; the native shell itself remains jQuery-free.
+        if ($this->isModernRequest() && $this->containsLegacyJavascript($files)) {
+            $compat = $this->getAlias('@dcat-compat');
+            $this->js = array_merge($this->js, (array) ($compat['js'] ?? []));
+        }
+
+        $this->js = array_merge($this->js, $files);
+    }
+
+    protected function containsLegacyJavascript(array $files)
+    {
+        foreach ($files as $file) {
+            $file = (string) $file;
+            // 已知原生资源不需要 jQuery；未声明的旧脚本保持兼容加载语义。
+            if ($file !== ''
+                && mb_strpos($file, '/modern/') === false
+                && mb_strpos($file, 'modern-compat/') === false
+                && ! $this->isModernFacadeSourcePath($file)
+                && ! $this->isNativeModernJavascript($file)
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -481,7 +541,9 @@ class Asset
             $value = $this->url($value);
         }
 
-        return $paths;
+        return array_values(array_filter($paths, function ($value) {
+            return $value !== null && $value !== '';
+        })) ?: null;
     }
 
     /**
@@ -498,6 +560,10 @@ class Asset
 
         $path = $this->getRealPath($path);
 
+        if (! $path) {
+            return $path;
+        }
+
         if (mb_strpos($path, '//') === false) {
             $path = config('admin.assets_server').'/'.trim($path, '/');
         }
@@ -513,6 +579,14 @@ class Asset
      */
     public function getRealPath(?string $path)
     {
+        if ($path === '@dcat-compat' && Admin::modern()->usesCompatRenderer()) {
+            return null;
+        }
+        $facadePath = $this->modernFacadePath($path);
+        if ($facadePath !== $path) {
+            return $facadePath ? $this->getRealPath($facadePath) : null;
+        }
+
         if (! $this->containsAlias($path)) {
             return $path;
         }
@@ -641,12 +715,146 @@ class Asset
         return request()->pjax();
     }
 
+    protected function isModernRequest()
+    {
+        // 新版渲染器是唯一渲染器：页面始终由 modern 层接管（native 或 compat），
+        // 不再回落到旧版 Bootstrap/AdminLTE 基础资源。
+        return true;
+    }
+
+    protected function containsNativeModernComponent(string $html)
+    {
+        return (bool) preg_match('/data-dcat-react-component\s*=\s*[\x22\x27](?:layout\.(?:navigation|menu|header|navbar|footer|full-page)|grid\.(?:read|interactions)|form\.(?:basic|advanced)|show\.detail|tree\.page|widget\.surface|system\.page)[\x22\x27]/i', $html);
+    }
+
+    protected function containsUnownedLegacyToggle(string $html)
+    {
+        $html = preg_replace('/<!--[\s\S]*?-->|<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/i', '', $html);
+        preg_match_all('/<[a-z][^>]*\bdata-toggle\s*=\s*([\x22\x27])(?:modal|dropdown|tab|pill|collapse|popover|tooltip)\1[^>]*>/i', $html, $toggles);
+
+        foreach ($toggles[0] as $toggle) {
+            if (! preg_match('/\bdata-dcat-modern-owned-toggle\s*=\s*[\x22\x27]1[\x22\x27]/i', $toggle)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function modernFacadePath(?string $path)
+    {
+        if (Admin::modern()->usesCompatRenderer() && $path === '@admin/modern-compat/assets/dcat-modern-compat.js') {
+            return null;
+        }
+        if (! $path || ! $this->isModernFacadeSourcePath($path) || ! $this->isModernRequest()) {
+            return $path;
+        }
+
+        $path = preg_split('/\?/', $path, 2)[0];
+
+        if (Admin::modern()->usesCompatRenderer()) {
+            return null;
+        }
+
+        if (strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'js') {
+            return '@admin/modern-compat/assets/dcat-modern-compat.js';
+        }
+
+        $assets = Admin::modern()->manifest()->assets();
+        $css = $assets['css'][0] ?? null;
+        if (! $css) {
+            return null;
+        }
+
+        return '@admin/modern/'.ltrim($css, '/');
+    }
+
+    protected function isModernFacadeSource(string $path)
+    {
+        $path = str_replace('\\', '/', $path);
+        $path = ltrim($path, '/');
+
+        if (mb_strpos($path, '@admin/') === 0) {
+            $path = substr($path, strlen('@admin/'));
+        } elseif (mb_strpos($path, 'vendor/dcat-admin/') === 0) {
+            $path = substr($path, strlen('vendor/dcat-admin/'));
+        }
+
+        return in_array($path, [
+            'adminlte/adminlte.js',
+            'adminlte/adminlte.css',
+            'adminlte/adminlte-blue.css',
+            'adminlte/adminlte-blue-light.css',
+            'adminlte/adminlte-green.css',
+            'dcat/plugins/vendors.min.css',
+            'dcat/plugins/vendors-rtl.min.css',
+            'dcat/plugins/vendors.min.js',
+            'dcat/js/dcat-app.js',
+            'dcat/css/dcat-app.css',
+            'dcat/css/dcat-app-blue.css',
+            'dcat/css/dcat-app-blue-light.css',
+            'dcat/css/dcat-app-green.css',
+        ], true);
+    }
+
+    protected function isModernFacadeSourcePath(string $path)
+    {
+        $source = preg_split('/\?/', $path, 2)[0];
+
+        return $this->isModernFacadeSource($source);
+    }
+
+    protected function isNativeModernJavascript(string $path)
+    {
+        if (in_array($path, ['@dcat-compat', 'dcat-compat', '@sortable', '@apex-charts', '@moment', '@moment-timezone', '@tinymce'], true)) {
+            return true;
+        }
+
+        $path = str_replace('\\', '/', preg_split('/\?/', $path, 2)[0]);
+        $path = ltrim($path, '/');
+
+        if (mb_strpos($path, '@admin/') === 0) {
+            $path = substr($path, strlen('@admin/'));
+        } elseif (mb_strpos($path, 'vendor/dcat-admin/') === 0) {
+            $path = substr($path, strlen('vendor/dcat-admin/'));
+        }
+
+        // 这些第一方资源由对应 compat adapter 管理，无需再加载通用运行时。
+        return in_array($path, [
+            'dcat/plugins/sortable/Sortable.min.js',
+            'dcat/plugins/charts/apexcharts.min.js',
+            'dcat/plugins/moment/moment-with-locales.min.js',
+            'dcat/plugins/moment-timezone/moment-timezone-with-data.min.js',
+            'dcat/plugins/tinymce/tinymce.min.js',
+        ], true);
+    }
+
+    protected function needsCompatRuntime()
+    {
+        $scripts = implode("\n", array_merge($this->script, $this->directScript));
+
+        return $this->inlineCompat || $this->scriptNeedsCompat($scripts);
+    }
+
+    protected function scriptNeedsCompat(string $script)
+    {
+        return (bool) preg_match('/(?:\$\s*\(|\bjQuery\b|\.modal\s*\(|\.dropdown\s*\(|\.popover\s*\(|\.tooltip\s*\(|\.validator\s*\(|\.form\s*\(|Dcat\.(?:Slider|Form|DialogForm|RowSelector)|Dcat\.helpers\.(?:asyncRender|loadFields))/m', $script);
+    }
+
     /**
      * 合并基础css脚本.
      */
     protected function mergeBaseCss()
     {
         if ($this->isPjax()) {
+            return;
+        }
+
+        if ($this->isModernRequest()) {
+            $this->css = array_merge((array) $this->fonts, [
+                '@admin/fonts/feather/iconfont.css',
+                '@admin/fonts/font-awesome/css/font-awesome.css',
+            ], $this->css);
             return;
         }
 
@@ -665,6 +873,16 @@ class Asset
         $this->mergeBaseCss();
 
         $html = '';
+        $preloadedModernStyles = [];
+        if ($this->isModernRequest()) {
+            $assets = Admin::modern()->manifest()->assets();
+            foreach ((array) ($assets['css'] ?? []) as $css) {
+                $url = $this->url('@admin/modern/'.ltrim($css, '/'));
+                if ($url) {
+                    $preloadedModernStyles[$url] = true;
+                }
+            }
+        }
 
         foreach (array_unique($this->css) as &$v) {
             if (! $paths = $this->get($v, 'css')) {
@@ -672,6 +890,10 @@ class Asset
             }
 
             foreach ((array) $paths as $path) {
+                if (! $path || isset($preloadedModernStyles[$path]) || isset($this->renderedStylesheets[$path])) {
+                    continue;
+                }
+                $this->renderedStylesheets[$path] = true;
                 $html .= "<link rel=\"stylesheet\" href=\"{$this->withVersionQuery($path)}\">";
             }
         }
@@ -703,6 +925,10 @@ class Asset
             return;
         }
 
+        if ($this->isModernRequest()) {
+            return;
+        }
+
         $this->js = array_merge($this->baseJs, $this->js);
     }
 
@@ -711,6 +937,11 @@ class Asset
      */
     public function jsToHtml()
     {
+        if ($this->isModernRequest() && $this->needsCompatRuntime()) {
+            $compat = $this->getAlias('@dcat-compat');
+            $this->js($compat['js']);
+        }
+
         $this->mergeBaseJs();
 
         $html = '';
@@ -721,6 +952,10 @@ class Asset
             }
 
             foreach ((array) $paths as $path) {
+                if (! $path || isset($this->renderedScripts[$path])) {
+                    continue;
+                }
+                $this->renderedScripts[$path] = true;
                 $html .= "<script src=\"{$this->withVersionQuery($path)}\"></script>";
             }
         }
@@ -733,14 +968,31 @@ class Asset
      */
     public function headerJsToHtml()
     {
+        $scripts = $this->headerJs;
+        if ($this->isModernRequest()) {
+            foreach (['vendors' => '@vendors', 'dcat' => '@dcat'] as $key => $default) {
+                if (($scripts[$key] ?? null) === $default) {
+                    unset($scripts[$key]);
+                }
+            }
+            if ($this->inlineCompat || $this->containsLegacyJavascript($scripts)) {
+                $compat = $this->getAlias('@dcat-compat');
+                $scripts = array_merge((array) $compat['js'], $scripts);
+            }
+        }
+
         $html = '';
 
-        foreach (array_unique($this->headerJs) as &$v) {
+        foreach (array_unique($scripts) as &$v) {
             if (! $paths = $this->get($v, 'js')) {
                 continue;
             }
 
             foreach ((array) $paths as $path) {
+                if (! $path || isset($this->renderedScripts[$path])) {
+                    continue;
+                }
+                $this->renderedScripts[$path] = true;
                 $html .= "<script src=\"{$this->withVersionQuery($path)}\"></script>";
             }
         }

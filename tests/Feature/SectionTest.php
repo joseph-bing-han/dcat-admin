@@ -2,17 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
 /**
  * Section功能测试.
  *
  * @group section
  */
-class SectionTest extends TestCase
+class SectionTest extends FeatureTestCase
 {
-    protected $login = false;
-
     public function testInjectValues()
     {
         // view

@@ -170,6 +170,9 @@ class Tab extends Widget
             $this->data,
             ['attributes' => $this->formatHtmlAttributes()]
         );
+        $data['isTabList'] = empty($data['dropDown']) && ! array_filter($data['tabs'], function ($tab) {
+            return $tab['type'] !== static::TYPE_CONTENT;
+        });
 
         $this->setupScript();
 

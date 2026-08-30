@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ Dcat\Admin\Admin::modern()->runtimeAvailable() ? 'dcat-modern-root' : '' }}">
 
 <head>
     <meta charset="utf-8">
@@ -18,9 +18,21 @@
         <link rel="shortcut icon" href="{{ $favicon }}">
     @endif
 
-    {!! admin_section(Dcat\Admin\Admin::SECTION['HEAD']) !!}
+    @php
+        $headSectionHtml = (string) admin_section(Dcat\Admin\Admin::SECTION['HEAD']);
+        Dcat\Admin\Admin::asset()->prepareHtml($headSectionHtml);
+        $modernHead = Dcat\Admin\Admin::modern()->runtimeAvailable();
+    @endphp
 
-    {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
+    @if($modernHead)
+        {!! Dcat\Admin\Admin::modern()->headHtml() !!}
+        {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
+        {!! $headSectionHtml !!}
+    @else
+        {!! $headSectionHtml !!}
+        {!! Dcat\Admin\Admin::modern()->headHtml() !!}
+        {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
+    @endif
 
     {!! Dcat\Admin\Admin::asset()->cssToHtml() !!}
 </head>

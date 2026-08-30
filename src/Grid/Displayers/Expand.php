@@ -13,6 +13,11 @@ class Expand extends AbstractDisplayer
 
     protected static $counter = 0;
 
+    protected $modernResolvedHtml;
+    protected $modernResolvedUrl = '';
+    protected $modernResolvedButton;
+    protected $modernResolvedDataKey;
+
     public function button($button)
     {
         $this->button = $button;
@@ -48,14 +53,43 @@ class Expand extends AbstractDisplayer
         }
 
         $button = is_null($this->button) ? $this->value : $this->button;
+        $dataKey = $this->getDataKey();
+
+        $this->modernResolvedHtml = $html;
+        $this->modernResolvedUrl = $remoteUrl;
+        $this->modernResolvedButton = $button;
+        $this->modernResolvedDataKey = $dataKey;
 
         return Admin::view('admin::grid.displayer.expand', [
             'key'     => $this->getKey(),
             'url'     => $remoteUrl,
             'button'  => $button,
             'html'    => $html,
-            'dataKey' => $this->getDataKey(),
+            'dataKey' => $dataKey,
         ]);
+    }
+
+    public function modernPayload(...$arguments)
+    {
+        // Remote/LazyRenderable expansion keeps the historical async-render
+        // lifecycle inside a cell compat island until B5/B9 own that protocol.
+        if ($this->modernResolvedUrl !== '') {
+            return null;
+        }
+
+        $button = $this->modernText($this->modernResolvedButton);
+        $content = $this->modernText($this->modernResolvedHtml);
+        if ($button === null || $content === null) {
+            return null;
+        }
+
+        return [
+            'kind' => 'expand',
+            'button' => $button,
+            'content' => $content,
+            'rowKey' => (string) $this->getKey(),
+            'dataKey' => (string) $this->modernResolvedDataKey,
+        ];
     }
 
     protected function getDataKey()

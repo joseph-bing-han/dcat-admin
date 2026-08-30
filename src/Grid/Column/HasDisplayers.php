@@ -29,12 +29,21 @@ trait HasDisplayers
         $grid = $this->grid;
 
         $column = $this;
+        $callbackIndex = count($column->getDisplayCallbacks());
+        $column->registerModernDisplayer($callbackIndex, $abstract, $arguments);
 
-        return $this->display(function ($value) use ($grid, $column, $abstract, $arguments) {
+        return $this->display(function ($value) use ($grid, $column, $abstract, $arguments, $callbackIndex) {
             /** @var AbstractDisplayer $displayer */
             $displayer = new $abstract($value, $grid, $column, $this);
+            $rendered = $displayer->display(...$arguments);
 
-            return $displayer->display(...$arguments);
+            $column->recordModernCellPayload(
+                null,
+                $callbackIndex,
+                $displayer->modernPayload(...$arguments)
+            );
+
+            return $rendered;
         });
     }
 

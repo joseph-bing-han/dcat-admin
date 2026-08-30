@@ -101,6 +101,11 @@ class Row implements Arrayable
         return $this;
     }
 
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
     /**
      * Set style of the row.
      *

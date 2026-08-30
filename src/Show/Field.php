@@ -103,6 +103,13 @@ class Field implements Renderable
     protected $fieldClass = [];
 
     /**
+     * Stable slot id used by the Modern Show renderer for field-scoped compat.
+     *
+     * @var string|null
+     */
+    protected $modernSlotId;
+
+    /**
      * Field constructor.
      *
      * @param string $name
@@ -221,6 +228,50 @@ class Field implements Renderable
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function markModernSlot(string $slotId)
+    {
+        $this->modernSlotId = $slotId;
+
+        return $this;
+    }
+
+    public function modernSlotId()
+    {
+        return $this->modernSlotId;
+    }
+
+    /**
+     * Declarative metadata for the payload-first Show renderer.
+     *
+     * Only the default escaped field with no formatter callback is eligible
+     * for native ownership. Everything else stays a field-scoped compat slot.
+     */
+    public function modernViewData()
+    {
+        $value = $this->value();
+        $stringable = is_object($value) && method_exists($value, '__toString');
+        $label = (string) $this->getLabel();
+        $native = $this->view === 'admin::show.field'
+            && $this->showAs->isEmpty()
+            && $this->escape
+            && $label === strip_tags($label)
+            && ($value === null || is_scalar($value) || $stringable);
+
+        return [
+            'slotId' => (string) $this->modernSlotId,
+            'name' => (string) $this->getName(),
+            'label' => trim(html_entity_decode(strip_tags($label), ENT_QUOTES, 'UTF-8')),
+            'value' => $native && $value !== null ? (string) $value : ($value === null ? '' : null),
+            'renderer' => $native ? 'native' : 'compat',
+            'slotCompatible' => $this->view === 'admin::show.field',
+            'wrapped' => (bool) $this->border,
+            'width' => $this->width,
+            'offset' => (int) $this->offset,
+            'labelClass' => $this->getLabelClass(),
+            'fieldClass' => $this->getFieldClass(),
+        ];
     }
 
     /**
@@ -786,6 +837,7 @@ HTML;
             'width' => $this->width,
             'labelClass' => $this->getLabelClass(),
             'fieldClass' => $this->getFieldClass(),
+            'modernShowSlot' => $this->modernSlotId(),
         ];
     }
 

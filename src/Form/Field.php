@@ -206,6 +206,13 @@ class Field implements Renderable
     protected $display = true;
 
     /**
+     * Whether this field is owned by a Modern payload-first native renderer.
+     *
+     * @var bool
+     */
+    protected $modernNative = false;
+
+    /**
      * @var array
      */
     protected $labelClass = ['text-capitalize'];
@@ -1140,6 +1147,74 @@ class Field implements Renderable
     }
 
     /**
+     * Stable server-side metadata used by the Modern Form ViewModel.
+     *
+     * This deliberately exposes declarative field state rather than rendered
+     * Blade HTML so native controls do not need to reverse-parse legacy DOM.
+     */
+    public function modernViewData()
+    {
+        $options = $this->options;
+        $conditions = property_exists($this, 'conditions') ? (array) $this->conditions : [];
+        $groups = property_exists($this, 'groups') ? (array) $this->groups : [];
+        $format = property_exists($this, 'format') ? (string) $this->format : null;
+        $affixes = method_exists($this, 'modernInputAffixes') ? (array) $this->modernInputAffixes() : [];
+
+        return [
+            'name' => $this->getElementName(),
+            'value' => $this->value(),
+            'attributes' => $this->attributes,
+            'options' => $options instanceof \Closure ? null : Helper::array($options),
+            'dynamicOptions' => $options instanceof \Closure,
+            'groups' => $groups,
+            'format' => $format,
+            'affixes' => $affixes,
+            'dynamicBehavior' => $options instanceof \Closure
+                || ! empty($conditions)
+                || ! empty($this->variables['loads'])
+                || ! empty($this->variables['ajax'])
+                || ! empty($this->variables['remoteOptions']),
+            'hasCustomScript' => trim((string) $this->script) !== '',
+            'hasDisplayCallback' => property_exists($this, 'callback') && $this->callback instanceof \Closure,
+            'help' => $this->help,
+            'placeholder' => $this->placeholder(),
+            'viewClass' => $this->getViewElementClasses(),
+            'elementClass' => $this->getElementClassString(),
+            'formGroupClass' => $this->getFormGroupClass(),
+            'errorKey' => $this->getErrorKey(),
+            'required' => $this->hasRule('required') || $this->hasAttribute('required'),
+        ];
+    }
+
+    public function markModernNative(bool $native = true)
+    {
+        $this->modernNative = $native;
+
+        return $this;
+    }
+
+    public function isModernNative()
+    {
+        return $this->modernNative;
+    }
+
+    /**
+     * Backward-compatible internal alias retained for B6-era callers.
+     */
+    public function markModernNativeBasic(bool $native = true)
+    {
+        return $this->markModernNative($native);
+    }
+
+    /**
+     * Backward-compatible internal alias retained for B6-era callers.
+     */
+    public function isModernNativeBasic()
+    {
+        return $this->isModernNative();
+    }
+
+    /**
      * Get the view variables of this field.
      *
      * @return array
@@ -1161,6 +1236,7 @@ class Field implements Renderable
             'formId'      => $this->getFormElementId(),
             'selector'    => $this->getElementClassSelector(),
             'options'     => $this->options,
+            'modernNative' => $this->isModernNative(),
         ];
     }
 
@@ -1317,6 +1393,14 @@ class Field implements Renderable
     {
         if (! $this->shouldRender()) {
             return '';
+        }
+
+        if (
+            Admin::modern()->available('form')
+            && Admin::modern()->capabilityEnabled('form.basic')
+            && ! $this->isModernNative()
+        ) {
+            static::requireAssets();
         }
 
         $this->setDefaultClass();

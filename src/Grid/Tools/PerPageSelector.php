@@ -72,7 +72,9 @@ class PerPageSelector implements Renderable
      */
     public function render()
     {
-        Admin::script($this->script());
+        if (! (Admin::modern()->available('grid') && Admin::modern()->capabilityEnabled('grid.read'))) {
+            Admin::script($this->script());
+        }
 
         $options = $this->getOptions()->map(function ($option) {
             $url = app('request')->fullUrlWithQuery([$this->perPageName => $option]);
@@ -82,8 +84,13 @@ class PerPageSelector implements Renderable
 
         $dropdown = Dropdown::make($options)
             ->up()
-            ->button($this->perPage)
-            ->render();
+            ->button($this->perPage);
+
+        if (Admin::modern()->available('grid') && Admin::modern()->capabilityEnabled('grid.read')) {
+            $dropdown->modernOwnedToggle();
+        }
+
+        $dropdown = $dropdown->render();
 
         return <<<EOT
 <label class="pull-right d-none d-sm-inline per-pages-selector" style="margin-right: 10px">

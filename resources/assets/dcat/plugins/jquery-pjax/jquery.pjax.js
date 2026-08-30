@@ -285,6 +285,14 @@ function pjax(options) {
       return
     }
 
+    // 仅当 renderer 已知且一致时复用片段，模式变化需加载目标页 runtime。
+    var currentRenderer = pageRenderer($(document));
+    var destinationRenderer = pageRenderer(container.contents);
+    if (!currentRenderer || currentRenderer !== destinationRenderer) {
+      locationReplace(container.url);
+      return
+    }
+
     pjax.state = {
       id: options.id || uniqueId(),
       url: container.url,
@@ -679,6 +687,11 @@ function findAll(elems, selector) {
   return elems.filter(selector).add(elems.find(selector))
 }
 
+function pageRenderer(contents) {
+  var renderer = findAll(contents, '[data-dcat-modern-page-config]').first().attr('data-dcat-r');
+  return /^(1|0|2)$/.test(renderer || '') ? renderer : null
+}
+
 function parseHTML(html) {
   return $.parseHTML(html, document, true)
 }
@@ -866,7 +879,8 @@ function enable() {
     maxCacheLength: 20,
     version: findVersion
   };
-  $(window).on('popstate.pjax', onPjaxPopstate)
+  $(window).on('popstate.pjax', onPjaxPopstate);
+  $.pjax._dcatPopstateHandlerActive = true
 }
 
 // Disable pushState behavior.
@@ -889,7 +903,8 @@ function disable() {
   $.pjax.submit = $.noop;
   $.pjax.reload = function() { window.location.reload() };
 
-  $(window).off('popstate.pjax', onPjaxPopstate)
+  $(window).off('popstate.pjax', onPjaxPopstate);
+  $.pjax._dcatPopstateHandlerActive = false
 }
 
 

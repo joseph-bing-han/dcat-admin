@@ -1,0 +1,6096 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "4.0.0",
+  "generatedAt": "2026-09-04",
+  "generator": "scripts/view-modernization-coverage.js",
+  "inventory": {
+    "blade": 140,
+    "form-field": 68,
+    "grid-displayer": 28,
+    "grid-filter": 36,
+    "widget": 31
+  },
+  "visibleCount": 296,
+  "fixtureRule": "Every visible entry must map to a real browser fixture route and stable browser test id before promotion.",
+  "entries": [
+    {
+      "id": "blade:resources/views/dashboard/dependencies.blade.php",
+      "type": "blade",
+      "path": "resources/views/dashboard/dependencies.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/dashboard/dependencies.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/dashboard/environment.blade.php",
+      "type": "blade",
+      "path": "resources/views/dashboard/environment.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/dashboard/environment.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/dashboard/extensions.blade.php",
+      "type": "blade",
+      "path": "resources/views/dashboard/extensions.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/dashboard/extensions.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/dashboard/title.blade.php",
+      "type": "blade",
+      "path": "resources/views/dashboard/title.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/dashboard/title.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@admin",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/filter/between-datetime.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/between-datetime.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/between-datetime.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@bootstrap-datetimepicker",
+        "@moment"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/between.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/between.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/between.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/button.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/button.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/button.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/checkbox.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/checkbox.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/checkbox.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/container.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/container.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/container.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [
+        ".grid-filter-form",
+        "[pjax-container]"
+      ],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/datetime.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/datetime.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/datetime.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@bootstrap-datetimepicker",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@moment"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/gt.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/gt.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/gt.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/lt.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/lt.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/lt.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/multipleselect.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/multipleselect.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/multipleselect.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include",
+        "@select2",
+        "@yield"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/radio.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/radio.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/radio.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/right-side-container.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/right-side-container.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/right-side-container.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [
+        ".grid-filter-form",
+        "[pjax-container]"
+      ],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/select.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/select.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/select.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include",
+        "@select2",
+        "@yield"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/selecttable.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/selecttable.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/selecttable.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/simple-container.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/simple-container.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/simple-container.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [
+        ".grid-filter-form",
+        "[pjax-container]"
+      ],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/text.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/text.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/text.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/filter/where.blade.php",
+      "type": "blade",
+      "path": "resources/views/filter/where.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/filter/where.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/form/autocomplete.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/autocomplete.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/autocomplete.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@autocomplete",
+        "@else",
+        "@endif",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/button.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/button.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/button.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/captcha.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/captcha.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/captcha.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/checkbox.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/checkbox.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/checkbox.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/color.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/color.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/color.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@color",
+        "@endif",
+        "@endunless",
+        "@if",
+        "@include",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/container.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/container.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/container.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/daterange.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/daterange.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/daterange.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@bootstrap-datetimepicker",
+        "@endisset",
+        "@endunless",
+        "@include",
+        "@isset",
+        "@moment",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/datetimerange.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/datetimerange.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/datetimerange.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@bootstrap-datetimepicker",
+        "@endisset",
+        "@endunless",
+        "@include",
+        "@isset",
+        "@moment",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/display.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/display.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/display.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/editor.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/editor.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/editor.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include",
+        "@tinymce"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/embeds.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/embeds.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/embeds.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/error.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/error.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/error.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/fields.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/fields.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/fields.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@elseif",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/file.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/file.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/file.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include",
+        "@primary",
+        "@webuploader"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/footer.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/footer.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/footer.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@elseif",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/hasmany.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/hasmany.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/hasmany.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form/has-many",
+      "browserTestId": "form-has-many"
+    },
+    {
+      "id": "blade:resources/views/form/hasmanytab.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/hasmanytab.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/hasmanytab.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form/has-many",
+      "browserTestId": "form-has-many"
+    },
+    {
+      "id": "blade:resources/views/form/hasmanytable.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/hasmanytable.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/hasmanytable.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@continue",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form/has-many",
+      "browserTestId": "form-has-many"
+    },
+    {
+      "id": "blade:resources/views/form/help-block.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/help-block.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/help-block.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/hidden.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/hidden.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/hidden.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/iconbutton.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/iconbutton.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/iconbutton.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/id.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/id.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/id.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/input.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/input.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/input.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/keyvalue.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/keyvalue.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/keyvalue.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/listbox.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/listbox.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/listbox.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endunless",
+        "@foreach",
+        "@include",
+        "@jquery.bootstrap-duallistbox",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/listfield.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/listfield.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/listfield.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/map.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/map.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/map.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/markdown.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/markdown.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/markdown.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@editor-md-form",
+        "@include"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form/markdown",
+      "browserTestId": "form-markdown"
+    },
+    {
+      "id": "blade:resources/views/form/multipleselect.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/multipleselect.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/multipleselect.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endunless",
+        "@foreach",
+        "@include",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/number.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/number.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/number.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@endunless",
+        "@if",
+        "@include",
+        "@number-input",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/radio.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/radio.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/radio.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/range.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/range.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/range.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/rate.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/rate.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/rate.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/row.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/row.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/row.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/select-script.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/select-script.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/select-script.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if",
+        "@include",
+        "@select2",
+        "@yield"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/select.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/select.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/select.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endunless",
+        "@foreach",
+        "@if",
+        "@include",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/selecttable.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/selecttable.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/selecttable.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include",
+        "@select-table"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/slider.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/slider.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/slider.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include",
+        "@ionslider"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/switchfield.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/switchfield.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/switchfield.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endunless",
+        "@include",
+        "@switchery",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/tab.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/tab.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/tab.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/tags.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/tags.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/tags.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include",
+        "@select2"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/textarea.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/textarea.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/textarea.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/timerange.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/timerange.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/timerange.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@bootstrap-datetimepicker",
+        "@endisset",
+        "@endunless",
+        "@include",
+        "@isset",
+        "@moment",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/form/tree.blade.php",
+      "type": "blade",
+      "path": "resources/views/form/tree.blade.php",
+      "family": "Form",
+      "serverEntry": "resources/views/form/tree.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@include",
+        "@jstree"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core"
+    },
+    {
+      "id": "blade:resources/views/grid/async-fixed-table.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/async-fixed-table.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/async-fixed-table.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/async-table.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/async-table.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/async-table.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/batch-actions.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/batch-actions.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/batch-actions.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endunless",
+        "@foreach",
+        "@if",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/column-selector.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/column-selector.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/column-selector.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endunless",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/dialogtree.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/dialogtree.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/dialogtree.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@jstree"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/editinline/checkbox.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/editinline/checkbox.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/editinline/checkbox.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endsection",
+        "@extends",
+        "@section"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/editinline/input.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/editinline/input.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/editinline/input.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@endsection",
+        "@extends",
+        "@if",
+        "@section"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/editinline/radio.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/editinline/radio.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/editinline/radio.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endsection",
+        "@extends",
+        "@section"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/editinline/template.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/editinline/template.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/editinline/template.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@primary",
+        "@yield"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/editinline/textarea.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/editinline/textarea.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/editinline/textarea.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endsection",
+        "@extends",
+        "@section"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/expand.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/expand.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/expand.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/extensions/description.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/extensions/description.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/extensions/description.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/extensions/name.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/extensions/name.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/extensions/name.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/select.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/select.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/select.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endphp",
+        "@foreach",
+        "@php",
+        "@select2"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/switch.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/switch.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/switch.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@switchery"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/switchgroup.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/switchgroup.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/switchgroup.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endphp",
+        "@foreach",
+        "@php",
+        "@switchery"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/displayer/table.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/displayer/table.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/displayer/table.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/dropdown-actions.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/dropdown-actions.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/dropdown-actions.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/fixed-table.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/fixed-table.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/fixed-table.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@include",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/image.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/image.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/image.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/pagination.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/pagination.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/pagination.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/date.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/date.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/date.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/form.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/form.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/form.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/multipleselect.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/multipleselect.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/multipleselect.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/select.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/select.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/select.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/selectresource.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/selectresource.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/selectresource.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/tags.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/tags.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/tags.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@foreach"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-create/text.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-create/text.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-create/text.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/quick-search.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/quick-search.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/quick-search.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [
+        ".quick-search-form",
+        "[pjax-container]"
+      ],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/selector.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/selector.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/selector.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/table-pagination.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/table-pagination.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/table-pagination.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/table-toolbar.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/table-toolbar.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/table-toolbar.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/grid/table.blade.php",
+      "type": "blade",
+      "path": "resources/views/grid/table.blade.php",
+      "family": "Grid",
+      "serverEntry": "resources/views/grid/table.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@include",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "blade:resources/views/helpers/feather.blade.php",
+      "type": "blade",
+      "path": "resources/views/helpers/feather.blade.php",
+      "family": "Extension",
+      "serverEntry": "resources/views/helpers/feather.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/helpers/font-awesome.blade.php",
+      "type": "blade",
+      "path": "resources/views/helpers/font-awesome.blade.php",
+      "family": "Extension",
+      "serverEntry": "resources/views/helpers/font-awesome.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/helpers/scaffold.blade.php",
+      "type": "blade",
+      "path": "resources/views/helpers/scaffold.blade.php",
+      "family": "Extension",
+      "serverEntry": "resources/views/helpers/scaffold.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [
+        "[pjax-container]"
+      ],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/layouts/container.blade.php",
+      "type": "blade",
+      "path": "resources/views/layouts/container.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/layouts/container.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [
+        ".content-wrapper",
+        ".main-footer"
+      ],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@include",
+        "@php",
+        "@yield"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/layouts/content.blade.php",
+      "type": "blade",
+      "path": "resources/views/layouts/content.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/layouts/content.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [
+        "#app",
+        ".content-body"
+      ],
+      "resourceAliases": [
+        "@else",
+        "@elseif",
+        "@endif",
+        "@endphp",
+        "@endsection",
+        "@if",
+        "@include",
+        "@php",
+        "@section",
+        "@yield"
+      ],
+      "nativeStatus": "payload-first",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/layouts/form-content.blade.php",
+      "type": "blade",
+      "path": "resources/views/layouts/form-content.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/layouts/form-content.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endsection",
+        "@section",
+        "@yield"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/layouts/full-content.blade.php",
+      "type": "blade",
+      "path": "resources/views/layouts/full-content.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/layouts/full-content.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [
+        "#app",
+        ".content-body"
+      ],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endsection",
+        "@if",
+        "@include",
+        "@section",
+        "@yield"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/layouts/full-page.blade.php",
+      "type": "blade",
+      "path": "resources/views/layouts/full-page.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/layouts/full-page.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php",
+        "@yield"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/layouts/page.blade.php",
+      "type": "blade",
+      "path": "resources/views/layouts/page.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/layouts/page.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endphp",
+        "@extends",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/pages/login.blade.php",
+      "type": "blade",
+      "path": "resources/views/pages/login.blade.php",
+      "family": "System",
+      "serverEntry": "resources/views/pages/login.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@endunless",
+        "@foreach",
+        "@if",
+        "@php",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/login",
+      "browserTestId": "auth-login"
+    },
+    {
+      "id": "blade:resources/views/partials/alerts.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/alerts.blade.php",
+      "family": "System",
+      "serverEntry": "resources/views/partials/alerts.blade.php",
+      "visible": false,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@elseif",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@include",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "blade:resources/views/partials/breadcrumb.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/breadcrumb.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/breadcrumb.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@elseif",
+        "@endfor",
+        "@endforeach",
+        "@endif",
+        "@for",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/exception.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/exception.blade.php",
+      "family": "System",
+      "serverEntry": "resources/views/partials/exception.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "system-pages"
+    },
+    {
+      "id": "blade:resources/views/partials/menu.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/menu.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/menu.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "adminlte"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@include",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/modern-alert.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/modern-alert.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/modern-alert.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/navbar-user-panel.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/navbar-user-panel.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/navbar-user-panel.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/navbar.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/navbar.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/navbar.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "adminlte"
+      ],
+      "stableSelectors": [
+        ".header-navbar"
+      ],
+      "resourceAliases": [
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/sidebar-user-panel.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/sidebar-user-panel.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/sidebar-user-panel.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/sidebar.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/sidebar.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/sidebar.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "adminlte"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "payload-first-partial",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/partials/toastr.blade.php",
+      "type": "blade",
+      "path": "resources/views/partials/toastr.blade.php",
+      "family": "Layout",
+      "serverEntry": "resources/views/partials/toastr.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@endphp",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "layout-shell"
+    },
+    {
+      "id": "blade:resources/views/scripts/select.blade.php",
+      "type": "blade",
+      "path": "resources/views/scripts/select.blade.php",
+      "family": "Extension",
+      "serverEntry": "resources/views/scripts/select.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if",
+        "@overwrite",
+        "@section"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/extensions",
+      "browserTestId": "extension-surface"
+    },
+    {
+      "id": "blade:resources/views/show/container.blade.php",
+      "type": "blade",
+      "path": "resources/views/show/container.blade.php",
+      "family": "Show",
+      "serverEntry": "resources/views/show/container.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users/1",
+      "browserTestId": "show-detail"
+    },
+    {
+      "id": "blade:resources/views/show/field.blade.php",
+      "type": "blade",
+      "path": "resources/views/show/field.blade.php",
+      "family": "Show",
+      "serverEntry": "resources/views/show/field.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users/1",
+      "browserTestId": "show-detail"
+    },
+    {
+      "id": "blade:resources/views/show/panel.blade.php",
+      "type": "blade",
+      "path": "resources/views/show/panel.blade.php",
+      "family": "Show",
+      "serverEntry": "resources/views/show/panel.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users/1",
+      "browserTestId": "show-detail"
+    },
+    {
+      "id": "blade:resources/views/show/row.blade.php",
+      "type": "blade",
+      "path": "resources/views/show/row.blade.php",
+      "family": "Show",
+      "serverEntry": "resources/views/show/row.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users/1",
+      "browserTestId": "show-detail"
+    },
+    {
+      "id": "blade:resources/views/tree/branch.blade.php",
+      "type": "blade",
+      "path": "resources/views/tree/branch.blade.php",
+      "family": "Tree",
+      "serverEntry": "resources/views/tree/branch.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "adminlte"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/components/tree",
+      "browserTestId": "tree-page"
+    },
+    {
+      "id": "blade:resources/views/tree/container.blade.php",
+      "type": "blade",
+      "path": "resources/views/tree/container.blade.php",
+      "family": "Tree",
+      "serverEntry": "resources/views/tree/container.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@endunless",
+        "@foreach",
+        "@if",
+        "@include",
+        "@jquery.nestable",
+        "@php",
+        "@unless"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/components/tree",
+      "browserTestId": "tree-page"
+    },
+    {
+      "id": "blade:resources/views/widgets/alert.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/alert.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/alert.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/box.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/box.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/box.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/card.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/card.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/card.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/checkbox.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/checkbox.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/checkbox.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/data-card.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/data-card.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/data-card.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/data-card/chart.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/data-card/chart.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/data-card/chart.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/data-card/line-chart.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/data-card/line-chart.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/data-card/line-chart.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/dialogtable.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/dialogtable.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/dialogtable.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/dropdown.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/dropdown.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/dropdown.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endif",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/form.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/form.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/form.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@else",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if",
+        "@include"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/markdown.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/markdown.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/markdown.blade.php",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@editor-md"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/metrics/card.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/metrics/card.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/metrics/card.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/radio.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/radio.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/radio.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@endphp",
+        "@foreach",
+        "@if",
+        "@php"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/tab.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/tab.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/tab.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@elseif",
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/table.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/table.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/table.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@endforeach",
+        "@endif",
+        "@foreach",
+        "@if"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "blade:resources/views/widgets/tree.blade.php",
+      "type": "blade",
+      "path": "resources/views/widgets/tree.blade.php",
+      "family": "Widget",
+      "serverEntry": "resources/views/widgets/tree.blade.php",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@jstree"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "form-field:src/Form/Field/ArrayField.php",
+      "type": "form-field",
+      "path": "src/Form/Field/ArrayField.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\ArrayField",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Autocomplete.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Autocomplete.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Autocomplete",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Button.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Button.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Button",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/CanCascadeFields.php",
+      "type": "form-field",
+      "path": "src/Form/Field/CanCascadeFields.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\CanCascadeFields",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@property",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/CanLoadFields.php",
+      "type": "form-field",
+      "path": "src/Form/Field/CanLoadFields.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\CanLoadFields",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Captcha.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Captcha.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Captcha",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/CascadeGroup.php",
+      "type": "form-field",
+      "path": "src/Form/Field/CascadeGroup.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\CascadeGroup",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Checkbox.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Checkbox.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Checkbox",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Color.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Color.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Color",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Currency.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Currency.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Currency",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Date.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Date.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Date",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-plugin"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@bootstrap-datetimepicker",
+        "@moment"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/DateRange.php",
+      "type": "form-field",
+      "path": "src/Form/Field/DateRange.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\DateRange",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritDoc"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Datetime.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Datetime.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Datetime",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/DatetimeRange.php",
+      "type": "form-field",
+      "path": "src/Form/Field/DatetimeRange.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\DatetimeRange",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Decimal.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Decimal.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Decimal",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Display.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Display.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Display",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Divide.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Divide.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Divide",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Editor.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Editor.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Editor",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@see"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Email.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Email.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Email",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Embeds.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Embeds.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Embeds",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Fieldset.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Fieldset.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Fieldset",
+      "visible": false,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "form-field:src/Form/Field/File.php",
+      "type": "form-field",
+      "path": "src/Form/Field/File.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\File",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritDoc",
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/HasDepends.php",
+      "type": "form-field",
+      "path": "src/Form/Field/HasDepends.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\HasDepends",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/HasMany.php",
+      "type": "form-field",
+      "path": "src/Form/Field/HasMany.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\HasMany",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@author",
+        "@param",
+        "@return",
+        "@throws",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Head.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Head.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Head",
+      "visible": false,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "form-field:src/Form/Field/Hidden.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Hidden.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Hidden",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Html.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Html.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Html",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Icon.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Icon.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Icon",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@fontawesome-iconpicker"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Id.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Id.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Id",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Image.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Image.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Image",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@method",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/ImageField.php",
+      "type": "form-field",
+      "path": "src/Form/Field/ImageField.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\ImageField",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@throws",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Ip.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Ip.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Ip",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/KeyValue.php",
+      "type": "form-field",
+      "path": "src/Form/Field/KeyValue.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\KeyValue",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/ListField.php",
+      "type": "form-field",
+      "path": "src/Form/Field/ListField.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\ListField",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Listbox.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Listbox.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Listbox",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-plugin"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@see"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Map.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Map.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Map",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Markdown.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Markdown.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Markdown",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@admin",
+        "@editor-md-form.",
+        "@param",
+        "@return",
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Mobile.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Mobile.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Mobile",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Month.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Month.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Month",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/MultipleFile.php",
+      "type": "form-field",
+      "path": "src/Form/Field/MultipleFile.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\MultipleFile",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/MultipleImage.php",
+      "type": "form-field",
+      "path": "src/Form/Field/MultipleImage.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\MultipleImage",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/MultipleSelect.php",
+      "type": "form-field",
+      "path": "src/Form/Field/MultipleSelect.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\MultipleSelect",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/MultipleSelectTable.php",
+      "type": "form-field",
+      "path": "src/Form/Field/MultipleSelectTable.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\MultipleSelectTable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@select2",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Nullable.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Nullable.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Nullable",
+      "visible": false,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "form-field:src/Form/Field/Number.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Number.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Number",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritDoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Password.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Password.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Password",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/PlainInput.php",
+      "type": "form-field",
+      "path": "src/Form/Field/PlainInput.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\PlainInput",
+      "visible": false,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "form-field:src/Form/Field/Radio.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Radio.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Radio",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Range.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Range.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Range",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Rate.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Rate.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Rate",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Select.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Select.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Select",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/SelectTable.php",
+      "type": "form-field",
+      "path": "src/Form/Field/SelectTable.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\SelectTable",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@example",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Sizeable.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Sizeable.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Sizeable",
+      "visible": false,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "form-field:src/Form/Field/Slider.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Slider.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Slider",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/SwitchField.php",
+      "type": "form-field",
+      "path": "src/Form/Field/SwitchField.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\SwitchField",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Table.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Table.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Table",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Tags.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Tags.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Tags",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Tel.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Tel.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Tel",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Text.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Text.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Text",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@jquery.inputmask",
+        "@param",
+        "@return",
+        "@see"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Textarea.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Textarea.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Textarea",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Time.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Time.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Time",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/TimeRange.php",
+      "type": "form-field",
+      "path": "src/Form/Field/TimeRange.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\TimeRange",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Timezone.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Timezone.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Timezone",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Tree.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Tree.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Tree",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritDoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/UploadField.php",
+      "type": "form-field",
+      "path": "src/Form/Field/UploadField.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\UploadField",
+      "visible": false,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@throws",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": null,
+      "browserTestId": null
+    },
+    {
+      "id": "form-field:src/Form/Field/Url.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Url.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Url",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/WebUploader.php",
+      "type": "form-field",
+      "path": "src/Form/Field/WebUploader.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\WebUploader",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@property",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "form-field:src/Form/Field/Year.php",
+      "type": "form-field",
+      "path": "src/Form/Field/Year.php",
+      "family": "Form",
+      "serverEntry": "Dcat\\Admin\\Form\\Field\\Year",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-field-registry"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/AbstractDisplayer.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/AbstractDisplayer.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\AbstractDisplayer",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Actions.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Actions.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Actions",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Badge.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Badge.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Badge",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Button.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Button.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Button",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Checkbox.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Checkbox.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Checkbox",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/ContextMenuActions.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/ContextMenuActions.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\ContextMenuActions",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Copyable.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Copyable.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Copyable",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@see"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/DialogTree.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/DialogTree.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\DialogTree",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/components/tree",
+      "browserTestId": "tree-page"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Downloadable.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Downloadable.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Downloadable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/DropdownActions.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/DropdownActions.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\DropdownActions",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Editable.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Editable.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Editable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Expand.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Expand.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Expand",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Image.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Image.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Image",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Input.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Input.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Input",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@jquery.inputmask"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Label.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Label.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Label",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Limit.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Limit.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Limit",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Link.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Link.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Link",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Modal.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Modal.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Modal",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Orderable.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Orderable.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Orderable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@grid-extension"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/ProgressBar.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/ProgressBar.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\ProgressBar",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/QRCode.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/QRCode.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\QRCode",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@qrcode"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Radio.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Radio.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Radio",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Select.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Select.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Select",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/SwitchDisplay.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/SwitchDisplay.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\SwitchDisplay",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/SwitchGroup.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/SwitchGroup.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\SwitchGroup",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Table.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Table.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Table",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Textarea.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Textarea.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Textarea",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-core"
+    },
+    {
+      "id": "grid-displayer:src/Grid/Displayers/Tree.php",
+      "type": "grid-displayer",
+      "path": "src/Grid/Displayers/Tree.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Displayers\\Tree",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@grid-extension"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/components/tree",
+      "browserTestId": "tree-page"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/AbstractFilter.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/AbstractFilter.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\AbstractFilter",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@method",
+        "@param",
+        "@return",
+        "@throws",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Between.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Between.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Between",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Date.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Date.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Date",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Day.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Day.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Day",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/EndWith.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/EndWith.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\EndWith",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Equal.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Equal.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Equal",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/FindInSet.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/FindInSet.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\FindInSet",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Group.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Group.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Group",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Gt.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Gt.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Gt",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Hidden.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Hidden.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Hidden",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Ilike.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Ilike.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Ilike",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/In.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/In.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\In",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Layout/Column.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Layout/Column.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Layout\\Column",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Layout/Layout.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Layout/Layout.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Layout\\Layout",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Like.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Like.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Like",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Lt.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Lt.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Lt",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Month.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Month.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Month",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Newline.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Newline.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Newline",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Ngt.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Ngt.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Ngt",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Nlt.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Nlt.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Nlt",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/NotEqual.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/NotEqual.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\NotEqual",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/NotIn.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/NotIn.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\NotIn",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/Checkbox.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/Checkbox.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\Checkbox",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/DateTime.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/DateTime.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\DateTime",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/MultipleSelect.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/MultipleSelect.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\MultipleSelect",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/MultipleSelectTable.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/MultipleSelectTable.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\MultipleSelectTable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@select2",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/Presenter.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/Presenter.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\Presenter",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/Radio.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/Radio.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\Radio",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/Select.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/Select.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\Select",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/SelectTable.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/SelectTable.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\SelectTable",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@example",
+        "@param",
+        "@return",
+        "@select-table",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Presenter/Text.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Presenter/Text.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Presenter\\Text",
+      "visible": true,
+      "legacyDependencies": [
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@jquery.inputmask",
+        "@param",
+        "@return",
+        "@see",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Scope.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Scope.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Scope",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@mixin",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/StartWith.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/StartWith.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\StartWith",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Where.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Where.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Where",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/WhereBetween.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/WhereBetween.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\WhereBetween",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "grid-filter:src/Grid/Filter/Year.php",
+      "type": "grid-filter",
+      "path": "src/Grid/Filter/Year.php",
+      "family": "Grid",
+      "serverEntry": "Dcat\\Admin\\Grid\\Filter\\Year",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/auth/users",
+      "browserTestId": "grid-filters"
+    },
+    {
+      "id": "widget:src/Widgets/Alert.php",
+      "type": "widget",
+      "path": "src/Widgets/Alert.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Alert",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/ApexCharts/Chart.php",
+      "type": "widget",
+      "path": "src/Widgets/ApexCharts/Chart.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\ApexCharts\\Chart",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@apex-charts",
+        "@param",
+        "@return",
+        "@see"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Box.php",
+      "type": "widget",
+      "path": "src/Widgets/Box.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Box",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Callout.php",
+      "type": "widget",
+      "path": "src/Widgets/Callout.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Callout",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Card.php",
+      "type": "widget",
+      "path": "src/Widgets/Card.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Card",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Checkbox.php",
+      "type": "widget",
+      "path": "src/Widgets/Checkbox.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Checkbox",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Code.php",
+      "type": "widget",
+      "path": "src/Widgets/Code.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Code",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/DarkModeSwitcher.php",
+      "type": "widget",
+      "path": "src/Widgets/DarkModeSwitcher.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\DarkModeSwitcher",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/DialogForm.php",
+      "type": "widget",
+      "path": "src/Widgets/DialogForm.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\DialogForm",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/DialogTable.php",
+      "type": "widget",
+      "path": "src/Widgets/DialogTable.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\DialogTable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@example",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Dropdown.php",
+      "type": "widget",
+      "path": "src/Widgets/Dropdown.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Dropdown",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Dump.php",
+      "type": "widget",
+      "path": "src/Widgets/Dump.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Dump",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Form.php",
+      "type": "widget",
+      "path": "src/Widgets/Form.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Form",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [
+        "[pjax-container]"
+      ],
+      "resourceAliases": [
+        "@inheritdoc",
+        "@method",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Lazy.php",
+      "type": "widget",
+      "path": "src/Widgets/Lazy.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Lazy",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/LazyTable.php",
+      "type": "widget",
+      "path": "src/Widgets/LazyTable.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\LazyTable",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@grid-extension",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Markdown.php",
+      "type": "widget",
+      "path": "src/Widgets/Markdown.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Markdown",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/form/markdown",
+      "browserTestId": "form-markdown"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/Bar.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/Bar.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\Bar",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/Card.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/Card.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\Card",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/Donut.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/Donut.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\Donut",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/Line.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/Line.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\Line",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/RadialBar.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/RadialBar.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\RadialBar",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/Round.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/Round.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\Round",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Metrics/SingleRound.php",
+      "type": "widget",
+      "path": "src/Widgets/Metrics/SingleRound.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Metrics\\SingleRound",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Modal.php",
+      "type": "widget",
+      "path": "src/Widgets/Modal.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Modal",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@dcat-compat",
+        "@inheritdoc",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Radio.php",
+      "type": "widget",
+      "path": "src/Widgets/Radio.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Radio",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Tab.php",
+      "type": "widget",
+      "path": "src/Widgets/Tab.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Tab",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Table.php",
+      "type": "widget",
+      "path": "src/Widgets/Table.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Table",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Terminal.php",
+      "type": "widget",
+      "path": "src/Widgets/Terminal.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Terminal",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Tooltip.php",
+      "type": "widget",
+      "path": "src/Widgets/Tooltip.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Tooltip",
+      "visible": true,
+      "legacyDependencies": [
+        "bootstrap-class",
+        "jquery"
+      ],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "experimental",
+      "compatStatus": "required-until-native-or-facade-verified",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    },
+    {
+      "id": "widget:src/Widgets/Tree.php",
+      "type": "widget",
+      "path": "src/Widgets/Tree.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Tree",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@param",
+        "@return"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin/components/tree",
+      "browserTestId": "tree-page"
+    },
+    {
+      "id": "widget:src/Widgets/Widget.php",
+      "type": "widget",
+      "path": "src/Widgets/Widget.php",
+      "family": "Widget",
+      "serverEntry": "Dcat\\Admin\\Widgets\\Widget",
+      "visible": true,
+      "legacyDependencies": [],
+      "stableSelectors": [],
+      "resourceAliases": [
+        "@method",
+        "@param",
+        "@return",
+        "@var"
+      ],
+      "nativeStatus": "native-candidate",
+      "compatStatus": "candidate",
+      "fixtureRoute": "/admin",
+      "browserTestId": "widget-dashboard"
+    }
+  ]
+}

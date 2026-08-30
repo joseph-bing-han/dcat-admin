@@ -42,6 +42,48 @@ class Label extends AbstractDisplayer
         return $background;
     }
 
+    public function modernPayload(...$arguments)
+    {
+        $style = $arguments[0] ?? 'primary';
+        $max = $arguments[1] ?? null;
+        $values = $this->value($max);
+        if (! $values) {
+            return [
+                'kind' => 'labels',
+                'items' => [],
+                'className' => $this->baseClass,
+            ];
+        }
+
+        $items = [];
+        foreach ($values as $value) {
+            $text = $this->modernText($value);
+            if ($text === null) {
+                return null;
+            }
+            $items[] = $text;
+        }
+
+        $original = $this->column->getOriginal();
+        $defaultStyle = is_array($style) ? ($style['default'] ?? 'default') : 'default';
+        $resolvedStyle = is_array($style)
+            ? (is_scalar($original) ? ($style[$original] ?? $defaultStyle) : current($style))
+            : $style;
+
+        if ($resolvedStyle === 'default') {
+            $css = ['backgroundColor' => '#d2d6de', 'color' => '#555'];
+        } else {
+            $css = ['backgroundColor' => Admin::color()->get($resolvedStyle, $resolvedStyle)];
+        }
+
+        return [
+            'kind' => 'labels',
+            'items' => $items,
+            'className' => $this->baseClass,
+            'style' => $css,
+        ];
+    }
+
     protected function value($max)
     {
         $values = Helper::array($this->value);

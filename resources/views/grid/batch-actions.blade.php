@@ -1,7 +1,7 @@
 @if(! $isHoldSelectAllCheckbox)
 <div class="btn-group dropdown  {{$selectAllName}}-btn" style="display:none;margin-right: 3px;z-index: 100">
-    <button type="button" class="btn btn-white dropdown-toggle btn-mini" data-toggle="dropdown">
-        <span class="d-none d-sm-inline selected"></span>
+    <button type="button" class="btn btn-white dropdown-toggle btn-mini" data-toggle="dropdown"{!! Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.interactions') ? ' data-dcat-modern-owned-toggle="1"' : '' !!}>
+        <span class="d-none d-sm-inline selected" data-dcat-selection-template="{{ trans('admin.grid_items_selected') }}"></span>
         <span class="caret"></span>
         <span class="sr-only"></span>
     </button>
@@ -19,6 +19,7 @@
 </div>
 @endif
 
+@unless(Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.interactions'))
 <script>
 Dcat.init('.{{ $parent->getRowName() }}-checkbox', function ($this) {
     $this.on('change', function () {
@@ -35,3 +36,4 @@ Dcat.init('.{{ $parent->getRowName() }}-checkbox', function ($this) {
     })
 })
 </script>
+@endunless

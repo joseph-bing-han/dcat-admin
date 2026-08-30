@@ -2,12 +2,15 @@
 
 namespace Dcat\Admin\Layout;
 
+use Closure;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Support\Helper;
 use Illuminate\Support\Facades\Lang;
 
 class Menu
 {
+    const DEFAULT_VIEW = 'admin::partials.menu';
+
     protected static $helperNodes = [
         [
             'id'        => 1,
@@ -39,7 +42,10 @@ class Menu
         ],
     ];
 
-    protected $view = 'admin::partials.menu';
+    protected $view = self::DEFAULT_VIEW;
+
+    // 保留回调身份和原始节点，让同一份 section 同时支持 HTML 与结构化渲染。
+    protected $nodeSections = [];
 
     public function register()
     {
@@ -65,9 +71,12 @@ class Menu
      */
     public function add(array $nodes = [], int $priority = 10)
     {
-        admin_inject_section(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM'], function () use (&$nodes) {
+        $render = function () use ($nodes) {
             return $this->toHtml($nodes);
-        }, true, $priority);
+        };
+        $this->nodeSections[spl_object_id($render)] = ['render' => $render, 'nodes' => $nodes];
+
+        admin_inject_section(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM'], $render, true, $priority);
     }
 
     /**
@@ -274,5 +283,136 @@ class Menu
     public function getUrl($uri)
     {
         return $uri ? admin_url($uri) : $uri;
+    }
+
+    /**
+     * 判断当前菜单是否可结构化渲染，任意自定义 section/view 仍保留为内容岛。
+     *
+     * @return bool
+     */
+    public function supportsModern()
+    {
+        if ($this->view !== static::DEFAULT_VIEW) {
+            return false;
+        }
+
+        $sections = Admin::section();
+        foreach ([
+            Admin::SECTION['LEFT_SIDEBAR_MENU'],
+            Admin::SECTION['LEFT_SIDEBAR_MENU_TOP'],
+        ] as $section) {
+            if ($sections->hasSection($section)) {
+                return false;
+            }
+        }
+
+        foreach ($sections->getSections(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM']) as $section) {
+            $render = $section['value'];
+            if (! $render instanceof Closure || ! isset($this->nodeSections[spl_object_id($render)])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * 按 section 的实际优先级组装经过权限过滤的菜单，拒绝有损转换自定义 HTML。
+     *
+     * @return array|null
+     */
+    public function modernPayload()
+    {
+        if (! $this->supportsModern()) {
+            return;
+        }
+
+        $menuModel = config('admin.database.menu_model');
+        if (! $menuModel || ! class_exists($menuModel)) {
+            return;
+        }
+
+        $nodes = (new $menuModel())->allNodes()->toArray();
+        $items = $this->normalizeModernItems(Helper::buildNestedArray($nodes));
+        if ($items === null) {
+            return;
+        }
+
+        foreach (Admin::section()->getSections(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM']) as $section) {
+            $nodes = $this->nodeSections[spl_object_id($section['value'])]['nodes'];
+            // 各批节点独立建树，避免数据库、Helpers 与应用菜单的重复 ID 串组。
+            $appended = $this->normalizeModernItems(Helper::buildNestedArray($nodes));
+            if ($appended === null) {
+                return;
+            }
+            $items = array_merge($items, $appended);
+        }
+
+        return [
+            'horizontal' => (bool) config('admin.layout.horizontal_menu'),
+            'defaultIcon' => config('admin.menu.default_icon', 'feather icon-circle'),
+            'items' => $items,
+        ];
+    }
+
+    /**
+     * @param  array  $nodes
+     * @return array|null
+     */
+    protected function normalizeModernItems(array $nodes)
+    {
+        $result = [];
+
+        foreach ($nodes as $item) {
+            if (! $this->visible($item)) {
+                continue;
+            }
+
+            $title = $this->plainModernText($this->translate($item['title'] ?? ''));
+            if ($title === null) {
+                return;
+            }
+
+            $icon = (string) ($item['icon'] ?? '');
+            if ($icon && ! preg_match('/^[A-Za-z0-9 _:\-]+$/', $icon)) {
+                return;
+            }
+
+            $children = $this->normalizeModernItems((array) ($item['children'] ?? []));
+            if ($children === null) {
+                return;
+            }
+
+            $uri = (string) ($item['uri'] ?? '');
+            $result[] = [
+                'id' => isset($item['id']) ? (string) $item['id'] : '',
+                'title' => $title,
+                'icon' => $icon,
+                'url' => $uri ? $this->getUrl($uri) : '',
+                'external' => $uri && mb_strpos($uri, '://') !== false,
+                'active' => $this->isActive($item),
+                'children' => $children,
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param  mixed  $value
+     * @return string|null
+     */
+    protected function plainModernText($value)
+    {
+        if (! is_scalar($value) && $value !== null) {
+            return;
+        }
+
+        $value = (string) $value;
+        if ($value !== strip_tags($value)) {
+            return;
+        }
+
+        return html_entity_decode($value, ENT_QUOTES, 'UTF-8');
     }
 }

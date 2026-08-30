@@ -45,6 +45,14 @@ class FilterButton extends AbstractTool
      */
     protected function addScript()
     {
+        if (Admin::modern()->available('grid') && Admin::modern()->capabilityEnabled('grid.interactions')) {
+            if ($this->filter()->expand && $this->filter()->grid()->model()->getCurrentPage() <= 1) {
+                $id = json_encode($this->filter()->filterID());
+                Admin::script("requestAnimationFrame(function () { var filter = document.getElementById({$id}); if (filter) DcatNativeRuntime.filter(filter, true); });");
+            }
+
+            return;
+        }
         $filter = $this->filter();
         $id = $filter->filterID();
 

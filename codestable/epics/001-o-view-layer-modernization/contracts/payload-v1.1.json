@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "1.1.0",
+  "mediaType": "application/json",
+  "envelope": {
+    "required": ["version", "capability", "payload"],
+    "version": "semver",
+    "capability": "string",
+    "payload": "view-model-or-extension-json"
+  },
+  "firstPartyViewModel": {
+    "required": [
+      "schemaVersion",
+      "family",
+      "componentType",
+      "componentId",
+      "status",
+      "permissions",
+      "requiredBridgeCapabilities",
+      "knownTypes",
+      "renderer",
+      "resources",
+      "compatRequirements",
+      "customContent",
+      "slots",
+      "data"
+    ],
+    "rendererCandidates": ["native", "compat", "classic"],
+    "fallbackScopes": ["component", "page", "route", "global"],
+    "slotRule": "Arbitrary HTML, Blade overrides and Renderable output remain server-owned compat slots; structural decisions must come from explicit data fields.",
+    "compatRequirements": ["bootstrapCss", "bootstrapPlugins", "jquery", "pluginAdapters", "customSlots", "bladeOverride"]
+  },
+  "unknownMajorBehavior": "reject-capability-payload",
+  "unknownMinorFields": "ignore",
+  "serverEncoding": ["JSON_HEX_TAG", "JSON_HEX_AMP", "JSON_HEX_APOS", "JSON_HEX_QUOT"],
+  "scriptStringConcatenationAllowed": false,
+  "businessStateAuthority": "server",
+  "implicitWriteRetryAllowed": false,
+  "extensionCompatibility": "1.0.x extension payloads remain valid because the 1.x envelope is unchanged"
+}

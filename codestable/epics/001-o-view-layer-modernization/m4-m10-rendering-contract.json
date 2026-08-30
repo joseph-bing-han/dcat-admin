@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-29",
+  "status": "implementation-complete-runtime-evidence-pending",
+  "defaultEnabled": false,
+  "rules": [
+    "React owns only an explicitly allowlisted capability boundary.",
+    "A React render is not committed until its complete legacy fallback has been retained; after commit the fallback is detached from the live DOM and restored as the same node on unmount.",
+    "Existing PHP builders, HTTP methods, query names, form names/ids and legacy plugin instances remain authoritative transport contracts.",
+    "Arbitrary formatter, extension or third-party plugin DOM is moved into a React-owned legacy island without cloning so listeners and jQuery/plugin data survive.",
+    "Unsupported or structurally unknown capabilities fail closed to the legacy page/component rather than attempting a lossy conversion."
+  ],
+  "capabilities": {
+    "layout.navigation": {
+      "milestone": "M4",
+      "mode": "in-place-react-lifecycle-enhancement",
+      "reactOwns": ["keyboard navigation lifecycle and scoped modern state"],
+      "legacyIslands": ["exact navigation/sidebar root remains in its original DOM position", "custom menu/plugin descendants"],
+      "fallback": "page"
+    },
+    "layout.menu": {
+      "milestone": "M4",
+      "mode": "structured-react-payload",
+      "reactOwns": ["menu list", "nesting", "active state", "links"],
+      "legacyIslands": [],
+      "fallback": "page-on-custom-view-section-or-html-title"
+    },
+    "layout.header": {
+      "milestone": "M4",
+      "mode": "structured-react-payload",
+      "reactOwns": ["title", "description", "breadcrumbs"],
+      "legacyIslands": [],
+      "fallback": "page-on-lossy-content"
+    },
+    "layout.navbar": {
+      "milestone": "M4",
+      "mode": "in-place-react-lifecycle-enhancement",
+      "reactOwns": ["scoped modern navbar state"],
+      "legacyIslands": ["exact navbar root remains in its original DOM position with Navbar left/right/user slots"],
+      "fallback": "page"
+    },
+    "layout.footer": {
+      "milestone": "M4",
+      "mode": "in-place-react-lifecycle-enhancement",
+      "reactOwns": ["scoped modern footer state"],
+      "legacyIslands": ["exact footer root remains in its original DOM position", "configured footer HTML", "scroll action"],
+      "fallback": "page"
+    },
+    "layout.full-page": {
+      "milestone": "M4",
+      "mode": "in-place-react-lifecycle-enhancement",
+      "reactOwns": ["scoped modern full-page state"],
+      "legacyIslands": ["exact app-content root remains in its original DOM position", "configured PJAX wrapper and app content"],
+      "fallback": "page"
+    },
+    "grid.read": {
+      "milestone": "M5",
+      "mode": "structured-react-table",
+      "reactOwns": ["table structure", "simple text cells", "safe links", "pagination structure", "responsive table container"],
+      "legacyIslands": ["custom/unknown displayers", "sort/action header controls", "formatter HTML"],
+      "fallback": "page-for-unsupported-table-structure-or-quick-create-row-form"
+    },
+    "grid.interactions": {
+      "milestone": "M6",
+      "mode": "react-composition-with-exact-legacy-transport",
+      "reactOwns": ["interaction placement and modern styling"],
+      "legacyIslands": ["search/filter GET forms", "column selectors", "row selection nodes", "batch/row actions", "export", "tree-table controls", "confirmation transport"],
+      "preservedContracts": ["query parameters", "form action/method", "pjax-container", "data-action/data-url", "legacy confirmation and permission handlers"],
+      "fallback": "page"
+    },
+    "form.basic": {
+      "milestone": "M7",
+      "mode": "react-layout-with-exact-control-transport",
+      "reactOwns": ["field group layout", "labels", "Tabs", "basic-field visual state"],
+      "legacyIslands": ["original input/select/textarea/help/error nodes", "footer tools", "hidden CSRF/method/redirect fields"],
+      "preservedContracts": ["form element identity", "name/id", "old values", "CSRF", "validator submit guard", "keyboard DOM order"],
+      "fallback": "page-or-field-island"
+    },
+    "form.advanced": {
+      "milestone": "M8",
+      "mode": "explicit-legacy-plugin-islands-inside-react-form",
+      "reactOwns": ["island placement and shared form shell"],
+      "legacyIslands": ["file/webuploader", "Select2", "HasMany", "editor/markdown", "map/tree/tags", "dual-list and unclassified plugin fields"],
+      "preservedContracts": ["multipart protocol", "nested names", "plugin instance/listener identity", "PJAX cleanup through existing Dcat lifecycle"],
+      "fallback": "component"
+    },
+    "show.detail": {
+      "milestone": "M9",
+      "mode": "structured-react-standard-fields",
+      "reactOwns": ["standard field label/value layout"],
+      "legacyIslands": ["formatter value nodes", "panel tools", "relations", "custom Row/Panel layout"],
+      "fallback": "page-or-custom-panel-island"
+    },
+    "tree.page": {
+      "milestone": "M9",
+      "mode": "payload-react-native-reorder",
+      "reactOwns": ["Tree toolbar/body composition", "node hierarchy", "move/indent controls", "expand/collapse", "save and refresh actions"],
+      "legacyIslands": ["explicit custom row-action slots only"],
+      "preservedContracts": ["_order JSON protocol", "CSRF", "maxDepth", "refresh URL", "custom row actions"],
+      "fallback": "page-or-row-action-island"
+    },
+    "widget.surface": {
+      "milestone": "M9",
+      "mode": "payload-react-native-widget-shells",
+      "reactOwns": ["Box/Card/DataCard shell", "standard DataCard values and progress", "Dashboard block", "built-in collapse/remove", "native Widget dropdown"],
+      "legacyIslands": ["arbitrary Box/Card body and footer content", "custom widget tools", "rich DataCard content", "Modal historical event/renderable contract through scoped dcat-compat"],
+      "preservedContracts": ["custom HTML slots", "Box/Card title/content/footer", "Dropdown click-label behavior", "Modal show.bs.modal/hide.bs.modal family"],
+      "fallback": "component"
+    },
+    "system.page": {
+      "milestone": "M9",
+      "mode": "payload-react-native-login-feedback-exception",
+      "reactOwns": ["Login form presentation and submit state", "native feedback alerts", "exception disclosure"],
+      "legacyIslands": ["rich feedback HTML only"],
+      "preservedContracts": ["username/password/remember/_token names", "AJAX login JSON protocol", "non-JS login redirect/error protocol", "logout", "server exception trace"],
+      "fallback": "route-with-bootstrap-free-server-fallback-for-login-and-exception"
+    },
+    "extension.island": {
+      "milestone": "M10",
+      "mode": "versioned-extension-react-api-with-complete-legacy-fallback",
+      "reactOwns": ["extension-declared component only"],
+      "legacyIslands": ["undeclared Blade/Renderable/Section/Navbar/Menu/custom HTML remains legacy"],
+      "preservedContracts": ["legacy resource aliases", "window.Dcat", "jQuery/PJAX lifecycle", "extension fallback node identity"],
+      "fallback": "component"
+    }
+  },
+  "localEvidence": [
+    "npm run modernization:baseline",
+    "npm run modern:php-static",
+    "npm run modern:typecheck",
+    "npm run modern:test",
+    "npm run modern:build",
+    "npm run modern:artifact"
+  ],
+  "externalEvidenceRequiredBeforeVerified": [
+    "frozen Laravel/PHP matrix",
+    "view-modernization Dusk group",
+    "five-viewport geometry/screenshots",
+    "legacy regression suite",
+    "accessibility/manual keyboard and zoom review"
+  ]
+}

@@ -11,6 +11,7 @@
 
 @section('app')
     {!! Dcat\Admin\Admin::asset()->styleToHtml() !!}
+    {!! Dcat\Admin\Admin::modern()->pageConfigHtml() !!}
 
     <div class="content-body" id="app">
         {{-- 页面埋点--}}
@@ -24,6 +25,9 @@
 
     {!! Dcat\Admin\Admin::asset()->scriptToHtml() !!}
     <div class="extra-html">{!! Dcat\Admin\Admin::html() !!}</div>
+    @if(Dcat\Admin\Admin::modern()->available())
+        <span data-dcat-modern-request="1" hidden></span>
+    @endif
 @endsection
 
 

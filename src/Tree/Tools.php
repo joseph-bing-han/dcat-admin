@@ -59,4 +59,9 @@ class Tools implements Renderable
     {
         return $this->tools->map([Helper::class, 'render'])->implode(' ');
     }
+
+    public function isEmpty()
+    {
+        return $this->tools->isEmpty();
+    }
 }

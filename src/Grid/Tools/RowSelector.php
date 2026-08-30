@@ -80,9 +80,11 @@ class RowSelector
 
     public function renderHeader()
     {
+        $label = e(trans('admin.selectall'));
+
         return <<<HTML
 <div class="vs-checkbox-con vs-checkbox-{$this->style} checkbox-grid checkbox-grid-header">
-    <input type="checkbox" class="select-all {$this->grid->getSelectAllName()}">
+    <input type="checkbox" class="select-all {$this->grid->getSelectAllName()}" data-dcat-grid-select-all="1" aria-label="{$label}">
     <span class="vs-checkbox"><span class="vs-checkbox--check"><i class="vs-icon feather icon-check"></i></span></span>
 </div>
 HTML;
@@ -96,10 +98,12 @@ HTML;
         $id = $this->idColumn ? Arr::get($row->toArray(), $this->idColumn) : $id;
         $checked = $this->shouldChecked($row) ? 'checked="true"' : '';
         $disabled = $this->shouldDisable($row) ? 'disabled' : '';
+        $clickable = $this->rowClickable ? '1' : '0';
+        $background = e($this->background ?: Admin::color()->dark20());
 
         return <<<EOT
 <div class="vs-checkbox-con vs-checkbox-{$this->style} checkbox-grid checkbox-grid-column">
-    <input type="checkbox" class="{$this->grid->getRowName()}-checkbox" data-id="{$id}" {$checked} {$disabled} data-label="{$title}">
+    <input type="checkbox" class="{$this->grid->getRowName()}-checkbox" data-dcat-grid-row-selector="1" data-id="{$id}" {$checked} {$disabled} data-label="{$title}" data-dcat-row-clickable="{$clickable}" data-dcat-row-background="{$background}" aria-label="{$title}">
     <span class="vs-checkbox"><span class="vs-checkbox--check"><i class="vs-icon feather icon-check"></i></span></span>
 </div>        
 EOT;
@@ -107,6 +111,9 @@ EOT;
 
     protected function addScript()
     {
+        if (Admin::modern()->available('grid') && Admin::modern()->capabilityEnabled('grid.interactions')) {
+            return;
+        }
         $clickable = $this->rowClickable ? 'true' : 'false';
         $background = $this->background ?: Admin::color()->dark20();
 

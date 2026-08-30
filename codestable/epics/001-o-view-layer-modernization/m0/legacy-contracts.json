@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-29",
+  "status": "source-frozen-runtime-pending",
+  "viewports": [
+    {"width": 390, "height": 844, "purpose": "phone-portrait-touch-drawer"},
+    {"width": 768, "height": 1024, "purpose": "tablet-portrait-narrow-content"},
+    {"width": 1024, "height": 768, "purpose": "small-desktop-tablet-landscape"},
+    {"width": 1366, "height": 768, "purpose": "common-production-desktop"},
+    {"width": 1440, "height": 900, "purpose": "wide-desktop-dense-data"}
+  ],
+  "domProfiles": [
+    {
+      "id": "vertical",
+      "fixtureRoute": "/tests/view-baseline/vertical",
+      "requiredSelectors": [
+        ".main-menu-content",
+        ".main-sidebar",
+        ".header-navbar",
+        ".app-content.content",
+        ".content-wrapper",
+        ".content-body#app",
+        ".main-footer",
+        ".extra-html"
+      ],
+      "forbiddenSelectors": [".main-horizontal-sidebar", ".header-navbar.navbar-horizontal"]
+    },
+    {
+      "id": "horizontal",
+      "fixtureRoute": "/tests/view-baseline/horizontal",
+      "requiredSelectors": [
+        ".main-menu-content",
+        ".main-horizontal-sidebar",
+        ".header-navbar.navbar-horizontal",
+        ".app-content.content",
+        ".content-wrapper",
+        ".content-body#app",
+        ".main-footer",
+        ".extra-html"
+      ],
+      "forbiddenSelectors": [".main-sidebar"]
+    },
+    {
+      "id": "full-page",
+      "fixtureRoute": "/tests/view-baseline/full-page",
+      "requiredSelectors": [
+        ".app-content.content",
+        ".app-content.content > .wrapper",
+        ".content-body#app",
+        ".extra-html"
+      ],
+      "forbiddenSelectors": [
+        ".main-menu-content",
+        ".main-sidebar",
+        ".main-horizontal-sidebar",
+        ".header-navbar",
+        ".main-footer"
+      ]
+    },
+    {
+      "id": "pjax-disabled",
+      "fixtureRoute": "/tests/view-baseline/pjax-disabled",
+      "requiredSelectors": [
+        ".main-menu-content",
+        ".main-sidebar",
+        ".header-navbar",
+        ".app-content.content",
+        ".content-wrapper",
+        ".content-body#app",
+        ".main-footer",
+        ".extra-html"
+      ],
+      "forbiddenSelectors": ["#pjax-container"]
+    },
+    {
+      "id": "custom-pjax",
+      "fixtureRoute": "/tests/view-baseline/custom-pjax",
+      "requiredSelectors": ["#m0-custom-pjax", ".content-body#app"],
+      "forbiddenSelectors": ["#pjax-container"]
+    }
+  ],
+  "selectorInventory": [
+    {"selector": ".main-menu-content", "classification": "stable", "evidence": ["resources/views/partials/sidebar.blade.php"]},
+    {"selector": ".main-sidebar", "classification": "stable", "evidence": ["resources/views/partials/sidebar.blade.php"]},
+    {"selector": ".main-horizontal-sidebar", "classification": "stable", "evidence": ["resources/views/partials/sidebar.blade.php"]},
+    {"selector": ".header-navbar", "classification": "stable", "evidence": ["resources/views/partials/navbar.blade.php", "resources/views/partials/sidebar.blade.php"]},
+    {"selector": ".header-navbar.navbar-horizontal", "classification": "stable", "evidence": ["resources/views/partials/sidebar.blade.php"]},
+    {"selector": ".app-content.content", "classification": "stable", "evidence": ["resources/views/layouts/container.blade.php", "resources/views/layouts/full-page.blade.php"]},
+    {"selector": ".content-wrapper", "classification": "stable", "evidence": ["resources/views/layouts/container.blade.php"]},
+    {"selector": ".content-body#app", "classification": "stable", "evidence": ["resources/views/layouts/content.blade.php", "resources/views/layouts/full-content.blade.php"]},
+    {"selector": ".main-footer", "classification": "stable", "evidence": ["resources/views/layouts/container.blade.php"]},
+    {"selector": ".extra-html", "classification": "stable", "evidence": ["resources/views/layouts/content.blade.php", "resources/views/layouts/full-content.blade.php"]},
+    {"selector": "[pjax-container]", "classification": "stable", "evidence": ["resources/views/filter/container.blade.php", "resources/views/grid/quick-search.blade.php", "src/Form/Builder.php"]},
+    {"selector": ".grid-filter-form", "classification": "stable", "evidence": ["resources/views/filter/container.blade.php", "resources/views/filter/right-side-container.blade.php", "resources/views/filter/simple-container.blade.php"]},
+    {"selector": ".quick-search-form", "classification": "stable", "evidence": ["resources/views/grid/quick-search.blade.php"]},
+    {"selector": "form[data-toggle=\"validator\"]", "classification": "stable", "evidence": ["src/Form/Builder.php"]},
+    {"selector": "[data-action]", "classification": "bridge-only", "evidence": ["resources/views/tree/container.blade.php", "resources/views/grid/displayer/extensions/name.blade.php"]},
+    {"selector": ".card", "classification": "legacy-internal", "evidence": ["resources/views/grid/table.blade.php", "resources/views/filter/container.blade.php"]},
+    {"selector": ".btn", "classification": "legacy-internal", "evidence": ["resources/views/tree/container.blade.php"]},
+    {"selector": ".row", "classification": "legacy-internal", "evidence": ["resources/views/filter/container.blade.php"]}
+  ],
+  "httpContracts": {
+    "pjaxHeaders": [
+      {"name": "X-PJAX", "value": "true"},
+      {"name": "X-PJAX-Container", "value": "dynamic-container-selector"}
+    ],
+    "gridQueryTokens": [
+      {"name": "page", "source": "src/Grid/Model.php"},
+      {"name": "per_page", "source": "src/Grid/Model.php"},
+      {"name": "_sort", "source": "src/Grid/Model.php"},
+      {"name": "_search_", "source": "src/Grid/Tools/QuickSearch.php"},
+      {"name": "_export_", "source": "src/Grid/Exporter.php"},
+      {"name": "_scope_", "source": "src/Grid/Filter.php"},
+      {"name": "_parent_id_", "source": "src/Grid/Concerns/HasTree.php"},
+      {"name": "_depth_", "source": "src/Grid/Concerns/HasTree.php"}
+    ],
+    "formProtocol": {
+      "methodSpoofingKey": "_method",
+      "editMethod": "PUT",
+      "multipartWhenFileFieldsExist": true,
+      "validatorAttribute": "data-toggle=\"validator\"",
+      "pjaxContainerAttributeUsesConfiguredId": true
+    }
+  },
+  "lifecycleContracts": [
+    {"name": "CreateDcat", "source": "resources/views/layouts/container.blade.php"},
+    {"name": "Dcat.boot", "source": "resources/views/layouts/container.blade.php"},
+    {"name": "Dcat.wait", "source": "resources/views/layouts/content.blade.php"},
+    {"name": "Dcat.ready", "source": "resources/modern/runtime.ts"},
+    {"name": "Dcat.init", "source": "resources/modern/runtime.ts"}
+  ],
+  "sourceChecks": [
+    {
+      "path": "resources/views/layouts/container.blade.php",
+      "literals": [
+        "<div class=\"wrapper\">",
+        "<div class=\"app-content content\">",
+        "<div class=\"content-wrapper\" id=\"{{ $pjaxContainerId }}\"",
+        "<footer class=\"main-footer",
+        "<script>Dcat.boot();</script>"
+      ]
+    },
+    {
+      "path": "resources/views/layouts/content.blade.php",
+      "literals": [
+        "<div class=\"content-body\" id=\"app\">",
+        "<div class=\"extra-html\">",
+        "<script>Dcat.wait()</script>"
+      ]
+    },
+    {
+      "path": "resources/views/layouts/full-page.blade.php",
+      "literals": [
+        "<div class=\"app-content content\">",
+        "<div class=\"wrapper\" id=\"{{ $pjaxContainerId }}\" role=\"main\">",
+        "<script>Dcat.boot();</script>"
+      ]
+    },
+    {
+      "path": "resources/views/layouts/full-content.blade.php",
+      "literals": [
+        "<div class=\"content-body\" id=\"app\">",
+        "<div class=\"extra-html\">",
+        "<script>Dcat.wait();</script>"
+      ]
+    },
+    {
+      "path": "resources/views/partials/sidebar.blade.php",
+      "literals": ["main-menu-content", "main-horizontal-sidebar", "main-sidebar shadow", "header-navbar navbar-expand-sm navbar navbar-horizontal"]
+    },
+    {
+      "path": "resources/assets/dcat/plugins/jquery-pjax/jquery.pjax.js",
+      "literals": ["xhr.setRequestHeader('X-PJAX', 'true');", "xhr.setRequestHeader('X-PJAX-Container', options.container);"]
+    },
+    {
+      "path": "resources/modern/runtime.ts",
+      "note": "B9 之后 Dcat 生命周期运行时由 native TypeScript 实现；旧 resources/assets/dcat/js/Dcat.js 已随经典 UI 退场。",
+      "literals": ["ready(callback", "init(selector", "wait(value", "boot()"]
+    },
+    {
+      "path": "src/Admin.php",
+      "literals": ["$jsVariables['pjax_container_selector'] = $pjaxId ? ('#'.$pjaxId) : '';", "static::context()->pjaxContainerId = $value ? static::$defaultPjaxContainerId : false;"]
+    },
+    {
+      "path": "src/Grid/Model.php",
+      "literals": ["protected $pageName = 'page';", "protected $perPageName = 'per_page';", "protected $sortName = '_sort';"]
+    },
+    {"path": "src/Grid/Tools/QuickSearch.php", "literals": ["protected $queryName = '_search_';"]},
+    {"path": "src/Grid/Exporter.php", "literals": ["protected $queryName = '_export_';"]},
+    {"path": "src/Grid/Filter.php", "literals": ["return $this->grid()->makeName('_scope_');"]},
+    {"path": "src/Grid/Concerns/HasTree.php", "literals": ["protected $parentIdQueryName = '_parent_id_';", "protected $depthQueryName = '_depth_';"]},
+    {
+      "path": "src/Form/Builder.php",
+      "literals": [
+        "new Hidden('_method'))->value('PUT')",
+        "$attributes['data-toggle'] = 'validator';",
+        "$attributes['enctype'] = 'multipart/form-data';",
+        "Admin::getPjaxContainerId()"
+      ]
+    },
+    {
+      "path": "resources/views/filter/container.blade.php",
+      "literals": ["class=\"form-horizontal grid-filter-form\" pjax-container method=\"get\""]
+    },
+    {
+      "path": "resources/views/grid/quick-search.blade.php",
+      "literals": ["<form pjax-container", "quick-search-form"]
+    },
+    {
+      "path": "resources/views/tree/container.blade.php",
+      "literals": ["data-action=\"expand\"", "data-action=\"collapse\"", "data-action=\"refresh\""]
+    }
+  ],
+  "runtimeCapture": {
+    "status": "pending-execution",
+    "testPath": "tests/Browser/Cases/ViewModernizationBaselineTest.php",
+    "controllerPath": "tests/Controllers/ViewBaselineController.php",
+    "routePath": "tests/routes.php",
+    "screenshotOptInEnv": "DCAT_M0_CAPTURE_SCREENSHOTS",
+    "geometryOutputEnv": "DCAT_M0_GEOMETRY_OUTPUT",
+    "standaloneFixtureRoutes": {
+      "grid": "/tests/view-baseline/grid",
+      "form": "/tests/view-baseline/form",
+      "modernVertical": "/tests/view-baseline/modern-vertical",
+      "modernHorizontal": "/tests/view-baseline/modern-horizontal",
+      "modernCollapsed": "/tests/view-baseline/modern-collapsed",
+      "modernFloatingNavbar": "/tests/view-baseline/modern-floating-navbar",
+      "modernHiddenNavbar": "/tests/view-baseline/modern-hidden-navbar",
+      "modernFullPage": "/tests/view-baseline/modern-full-page",
+      "modernGrid": "/tests/view-baseline/modern-grid",
+      "modernForm": "/tests/view-baseline/modern-form",
+      "modernShow": "/tests/view-baseline/modern-show",
+      "modernTree": "/tests/view-baseline/modern-tree",
+      "modernWidget": "/tests/view-baseline/modern-widget",
+      "modernSystem": "/tests/view-baseline/modern-system",
+      "rollbackGlobal": "/tests/view-baseline/rollback-global",
+      "rollbackFamily": "/tests/view-baseline/rollback-family",
+      "rollbackCapability": "/tests/view-baseline/rollback-capability",
+      "rollbackRoute": "/tests/view-baseline/rollback-route"
+    },
+    "requiredEvidence": [
+      "five-viewport DOM anchor uniqueness",
+      "five-viewport layout geometry",
+      "five-viewport screenshots",
+      "vertical/horizontal/full-page/PJAX-disabled/custom-PJAX profiles",
+      "Grid filter and quick-search selectors",
+      "Form field name/id and multipart behavior",
+      "PJAX request headers and fragment behavior"
+    ]
+  }
+}

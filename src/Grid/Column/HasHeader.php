@@ -30,6 +30,11 @@ trait HasHeader
      * @param  string|Renderable|Htmlable  $header
      * @return $this
      */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
     public function addHeader($header)
     {
         if ($header instanceof Filter) {

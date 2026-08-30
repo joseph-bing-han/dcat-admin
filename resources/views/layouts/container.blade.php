@@ -14,13 +14,16 @@
     @include('admin::partials.navbar')
 
     <div class="app-content content">
-        <div class="content-wrapper" id="{{ $pjaxContainerId }}" style="top: 0;min-height: 900px;">
+        <div class="content-wrapper" id="{{ $pjaxContainerId }}" role="main" style="top: 0;min-height: 900px;">
             @yield('app')
         </div>
     </div>
 </div>
 
-<footer class="main-footer pt-1">
+@php
+    $modernFooter = Dcat\Admin\Admin::modern()->available('layout') && Dcat\Admin\Admin::modern()->capabilityEnabled('layout.footer');
+@endphp
+<footer class="main-footer pt-1"{!! $modernFooter ? ' data-dcat-react-component="layout.footer"' : '' !!}>
     <p class="clearfix blue-grey lighten-2 mb-0 text-center">
         @if(is_null(config('admin.footer.copyright', null)))
             <span class="text-center d-block d-md-inline-block mt-25">
@@ -42,6 +45,7 @@
 {!! admin_section(Dcat\Admin\Admin::SECTION['BODY_INNER_AFTER']) !!}
 
 {!! Dcat\Admin\Admin::asset()->jsToHtml() !!}
+
 
 <script>Dcat.boot();</script>
 

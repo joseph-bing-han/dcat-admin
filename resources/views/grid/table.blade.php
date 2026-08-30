@@ -1,19 +1,30 @@
+@php
+    $modernGrid = Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.read');
+    $modernGridPayload = $modernGrid ? Dcat\Admin\Modern\GridViewModel::make($grid, $tableId) : null;
+@endphp
+@if($modernGrid)
+<div data-dcat-react-component="grid.read">
+    <div data-dcat-modern-fallback>
+@endif
+<div class="dcat-box"{!! Dcat\Admin\Admin::modern()->available('grid') ? ' data-dcat-modern-family="grid"' : '' !!}>
 
-<div class="dcat-box">
-
-    <div class="d-block pb-0">
+    <div class="d-block pb-0"{!! $modernGrid ? ' data-dcat-modern-slot="grid-toolbar"' : '' !!}>
         @include('admin::grid.table-toolbar')
     </div>
 
-    {!! $grid->renderFilter() !!}
+    @if($modernGrid)<div data-dcat-modern-slot="grid-filter">@endif
+        {!! $grid->renderFilter() !!}
+    @if($modernGrid)</div>@endif
 
-    {!! $grid->renderHeader() !!}
+    @if($modernGrid)<div data-dcat-modern-slot="grid-header-extra">@endif
+        {!! $grid->renderHeader() !!}
+    @if($modernGrid)</div>@endif
 
     <div class="{!! $grid->formatTableParentClass() !!}">
         <table class="{{ $grid->formatTableClass() }}" id="{{ $tableId }}" >
             <thead>
             @if ($headers = $grid->getVisibleComplexHeaders())
-                <tr>
+                <tr{!! $modernGrid && data_get($modernGridPayload, 'data.complexHeaderCompat') ? ' data-dcat-modern-slot="grid-complex-header"' : '' !!}>
                     @foreach($headers as $header)
                         {!! $header->render() !!}
                     @endforeach
@@ -21,7 +32,11 @@
             @endif
             <tr>
                 @foreach($grid->getVisibleColumns() as $column)
-                    <th {!! $column->formatTitleAttributes() !!}>{!! $column->getLabel() !!}{!! $column->renderHeader() !!}</th>
+                    @php
+                        $modernColumnIndex = $loop->index;
+                        $modernHeaderCompat = $modernGrid && data_get($modernGridPayload, 'data.columns.'.$modernColumnIndex.'.header.mode') === 'compat';
+                    @endphp
+                    <th {!! $column->formatTitleAttributes() !!}{!! $modernHeaderCompat ? ' data-dcat-modern-slot="grid-header-'.$modernColumnIndex.'"' : '' !!}>{!! $column->getLabel() !!}{!! $column->renderHeader() !!}</th>
                 @endforeach
             </tr>
             </thead>
@@ -32,9 +47,17 @@
 
             <tbody>
             @foreach($grid->rows() as $row)
+                @php
+                    $modernRowIndex = $loop->index;
+                @endphp
                 <tr {!! $row->rowAttributes() !!}>
                     @foreach($grid->getVisibleColumnNames() as $name)
-                        <td {!! $row->columnAttributes($name) !!}>{!! $row->column($name) !!}</td>
+                        @php
+                            $modernCellIndex = $loop->index;
+                            $modernCell = $modernGrid ? data_get($modernGridPayload, 'data.rows.'.$modernRowIndex.'.cells.'.$modernCellIndex) : null;
+                            $modernCellSlot = is_array($modernCell) && ($modernCell['kind'] ?? null) === 'compat' ? ($modernCell['slotId'] ?? null) : null;
+                        @endphp
+                        <td {!! $row->columnAttributes($name) !!}{!! $modernCellSlot ? ' data-dcat-modern-slot="'.$modernCellSlot.'"' : '' !!}>{!! $row->column($name) !!}</td>
                     @endforeach
                 </tr>
             @endforeach
@@ -49,8 +72,15 @@
         </table>
     </div>
 
-    {!! $grid->renderFooter() !!}
+    @if($modernGrid)<div data-dcat-modern-slot="grid-footer">@endif
+        {!! $grid->renderFooter() !!}
+    @if($modernGrid)</div>@endif
 
     {!! $grid->renderPagination() !!}
 
 </div>
+@if($modernGrid)
+    </div>
+</div>
+{!! Dcat\Admin\Admin::modern()->payload('grid.read', $modernGridPayload, 'grid') !!}
+@endif

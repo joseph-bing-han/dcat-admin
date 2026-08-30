@@ -1,7 +1,7 @@
 <li class="dd-item {!! $expand ? '' : 'dd-collapsed' !!}" data-id="{{ $branch[$keyName] }}">
     <div class="dd-handle">
         {!! $branchCallback($branch) !!}
-        <span class="pull-right dd-nodrag">
+        <span class="pull-right dd-nodrag" @if(!empty($modernTreeNative) && $branch[$keyName] !== null) data-dcat-modern-slot="{{ Dcat\Admin\Modern\TreeViewModel::actionSlotId($branch[$keyName]) }}" @endif>
             {!! $resolveAction($branch) !!}
         </span>
     </div>

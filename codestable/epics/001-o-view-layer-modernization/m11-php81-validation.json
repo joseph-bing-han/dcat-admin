@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-30",
+  "status": "passed-partial-matrix",
+  "scope": "PHP 8.1 support validation for every frozen Laravel series that includes PHP 8.1",
+  "runtime": {
+    "php": "8.1.32",
+    "composer": "2.8.4",
+    "browser": "Chrome 152.0.7977.64",
+    "database": "isolated local MySQL 8.0.46 consumer database"
+  },
+  "targets": [
+    {
+      "laravelSeries": "8",
+      "resolvedFramework": "8.83.29",
+      "packageInstall": "passed-local-worktree-verified",
+      "resourcePublication": "passed",
+      "adminInstallAndMigrations": "passed",
+      "prebuiltModernAssets": "passed",
+      "browserContracts": "passed-25-profile-viewport-captures-6-modern-families",
+      "featureRegression": "passed-6-tests-30-assertions",
+      "evidenceDirectory": "artifacts/view-modernization-8-php-8.1"
+    },
+    {
+      "laravelSeries": "9",
+      "resolvedFramework": "9.52.22",
+      "packageInstall": "passed-local-worktree-verified",
+      "resourcePublication": "passed",
+      "adminInstallAndMigrations": "passed",
+      "prebuiltModernAssets": "passed",
+      "browserContracts": "passed-25-profile-viewport-captures-6-modern-families",
+      "featureRegression": "representative-suite-executed-on-laravel-8-reference",
+      "evidenceDirectory": "artifacts/view-modernization-9-php-8.1"
+    },
+    {
+      "laravelSeries": "10",
+      "resolvedFramework": "10.50.3",
+      "packageInstall": "passed-local-worktree-verified",
+      "resourcePublication": "passed",
+      "adminInstallAndMigrations": "passed",
+      "prebuiltModernAssets": "passed",
+      "browserContracts": "passed-25-profile-viewport-captures-6-modern-families",
+      "featureRegression": "representative-suite-executed-on-laravel-8-reference",
+      "evidenceDirectory": "artifacts/view-modernization-10-php-8.1"
+    }
+  ],
+  "browserContractCoverage": [
+    "five frozen viewports across legacy layout profiles",
+    "Grid and Form HTTP/DOM contracts",
+    "PJAX headers and root identity",
+    "modern Layout/Grid/Form/Show/Tree/Widget/System families",
+    "axe serious/critical accessibility gate",
+    "keyboard navigation",
+    "prefers-reduced-motion",
+    "global/family/capability/route/forced-query rollback"
+  ],
+  "regressionsFixedDuringValidation": [
+    "consumer fixture could install Packagist dcat/laravel-admin instead of the current fork",
+    "consumer Bash scripts could mask failed PHP commands",
+    "modern consumer setup rolled back the installed admin database before browser login",
+    "Laravel 8/9 fresh locks required with-all-dependencies to resolve DBAL-compatible carbon-doctrine-types",
+    "inline Blade @php(...) syntax was not portable to the Laravel 10 Blade compiler",
+    "system feedback assumed flash values were MessageBag-like objects and failed on scalar login success messages",
+    "reduced-motion did not cancel inherited transitions inside committed modern subtrees",
+    "pure Feature regressions were unnecessarily coupled to Laravel Dusk"
+  ],
+  "repositoryGatesAfterFixes": {
+    "modernVerify": "passed-42-vitest-cases",
+    "artifactGzipBytes": 88243,
+    "php81Syntax": "passed-src-config-tests",
+    "bashSyntax": "passed-install-dep-install-admin-start",
+    "featureRegression": "passed-6-tests-30-assertions",
+    "finalSourceLaravel8BrowserRegression": "passed-25-profile-viewport-captures-6-modern-families",
+    "gitDiffCheck": "passed"
+  },
+  "limitations": [
+    "This is PHP 8.1 evidence only; it does not complete the other PHP versions in the frozen support matrix.",
+    "The package minimum is now explicitly PHP >=8.0 and Laravel 8-10.",
+    "A Composer dry-run with platform.php=8.0.0 resolves successfully to Laravel 8.83.29 and Dusk 6.25.2, but a real PHP 8.0 runtime regression remains outstanding.",
+    "The pinned Laravel 8 / PHP 8.0 / Dusk 6.25.2 supplemental regression remains outstanding.",
+    "Manual screen-reader reading-order and 200% zoom review remains outstanding.",
+    "The reviewed CI workflow still requires an authorized write to .github/workflows."
+  ]
+}

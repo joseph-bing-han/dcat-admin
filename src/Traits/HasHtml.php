@@ -156,6 +156,16 @@ trait HasHtml
         }
     }
 
+    protected static function isExecutableScript(DOMElement $element)
+    {
+        $type = strtolower(trim($element->getAttribute('type')));
+
+        return $type === ''
+            || $type === 'text/javascript'
+            || $type === 'application/javascript'
+            || $type === 'module';
+    }
+
     /**
      * @param  DOMElement  $element
      * @return void
@@ -176,6 +186,18 @@ trait HasHtml
         }
 
         foreach ($element->childNodes as $child) {
+            // Keep inert script data (for example modern JSON payloads) in the
+            // document. The legacy resolver must only collect executable JS.
+            if (
+                $child instanceof DOMElement
+                && $child->tagName === 'script'
+                && ! static::isExecutableScript($child)
+            ) {
+                $html .= trim($element->ownerDocument->saveHTML($child));
+
+                continue;
+            }
+
             if (
                 $child instanceof DOMElement
                 && in_array($child->tagName, static::$shouldResolveTags, true)

@@ -1,7 +1,7 @@
 ---
 doc_type: task-list
 task: view-layer-modernization-plan
-goal: Plan a compatibility-preserving migration of the entire View layer to Untitled UI React, Vite, and TypeScript
+goal: 规划将整个 View 层迁移到 Untitled UI React、Vite 和 TypeScript，同时保持兼容性
 status: archived
 workflow: design
 owner_skill: cs
@@ -16,11 +16,11 @@ related_docs:
   - codestable/epics/001-o-view-layer-modernization/compatibility-contract.md
 ---
 
-# Plan a compatibility-preserving migration of the entire View layer to Untitled UI React, Vite, and TypeScript
+# 规划将整个 View 层迁移到 Untitled UI React、Vite 和 TypeScript，同时保持兼容性
 
 ## 1. 任务目标
 
-Plan a compatibility-preserving migration of the entire View layer to Untitled UI React, Vite, and TypeScript
+规划将整个 View 层迁移到 Untitled UI React、Vite 和 TypeScript，同时保持兼容性
 
 ## 2. 当前状态
 
@@ -28,10 +28,10 @@ archived
 
 ## 3. Agent 原生 Tasks 同步区
 
-- [x] Inventory the current View architecture, layout contracts, extension surfaces, and verification baseline
-- [x] Define the canonical UI/UX system and compatibility contract
-- [x] Design the target frontend architecture, migration strategy, and milestone backlog
-- [x] Review the plan independently, resolve findings, and finalize the planning artifacts
+- [x] 盘点当前 View 架构、布局契约、扩展面和验证基线
+- [x] 定义规范的 UI/UX 体系和兼容性契约
+- [x] 设计目标前端架构、迁移策略和里程碑待办
+- [x] 独立审查计划、解决审查发现并完成规划文档
 
 ## 4. CodeStable 文档索引
 
@@ -43,19 +43,19 @@ archived
 
 ## 5. 执行步骤
 
-### 1. Inventory the current View architecture, layout contracts, extension surfaces, and verification baseline
+### 1. 盘点当前 View 架构、布局契约、扩展面和验证基线
 
 - 状态：done
 
-### 2. Define the canonical UI/UX system and compatibility contract
+### 2. 定义规范的 UI/UX 体系和兼容性契约
 
 - 状态：done
 
-### 3. Design the target frontend architecture, migration strategy, and milestone backlog
+### 3. 设计目标前端架构、迁移策略和里程碑待办
 
 - 状态：done
 
-### 4. Review the plan independently, resolve findings, and finalize the planning artifacts
+### 4. 独立审查计划、解决审查发现并完成规划文档
 
 - 状态：done
 
@@ -67,12 +67,12 @@ archived
 
 2026-08-29：Task 已创建。
 
-2026-08-29：Completed the current View architecture inventory: 139 Blade templates, 1077 asset files, Laravel Mix/Webpack runtime, public PHP rendering APIs, DOM/section/asset/PJAX compatibility surfaces, and existing Dusk gaps were identified.
+2026-08-29：已完成当前 View 架构盘点：识别出 139 个 Blade 模板、1077 个资源文件、Laravel Mix/Webpack 运行时、公开 PHP 渲染 API、DOM/section/asset/PJAX 兼容面，以及现有 Dusk 覆盖缺口。
 
 2026-08-29：已完成 UI/UE 规范、C0-C5 兼容契约和 M0-M11 分批迁移计划；明确 React islands、双渲染、默认 legacy 回退、上下文过滤及增量验证规则。
 
-2026-08-29：已完成独立审查与修正闭环：修复横向 Form 布局、条件 DOM profile、里程碑依赖、无障碍色值、回退防循环、公共 Admin API、Laravel 全版本矩阵、Vite 拓扑、影响图和 Git 授权边界问题；复核未发现剩余阻断项。
+2026-08-29：已完成独立审查与修正闭环：修复横向 Form 布局、条件 DOM 配置、里程碑依赖、无障碍颜色、回退循环防护、公共 Admin API、Laravel 全版本矩阵、Vite 拓扑、影响图和 Git 授权边界问题；复核未发现剩余阻断项。
 
-2026-08-29：Task 已标记 completed，等待归档。
+2026-08-29：任务已标记为 completed，等待归档。
 
-2026-08-29：Task 已原子移动到 archived，active 正本已移除。 源快照 SHA-256：c79cf3760685f2872206b923f016a6ea58bb24f3d6324b105af5068746721e6e
+2026-08-29：任务已原子移动到 archived，active 正本已移除。源快照 SHA-256：c79cf3760685f2872206b923f016a6ea58bb24f3d6324b105af5068746721e6e

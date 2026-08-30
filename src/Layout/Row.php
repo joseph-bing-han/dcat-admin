@@ -51,6 +51,14 @@ class Row implements Renderable
     }
 
     /**
+     * Read-only layout metadata used by first-party ViewModel builders.
+     */
+    public function columns()
+    {
+        return $this->columns;
+    }
+
+    /**
      * @param  bool  $value
      * @return $this
      */

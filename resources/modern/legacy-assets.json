@@ -1,0 +1,19 @@
+{
+  "javascript": [
+    "adminlte/adminlte.js",
+    "dcat/plugins/vendors.min.js",
+    "dcat/js/dcat-app.js"
+  ],
+  "stylesheets": [
+    "adminlte/adminlte.css",
+    "adminlte/adminlte-blue.css",
+    "adminlte/adminlte-blue-light.css",
+    "adminlte/adminlte-green.css",
+    "dcat/plugins/vendors.min.css",
+    "dcat/plugins/vendors-rtl.min.css",
+    "dcat/css/dcat-app.css",
+    "dcat/css/dcat-app-blue.css",
+    "dcat/css/dcat-app-blue-light.css",
+    "dcat/css/dcat-app-green.css"
+  ]
+}

@@ -1,41 +1,57 @@
-@if($error = session()->get('error'))
-    <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-ban"></i> &nbsp;{{ \Illuminate\Support\Arr::get($error->get('title'), 0) }}</h4>
-        <p>{!!  \Illuminate\Support\Arr::get($error->get('message'), 0) !!}</p>
-    </div>
-@elseif ($errors = session()->get('errors'))
-    @if ($errors->hasBag('error'))
-      <div class="alert alert-danger alert-dismissable">
+@php
+    $normalizeFlashMessage = function ($flash) {
+        if (is_object($flash) && method_exists($flash, 'get')) {
+            return [
+                'title' => \Illuminate\Support\Arr::get($flash->get('title'), 0),
+                'messages' => array_values(array_filter((array) $flash->get('message'))),
+            ];
+        }
 
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        @foreach($errors->getBag("error")->toArray() as $message)
-            <p>{!!  \Illuminate\Support\Arr::get($message, 0) !!}</p>
-        @endforeach
-      </div>
-    @endif
+        if (is_array($flash)) {
+            $title = \Illuminate\Support\Arr::get($flash, 'title');
+            $message = \Illuminate\Support\Arr::get($flash, 'message', \Illuminate\Support\Arr::get($flash, 0));
+            return [
+                'title' => is_array($title) ? \Illuminate\Support\Arr::get($title, 0) : $title,
+                'messages' => is_array($message) ? array_values($message) : [$message],
+            ];
+        }
+
+        return ['title' => null, 'messages' => [is_scalar($flash) ? (string) $flash : null]];
+    };
+@endphp
+
+@if($error = session()->get('error'))
+    @php
+        $feedback = $normalizeFlashMessage($error);
+    @endphp
+    @include('admin::partials.modern-alert', ['tone' => 'danger', 'title' => $feedback['title'], 'messages' => $feedback['messages']])
+@elseif (($errors = session()->get('errors')) && $errors->hasBag('error'))
+    @php
+        $messages = [];
+        foreach ($errors->getBag('error')->toArray() as $message) {
+            $messages[] = \Illuminate\Support\Arr::get($message, 0);
+        }
+    @endphp
+    @include('admin::partials.modern-alert', ['tone' => 'danger', 'title' => null, 'messages' => $messages])
 @endif
 
 @if($success = session()->get('success'))
-    <div class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> &nbsp;{{ \Illuminate\Support\Arr::get($success->get('title'), 0) }}</h4>
-        <p>{!!  \Illuminate\Support\Arr::get($success->get('message'), 0) !!}</p>
-    </div>
+    @php
+        $feedback = $normalizeFlashMessage($success);
+    @endphp
+    @include('admin::partials.modern-alert', ['tone' => 'success', 'title' => $feedback['title'], 'messages' => $feedback['messages']])
 @endif
 
 @if($info = session()->get('info'))
-    <div class="alert alert-info alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-info"></i> &nbsp;{{ \Illuminate\Support\Arr::get($info->get('title'), 0) }}</h4>
-        <p>{!!  \Illuminate\Support\Arr::get($info->get('message'), 0) !!}</p>
-    </div>
+    @php
+        $feedback = $normalizeFlashMessage($info);
+    @endphp
+    @include('admin::partials.modern-alert', ['tone' => 'info', 'title' => $feedback['title'], 'messages' => $feedback['messages']])
 @endif
 
 @if($warning = session()->get('warning'))
-    <div class="alert alert-warning alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-warning"></i> &nbsp;{{ \Illuminate\Support\Arr::get($warning->get('title'), 0) }}</h4>
-        <p>{!!  \Illuminate\Support\Arr::get($warning->get('message'), 0) !!}</p>
-    </div>
+    @php
+        $feedback = $normalizeFlashMessage($warning);
+    @endphp
+    @include('admin::partials.modern-alert', ['tone' => 'warning', 'title' => $feedback['title'], 'messages' => $feedback['messages']])
 @endif

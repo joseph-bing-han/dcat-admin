@@ -28,6 +28,7 @@ class CreateButton implements Renderable
         }
 
         $new = trans('admin.new');
+        $newLabel = e($new);
         $url = $this->grid->getCreateUrl();
         $class = $this->grid->makeName('dialog-create');
 
@@ -40,7 +41,7 @@ class CreateButton implements Renderable
             ->forceRefresh()
             ->resetButton(!$this->grid->isDisableDialogRestButton());
 
-        return "<button data-url='$url' class='btn btn-primary {$class}'><i class='feather icon-plus'></i><span class='d-none d-sm-inline'>&nbsp; $new</span></button>";
+        return "<button data-url='$url' class='btn btn-primary {$class}' aria-label='{$newLabel}' title='{$newLabel}'><i class='feather icon-plus'></i><span class='d-none d-sm-inline'>&nbsp; $new</span></button>";
     }
 
     protected function renderCreateButton()
@@ -50,9 +51,10 @@ class CreateButton implements Renderable
         }
 
         $new = trans('admin.new');
+        $newLabel = e($new);
         $url = $this->grid->getCreateUrl();
 
-        return "<a href='{$url}' class='btn btn-primary'>
+        return "<a href='{$url}' class='btn btn-primary' aria-label='{$newLabel}' title='{$newLabel}'>
     <i class='feather icon-plus'></i><span class='d-none d-sm-inline'>&nbsp;&nbsp;{$new}</span>
 </a>";
     }

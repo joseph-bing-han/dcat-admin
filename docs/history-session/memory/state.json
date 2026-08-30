@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "state_revision": 16,
+  "archive_revision": "sha256:7159d4774f493f1d9a47b077c3e996f30e9fab01ca22cd53ff212abb6914a3b3",
+  "generated_at": "unix:1788058690",
+  "current_session": {
+    "number": 2,
+    "path": "docs/history-session/2.md",
+    "reason": "当前 ChatGPT 会话档案"
+  },
+  "current_focus": "修改项目配置, 默认开启modern renderer\n修改Readme, 以新版为主体进行介绍",
+  "recent_changes": [
+    "composer.json",
+    "src/Console/stubs/extension/composer.json.stub",
+    "scripts/view-modernization-php-static.js",
+    "scripts/view-modernization-baseline.js",
+    "codestable/spec/index.md",
+    "codestable/epics/001-o-view-layer-modernization/compatibility-contract.md",
+    "codestable/epics/001-o-view-layer-modernization/spec.md",
+    "codestable/epics/001-o-view-layer-modernization/m0/support-matrix.json",
+    "codestable/epics/001-o-view-layer-modernization/m0/capability-matrix.json",
+    "codestable/epics/001-o-view-layer-modernization/m0/baseline.json",
+    "codestable/epics/001-o-view-layer-modernization/implementation-capability-matrix.json",
+    "codestable/epics/001-o-view-layer-modernization/m11-release-status.json"
+  ],
+  "open_items": [
+    "A real PHP 8.0 runtime is not installed locally; PHP 8.0 support is dependency-resolver verified but its pinned Dusk/runtime regression remains outstanding.",
+    "PHP 8.2/8.3 matrix runtime evidence and manual accessibility review remain outstanding.",
+    "Reviewed CI workflow still requires authorized installation into .github/workflows.",
+    "When continuing M11, execute the remaining PHP 8.x runtime matrix (including pinned Laravel 8 / PHP 8.0 / Dusk 6.25.2) and manual accessibility gates.",
+    "Do not restore PHP 7.x or Laravel pre-8 compatibility branches unless the package support policy is explicitly changed again.",
+    "Reconcile the repository-wide advertised PHP >=7.1 floor with pre-existing committed PHP 8 syntax before older frozen PHP combinations can be treated as valid release targets.",
+    "Execute the remaining meaningful PHP/Laravel combinations after the support-floor decision, including runtimes not installed locally (PHP 8.0, 8.2 and 8.3 as applicable).",
+    "Run the pinned Laravel 8 / PHP 8.0 / Dusk 6.25.2 supplemental legacy regression.",
+    "Perform required manual screen-reader reading-order and 200% zoom review.",
+    "Install the reviewed codestable/ci/view-modernization.yml into protected .github/workflows/view-modernization.yml through an authorized repository mechanism.",
+    "Only after all mandatory release gates pass: independently review final evidence, update verified capability statuses, close/archive M0/M11 as appropriate and evaluate default-candidate status without enabling it automatically.",
+    "Resolve or explicitly redefine the package-wide PHP support floor, then update the frozen matrix to match an executable compatibility promise."
+  ],
+  "references": [
+    {
+      "number": 1,
+      "path": "docs/history-session/1.md",
+      "reason": "最近历史档案；可按需读取原文"
+    }
+  ]
+}

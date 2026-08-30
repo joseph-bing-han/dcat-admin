@@ -25,10 +25,28 @@
 
 @section('app')
     {!! Dcat\Admin\Admin::asset()->styleToHtml() !!}
+    {!! Dcat\Admin\Admin::modern()->pageConfigHtml() !!}
 
-    <div class="content-header">
-        @yield('content-header')
-    </div>
+    @php
+        $modernHeaderPayload = null;
+        if (Dcat\Admin\Admin::modern()->available('layout') && Dcat\Admin\Admin::modern()->capabilityEnabled('layout.header')) {
+            $modernHeaderPayload = Dcat\Admin\Modern\LayoutPayload::header($header, $description, $breadcrumb);
+        }
+    @endphp
+    @if($modernHeaderPayload)
+        <div data-dcat-react-component="layout.header">
+            <div data-dcat-modern-fallback>
+                <div class="content-header">
+                    @yield('content-header')
+                </div>
+            </div>
+        </div>
+        {!! Dcat\Admin\Admin::modern()->payload('layout.header', $modernHeaderPayload, 'layout') !!}
+    @else
+        <div class="content-header">
+            @yield('content-header')
+        </div>
+    @endif
 
     <div class="content-body" id="app">
         {{-- 页面埋点--}}
@@ -42,6 +60,9 @@
 
     {!! Dcat\Admin\Admin::asset()->scriptToHtml() !!}
     <div class="extra-html">{!! Dcat\Admin\Admin::html() !!}</div>
+    @if(Dcat\Admin\Admin::modern()->available())
+        <span data-dcat-modern-request="1" hidden></span>
+    @endif
 @endsection
 
 @if(! request()->pjax())

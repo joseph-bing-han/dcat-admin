@@ -60,16 +60,38 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if (! $this->wantsJsonLoginResponse($request)) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput($request->except('password'));
+            }
+
             return $this->validationErrorsResponse($validator);
         }
 
         if ($this->guard()->attempt($credentials, $remember)) {
+            if (! $this->wantsJsonLoginResponse($request)) {
+                $request->session()->regenerate();
+
+                return redirect()->intended($this->getRedirectPath());
+            }
+
             return $this->sendLoginResponse($request);
         }
 
-        return $this->validationErrorsResponse([
+        $errors = [
             $this->username() => $this->getFailedLoginMessage(),
-        ]);
+        ];
+
+        if (! $this->wantsJsonLoginResponse($request)) {
+            return redirect()
+                ->back()
+                ->withErrors($errors)
+                ->withInput($request->except('password'));
+        }
+
+        return $this->validationErrorsResponse($errors);
     }
 
     /**
@@ -226,6 +248,11 @@ class AuthController extends Controller
     protected function getRedirectPath()
     {
         return $this->redirectTo ?: admin_url('/');
+    }
+
+    protected function wantsJsonLoginResponse(Request $request): bool
+    {
+        return $request->ajax() || $request->expectsJson();
     }
 
     /**

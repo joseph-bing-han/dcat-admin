@@ -237,6 +237,39 @@ class Tools implements Renderable
     }
 
     /**
+     * Stable built-in action metadata for the Modern Show header.
+     *
+     * Custom and quick-edit tools keep the header in compat because their
+     * extension/dialog lifecycle is intentionally not reinterpreted here.
+     */
+    public function modernViewData()
+    {
+        $custom = $this->showQuickEdit || $this->appends->isNotEmpty() || $this->prepends->isNotEmpty();
+        $actions = [];
+
+        if ($this->showList) {
+            $actions[] = ['kind' => 'link', 'action' => 'list', 'label' => trans('admin.list'), 'url' => $this->getListPath()];
+        }
+        if ($this->showEdit) {
+            $actions[] = ['kind' => 'link', 'action' => 'edit', 'label' => trans('admin.edit'), 'url' => $this->getEditPath()];
+        }
+        if ($this->showDelete) {
+            $actions[] = [
+                'kind' => 'button',
+                'action' => 'delete',
+                'label' => trans('admin.delete'),
+                'url' => $this->getDeletePath(),
+                'redirect' => $this->getListPath(),
+            ];
+        }
+
+        return [
+            'renderer' => $custom ? 'compat' : 'native',
+            'actions' => $actions,
+        ];
+    }
+
+    /**
      * Render `list` tool.
      *
      * @return string
@@ -251,7 +284,7 @@ class Tools implements Renderable
 
         return <<<HTML
 <div class="btn-group pull-right btn-mini" style="margin-right: 5px">
-    <a href="{$this->getListPath()}" class="btn btn-sm btn-primary ">
+    <a href="{$this->getListPath()}" class="btn btn-sm btn-primary " aria-label="{$list}">
         <i class="feather icon-list"></i><span class="d-none d-sm-inline"> {$list}</span>
     </a>
 </div>
@@ -276,7 +309,7 @@ HTML;
 
         if ($this->showEdit) {
             $btn = <<<EOF
-<a href="{$url}" class="btn btn-sm btn-primary">
+<a href="{$url}" class="btn btn-sm btn-primary" aria-label="{$edit}">
         <i class="feather icon-edit-1"></i><span class="d-none d-sm-inline"> {$edit}</span>
     </a>
 EOF;
@@ -293,7 +326,7 @@ EOF;
 
             $text = $this->showEdit ? '' : "<span class='d-none d-sm-inline'> &nbsp; $edit</span>";
 
-            $quickBtn = "<button data-url='$url' class='btn btn-sm btn-primary {$id}'><i class=' fa fa-clone'></i>$text</button>";
+            $quickBtn = "<button data-url='$url' class='btn btn-sm btn-primary {$id}' aria-label='$edit'><i class=' fa fa-clone'></i>$text</button>";
         }
 
         return <<<HTML
@@ -316,7 +349,7 @@ HTML;
 
         return <<<HTML
 <div class="btn-group pull-right btn-mini" style="margin-right: 5px">
-    <button class="btn btn-sm btn-white " data-action="delete" data-url="{$this->getDeletePath()}" data-redirect="{$this->getListPath()}">
+    <button class="btn btn-sm btn-white " aria-label="{$delete}" data-action="delete" data-url="{$this->getDeletePath()}" data-redirect="{$this->getListPath()}">
         <i class="feather icon-trash"></i><span class="d-none d-sm-inline">  {$delete}</span>
     </button>
 </div>

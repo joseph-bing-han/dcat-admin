@@ -43,6 +43,8 @@ return [
         '401' => 'Unauthorized !',
         '419' => 'Page expired !',
     ],
+    'range_start' => 'Start',
+    'range_end' => 'End',
     'online' => 'Online',
     'login' => 'Login',
     'logout' => 'Logout',

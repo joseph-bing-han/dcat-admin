@@ -42,9 +42,14 @@
     var lat = $this.find('.form-lat'),
         lng = $this.find('.form-lng'),
         container = $this.find('.form-map'),
-        mapId = "_" + Dcat.helpers.random();
+        mapId = "_" + Dcat.helpers.random(),
+        mapCleanup = function () {};
 
     container.attr('id', mapId);
+    $this.data('dcatModernCleanup', function () {
+        try { mapCleanup(); } catch (e) {}
+        container.empty().removeAttr('id');
+    });
 
     @if($type === 'google')
     function initGoogleMap() {
@@ -72,6 +77,12 @@
             lat.val(event.latLng.lat());
             lng.val(event.latLng.lng());
         });
+
+        mapCleanup = function () {
+            google.maps.event.clearInstanceListeners(marker);
+            google.maps.event.clearInstanceListeners(map);
+            marker.setMap(null);
+        };
     }
 
     initGoogleMap();
@@ -112,6 +123,14 @@
             lat.val(position.getLat());
             lng.val(position.getLng());
         });
+
+        mapCleanup = function () {
+            if (qq.maps.event.clearListeners) {
+                qq.maps.event.clearListeners(map, 'click');
+                qq.maps.event.clearListeners(marker, 'position_changed');
+            }
+            marker.setMap(null);
+        };
     }
 
     initTencentMap();
@@ -138,6 +157,10 @@
             });
 
             myMap.geoObjects.add(myPlacemark);
+
+            mapCleanup = function () {
+                if (myMap && typeof myMap.destroy === 'function') myMap.destroy();
+            };
         });
     }
 
@@ -204,6 +227,10 @@
             });
             local.search(address);
         }
+
+        mapCleanup = function () {
+            if (map && typeof map.clearOverlays === 'function') map.clearOverlays();
+        };
     }
 
     initBaiduMap();
@@ -268,6 +295,10 @@
                 lng.val(e.lnglat.lng);
             }
         })
+
+        mapCleanup = function () {
+            if (map && typeof map.destroy === 'function') map.destroy();
+        };
     }
     initAmap();
     @endif

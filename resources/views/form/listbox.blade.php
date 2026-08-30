@@ -18,6 +18,8 @@
     </div>
 </div>
 
+@unless($modernNative)
 <script require="@jquery.bootstrap-duallistbox" init="{!! $selector !!}">
     $this.bootstrapDualListbox({!! admin_javascript_json($settings) !!});
 </script>
+@endunless

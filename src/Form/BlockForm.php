@@ -57,6 +57,11 @@ class BlockForm extends WidgetForm
         return $this;
     }
 
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
     /**
      * 显示底部内容.
      *
@@ -107,7 +112,9 @@ class BlockForm extends WidgetForm
         $field->setParent($this);
         $field->width($this->width['field'], $this->width['label']);
 
-        $field::requireAssets();
+        if (! (\Dcat\Admin\Admin::modern()->available('form') && \Dcat\Admin\Admin::modern()->capabilityEnabled('form.basic'))) {
+            $field::requireAssets();
+        }
 
         return $this;
     }

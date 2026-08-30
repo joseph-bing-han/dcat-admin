@@ -1,7 +1,7 @@
 ---
 doc_type: task-list
 task: onboard-codestable
-goal: Initialize the CodeStable workspace skeleton
+goal: 初始化 CodeStable 工作区骨架
 status: archived
 workflow: onboard
 owner_skill: cs
@@ -14,11 +14,11 @@ related_docs:
   - codestable/tasks/archived
 ---
 
-# Initialize the CodeStable workspace skeleton
+# 初始化 CodeStable 工作区骨架
 
 ## 1. 任务目标
 
-Initialize the CodeStable workspace skeleton
+初始化 CodeStable 工作区骨架
 
 ## 2. 当前状态
 
@@ -26,8 +26,8 @@ archived
 
 ## 3. Agent 原生 Tasks 同步区
 
-- [x] Initialize workspace directories and canonical indexes
-- [x] Verify initialized workspace and archive the task
+- [x] 初始化工作区目录和规范索引
+- [x] 验证工作区初始化结果并归档任务
 
 ## 4. CodeStable 文档索引
 
@@ -37,11 +37,11 @@ archived
 
 ## 5. 执行步骤
 
-### 1. Initialize workspace directories and canonical indexes
+### 1. 初始化工作区目录和规范索引
 
 - 状态：done
 
-### 2. Verify initialized workspace and archive the task
+### 2. 验证工作区初始化结果并归档任务
 
 - 状态：done
 
@@ -57,4 +57,4 @@ archived
 
 2026-08-29：Task 已标记 completed，等待归档。
 
-2026-08-29：Task 已原子移动到 archived，active 正本已移除。 源快照 SHA-256：4555757bc80007da8f701cbcd37e1cc408d6147a6cf1e865a8a7777a1a953c16
+2026-08-29：任务已原子移动到 archived，active 正本已移除。源快照 SHA-256：4555757bc80007da8f701cbcd37e1cc408d6147a6cf1e865a8a7777a1a953c16

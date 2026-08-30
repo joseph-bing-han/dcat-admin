@@ -10,7 +10,7 @@
 
 ## 当前边界
 
-- PHP 兼容范围为 `>=7.1`，Laravel 兼容范围为 `5.5` 至 `10`；View 层演进不能迫使使用者升级后端运行环境。
+- PHP 最低版本为 `>=8.0`，Laravel 支持范围为 `8` 至 `10`；后端兼容与 CI 仅围绕该支持面维护。
 - 现有 PHP 构建 API、路由、请求参数、表单载荷、响应语义、Blade 覆盖和扩展注入能力属于稳定使用面。
 - 当前前端构建仍使用 Laravel Mix 4 与 Webpack；React、Vite、TypeScript 尚未成为当前事实。
 - View 层现代化是目标变化，不提前写入当前真相。目标、规范与迁移计划见 [现代化 Epic](../epics/001-o-view-layer-modernization/spec.md)。

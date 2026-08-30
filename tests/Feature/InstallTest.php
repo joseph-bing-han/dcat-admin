@@ -3,17 +3,15 @@
 namespace Tests\Feature;
 
 use Dcat\Admin\Admin;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
 /**
  * 安装功能测试.
  *
  * @group install
  */
-class InstallTest extends TestCase
+class InstallTest extends FeatureTestCase
 {
-    protected $login = false;
-
     public function testInstalledDirectories()
     {
         $this->assertFileExists(admin_path());
