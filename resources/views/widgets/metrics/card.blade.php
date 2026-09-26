@@ -17,19 +17,19 @@
         </div>
 
         @if (! empty($subTitle))
-            <span class="btn btn-sm bg-light shadow-0 p-0">
+            <span class="metric-subtitle">
                 {{ $subTitle }}
             </span>
         @endif
 
         @if(! empty($dropdown))
         <div class="dropdown chart-dropdown">
-            <button class="btn btn-sm btn-light shadow-0 dropdown-toggle p-0 waves-effect" data-toggle="dropdown">
+            <button type="button" class="btn btn-sm btn-light shadow-0 dropdown-toggle waves-effect" data-toggle="dropdown" aria-haspopup="menu" aria-expanded="false">
                 {{ current($dropdown) }}
             </button>
             <div class="dropdown-menu dropdown-menu-right">
                 @foreach($dropdown as $key => $value)
-                <li class="dropdown-item"><a href="javascript:void(0)" class="select-option" data-option="{{ $key }}">{{ $value }}</a></li>
+                <li class="dropdown-item"><a href="javascript:void(0)" class="select-option" data-option="{{ $key }}" @if($loop->first) aria-current="true" @endif>{{ $value }}</a></li>
                 @endforeach
             </div>
         </div>

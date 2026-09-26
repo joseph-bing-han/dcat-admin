@@ -19,6 +19,36 @@ const takeScreenshots = process.env.DCAT_DEMO_SCREENSHOTS !== '0';
 const interactionsOnly = process.argv.includes('--interactions-only');
 const validationContract = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json'), 'utf8'));
 const demoControllerBaseline = validationContract.demoControllerBaseline;
+const coverageRegistry = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-o-view-layer-modernization/coverage-registry.json'), 'utf8'));
+const modernBrowserEvidencePath = path.resolve(process.env.DCAT_MODERN_BROWSER_EVIDENCE || path.join(root, 'artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json'));
+const modernBrowserEvidence = fs.existsSync(modernBrowserEvidencePath)
+    ? JSON.parse(fs.readFileSync(modernBrowserEvidencePath, 'utf8'))
+    : null;
+const modernBrowserExpectedBaseUrl = trimSlash(process.env.DCAT_MODERN_BROWSER_BASE_URL || 'http://127.0.0.1:8304');
+const modernBrowserExpectedAdminPrefix = normalizePrefix(process.env.DCAT_MODERN_BROWSER_ADMIN_PREFIX || '/admin');
+const modernBrowserEvidenceMaxAgeMs = 30 * 60 * 1000;
+const modernBrowserEvidenceClockSkewMs = 5 * 1000;
+const modernBrowserHarnessPath = path.join(root, 'scripts/view-modernization-browser.mjs');
+const modernBrowserManifestPath = path.join(root, 'resources/dist/modern/manifest.json');
+let modernBrowserEvidenceFreshness = null;
+const coverageWitnesses = {
+    'widget-dashboard': 'dashboardSpacingAndDropdown',
+    'extension-surface': 'extensionSelection',
+    'grid-core': 'gridControls',
+    'form-core': 'formControls',
+    'form-has-many': 'formTabs',
+    'form-markdown': 'editor',
+    'helper-icons': 'iconTabs',
+    'helper-scaffold': 'scaffoldField',
+    'layout-shell': 'pjaxMenuNavigation',
+    'auth-login': 'authCycle',
+    'system-pages': 'systemPages',
+    'system-exception': 'systemExceptionFallback',
+    'show-detail': 'userShow',
+    'tree-page': 'tree',
+    'form-field-registry': 'formControls',
+    'grid-filters': 'quickSearch',
+};
 
 if (!fs.existsSync(demoPath)) fail(`Demo project is missing: ${demoPath}`);
 if (!fs.existsSync(chromePath)) fail(`Chrome executable is missing: ${chromePath}`);
@@ -73,6 +103,17 @@ try {
             demoControllerFilesMissing: missingControllers,
             minimumPageRoutes: demoControllerBaseline.minimumPageRoutes,
             pageRoutesDiscovered: routes.length,
+            modernBrowserEvidence: {
+                source: 'modern-browser-contracts',
+                path: path.relative(root, modernBrowserEvidencePath),
+                loaded: Boolean(modernBrowserEvidence),
+                baseUrl: modernBrowserEvidence?.baseUrl || null,
+                adminPrefix: modernBrowserEvidence?.adminPrefix || null,
+                pageErrors: modernBrowserEvidence?.pageErrors || null,
+                capturedAt: modernBrowserEvidence?.capturedAt || null,
+                freshness: null,
+                b8ServerFallbacksException: modernBrowserEvidence?.b8ServerFallbacks?.exception || null,
+            },
         },
         pages: [],
         interactionChecks: {},
@@ -87,6 +128,7 @@ try {
 
     evidence.interactionChecks = await runInteractionChecks(page);
     evidence.responsiveChecks = interactionsOnly ? [] : await runResponsiveChecks(page);
+    evidence.coverage.modernBrowserEvidence.freshness = modernBrowserEvidenceFreshness;
 
     if (baseline) {
         evidence.layoutComparison = compareLayouts(baseline, evidence);
@@ -94,6 +136,22 @@ try {
 
     const pagePaths = new Set(evidence.pages.map((item) => item.path));
     evidence.coverage.menuPagesMissing = interactionsOnly ? [] : menuRoutes.filter((route) => !pagePaths.has(route));
+    evidence.coverage.visibleRegistryEntries = coverageRegistry.entries.filter((item) => item.visible).length;
+    evidence.coverage.registryFindings = interactionsOnly ? [] : coverageRegistry.entries
+        .filter((item) => item.visible)
+        .flatMap((item) => {
+            const witness = coverageWitnesses[item.browserTestId];
+            const routeCovered = item.evidenceSource === 'modern'
+                ? Boolean(witness && evidence.interactionChecks[witness]?.status === 'passed')
+                : item.fixtureRoute === `${adminPrefix}/auth/login`
+                ? evidence.interactionChecks.authCycle?.status === 'passed'
+                : pagePaths.has(item.fixtureRoute);
+            const findings = [];
+            if (!routeCovered) findings.push(`${item.id}: fixture route ${item.fixtureRoute} was not covered`);
+            if (!(item.browserTestId in coverageWitnesses)) findings.push(`${item.id}: unknown browser test id ${item.browserTestId}`);
+            else if (witness && evidence.interactionChecks[witness]?.status !== 'passed') findings.push(`${item.id}: interaction ${witness} did not pass`);
+            return findings;
+        });
 
     const blockingPages = evidence.pages.filter((item) => item.blocking.length > 0);
     const blockingResponsive = evidence.responsiveChecks.filter((item) => item.blocking.length > 0);
@@ -116,6 +174,8 @@ try {
         demoControllerFilesExpected: evidence.coverage.demoControllerFilesExpected,
         demoControllerFilesFound: evidence.coverage.demoControllerFilesFound,
         demoControllerFilesMissing: evidence.coverage.demoControllerFilesMissing.length,
+        visibleRegistryEntries: evidence.coverage.visibleRegistryEntries,
+        registryFindings: evidence.coverage.registryFindings.length,
         pageRoutesMinimum: evidence.coverage.minimumPageRoutes,
         pageRoutesDiscovered: evidence.coverage.pageRoutesDiscovered,
     };
@@ -123,7 +183,7 @@ try {
     const reportPath = path.join(evidenceDir, 'demo-browser-report.json');
     fs.writeFileSync(reportPath, `${JSON.stringify(evidence, null, 2)}\n`);
 
-    if (blockingPages.length || blockingResponsive.length || blockingInteractions.length || layoutBlocking.length || evidence.coverage.menuPagesMissing.length || evidence.coverage.demoControllerFilesMissing.length || evidence.coverage.pageRoutesDiscovered < evidence.coverage.minimumPageRoutes) {
+    if (blockingPages.length || blockingResponsive.length || blockingInteractions.length || layoutBlocking.length || evidence.coverage.menuPagesMissing.length || evidence.coverage.demoControllerFilesMissing.length || evidence.coverage.registryFindings.length || evidence.coverage.pageRoutesDiscovered < evidence.coverage.minimumPageRoutes) {
         const messages = [
             ...blockingPages.map((item) => `${item.path}: ${item.blocking.join(' | ')}`),
             ...blockingResponsive.map((item) => `${item.path} ${item.viewport.width}x${item.viewport.height}: ${item.blocking.join(' | ')}`),
@@ -131,6 +191,7 @@ try {
             ...layoutBlocking.map((item) => `layout ${item.path}: ${item.message}`),
             ...evidence.coverage.menuPagesMissing.map((item) => `menu page not covered: ${item}`),
             ...evidence.coverage.demoControllerFilesMissing.map((item) => `Demo Controller is missing: ${item}`),
+            ...evidence.coverage.registryFindings,
         ];
         if (evidence.coverage.pageRoutesDiscovered < evidence.coverage.minimumPageRoutes) {
             messages.push(`Demo route coverage shrank: ${evidence.coverage.pageRoutesDiscovered} pages found, ${evidence.coverage.minimumPageRoutes} required.`);
@@ -430,9 +491,14 @@ async function runInteractionChecks(page) {
         const trigger = dropdown.locator('[data-toggle="dropdown"]');
         await trigger.scrollIntoViewIfNeeded();
         const before = await trigger.boundingBox();
+        const closed = await trigger.evaluate((node) => ({ padding: getComputedStyle(node).paddingInline, arrow: getComputedStyle(node, '::after').content, transform: getComputedStyle(node, '::after').transform }));
+        if (closed.padding !== '12px' || closed.arrow !== '""') throw new Error(`Metrics dropdown trigger lacks spacing or indicator: ${JSON.stringify(closed)}`);
+        const subtitles = await page.locator('.metric-subtitle').evaluateAll((nodes) => nodes.map((node) => ({ padding: getComputedStyle(node).paddingInline, button: node.matches('.btn,button,[role="button"]') })));
+        if (!subtitles.length || subtitles.some((node) => node.button || node.padding !== '12px')) throw new Error('Metrics subtitle must remain padded, non-interactive text');
         await trigger.click();
         const menu = dropdown.locator('.dropdown-menu');
         if (!await menu.isVisible()) throw new Error('Metrics dropdown did not open');
+        if (await trigger.evaluate((node) => getComputedStyle(node, '::after').transform) === closed.transform) throw new Error('Metrics dropdown indicator did not rotate when opened');
         const geometry = await dropdown.evaluate((node) => {
             const trigger = node.querySelector('[data-toggle="dropdown"]');
             const menu = node.querySelector('.dropdown-menu');
@@ -454,6 +520,12 @@ async function runInteractionChecks(page) {
         await page.keyboard.press('Escape');
         if (await menu.isVisible()) throw new Error('Metrics dropdown did not close on Escape');
         if (!await trigger.evaluate((node) => document.activeElement === node)) throw new Error('Metrics dropdown did not restore trigger focus');
+        await trigger.click();
+        const option = menu.locator('.select-option').nth(1);
+        const selectedLabel = await option.innerText();
+        await option.click();
+        if (await trigger.innerText() !== selectedLabel || await option.getAttribute('aria-current') !== 'true') throw new Error('Metrics dropdown lost its selected label or marker');
+        if (await menu.isVisible() || await trigger.getAttribute('aria-expanded') !== 'false') throw new Error('Metrics dropdown did not close after selection');
     });
 
     checks.gridControls = await interaction(async () => {
@@ -461,6 +533,76 @@ async function runInteractionChecks(page) {
         if (await page.locator('.grid-table').count() < 1 && await page.locator('table').count() < 1) throw new Error('grid table not rendered');
         const filterToggle = page.locator('[data-action="filter"], .filter-btn, .grid-filter-btn').first();
         if (await filterToggle.count()) await filterToggle.click();
+    });
+
+    checks.extensionSelection = await interaction(async () => {
+        await page.goto(`${baseUrl}${adminPrefix}/auth/extensions`, { waitUntil: 'networkidle' });
+        if (!await page.locator('body.dcat-modern-active').count()) throw new Error('extension page left the Modern renderer');
+        const rows = page.locator('input.grid-row-checkbox');
+        if (await rows.count() < 1) throw new Error('extension rows did not render');
+        const selectAll = page.locator('input.select-all.grid-select-all').first();
+        if (await selectAll.count() !== 1) throw new Error('extension select-all control did not render');
+        await selectAll.check();
+        if (!await rows.evaluateAll((nodes) => nodes.every((node) => node.checked))) throw new Error('extension select-all did not select every row');
+        await selectAll.uncheck();
+        if (await rows.evaluateAll((nodes) => nodes.some((node) => node.checked))) throw new Error('extension select-all did not clear every row');
+    });
+
+    checks.iconTabs = await interaction(async () => {
+        await page.goto(`${baseUrl}${adminPrefix}/helpers/icons`, { waitUntil: 'networkidle' });
+        const tabs = page.locator('[role="tab"]');
+        if (await tabs.count() !== 2) throw new Error('icon helper tabs did not render');
+        const panels = page.locator('[role="tabpanel"]');
+        if (await panels.count() !== 2) throw new Error('icon helper tab panels did not render');
+        if (await tabs.first().getAttribute('aria-selected') !== 'true') throw new Error('icon helper first tab is not selected initially');
+        const targetId = await tabs.nth(1).getAttribute('aria-controls');
+        if (!targetId || await page.locator(`#${targetId}`).count() !== 1) throw new Error('icon helper second tab has no panel target');
+        await tabs.nth(1).click();
+        if (await tabs.nth(1).getAttribute('aria-selected') !== 'true') throw new Error('icon helper second tab did not become selected');
+        if (!await page.locator(`#${targetId}`).evaluate((node) => node.classList.contains('active'))) throw new Error('icon helper second tab panel did not become active');
+        if (await page.locator(`#${targetId} i, #${targetId} svg`).count() < 1) throw new Error('icon helper second tab panel has no icon content');
+    });
+
+    checks.scaffoldField = await interaction(async () => {
+        await page.goto(`${baseUrl}${adminPrefix}/helpers/scaffold`, { waitUntil: 'networkidle' });
+        const rows = page.locator('#scaffold tbody tr');
+        const before = await rows.count();
+        if (before < 1) throw new Error('scaffold field rows did not render');
+        const addField = page.locator('#add-table-field');
+        if (await addField.count() !== 1) throw new Error('scaffold Add field control did not render');
+        await addField.click();
+        await page.waitForFunction((expected) => document.querySelectorAll('#scaffold tbody tr').length === expected, before + 1);
+        if (await page.locator('input[name="fields[1][name]"]').count() !== 1) throw new Error('scaffold Add field did not create the next field input');
+    });
+
+    checks.systemPages = await interaction(async () => {
+        await page.goto(`${baseUrl}${adminPrefix}/components/alert`, { waitUntil: 'networkidle' });
+        if (!await page.locator('body.dcat-modern-active').count()) throw new Error('system alert page left the Modern renderer');
+        const alerts = page.locator('.alert-dismissable');
+        const before = await alerts.count();
+        if (before < 1) throw new Error('system alert page has no dismissible feedback');
+        const close = alerts.first().locator('[data-dismiss="alert"], .close').first();
+        if (await close.count() !== 1) throw new Error('system alert has no dismiss control');
+        await close.click();
+        await page.waitForFunction((expected) => document.querySelectorAll('.alert-dismissable').length === expected, before - 1);
+    });
+
+    checks.systemExceptionFallback = await interaction(async () => {
+        const fallback = modernBrowserEvidence?.b8ServerFallbacks?.exception;
+        const before = fallback?.before;
+        const after = fallback?.after;
+        if (!fallback || !before || !after) throw new Error(`modern browser evidence is missing b8ServerFallbacks.exception at ${path.relative(root, modernBrowserEvidencePath)}`);
+        modernBrowserEvidenceFreshness = verifyModernBrowserEvidenceFreshness();
+        if (modernBrowserEvidence.baseUrl !== modernBrowserExpectedBaseUrl || modernBrowserEvidence.adminPrefix !== modernBrowserExpectedAdminPrefix) {
+            throw new Error(`modern browser evidence environment mismatch: expected ${modernBrowserExpectedBaseUrl}${modernBrowserExpectedAdminPrefix}, got ${modernBrowserEvidence.baseUrl || 'unknown'}${modernBrowserEvidence.adminPrefix || ''}`);
+        }
+        if (!Array.isArray(modernBrowserEvidence.pageErrors) || modernBrowserEvidence.pageErrors.length) {
+            throw new Error(`modern browser evidence contains page errors: ${JSON.stringify(modernBrowserEvidence.pageErrors)}`);
+        }
+        if (before.open !== false || !String(before.text || '').includes('B8 exception fixture')) throw new Error(`modern exception fallback initial state is invalid: ${JSON.stringify(before)}`);
+        if (after.open !== true || !String(after.trace || '').includes('#0 fixture():73') || after.forcedRendererQuery || after.react !== 0) {
+            throw new Error(`modern exception fallback disclosure is invalid: ${JSON.stringify(after)}`);
+        }
     });
 
     checks.formControls = await interaction(async () => {
@@ -906,6 +1048,59 @@ async function interaction(callback) {
         page.off('response', onResponse);
         page.off('requestfailed', onRequestFailed);
     }
+}
+
+function verifyModernBrowserEvidenceFreshness() {
+    const capturedAt = modernBrowserEvidence?.capturedAt;
+    const capturedAtMs = typeof capturedAt === 'string' ? Date.parse(capturedAt) : Number.NaN;
+    if (!Number.isFinite(capturedAtMs)) {
+        throw new Error(`modern browser evidence has an invalid capturedAt at ${path.relative(root, modernBrowserEvidencePath)}: ${JSON.stringify(capturedAt)}`);
+    }
+
+    const observedAtMs = Date.now();
+    const ageMs = observedAtMs - capturedAtMs;
+    const prerequisiteFiles = [
+        ['modern browser harness', modernBrowserHarnessPath],
+        ['Modern manifest', modernBrowserManifestPath],
+    ].map(([label, file]) => {
+        let stat;
+        try {
+            stat = fs.statSync(file);
+        } catch (error) {
+            throw new Error(`modern browser evidence prerequisite is unavailable (${label}): ${file}: ${error.message}`);
+        }
+        if (!stat.isFile()) throw new Error(`modern browser evidence prerequisite is not a file (${label}): ${file}`);
+        return {
+            label,
+            path: path.relative(root, file),
+            mtimeMs: stat.mtimeMs,
+            mtime: stat.mtime.toISOString(),
+        };
+    });
+    const latestPrerequisiteMtimeMs = Math.max(...prerequisiteFiles.map((file) => file.mtimeMs));
+    const freshness = {
+        capturedAt,
+        capturedAtMs,
+        observedAt: new Date(observedAtMs).toISOString(),
+        observedAtMs,
+        ageMs,
+        maxAgeMs: modernBrowserEvidenceMaxAgeMs,
+        clockSkewMs: modernBrowserEvidenceClockSkewMs,
+        latestPrerequisiteMtimeMs,
+        prerequisites: prerequisiteFiles,
+    };
+
+    if (ageMs > modernBrowserEvidenceMaxAgeMs) {
+        throw new Error(`modern browser evidence is stale: captured ${Math.round(ageMs / 1000)}s ago, maximum ${modernBrowserEvidenceMaxAgeMs / 1000}s`);
+    }
+    if (ageMs < -modernBrowserEvidenceClockSkewMs) {
+        throw new Error(`modern browser evidence capturedAt is in the future by ${Math.round(-ageMs / 1000)}s`);
+    }
+    if (capturedAtMs + modernBrowserEvidenceClockSkewMs < latestPrerequisiteMtimeMs) {
+        throw new Error(`modern browser evidence predates its prerequisites: capturedAt=${new Date(capturedAtMs).toISOString()}, latest prerequisite=${new Date(latestPrerequisiteMtimeMs).toISOString()}`);
+    }
+
+    return freshness;
 }
 
 function isLocal(value) {

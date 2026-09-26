@@ -113,6 +113,8 @@ B10 的当前目标已按用户决策改为：保留官方 Demo 的原始 Contro
 
 本轮继续处理用户反馈的三个阻断项：`Menu::add()` 的结构化节点须进入新版菜单且二/三级菜单可展开；Dashboard Metrics 内容恢复一致内边距；下拉浮层保留内容宽度、横向留白与正确对齐。需增加相应回归断言并验证真实展开态，不能只以页面 HTTP 200 或静态 DOM 存在判断通过。
 
+2026-09-26 后续 UI 修复已完成：共享下拉增加折线箭头与展开方向、Metrics/分页选中高亮及对勾、局部深色配色；Metrics 横向留白修正，固定日期副标题保持静态说明语义，并按后续用户要求保留圆角边框及内边距；分页浮层遵守右对齐向上展开并避开滚动条。32 项相关测试和五视口实测通过，资源已更新本地 Demo。详见 [下拉修复记录](issues/002-x-ff-修复下拉箭头与留白.md)；不扩大此前 PHP/Laravel 验证范围，不改变 Epic 发布状态。
+
 2026-09-26 已有 `npm run modern:verify` 和 Demo 五视口/交互验证记录可作为历史基线；本轮恢复 Controller 行为并加强页面覆盖后需要重跑受影响验证。当前没有依据宣布发布就绪或 GA。
 
 ### 已有实现与历史验证记录
@@ -303,6 +305,7 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 交付：
 
 - quick search、filters、column selector、row selector、batch action、row action、export、quick create、inline edit、tree grid 原生化。
+- 2026-09-26 列选择器 UI 修复已验证：每个复选项独占一行，All 下方分隔，长列表纵向滚动；155px 菜单在窄屏无横向溢出，勾选与全选查询行为保持。见 [修复记录](issues/004-x-ff-列选择器纵向排列.md)。
 - Modal/Popover/Dropdown/confirm 使用 Dcat UI overlay，不调用 Bootstrap `.modal/.popover/.dropdown/.collapse`。
 - 原有 `data-action`、HTTP method、query string、selection 参数和权限失败语义保持。
 - 28 displayer、36 filter 与 Grid actions 全部在 registry 取得 native 或 compat 结论，不留“页面通过但某个未展示功能未测试”的空档。
@@ -366,7 +369,7 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 
 任务迁移：此前实现 Task [`2026-09-26-001-view-layer-bootstrap-free-refactor-implementation`](../../tasks/archived/2026-09-26-001-view-layer-bootstrap-free-refactor-implementation.md) 因用户取消旧版整页兼容目标而归档为 cancelled。后续执行账本 [`2026-09-26-002-modern-view-single-renderer-demo-coverage`](../../tasks/archived/2026-09-26-002-modern-view-single-renderer-demo-coverage.md) 已于 2026-09-26 按维护者决定完成并归档。
 
-收尾边界：维护者接受该 Task 按当前证据归档，不代表未完成的发布门禁已经通过。真实浏览器 UI 200% 缩放、人工屏幕阅读顺序与当前环境代表性 legacy regression 仍保持开放；capabilities 继续为 `experimental`，release status 继续为 `not-release-candidate`。
+收尾边界：维护者接受该 Task 按当时证据归档，不代表剩余门禁已经通过。2026-09-26 用户随后取消所有人工验收要求；当前环境代表性 legacy regression 与自动化语义 DOM 顺序、键盘焦点和 200% 重排已经通过。验证提交 `8cf28129003b876a87497b55c078cdcb8f56f5f6` 已记录，14 项 capabilities 已为 `verified`，M11 已为 `release-candidate`；Epic 仍 open，未发布或关闭。
 
 交付：
 
@@ -435,7 +438,7 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 - 仅当前 PHP/Laravel 消费者的真实安装、publish、config/view/route cache、无 Node production boot；其它版本组合不属于本轮验收。
 - official Demo 全 route crawl 与 Controller inventory；coverage registry 全 fixture browser suite；代表扩展 suite。
 - 五个规定 viewports：390×844、768×1024、1024×768、1366×768、1440×900；不得只测当前 3 个 viewport。
-- axe + 键盘 + focus + reduced motion 自动门禁；屏幕阅读顺序和 200% zoom 做发布级人工复核并记录证据。
+- axe、语义 DOM 顺序、键盘、focus、reduced motion 与 200% 重排全部由浏览器门禁自动判定并记录仿真方法。
 - screenshot/geometry 基线只在稳定 fixture 上比较；设计变更必须关联 UI 规范条款，不能用“批量更新截图”消除差异。
 - 运行 bootstrap-absence gate、jQuery-core-absence gate、memory/listener leak、bundle budget、CSP/nonce、asset cache、rollback rehearsal。
 - 所有 capability 由 `experimental` 晋升到 `verified`；只有所有已知消费者覆盖后才可 `default-candidate`。
@@ -447,6 +450,8 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 2026-09-26 当前环境续验：仅验证 PHP 8.1.34 / Laravel 10.50.3。`npm run modern:verify` 通过（303 inventory/296 visible/870 dependency signals、16 个 Vitest 文件/107 tests、产物 JS 98,059 gzip bytes / CSS 12,360）；Demo 资源 publish、package discovery、config/view/route cache、`composer check-platform-reqs --no-dev` 与 Demo PHPUnit 2/2 通过。官方 Demo crawl 为 81 页、49/49 Controller、33/33 活动菜单、30 响应式检查和 22 交互检查全通过；Modern browser contract 为 25 个五视口/页面配置捕获、6 个页面族通过。Dashboard/Form/Grid/Layer Lighthouse accessibility 均 100，Grid `td-has-header` 子审计通过且无违规节点。另在隔离消费者中以历史源码 tag `2.2.2-xebni` 演练 Composer 包回退、资源重发与缓存清理；81 条 Admin 路由、登录页和 AdminLTE CSS/JS 均返回 200，未运行数据库迁移或前端构建，临时 SQLite 文件与原 Demo 字节一致。该演练使用本地 path version alias，不证明存在可部署的 Laravel 10 兼容回退制品。代表性 Install/Section 6 项测试因 SQLite teardown 不兼容失败；项目 MySQL `.env.testing` 连接返回 SQLSTATE 1045，故当前环境 suite 未验证。环境无本地屏幕阅读器或浏览器窗口控制命令，Chrome DevTools MCP 仅支持页面操作，原生 UI 200% 缩放及人工屏幕阅读顺序仍未验证。其它 PHP/Laravel 组合和旧 Dusk 版本仅保留历史参考，不属于当前验收阻断。保持 capabilities 为 `experimental` 且 release status 为 `not-release-candidate`。
 
 2026-09-26 Packagist 回退制品复验：将隔离的 Laravel 10.50.3 Demo 从 `joseph-bing-han/laravel-admin` `dev-next` 切换至公开的 `dcat/laravel-admin:2.2.3-beta`，Composer 锁定 source ref `f8ef27cc4d6a79dc346f89d0efb925d4e28ee763`；平台检查、package discovery、资源发布和 config/view/route cache 清理通过。旧包注册 121 条 Admin 路由，登录页与 AdminLTE CSS/JS 均 HTTP 200；没有运行迁移、数据库命令或前端构建，隔离 SQLite 文件与 Demo 源文件 SHA-256 均为 `3d0e5f0460fdee9faf7d0588062a55b91fecab6f777cd06a67581a0176198ca7`。因此回退制品门禁已通过，精确版本为 `2.2.3-beta`；`2.2.2-beta` 不支持 Laravel 10。无锁 Laravel 10.50.3 consumer 在根配置 `policy.advisories.block=false` 后通过 Composer 安装；该设置必须存在于 consumer 自身，因为 package 的 composer.json config 不会传递。`composer audit --locked` 仍以 exit 1 报告三项影响 Laravel Framework v10.50.3 的 advisory（PKSA-m5cs-t1y6-qpcs medium、PKSA-3r5d-mb8f-1qw9 high、PKSA-mdq4-51ck-6kdq/CVE-2026-48019）；按用户明确决定禁用 resolver blocking，但保留审计输出。原生浏览器 UI 200% 缩放、人工读屏与代表性 legacy 测试仍未闭合，capabilities 保持 `experimental`，release status 保持 `not-release-candidate`。
+
+2026-09-26 本轮自动化验收：仅在 PHP 8.1.34 / Laravel 10.50.3 环境复验。`npm run modern:verify` 通过 16 个 Vitest 文件/107 项测试与构建产物门禁；隔离 SQLite 的代表性旧功能回归通过 6 tests/30 assertions。Modern Chrome 合同通过 25 个布局捕获、10 类页面 axe、6 类语义 DOM 顺序和真实 Tab 遍历，以及 6 页面族 × 5 来源视口的 30 个半宽 CSS 视口重排案例；该代理不等同原生浏览器 UI 缩放。官方 Demo 最终通过 81 页、49/49 Controller、33/33 活动菜单、30 组响应式和 27 项交互；296 条可见覆盖映射均有页面族见证，0 findings。Tree 局部滚动与 Widget 极窄宽修复、compat 表单可访问名称和 Select2 列表语义已纳入同一证据。人工验收不是当前门禁；验证提交已产生并记录，能力晋升与 release-candidate 已完成，Epic 关闭仍未执行。
 
 发布就绪关闭条件：官方内建 View 与新版 compat path 在当前 PHP/Laravel 环境中 0 blocking failure；core 页面与 core package 均无 Bootstrap/AdminLTE 依赖；官方 Demo 的 Controller inventory、菜单入口和完整页面 crawl 全通过；package 版本回滚不需要数据库回滚或重放写请求。此状态仍不自动关闭 Epic 或执行发布，其它版本组合不构成阻断。
 
@@ -479,7 +484,7 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 - 当前 PHP/Laravel 环境的集成测试以及 production build/manifest 安装测试；C0、构建链或共享 PHP/Blade 契约变化扩大当前环境内的相关测试，不增加其它版本组合。
 - 浏览器行为测试：完整加载、PJAX、前进后退、并发请求、错误、权限拒绝、重复导航、真实点击/输入/拖拽/上传/提交；只检查 HTTP 200 或 DOM 存在不算功能通过。
 - 五个规定视口的几何断言与视觉差异；动态内容使用稳定 fixture 和明确容差。
-- 自动无障碍扫描加人工键盘、焦点、屏幕阅读顺序和 200% 缩放检查。
+- 自动无障碍扫描、语义 DOM 顺序、键盘、焦点与 200% 重排检查。
 - native/compat island 对照、manifest/chunk 失败和可恢复状态演练；不得切回旧 renderer。
 - 对共享运行时批次执行内存、监听器、网络请求和资源体积测量。
 - Bootstrap-free 批次额外执行静态 dependency scan 与真实浏览器 Network gate：native/core 页面不得加载 Bootstrap/AdminLTE；B9 后 native/core 页面不得依赖 jQuery。

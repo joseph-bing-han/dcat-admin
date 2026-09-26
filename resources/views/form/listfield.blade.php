@@ -22,7 +22,7 @@
                     <td>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <input name="{{ $name }}[values][{{ (int) $k }}]" value="{{ $v }}" class="form-control" />
+                                <input name="{{ $name }}[values][{{ (int) $k }}]" value="{{ $v }}" class="form-control" aria-label="{{ strip_tags($label) }}" />
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
             <td>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input name="{{ $name }}[values][{key}]" class="form-control" />
+                        <input name="{{ $name }}[values][{key}]" class="form-control" aria-label="{{ strip_tags($label) }}" />
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>

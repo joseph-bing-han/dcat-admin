@@ -6,7 +6,7 @@
   "phpLaravel": {
     "projectPhpConstraint": ">=8.0.0",
     "projectLaravelConstraint": "^8.0|^9.0|^10.0",
-    "verificationStatus": "current-environment-verified-release-gates-pending",
+    "verificationStatus": "current-environment-verified-release-candidate",
     "verificationScope": "current-environment-only",
     "currentEnvironment": {
       "php": "8.1",
@@ -29,10 +29,11 @@
       "configViewRouteCache": "passed",
       "demoPhpunit": "passed-2-tests-2-assertions",
       "modernVerification": "passed-npm-run-modern:verify",
-      "officialDemoBrowser": "81-pages-30-responsive-checks-22-interactions-passed",
-      "modernBrowserContracts": "25-captures-6-page-families-passed",
-      "actualBrowserUiZoomVerified": false,
-      "demoEvidence": "../m11-demo-laravel10-validation.json#currentRun"
+      "officialDemoBrowser": "81-pages-30-responsive-checks-27-interactions-296-visible-mappings-0-findings-passed",
+      "modernBrowserContracts": "25-captures-10-axe-families-6-page-families-6-order-families",
+      "automated200PercentReflow": "passed-30-cases-6-families-5-source-viewports-half-width-css-viewport-proxy",
+      "demoEvidence": "../m11-demo-laravel10-validation.json#currentRun",
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
     },
     "partialEvidence": "../m11-php81-validation.json",
     "supportFloorStatus": "reconciled-php80-minimum",
@@ -49,7 +50,10 @@
         "referenceVersion": "8.83.29",
         "frameworkPhpConstraint": "^8.0",
         "effectiveProjectMinimum": "8.0.0",
-        "ciPhpVersions": ["8.0", "8.1"],
+        "ciPhpVersions": [
+          "8.0",
+          "8.1"
+        ],
         "evidence": "https://laravel.com/docs/10.x/releases"
       },
       {
@@ -57,7 +61,11 @@
         "referenceVersion": "9.52.16",
         "frameworkPhpConstraint": "^8.0.2",
         "effectiveProjectMinimum": "8.0.2",
-        "ciPhpVersions": ["8.0", "8.1", "8.2"],
+        "ciPhpVersions": [
+          "8.0",
+          "8.1",
+          "8.2"
+        ],
         "evidence": "https://laravel.com/docs/10.x/releases"
       },
       {
@@ -65,7 +73,11 @@
         "referenceVersion": "10.48.29",
         "frameworkPhpConstraint": "^8.1",
         "effectiveProjectMinimum": "8.1.0",
-        "ciPhpVersions": ["8.1", "8.2", "8.3"],
+        "ciPhpVersions": [
+          "8.1",
+          "8.2",
+          "8.3"
+        ],
         "evidence": "https://laravel.com/docs/10.x/releases"
       }
     ],

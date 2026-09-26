@@ -191,7 +191,7 @@ M0 建立机器可读矩阵，每项至少包含：
 | Native status | unsupported/experimental/verified/default-candidate |
 | Compat status | unsupported/experimental/verified |
 | Renderer / content scope | native/compat 与 component/content island；不得选择旧 renderer |
-| Verification | 自动测试、视口、人工验收和证据位置 |
+| Verification | 自动测试、视口和证据位置 |
 | Browser fixtures | 覆盖该 capability 的真实浏览器 test id / route |
 | Bootstrap dependency | none/Dcat compat facade；官方内建能力不得要求 Bootstrap/AdminLTE |
 | Contract versions | token、payload、bridge、manifest 版本 |

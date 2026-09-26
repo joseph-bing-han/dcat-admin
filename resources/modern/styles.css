@@ -330,6 +330,14 @@
     border-left: 1px solid var(--dcat-modern-border-subtle);
 }
 
+@media (max-width: 240px) {
+    .dcat-modern-active .dcat-modern-tree-body {
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 .dcat-modern-active .dcat-modern-tree-node {
     margin: 0;
 }
@@ -1749,6 +1757,16 @@
         min-width: 44px;
         height: 44px;
         min-height: 44px;
+    }
+}
+
+@media (max-width: 240px) {
+    .dcat-modern-active .dcat-modern-widget__header {
+        flex-wrap: wrap;
+    }
+
+    .dcat-modern-active .dcat-modern-widget__tools {
+        margin-left: 0;
     }
 }
 

@@ -97,8 +97,8 @@ required(bridgeSource, 'registry.has(capability.id)', 'Capability registration m
 required(adapters, "selector: '[data-dcat-modern-extension=\"1\"]'", 'Core extension classification must remain isolated from core React component markers.');
 
 const renderingContract = JSON.parse(read(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m4-m10-rendering-contract.json')));
-if (renderingContract.status !== 'implementation-complete-runtime-evidence-pending') {
-    errors.push('M4-M10 rendering contract must remain implementation-complete/runtime-evidence-pending until the external matrix is recorded.');
+if (renderingContract.status !== 'historical-gen1-rendering-contract') {
+    errors.push('M4-M10 rendering contract must be marked as historical after the single-renderer transition.');
 }
 [
     'layout.navigation', 'layout.menu', 'layout.header', 'layout.navbar', 'layout.footer', 'layout.full-page',
@@ -116,21 +116,34 @@ if (![
     'bootstrap-free-implementation-external-runtime-evidence-pending',
     'implementation-complete-external-runtime-evidence-pending',
     'b0-b9-complete-b10-b12-in-progress',
+    'b0-b12-automated-gates-passed-awaiting-verified-commit',
+    'b0-b12-verified-current-environment',
 ].includes(implementationMatrix.status)) {
     errors.push('Implementation capability matrix status is outside the recognized migration/revalidation states.');
 }
-implementationMatrix.capabilities.forEach((capability) => {
-    if (capability.modernStatus !== 'experimental') {
-        errors.push(`${capability.capabilityId} cannot be promoted beyond experimental before the external runtime matrix is recorded.`);
-    }
-});
 
 const releaseStatus = JSON.parse(read(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m11-release-status.json')));
-if (releaseStatus.defaultModernEnabled !== true || releaseStatus.defaultCandidateAuthorized !== true || releaseStatus.releaseStatus !== 'not-release-candidate') {
-    errors.push('M11 release state must record explicit maintainer authorization for default-modern while preserving the non-release-candidate status.');
+if (releaseStatus.defaultModernEnabled !== true || releaseStatus.defaultCandidateAuthorized !== true) {
+    errors.push('M11 release state must record explicit maintainer authorization for default-modern.');
 }
 if (!Array.isArray(releaseStatus.remainingImplementation) || releaseStatus.remainingImplementation.length !== 0) {
-    errors.push('M11 release state must not claim remaining code implementation after M1-M10 completion.');
+    errors.push('M11 release state must not claim remaining code implementation after B0-B12 completion.');
+}
+const releaseReady = releaseStatus.releaseStatus === 'release-candidate';
+if (!['not-release-candidate', 'release-candidate'].includes(releaseStatus.releaseStatus)) {
+    errors.push('M11 release status is not recognized.');
+}
+if (!Array.isArray(releaseStatus.remainingAutomatedGates) || (releaseReady && releaseStatus.remainingAutomatedGates.length)) {
+    errors.push('Release candidates must have no remaining automated gates.');
+}
+const expectedCapabilityStatus = releaseReady ? 'verified' : 'experimental';
+implementationMatrix.capabilities.forEach((capability) => {
+    if (capability.modernStatus !== expectedCapabilityStatus) {
+        errors.push(`${capability.capabilityId} must remain ${expectedCapabilityStatus} for the recorded M11 release state.`);
+    }
+});
+if (releaseReady && implementationMatrix.status !== 'b0-b12-verified-current-environment') {
+    errors.push('Release candidates require the current-environment verified capability matrix.');
 }
 
 const config = read(path.join(root, 'config/admin.php'));

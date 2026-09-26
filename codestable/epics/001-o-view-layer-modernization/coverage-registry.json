@@ -11,7 +11,7 @@
     "widget": 31
   },
   "visibleCount": 296,
-  "fixtureRule": "Every visible entry must map to a real browser fixture route and stable browser test id before promotion.",
+  "fixtureRule": "Every visible entry must map to a browser route and a passed family witness in the Demo or modern browser report before promotion; family-level witnesses do not prove every source branch individually.",
   "entries": [
     {
       "id": "blade:resources/views/dashboard/dependencies.blade.php",
@@ -31,7 +31,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/dashboard/environment.blade.php",
@@ -51,7 +52,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/dashboard/extensions.blade.php",
@@ -72,8 +74,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/auth/extensions",
+      "browserTestId": "extension-surface",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/dashboard/title.blade.php",
@@ -96,7 +99,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/between-datetime.blade.php",
@@ -118,7 +122,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/between.blade.php",
@@ -135,7 +140,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/button.blade.php",
@@ -157,7 +163,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/checkbox.blade.php",
@@ -180,7 +187,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/container.blade.php",
@@ -205,7 +213,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/datetime.blade.php",
@@ -231,7 +240,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/gt.blade.php",
@@ -246,7 +256,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/lt.blade.php",
@@ -261,7 +272,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/multipleselect.blade.php",
@@ -288,7 +300,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/radio.blade.php",
@@ -311,7 +324,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/right-side-container.blade.php",
@@ -336,7 +350,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/select.blade.php",
@@ -363,7 +378,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/selecttable.blade.php",
@@ -380,7 +396,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/simple-container.blade.php",
@@ -405,7 +422,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/text.blade.php",
@@ -427,7 +445,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/filter/where.blade.php",
@@ -442,7 +461,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/autocomplete.blade.php",
@@ -463,7 +483,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/button.blade.php",
@@ -480,7 +501,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/captcha.blade.php",
@@ -500,7 +522,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/checkbox.blade.php",
@@ -521,7 +544,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/color.blade.php",
@@ -546,7 +570,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/container.blade.php",
@@ -566,7 +591,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/daterange.blade.php",
@@ -593,7 +619,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/datetimerange.blade.php",
@@ -620,7 +647,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/display.blade.php",
@@ -637,7 +665,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/editor.blade.php",
@@ -658,7 +687,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/embeds.blade.php",
@@ -680,7 +710,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/error.blade.php",
@@ -695,7 +726,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/fields.blade.php",
@@ -719,7 +751,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/file.blade.php",
@@ -743,7 +776,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/footer.blade.php",
@@ -768,7 +802,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/hasmany.blade.php",
@@ -790,8 +825,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/form/has-many",
-      "browserTestId": "form-has-many"
+      "fixtureRoute": "/admin/form/layout/tab",
+      "browserTestId": "form-has-many",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/hasmanytab.blade.php",
@@ -814,8 +850,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/form/has-many",
-      "browserTestId": "form-has-many"
+      "fixtureRoute": "/admin/form/layout/tab",
+      "browserTestId": "form-has-many",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/hasmanytable.blade.php",
@@ -839,8 +876,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/form/has-many",
-      "browserTestId": "form-has-many"
+      "fixtureRoute": "/admin/form/layout/tab",
+      "browserTestId": "form-has-many",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/help-block.blade.php",
@@ -858,7 +896,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/hidden.blade.php",
@@ -873,7 +912,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/iconbutton.blade.php",
@@ -893,7 +933,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/id.blade.php",
@@ -912,7 +953,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/input.blade.php",
@@ -933,7 +975,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/keyvalue.blade.php",
@@ -954,7 +997,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/listbox.blade.php",
@@ -980,7 +1024,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/listfield.blade.php",
@@ -1002,7 +1047,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/map.blade.php",
@@ -1023,7 +1069,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/markdown.blade.php",
@@ -1041,7 +1088,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form/markdown",
-      "browserTestId": "form-markdown"
+      "browserTestId": "form-markdown",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/multipleselect.blade.php",
@@ -1064,7 +1112,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/number.blade.php",
@@ -1088,7 +1137,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/radio.blade.php",
@@ -1109,7 +1159,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/range.blade.php",
@@ -1128,7 +1179,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/rate.blade.php",
@@ -1147,7 +1199,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/row.blade.php",
@@ -1167,7 +1220,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/select-script.blade.php",
@@ -1191,7 +1245,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/select.blade.php",
@@ -1217,7 +1272,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/selecttable.blade.php",
@@ -1240,7 +1296,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/slider.blade.php",
@@ -1258,7 +1315,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/switchfield.blade.php",
@@ -1280,7 +1338,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/tab.blade.php",
@@ -1303,7 +1362,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/tags.blade.php",
@@ -1327,7 +1387,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/textarea.blade.php",
@@ -1346,7 +1407,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/timerange.blade.php",
@@ -1373,7 +1435,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/form/tree.blade.php",
@@ -1396,7 +1459,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-core"
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/async-fixed-table.blade.php",
@@ -1420,7 +1484,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/async-table.blade.php",
@@ -1444,7 +1509,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/batch-actions.blade.php",
@@ -1470,7 +1536,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/column-selector.blade.php",
@@ -1491,7 +1558,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/dialogtree.blade.php",
@@ -1510,7 +1578,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/editinline/checkbox.blade.php",
@@ -1532,7 +1601,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/editinline/input.blade.php",
@@ -1555,7 +1625,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/editinline/radio.blade.php",
@@ -1577,7 +1648,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/editinline/template.blade.php",
@@ -1601,7 +1673,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/editinline/textarea.blade.php",
@@ -1622,7 +1695,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/expand.blade.php",
@@ -1640,7 +1714,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/extensions/description.blade.php",
@@ -1660,8 +1735,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/auth/extensions",
+      "browserTestId": "extension-surface",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/extensions/name.blade.php",
@@ -1682,8 +1758,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/auth/extensions",
+      "browserTestId": "extension-surface",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/select.blade.php",
@@ -1707,7 +1784,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/switch.blade.php",
@@ -1726,7 +1804,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/switchgroup.blade.php",
@@ -1750,7 +1829,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/displayer/table.blade.php",
@@ -1768,7 +1848,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/dropdown-actions.blade.php",
@@ -1790,7 +1871,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/fixed-table.blade.php",
@@ -1816,7 +1898,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/image.blade.php",
@@ -1838,7 +1921,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/pagination.blade.php",
@@ -1859,7 +1943,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/date.blade.php",
@@ -1876,7 +1961,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/form.blade.php",
@@ -1897,7 +1983,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/multipleselect.blade.php",
@@ -1917,7 +2004,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/select.blade.php",
@@ -1938,7 +2026,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/selectresource.blade.php",
@@ -1958,7 +2047,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/tags.blade.php",
@@ -1978,7 +2068,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-create/text.blade.php",
@@ -1995,7 +2086,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/quick-search.blade.php",
@@ -2015,7 +2107,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/selector.blade.php",
@@ -2038,7 +2131,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/table-pagination.blade.php",
@@ -2056,7 +2150,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/table-toolbar.blade.php",
@@ -2077,7 +2172,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/grid/table.blade.php",
@@ -2102,7 +2198,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/helpers/feather.blade.php",
@@ -2118,8 +2215,9 @@
       "resourceAliases": [],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/helpers/icons",
+      "browserTestId": "helper-icons",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/helpers/font-awesome.blade.php",
@@ -2135,8 +2233,9 @@
       "resourceAliases": [],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/helpers/icons",
+      "browserTestId": "helper-icons",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/helpers/scaffold.blade.php",
@@ -2163,8 +2262,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/helpers/scaffold",
+      "browserTestId": "helper-scaffold",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/layouts/container.blade.php",
@@ -2192,7 +2292,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/layouts/content.blade.php",
@@ -2221,7 +2322,8 @@
       "nativeStatus": "payload-first",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/layouts/form-content.blade.php",
@@ -2242,7 +2344,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/layouts/full-content.blade.php",
@@ -2268,7 +2371,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/layouts/full-page.blade.php",
@@ -2290,7 +2394,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/layouts/page.blade.php",
@@ -2312,7 +2417,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/pages/login.blade.php",
@@ -2339,7 +2445,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/login",
-      "browserTestId": "auth-login"
+      "browserTestId": "auth-login",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/alerts.blade.php",
@@ -2363,7 +2470,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "blade:resources/views/partials/breadcrumb.blade.php",
@@ -2387,7 +2495,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/exception.blade.php",
@@ -2409,8 +2518,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin",
-      "browserTestId": "system-pages"
+      "fixtureRoute": "/admin/tests/view-baseline/modern-system-exception",
+      "browserTestId": "system-exception",
+      "evidenceSource": "modern"
     },
     {
       "id": "blade:resources/views/partials/menu.blade.php",
@@ -2437,7 +2547,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/modern-alert.blade.php",
@@ -2462,7 +2573,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/navbar-user-panel.blade.php",
@@ -2482,7 +2594,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/navbar.blade.php",
@@ -2507,7 +2620,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/sidebar-user-panel.blade.php",
@@ -2525,7 +2639,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/sidebar.blade.php",
@@ -2549,7 +2664,8 @@
       "nativeStatus": "payload-first-partial",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/partials/toastr.blade.php",
@@ -2571,7 +2687,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "layout-shell"
+      "browserTestId": "layout-shell",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/scripts/select.blade.php",
@@ -2592,8 +2709,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/extensions",
-      "browserTestId": "extension-surface"
+      "fixtureRoute": "/admin/form",
+      "browserTestId": "form-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/show/container.blade.php",
@@ -2617,7 +2735,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users/1",
-      "browserTestId": "show-detail"
+      "browserTestId": "show-detail",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/show/field.blade.php",
@@ -2638,7 +2757,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users/1",
-      "browserTestId": "show-detail"
+      "browserTestId": "show-detail",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/show/panel.blade.php",
@@ -2661,7 +2781,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users/1",
-      "browserTestId": "show-detail"
+      "browserTestId": "show-detail",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/show/row.blade.php",
@@ -2683,7 +2804,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users/1",
-      "browserTestId": "show-detail"
+      "browserTestId": "show-detail",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/tree/branch.blade.php",
@@ -2705,8 +2827,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/components/tree",
-      "browserTestId": "tree-page"
+      "fixtureRoute": "/admin/tree",
+      "browserTestId": "tree-page",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/tree/container.blade.php",
@@ -2735,8 +2858,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/components/tree",
-      "browserTestId": "tree-page"
+      "fixtureRoute": "/admin/tree",
+      "browserTestId": "tree-page",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/alert.blade.php",
@@ -2756,7 +2880,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/box.blade.php",
@@ -2779,7 +2904,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/card.blade.php",
@@ -2804,7 +2930,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/checkbox.blade.php",
@@ -2826,7 +2953,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/data-card.blade.php",
@@ -2851,7 +2979,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/data-card/chart.blade.php",
@@ -2873,7 +3002,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/data-card/line-chart.blade.php",
@@ -2895,7 +3025,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/dialogtable.blade.php",
@@ -2916,7 +3047,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/dropdown.blade.php",
@@ -2938,7 +3070,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/form.blade.php",
@@ -2960,7 +3093,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/markdown.blade.php",
@@ -2977,7 +3111,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/metrics/card.blade.php",
@@ -2999,7 +3134,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/radio.blade.php",
@@ -3023,7 +3159,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/tab.blade.php",
@@ -3046,7 +3183,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/table.blade.php",
@@ -3068,7 +3206,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "blade:resources/views/widgets/tree.blade.php",
@@ -3087,7 +3226,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/ArrayField.php",
@@ -3102,7 +3242,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Autocomplete.php",
@@ -3122,7 +3263,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Button.php",
@@ -3140,7 +3282,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/CanCascadeFields.php",
@@ -3162,7 +3305,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/CanLoadFields.php",
@@ -3180,7 +3324,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Captcha.php",
@@ -3195,7 +3340,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/CascadeGroup.php",
@@ -3214,7 +3360,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Checkbox.php",
@@ -3233,7 +3380,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Color.php",
@@ -3250,7 +3398,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Currency.php",
@@ -3271,7 +3420,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Date.php",
@@ -3291,7 +3441,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/DateRange.php",
@@ -3308,7 +3459,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Datetime.php",
@@ -3323,7 +3475,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/DatetimeRange.php",
@@ -3338,7 +3491,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Decimal.php",
@@ -3356,7 +3510,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Display.php",
@@ -3371,7 +3526,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Divide.php",
@@ -3386,7 +3542,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Editor.php",
@@ -3405,7 +3562,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Email.php",
@@ -3420,7 +3578,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Embeds.php",
@@ -3440,7 +3599,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Fieldset.php",
@@ -3457,7 +3617,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "form-field:src/Form/Field/File.php",
@@ -3479,7 +3640,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/HasDepends.php",
@@ -3497,7 +3659,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/HasMany.php",
@@ -3520,7 +3683,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Head.php",
@@ -3535,7 +3699,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "form-field:src/Form/Field/Hidden.php",
@@ -3550,7 +3715,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Html.php",
@@ -3569,7 +3735,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Icon.php",
@@ -3589,7 +3756,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Id.php",
@@ -3604,7 +3772,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Image.php",
@@ -3623,7 +3792,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/ImageField.php",
@@ -3643,7 +3813,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Ip.php",
@@ -3661,7 +3832,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/KeyValue.php",
@@ -3678,7 +3850,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/ListField.php",
@@ -3698,7 +3871,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Listbox.php",
@@ -3717,7 +3891,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Map.php",
@@ -3736,7 +3911,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Markdown.php",
@@ -3758,7 +3934,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Mobile.php",
@@ -3776,7 +3953,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Month.php",
@@ -3791,7 +3969,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/MultipleFile.php",
@@ -3809,7 +3988,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/MultipleImage.php",
@@ -3827,7 +4007,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/MultipleSelect.php",
@@ -3842,7 +4023,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/MultipleSelectTable.php",
@@ -3862,7 +4044,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Nullable.php",
@@ -3877,7 +4060,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "form-field:src/Form/Field/Number.php",
@@ -3896,7 +4080,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Password.php",
@@ -3911,7 +4096,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/PlainInput.php",
@@ -3926,7 +4112,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "form-field:src/Form/Field/Radio.php",
@@ -3945,7 +4132,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Range.php",
@@ -3963,7 +4151,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Rate.php",
@@ -3981,7 +4170,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Select.php",
@@ -4001,7 +4191,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/SelectTable.php",
@@ -4023,7 +4214,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Sizeable.php",
@@ -4043,7 +4235,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "form-field:src/Form/Field/Slider.php",
@@ -4058,7 +4251,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/SwitchField.php",
@@ -4076,7 +4270,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Table.php",
@@ -4093,7 +4288,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Tags.php",
@@ -4113,7 +4309,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Tel.php",
@@ -4128,7 +4325,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Text.php",
@@ -4152,7 +4350,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Textarea.php",
@@ -4172,7 +4371,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Time.php",
@@ -4187,7 +4387,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/TimeRange.php",
@@ -4202,7 +4403,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Timezone.php",
@@ -4217,7 +4419,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Tree.php",
@@ -4236,7 +4439,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/UploadField.php",
@@ -4256,7 +4460,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": null,
-      "browserTestId": null
+      "browserTestId": null,
+      "evidenceSource": null
     },
     {
       "id": "form-field:src/Form/Field/Url.php",
@@ -4271,7 +4476,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/WebUploader.php",
@@ -4290,7 +4496,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "form-field:src/Form/Field/Year.php",
@@ -4305,7 +4512,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form",
-      "browserTestId": "form-field-registry"
+      "browserTestId": "form-field-registry",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/AbstractDisplayer.php",
@@ -4326,7 +4534,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Actions.php",
@@ -4348,7 +4557,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Badge.php",
@@ -4363,7 +4573,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Button.php",
@@ -4380,7 +4591,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Checkbox.php",
@@ -4395,7 +4607,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/ContextMenuActions.php",
@@ -4413,7 +4626,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Copyable.php",
@@ -4434,7 +4648,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/DialogTree.php",
@@ -4453,8 +4668,9 @@
       ],
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
-      "fixtureRoute": "/admin/components/tree",
-      "browserTestId": "tree-page"
+      "fixtureRoute": "/admin/tree",
+      "browserTestId": "tree-page",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Downloadable.php",
@@ -4469,7 +4685,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/DropdownActions.php",
@@ -4488,7 +4705,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Editable.php",
@@ -4503,7 +4721,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Expand.php",
@@ -4520,7 +4739,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Image.php",
@@ -4535,7 +4755,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Input.php",
@@ -4554,7 +4775,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Label.php",
@@ -4569,7 +4791,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Limit.php",
@@ -4586,7 +4809,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Link.php",
@@ -4603,7 +4827,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Modal.php",
@@ -4620,7 +4845,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Orderable.php",
@@ -4637,7 +4863,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/ProgressBar.php",
@@ -4652,7 +4879,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/QRCode.php",
@@ -4673,7 +4901,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Radio.php",
@@ -4688,7 +4917,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Select.php",
@@ -4705,7 +4935,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/SwitchDisplay.php",
@@ -4722,7 +4953,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/SwitchGroup.php",
@@ -4739,7 +4971,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Table.php",
@@ -4756,7 +4989,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Textarea.php",
@@ -4771,7 +5005,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-core"
+      "browserTestId": "grid-core",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-displayer:src/Grid/Displayers/Tree.php",
@@ -4787,8 +5022,9 @@
       ],
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
-      "fixtureRoute": "/admin/components/tree",
-      "browserTestId": "tree-page"
+      "fixtureRoute": "/admin/tree",
+      "browserTestId": "tree-page",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/AbstractFilter.php",
@@ -4809,7 +5045,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Between.php",
@@ -4829,7 +5066,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Date.php",
@@ -4847,7 +5085,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Day.php",
@@ -4865,7 +5104,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/EndWith.php",
@@ -4883,7 +5123,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Equal.php",
@@ -4898,7 +5139,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/FindInSet.php",
@@ -4917,7 +5159,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Group.php",
@@ -4939,7 +5182,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Gt.php",
@@ -4958,7 +5202,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Hidden.php",
@@ -4977,7 +5222,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Ilike.php",
@@ -4995,7 +5241,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/In.php",
@@ -5015,7 +5262,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Layout/Column.php",
@@ -5034,7 +5282,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Layout/Layout.php",
@@ -5053,7 +5302,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Like.php",
@@ -5071,7 +5321,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Lt.php",
@@ -5090,7 +5341,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Month.php",
@@ -5108,7 +5360,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Newline.php",
@@ -5125,7 +5378,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Ngt.php",
@@ -5144,7 +5398,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Nlt.php",
@@ -5163,7 +5418,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/NotEqual.php",
@@ -5180,7 +5436,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/NotIn.php",
@@ -5197,7 +5454,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/Checkbox.php",
@@ -5212,7 +5470,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/DateTime.php",
@@ -5231,7 +5490,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/MultipleSelect.php",
@@ -5251,7 +5511,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/MultipleSelectTable.php",
@@ -5271,7 +5532,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/Presenter.php",
@@ -5290,7 +5552,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/Radio.php",
@@ -5309,7 +5572,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/Select.php",
@@ -5328,7 +5592,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/SelectTable.php",
@@ -5351,7 +5616,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Presenter/Text.php",
@@ -5374,7 +5640,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Scope.php",
@@ -5394,7 +5661,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/StartWith.php",
@@ -5412,7 +5680,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Where.php",
@@ -5431,7 +5700,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/WhereBetween.php",
@@ -5451,7 +5721,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "grid-filter:src/Grid/Filter/Year.php",
@@ -5469,7 +5740,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/auth/users",
-      "browserTestId": "grid-filters"
+      "browserTestId": "grid-filters",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Alert.php",
@@ -5489,7 +5761,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/ApexCharts/Chart.php",
@@ -5512,7 +5785,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Box.php",
@@ -5530,7 +5804,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Callout.php",
@@ -5550,7 +5825,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Card.php",
@@ -5571,7 +5847,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Checkbox.php",
@@ -5589,7 +5866,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Code.php",
@@ -5610,7 +5888,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/DarkModeSwitcher.php",
@@ -5625,7 +5904,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/DialogForm.php",
@@ -5644,7 +5924,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/DialogTable.php",
@@ -5664,7 +5945,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Dropdown.php",
@@ -5685,7 +5967,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Dump.php",
@@ -5704,7 +5987,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Form.php",
@@ -5730,7 +6014,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Lazy.php",
@@ -5748,7 +6033,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/LazyTable.php",
@@ -5768,7 +6054,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Markdown.php",
@@ -5787,7 +6074,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin/form/markdown",
-      "browserTestId": "form-markdown"
+      "browserTestId": "form-markdown",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/Bar.php",
@@ -5808,7 +6096,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/Card.php",
@@ -5830,7 +6119,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/Donut.php",
@@ -5851,7 +6141,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/Line.php",
@@ -5871,7 +6162,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/RadialBar.php",
@@ -5892,7 +6184,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/Round.php",
@@ -5911,7 +6204,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Metrics/SingleRound.php",
@@ -5929,7 +6223,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Modal.php",
@@ -5953,7 +6248,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Radio.php",
@@ -5971,7 +6267,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Tab.php",
@@ -5994,7 +6291,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Table.php",
@@ -6013,7 +6311,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Terminal.php",
@@ -6031,7 +6330,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Tooltip.php",
@@ -6052,7 +6352,8 @@
       "nativeStatus": "experimental",
       "compatStatus": "required-until-native-or-facade-verified",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Tree.php",
@@ -6069,8 +6370,9 @@
       ],
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
-      "fixtureRoute": "/admin/components/tree",
-      "browserTestId": "tree-page"
+      "fixtureRoute": "/admin/tree",
+      "browserTestId": "tree-page",
+      "evidenceSource": "demo"
     },
     {
       "id": "widget:src/Widgets/Widget.php",
@@ -6090,7 +6392,8 @@
       "nativeStatus": "native-candidate",
       "compatStatus": "candidate",
       "fixtureRoute": "/admin",
-      "browserTestId": "widget-dashboard"
+      "browserTestId": "widget-dashboard",
+      "evidenceSource": "demo"
     }
   ]
 }

@@ -46,7 +46,7 @@ const registry = {
     generator: 'scripts/view-modernization-coverage.js',
     inventory: Object.fromEntries(inventories.map((inventory) => [inventory.type, inventory.expected])),
     visibleCount: inventoryEntries.filter((entry) => entry.visible).length,
-    fixtureRule: 'Every visible entry must map to a real browser fixture route and stable browser test id before promotion.',
+    fixtureRule: 'Every visible entry must map to a browser route and a passed family witness in the Demo or modern browser report before promotion; family-level witnesses do not prove every source branch individually.',
     entries: inventoryEntries,
 };
 
@@ -107,6 +107,7 @@ function coverageEntry(type, file) {
         compatStatus: signals.length ? 'required-until-native-or-facade-verified' : 'candidate',
         fixtureRoute: visible ? fixture.route : null,
         browserTestId: visible ? fixture.testId : null,
+        evidenceSource: visible ? fixture.source || 'demo' : null,
     };
 }
 
@@ -129,25 +130,29 @@ function familyFor(type, file) {
 function fixtureFor(type, file, family) {
     if (type === 'form-field') return { route: '/admin/form', testId: 'form-field-registry' };
     const specialized = [
+        [/resources\/views\/helpers\/(?:feather|font-awesome)\.blade\.php$/i, '/admin/helpers/icons', 'helper-icons'],
+        [/resources\/views\/helpers\/scaffold\.blade\.php$/i, '/admin/helpers/scaffold', 'helper-scaffold'],
+        [/resources\/views\/scripts\/select\.blade\.php$/i, '/admin/form', 'form-core'],
+        [/resources\/views\/partials\/exception\.blade\.php$/i, '/admin/tests/view-baseline/modern-system-exception', 'system-exception', 'modern'],
         [/Markdown\.php$|form\/markdown/i, '/admin/form/markdown', 'form-markdown'],
         [/Editor\.php$|tinymce/i, '/admin/form/tinymce', 'form-editor'],
-        [/HasMany|hasmany/i, '/admin/form/has-many', 'form-has-many'],
-        [/Tree\.php$|tree\//i, '/admin/components/tree', 'tree-page'],
+        [/HasMany|hasmany/i, '/admin/form/layout/tab', 'form-has-many'],
+        [/Tree\.php$|tree\//i, '/admin/tree', 'tree-page'],
         [/login\.blade\.php$/i, '/admin/auth/login', 'auth-login'],
-        [/extension/i, '/admin/extensions', 'extension-surface'],
+        [/extension/i, '/admin/auth/extensions', 'extension-surface'],
     ];
-    for (const [pattern, route, testId] of specialized) {
-        if (pattern.test(file)) return { route, testId };
+    for (const [pattern, route, testId, source] of specialized) {
+        if (pattern.test(file)) return { route, testId, source };
     }
     const byFamily = {
         Layout: { route: '/admin', testId: 'layout-shell' },
         Grid: { route: '/admin/auth/users', testId: type === 'grid-filter' ? 'grid-filters' : 'grid-core' },
         Form: { route: '/admin/form', testId: type === 'form-field' ? 'form-field-registry' : 'form-core' },
         Show: { route: '/admin/auth/users/1', testId: 'show-detail' },
-        Tree: { route: '/admin/components/tree', testId: 'tree-page' },
+        Tree: { route: '/admin/tree', testId: 'tree-page' },
         Widget: { route: '/admin', testId: 'widget-dashboard' },
         System: { route: '/admin', testId: 'system-pages' },
-        Extension: { route: '/admin/extensions', testId: 'extension-surface' },
+        Extension: { route: '/admin/auth/extensions', testId: 'extension-surface' },
     };
     return byFamily[family] || byFamily.Extension;
 }

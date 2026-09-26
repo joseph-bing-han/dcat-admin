@@ -174,7 +174,7 @@
   ],
   "releaseMeaning": "This is official-Demo compatibility evidence for the recorded current PHP/Laravel environment only. Other PHP/Laravel combinations are historical references and are not required by the maintainer's 2026-09-26 decision. This evidence does not authorize a release candidate or capability promotion.",
   "currentRun": {
-    "capturedAt": "2026-09-26T04:31:48.998Z",
+    "capturedAt": "2026-09-26T09:49:18.132Z",
     "environment": {
       "php": "8.1.34",
       "laravel": "10.50.3",
@@ -203,36 +203,56 @@
       "vitest": "16 files, 107 tests passed",
       "artifactGzipBytes": {
         "javascript": 98059,
-        "css": 12360,
-        "total": 110419
+        "css": 12514,
+        "total": 110573
       },
       "browserHarness": "Chrome 154.0.8037.57 self-test passed"
     },
     "officialDemoBrowser": {
-      "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/demo-browser-report.json",
+      "evidence": "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json",
       "pages": 81,
       "controllers": "49 of 49",
       "activeMenuPages": "33 of 33",
       "responsiveChecks": "30 passed across 390x844, 768x1024, 1024x768, 1366x768 and 1440x900",
-      "interactions": "22 passed",
+      "interactions": "27 passed",
       "pageResponsiveInteractionFailures": 0,
       "layoutBlockingDifferences": 0,
+      "registryVisibleMappings": 296,
+      "registryFindings": 0,
       "externalWarnings": 24
     },
     "modernBrowserContracts": {
-      "evidence": "artifacts/view-modernization-browser/browser-contracts.json",
+      "evidence": "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json",
       "captures": 25,
       "pageFamilies": 6,
+      "accessibilityFamilies": 10,
       "accessibilityFailures": 0,
       "keyboard": "passed",
+      "semanticOrderFamilies": 6,
+      "automatedReflow": "30 cases passed across 6 families and 5 source viewports using half-width CSS viewport proxy",
+      "nativeBrowserUiZoom": false,
       "reducedMotion": "passed",
       "quickEdit": "form and submit controls rendered in dialog"
     },
     "lighthouseAccessibility": {
-      "dashboard": {"score": 1, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/dashboard-lighthouse.json"},
-      "form": {"score": 1, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/form-lighthouse.json"},
-      "grid": {"score": 1, "tdHasHeaderScore": 1, "tdHasHeaderViolationNodes": 0, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/grid-lighthouse.json"},
-      "layer": {"score": 1, "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/layer-lighthouse.json"}
+      "dashboard": {
+        "score": 1,
+        "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/dashboard-lighthouse.json"
+      },
+      "form": {
+        "score": 1,
+        "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/form-lighthouse.json"
+      },
+      "grid": {
+        "score": 1,
+        "tdHasHeaderScore": 1,
+        "tdHasHeaderViolationNodes": 0,
+        "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/grid-lighthouse.json"
+      },
+      "layer": {
+        "score": 1,
+        "evidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility/layer-lighthouse.json"
+      }
     },
     "packageRollbackRehearsal": {
       "capturedAt": "2026-09-26T07:10:34Z",
@@ -262,12 +282,13 @@
       "distributionLimit": "Packagist artifact installation and rollback smoke are verified for 2.2.3-beta in the existing Laravel 10.50.3 consumer lock. A no-lock consumer also resolves and installs with advisory blocking disabled. Packagist 2.2.2-beta remains incompatible with Laravel 10 and is not used."
     },
     "legacyRegressionAttempt": {
-      "status": "blocked-by-environment",
-      "suite": "tests/Feature/InstallTest.php and tests/Feature/SectionTest.php (6 tests, 30 assertions)",
-      "sqliteAttempt": "All 30 assertions were reached, but Laravel 10 teardown failed because the SQLite driver rejects multiple dropColumn/renameColumn calls in one modification.",
-      "mysqlAttempt": "The project .env.testing MySQL connection to the local laravel database returned SQLSTATE 1045 access denied.",
-      "databaseMcp": "unavailable",
-      "resolution": "Requires the configured MySQL test connection; no alternate database was used."
+      "status": "passed-isolated-sqlite",
+      "suite": "tests/Feature/InstallTest.php and tests/Feature/SectionTest.php",
+      "tests": 6,
+      "assertions": 30,
+      "environment": "PHP 8.1.34 / Laravel 10.50.3",
+      "isolation": "DB_DATABASE=:memory: and DCAT_TEST_ISOLATED_SQLITE=true file mode",
+      "evidence": "codestable/tasks/active/complete-modern-view-automated-validation.md"
     },
     "localAccessibilityTooling": {
       "screenReader": "No Orca, speech-dispatcher, spd-say, espeak-ng, or espeak executable found on PATH.",
@@ -275,9 +296,16 @@
     },
     "actualBrowserUiZoomVerified": false,
     "zoomEvidence": "The visible Chrome DevTools MCP sent Ctrl+Plus to the page without changing browser zoom; chrome://settings navigation is not allowed. Existing device-metrics emulation is not represented as native browser UI zoom evidence.",
-    "remainingReleaseGates": [
-      "Manual screen-reader reading-order review and actual browser UI 200% zoom review",
-      "Representative legacy regression suite beyond the focused and Demo smoke tests recorded above"
-    ]
+    "remainingReleaseGates": [],
+    "manualGatePolicy": "The maintainer removed all manual verification requirements for the View goal. Historical native browser UI zoom and screen-reader fields remain descriptive evidence only and are not release gates.",
+    "legacyRegressionPriorAttempt": {
+      "status": "blocked-by-environment",
+      "suite": "tests/Feature/InstallTest.php and tests/Feature/SectionTest.php (6 tests, 30 assertions)",
+      "sqliteAttempt": "All 30 assertions were reached, but Laravel 10 teardown failed because the SQLite driver rejects multiple dropColumn/renameColumn calls in one modification.",
+      "mysqlAttempt": "The project .env.testing MySQL connection to the local laravel database returned SQLSTATE 1045 access denied.",
+      "databaseMcp": "unavailable",
+      "resolution": "Requires the configured MySQL test connection; no alternate database was used."
+    },
+    "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
   }
 }

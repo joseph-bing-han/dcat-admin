@@ -332,8 +332,16 @@ function setGridDropdown(toggle: HTMLElement, open?: boolean): boolean {
         });
         const anchor = toggle.getBoundingClientRect();
         const rect = menu.getBoundingClientRect();
-        menu.style.left = `${Math.max(8, Math.min(anchor.left, window.innerWidth - rect.width - 8))}px`;
-        menu.style.top = `${Math.max(8, Math.min(anchor.bottom + 4, window.innerHeight - rect.height - 8))}px`;
+        const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+        const viewportHeight = document.documentElement.clientHeight || window.innerHeight;
+        const dropup = dropdown.classList.contains('dropup');
+        const alignRight = dropup || menu.classList.contains('dropdown-menu-right');
+        const left = alignRight ? anchor.right - rect.width : anchor.left;
+        const fitsAbove = anchor.top - rect.height - 4 >= 8;
+        const openAbove = fitsAbove && (dropup || anchor.bottom + rect.height + 4 > viewportHeight - 8);
+        const top = openAbove ? anchor.top - rect.height - 4 : anchor.bottom + 4;
+        menu.style.left = `${Math.max(8, Math.min(left, viewportWidth - rect.width - 8))}px`;
+        menu.style.top = `${Math.max(8, Math.min(top, viewportHeight - rect.height - 8))}px`;
         if (!menu.hasAttribute('role')) menu.setAttribute('role', 'menu');
         menu.querySelectorAll<HTMLElement>('a, button:not(:disabled)').forEach((item) => {
             if (!item.hasAttribute('tabindex')) item.tabIndex = -1;

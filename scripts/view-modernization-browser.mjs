@@ -16,6 +16,8 @@ const gridCapabilities = JSON.parse(fs.readFileSync(gridCapabilityPath, 'utf8'))
 const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const selfTest = process.argv.includes('--self-test');
 const accessibilityOnly = process.argv.includes('--accessibility-only');
+const accessibilityOrderOnly = process.argv.includes('--accessibility-order-only');
+const reflow200Only = process.argv.includes('--reflow-200-only');
 const shellOnly = process.argv.includes('--shell-only');
 const gridReadOnly = process.argv.includes('--grid-read-only');
 const gridInteractionsOnly = process.argv.includes('--grid-interactions-only');
@@ -44,11 +46,35 @@ async function runAccessibilityOnly() {
     const adminPrefix = normalizePrefix(process.env.DCAT_ADMIN_PREFIX || '/admin');
     const username = process.env.DCAT_ADMIN_USERNAME || 'admin';
     const password = process.env.DCAT_ADMIN_PASSWORD || 'admin';
-    const context = await browser.newContext({ viewport: { width: 1366, height: 768 } });
+    const context = await browser.newContext({ viewport: { width: 1366, height: 768 }, reducedMotion: 'reduce' });
     const page = await context.newPage();
     await login(page, `${baseUrl}${adminPrefix}`, username, password);
     const checks = await verifyModernAccessibility(page, baseUrl, adminPrefix);
-    console.log(`View modernization accessibility contracts OK: ${Object.keys(checks).length} families.`);
+    const accessibilityOrder = await verifyAutomatedAccessibilityOrder(page, baseUrl, adminPrefix);
+    const reflow200 = await verifyAutomatedReflow200(page, baseUrl, adminPrefix);
+    console.log(`View modernization accessibility contracts OK: ${Object.keys(checks).length} axe families, ${accessibilityOrder.families.length} representative families, ${reflow200.cases.length} automated 200% reflow cases.`);
+    await context.close();
+}
+
+async function runAccessibilityOrderOnly() {
+    const baseUrl = trimSlash(process.env.DCAT_BROWSER_BASE_URL || 'http://127.0.0.1:8300');
+    const adminPrefix = normalizePrefix(process.env.DCAT_ADMIN_PREFIX || '/admin');
+    const context = await browser.newContext({ viewport: { width: 1366, height: 768 }, reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await login(page, `${baseUrl}${adminPrefix}`, process.env.DCAT_ADMIN_USERNAME || 'admin', process.env.DCAT_ADMIN_PASSWORD || 'admin');
+    const evidence = await verifyAutomatedAccessibilityOrder(page, baseUrl, adminPrefix);
+    console.log(`View modernization automated accessibility order contracts OK: ${evidence.families.length} representative families.`);
+    await context.close();
+}
+
+async function runReflow200Only() {
+    const baseUrl = trimSlash(process.env.DCAT_BROWSER_BASE_URL || 'http://127.0.0.1:8300');
+    const adminPrefix = normalizePrefix(process.env.DCAT_ADMIN_PREFIX || '/admin');
+    const context = await browser.newContext({ viewport: { width: 1366, height: 768 }, reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await login(page, `${baseUrl}${adminPrefix}`, process.env.DCAT_ADMIN_USERNAME || 'admin', process.env.DCAT_ADMIN_PASSWORD || 'admin');
+    const evidence = await verifyAutomatedReflow200(page, baseUrl, adminPrefix);
+    console.log(`View modernization automated reflow proxy contracts OK: ${evidence.cases.length} cases across ${evidence.sourceViewports.length} source viewports (native browser UI zoom: ${evidence.nativeBrowserUiZoom}).`);
     await context.close();
 }
 
@@ -72,6 +98,10 @@ try {
         await context.close();
     } else if (accessibilityOnly) {
         await runAccessibilityOnly();
+    } else if (accessibilityOrderOnly) {
+        await runAccessibilityOrderOnly();
+    } else if (reflow200Only) {
+        await runReflow200Only();
     } else if (shellOnly) {
         await runShellOnly();
     } else if (gridReadOnly) {
@@ -422,6 +452,8 @@ async function runContracts() {
         b8Login: {},
         b8ServerFallbacks: {},
         accessibility: {},
+        accessibilityOrder: {},
+        reflow200: {},
         pageErrors,
     };
 
@@ -462,6 +494,8 @@ async function runContracts() {
     evidence.formAdvancedOptional = await verifyModernFormAdvancedOptional(page, baseUrl, adminPrefix);
     evidence.nativeRuntime = await verifyNativeRuntime(page, baseUrl, adminPrefix);
     evidence.accessibility = await verifyModernAccessibility(page, baseUrl, adminPrefix);
+    evidence.accessibilityOrder = await verifyAutomatedAccessibilityOrder(page, baseUrl, adminPrefix);
+    evidence.reflow200 = await verifyAutomatedReflow200(page, baseUrl, adminPrefix);
     evidence.keyboard = await verifyKeyboardNavigation(page, baseUrl, adminPrefix);
     evidence.reducedMotion = await verifyReducedMotion(page, baseUrl, adminPrefix);
     evidence.rendererLockdown = await verifyRendererLockdown(page, baseUrl, adminPrefix);
@@ -3348,10 +3382,16 @@ async function verifyModernAccessibility(page, baseUrl, adminPrefix) {
     const routes = contract.runtimeCapture.standaloneFixtureRoutes;
     const checks = {};
     for (const [family, route] of Object.entries({
+        layout: routes.modernVertical,
         grid: routes.modernGrid,
         form: routes.modernForm,
         show: routes.modernShow,
         tree: routes.modernTree,
+        widget: routes.modernWidget,
+        system: routes.modernSystem,
+        login: '/tests/view-baseline/modern-login',
+        extension: '/tests/view-baseline/modern-form-advanced-optional',
+        compat: '/tests/view-baseline/modern-form-advanced-compat',
     })) {
         await page.goto(adminUrl(baseUrl, adminPrefix, route), { waitUntil: 'networkidle' });
         await page.waitForSelector('.dcat-modern-react-view');
@@ -3397,6 +3437,403 @@ async function verifyModernAccessibility(page, baseUrl, adminPrefix) {
         }
     }
     return checks;
+}
+
+function representativeModernFamilies(routes) {
+    return {
+        grid: {
+            route: routes.modernGrid,
+            owner: '[data-dcat-react-component="grid.read"]',
+            landmarks: ['.dcat-modern-grid-view', '.dcat-modern-table-wrap', 'table.dcat-modern-table', 'tbody'],
+        },
+        form: {
+            route: routes.modernForm,
+            owner: '[data-dcat-react-component="form.basic"]',
+            landmarks: ['.dcat-modern-form-view', '.dcat-modern-form-body', '.dcat-modern-form-field'],
+        },
+        show: {
+            route: routes.modernShow,
+            owner: '[data-dcat-react-component="show.detail"]',
+            landmarks: ['.dcat-modern-show-payload', '.dcat-modern-show-body', '.dcat-modern-show-field'],
+        },
+        tree: {
+            route: routes.modernTree,
+            owner: '[data-dcat-react-component="tree.page"]',
+            landmarks: ['.dcat-modern-tree-view', '.dcat-modern-tree-toolbar', '.dcat-modern-tree-body', '[role="tree"]'],
+        },
+        widget: {
+            route: routes.modernWidget,
+            owner: '[data-dcat-react-component="widget.surface"]',
+            landmarks: ['[data-dcat-modern-widget-renderer]', 'h1,h2,h3,h4,h5,h6,[role="heading"]', '.dcat-modern-widget__body,.dcat-modern-dashboard__links'],
+        },
+        system: {
+            route: routes.modernSystem,
+            owner: '[data-dcat-react-component="system.page"]',
+            landmarks: ['[data-dcat-modern-system-renderer]', 'h1,h2,h3,h4,h5,h6,[role="heading"]', 'p,form'],
+        },
+    };
+}
+
+async function verifyAutomatedAccessibilityOrder(page, baseUrl, adminPrefix) {
+    const families = representativeModernFamilies(contract.runtimeCapture.standaloneFixtureRoutes);
+    const evidence = {
+        schemaVersion: 1,
+        method: 'automated-dom-reading-order-and-tab-traversal',
+        nativeScreenReader: false,
+        manualVerificationRequired: false,
+        families: [],
+    };
+
+    await page.setViewportSize({ width: 1366, height: 768 });
+    for (const [family, testCase] of Object.entries(families)) {
+        await page.goto(adminUrl(baseUrl, adminPrefix, testCase.route), { waitUntil: 'networkidle' });
+        const owners = page.locator(testCase.owner);
+        const ownerCount = await owners.count();
+        if (!ownerCount) fail(`${family}: representative page family owner is missing (${testCase.owner}).`);
+
+        const roots = page.locator(`${testCase.owner} .dcat-modern-react-view`);
+        const rootCount = await roots.count();
+        if (!rootCount) fail(`${family}: representative page family has no mounted modern view.`);
+
+        const familyEvidence = { family, route: testCase.route, ownerCount, rootCount, roots: [] };
+        for (let rootIndex = 0; rootIndex < rootCount; rootIndex += 1) {
+            const rootProbe = `dcat-a11y-root-${family}-${rootIndex}`;
+            const root = roots.nth(rootIndex);
+            await root.evaluate((node, probe) => node.setAttribute('data-dcat-a11y-root', probe), rootProbe);
+            const snapshot = await page.evaluate(({ rootProbe, landmarks, family }) => {
+                const root = document.querySelector(`[data-dcat-a11y-root="${rootProbe}"]`);
+                if (!(root instanceof HTMLElement)) return { missing: true };
+                const visible = (node) => {
+                    if (!(node instanceof HTMLElement)) return false;
+                    const style = getComputedStyle(node);
+                    return !node.hidden && style.display !== 'none' && style.visibility !== 'hidden' && node.getClientRects().length > 0;
+                };
+                const label = (node) => {
+                    const aria = node.getAttribute('aria-label')?.trim();
+                    if (aria) return aria;
+                    const labelledBy = node.getAttribute('aria-labelledby')?.trim();
+                    if (labelledBy) {
+                        const text = labelledBy.split(/\s+/).map((id) => document.getElementById(id)?.textContent || '').join(' ').replace(/\s+/g, ' ').trim();
+                        if (text) return text;
+                    }
+                    if (node.id) {
+                        const forLabel = root.querySelector(`label[for="${CSS.escape(node.id)}"]`)?.textContent?.trim();
+                        if (forLabel) return forLabel;
+                    }
+                    const parentLabel = node.closest('label')?.textContent?.trim();
+                    return parentLabel || node.getAttribute('title')?.trim() || node.getAttribute('placeholder')?.trim() || node.textContent?.replace(/\s+/g, ' ').trim() || '';
+                };
+                const domNodes = Array.from(root.querySelectorAll('*'));
+                const domIndex = (node) => domNodes.indexOf(node);
+                const describe = (node, selector) => {
+                    const rect = node.getBoundingClientRect();
+                    return {
+                        selector,
+                        tag: node.tagName.toLowerCase(),
+                        role: node.getAttribute('role') || '',
+                        tabIndex: node.tabIndex,
+                        name: label(node),
+                        domIndex: domIndex(node),
+                        top: Math.round(rect.top * 100) / 100,
+                        left: Math.round(rect.left * 100) / 100,
+                        width: Math.round(rect.width * 100) / 100,
+                        height: Math.round(rect.height * 100) / 100,
+                    };
+                };
+                const landmarkNodes = landmarks.map((selector) => {
+                    const node = Array.from(root.querySelectorAll(selector)).find(visible);
+                    return node ? describe(node, selector) : { selector, missing: true };
+                });
+                const missingLandmarks = landmarkNodes.filter((node) => node.missing).map((node) => node.selector);
+                const orderedLandmarks = landmarkNodes.filter((node) => !node.missing);
+                const landmarkOrderViolations = orderedLandmarks.slice(1).reduce((violations, node, index) => {
+                    const previous = orderedLandmarks[index];
+                    if (node.domIndex <= previous.domIndex) violations.push({ previous: previous.selector, current: node.selector });
+                    return violations;
+                }, []);
+
+                const semanticSelector = 'h1,h2,h3,h4,h5,h6,[role="heading"],form,fieldset,table,caption,thead,tbody,[role="tree"],[role="treeitem"],[role="alert"],[role="status"],[role="progressbar"]';
+                const semantic = Array.from(root.querySelectorAll(semanticSelector)).filter(visible).map((node) => describe(node, node.tagName.toLowerCase()));
+                const flowViolations = [];
+                semantic.slice(1).forEach((node, index) => {
+                    const previous = semantic[index];
+                    if (node.top + 1 < previous.top) flowViolations.push({ previous, current: node });
+                });
+
+                const focusSelector = 'a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])';
+                const focusables = Array.from(root.querySelectorAll(focusSelector)).filter((node) => {
+                    if (!visible(node) || (node instanceof HTMLButtonElement && node.disabled) || (node instanceof HTMLInputElement && node.disabled) || (node instanceof HTMLSelectElement && node.disabled) || (node instanceof HTMLTextAreaElement && node.disabled)) return false;
+                    return node.tabIndex >= 0;
+                });
+                const focusOrder = focusables.map((node, index) => {
+                    const probe = `${rootProbe}-${index}`;
+                    node.setAttribute('data-dcat-a11y-focus', probe);
+                    return { probe, ...describe(node, focusSelector) };
+                });
+                const unnamed = focusOrder.filter((node) => !node.name).map((node) => ({ tag: node.tag, domIndex: node.domIndex }));
+                const positiveTabIndex = focusOrder.filter((node) => Number(node.tabIndex) > 0).map((node) => ({ name: node.name, tabIndex: node.tabIndex }));
+                return {
+                    missingLandmarks,
+                    landmarkNodes,
+                    landmarkOrderViolations,
+                    semanticCount: semantic.length,
+                    flowViolations,
+                    focusOrder,
+                    unnamed,
+                    positiveTabIndex,
+                };
+            }, { rootProbe, landmarks: testCase.landmarks, family });
+
+            if (snapshot.missing) fail(`${family}: automated accessibility root disappeared while collecting order evidence.`);
+            if (snapshot.missingLandmarks.length || snapshot.landmarkOrderViolations.length || snapshot.flowViolations.length) {
+                fail(`${family}: automated reading order failed: ${JSON.stringify({ rootIndex, missing: snapshot.missingLandmarks, landmarkOrderViolations: snapshot.landmarkOrderViolations, flowViolations: snapshot.flowViolations.slice(0, 3) })}`);
+            }
+            if (snapshot.unnamed.length || snapshot.positiveTabIndex.length) {
+                fail(`${family}: automated focus contract failed: ${JSON.stringify({ rootIndex, unnamed: snapshot.unnamed, positiveTabIndex: snapshot.positiveTabIndex })}`);
+            }
+
+            const traversed = [];
+            if (snapshot.focusOrder.length) {
+                const firstExpected = snapshot.focusOrder[0];
+                const candidate = page.locator(`[data-dcat-a11y-focus="${firstExpected.probe}"]`).first();
+                await candidate.focus();
+            }
+            for (let focusIndex = 0; focusIndex < snapshot.focusOrder.length; focusIndex += 1) {
+                const expected = snapshot.focusOrder[focusIndex];
+                if (focusIndex > 0) await page.keyboard.press('Tab');
+                const actual = await page.evaluate(() => document.activeElement?.getAttribute('data-dcat-a11y-focus') || '');
+                traversed.push(actual);
+                if (actual !== expected.probe) {
+                    fail(`${family}: Tab focus did not reach ${expected.name || expected.tag}: ${JSON.stringify({ expected: expected.probe, actual })}`);
+                }
+            }
+
+            familyEvidence.roots.push({
+                rootIndex,
+                landmarks: snapshot.landmarkNodes,
+                semanticCount: snapshot.semanticCount,
+                focusableCount: snapshot.focusOrder.length,
+                focusOrder: snapshot.focusOrder.map(({ probe, name, tag, role, tabIndex, domIndex }) => ({ probe, name, tag, role, tabIndex, domIndex })),
+                tabTraversal: traversed,
+                nativeTabOrder: snapshot.focusOrder.length > 0,
+            });
+            await root.evaluate((node) => {
+                node.removeAttribute('data-dcat-a11y-root');
+                node.querySelectorAll('[data-dcat-a11y-focus]').forEach((candidate) => candidate.removeAttribute('data-dcat-a11y-focus'));
+            });
+        }
+        if (!familyEvidence.roots.some((root) => root.focusableCount > 0)) {
+            fail(`${family}: representative page family exposes no keyboard-focusable controls across its modern roots.`);
+        }
+        evidence.families.push(familyEvidence);
+    }
+
+    return evidence;
+}
+
+async function verifyAutomatedReflow200(page, baseUrl, adminPrefix) {
+    const families = representativeModernFamilies(contract.runtimeCapture.standaloneFixtureRoutes);
+    const evidence = {
+        schemaVersion: 1,
+        requestedZoomPercent: 200,
+        method: 'css-viewport-reflow-proxy',
+        proxy: true,
+        nativeBrowserUiZoom: false,
+        actualBrowserUiZoom: false,
+        manualVerificationRequired: false,
+        deviceScaleFactor: 1,
+        sourceViewports: contract.viewports,
+        failures: [],
+        cases: [],
+    };
+
+    for (const [family, testCase] of Object.entries(families)) {
+        for (const sourceViewport of contract.viewports) {
+            const effectiveViewport = {
+                width: Math.max(1, Math.floor(sourceViewport.width / 2)),
+                height: Math.max(1, Math.floor(sourceViewport.height / 2)),
+            };
+            await page.setViewportSize(effectiveViewport);
+            await page.goto(adminUrl(baseUrl, adminPrefix, testCase.route), { waitUntil: 'networkidle' });
+            const ownerCount = await page.locator(testCase.owner).count();
+            if (!ownerCount) {
+                const failure = { family, sourceViewport, effectiveViewport, reason: 'fixture-owner-missing' };
+                evidence.failures.push(failure);
+                evidence.cases.push({ family, route: testCase.route, sourceViewport, effectiveViewport, passed: false, failures: [failure] });
+                continue;
+            }
+            try {
+                await page.waitForSelector(`${testCase.owner} .dcat-modern-react-view`, { state: 'attached' });
+            } catch (error) {
+                const failure = { family, sourceViewport, effectiveViewport, reason: 'modern-root-missing', message: error.message };
+                evidence.failures.push(failure);
+                evidence.cases.push({ family, route: testCase.route, sourceViewport, effectiveViewport, passed: false, failures: [failure] });
+                continue;
+            }
+
+            const geometry = await page.evaluate((ownerSelector) => {
+                const owners = Array.from(document.querySelectorAll(ownerSelector)).filter((node) => node instanceof HTMLElement);
+                const roots = owners
+                    .map((owner) => owner.querySelector('.dcat-modern-react-view'))
+                    .filter((root) => root instanceof HTMLElement);
+                if (!owners.length || !roots.length) return { missingRoot: true };
+                const visible = (node) => {
+                    if (!(node instanceof HTMLElement)) return false;
+                    const style = getComputedStyle(node);
+                    const clipped = style.clip === 'rect(1px, 1px, 1px, 1px)' || style.clipPath === 'inset(100%)';
+                    return !node.hidden && !node.matches('.webuploader-element-invisible') && !clipped && style.display !== 'none' && style.visibility !== 'hidden' && node.getClientRects().length > 0;
+                };
+                const describe = (node) => {
+                    const rect = node.getBoundingClientRect();
+                    return {
+                        tag: node.tagName.toLowerCase(),
+                        className: String(node.className || '').slice(0, 180),
+                        left: Math.round(rect.left * 100) / 100,
+                        right: Math.round(rect.right * 100) / 100,
+                        top: Math.round(rect.top * 100) / 100,
+                        bottom: Math.round(rect.bottom * 100) / 100,
+                        width: Math.round(rect.width * 100) / 100,
+                        height: Math.round(rect.height * 100) / 100,
+                    };
+                };
+                const rootsEvidence = roots.map((root, rootIndex) => {
+                    const scrollSelector = '.dcat-modern-table-wrap,.table-responsive,.table-wrapper,.dcat-modern-tree-body';
+                    const scrollStates = Array.from(root.querySelectorAll(scrollSelector)).filter(visible).map((container, containerIndex) => {
+                        const style = getComputedStyle(container);
+                        const horizontalOverflow = Math.max(0, container.scrollWidth - container.clientWidth);
+                        const verticalOverflow = Math.max(0, container.scrollHeight - container.clientHeight);
+                        const horizontalScrollable = horizontalOverflow > 1 && ['auto', 'scroll'].includes(style.overflowX);
+                        const verticalScrollable = verticalOverflow > 1 && ['auto', 'scroll'].includes(style.overflowY);
+                        const initialScroll = { left: container.scrollLeft, top: container.scrollTop };
+                        const focusableSelector = 'a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])';
+                        const focusables = Array.from(container.querySelectorAll(focusableSelector)).filter(visible);
+                        const containerRect = container.getBoundingClientRect();
+                        const intersects = (node, rect = node.getBoundingClientRect()) => (
+                            rect.right > containerRect.left + 1
+                            && rect.left < containerRect.right - 1
+                            && rect.bottom > containerRect.top + 1
+                            && rect.top < containerRect.bottom - 1
+                        );
+                        const blocking = [];
+                        if (horizontalOverflow > 1 && !horizontalScrollable) blocking.push(`horizontal-overflow-not-scrollable:${Math.round(horizontalOverflow * 100) / 100}`);
+                        if (verticalOverflow > 1 && !verticalScrollable) blocking.push(`vertical-overflow-not-scrollable:${Math.round(verticalOverflow * 100) / 100}`);
+                        if (horizontalScrollable) container.scrollLeft = container.scrollWidth - container.clientWidth;
+                        if (verticalScrollable) container.scrollTop = container.scrollHeight - container.clientHeight;
+                        const endFocusable = focusables.filter((node) => intersects(node));
+                        const lastFocusable = focusables[focusables.length - 1];
+                        const lastFocusableReachable = !lastFocusable || intersects(lastFocusable);
+                        if (focusables.length && !endFocusable.length) blocking.push('no-focusable-control-reachable-at-scroll-end');
+                        if (focusables.length && !lastFocusableReachable) blocking.push('last-focusable-control-not-reachable-at-scroll-end');
+                        const endScroll = { left: container.scrollLeft, top: container.scrollTop };
+                        container.scrollLeft = initialScroll.left;
+                        container.scrollTop = initialScroll.top;
+                        return {
+                            node: container,
+                            evidence: {
+                                containerIndex,
+                                className: String(container.className || '').slice(0, 180),
+                                overflowX: style.overflowX,
+                                overflowY: style.overflowY,
+                                horizontalOverflow,
+                                verticalOverflow,
+                                horizontalScrollable,
+                                verticalScrollable,
+                                scrollEnd: endScroll,
+                                focusableCount: focusables.length,
+                                endFocusableCount: endFocusable.length,
+                                lastFocusableReachable,
+                                blocking,
+                            },
+                        };
+                    });
+                    const allowedScrollContainer = (node) => {
+                        const container = node.closest(scrollSelector);
+                        const state = scrollStates.find((candidate) => candidate.node === container);
+                        return Boolean(state && !state.evidence.blocking.length && (state.evidence.horizontalScrollable || state.evidence.verticalScrollable));
+                    };
+                    const visibleNodes = [root, ...Array.from(root.querySelectorAll('*'))].filter(visible);
+                    // React 宿主通常是 display:contents，使用其直接可见表面作为根边界，避免把子节点极值当成容器尺寸。
+                    const rootSurface = Array.from(root.children).find((node) => {
+                        if (!visible(node)) return false;
+                        const rect = node.getBoundingClientRect();
+                        return rect.width > 0 || rect.height > 0;
+                    });
+                    const rootRect = (rootSurface || root).getBoundingClientRect();
+                    const hasVisibleChildOverflow = (node) => Array.from(node.querySelectorAll('*')).some((child) => {
+                        if (!visible(child) || allowedScrollContainer(child)) return false;
+                        const childRect = child.getBoundingClientRect();
+                        return childRect.left < rootRect.left - 1 || childRect.right > rootRect.right + 1;
+                    });
+                    const overflowNodes = visibleNodes.filter((node) => !allowedScrollContainer(node) && node.scrollWidth > node.clientWidth + 1 && hasVisibleChildOverflow(node)).map(describe);
+                    const offscreenNodes = visibleNodes.filter((node) => {
+                        if (allowedScrollContainer(node)) return false;
+                        const rect = node.getBoundingClientRect();
+                        return rect.left < -1 || rect.right > innerWidth + 1;
+                    }).map(describe);
+                    const focusable = Array.from(root.querySelectorAll('a[href],button,input:not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])')).filter(visible);
+                    const focusableOffscreen = focusable.filter((node) => {
+                        if (allowedScrollContainer(node)) return false;
+                        const rect = node.getBoundingClientRect();
+                        return rect.left < -1 || rect.right > innerWidth + 1;
+                    }).map(describe);
+                    return {
+                        rootIndex,
+                        rootOverflow: Math.max(0, root.scrollWidth - root.clientWidth),
+                        root: { left: Math.round(rootRect.left * 100) / 100, right: Math.round(rootRect.right * 100) / 100, width: Math.round(rootRect.width * 100) / 100 },
+                        visibleFocusableCount: focusable.length,
+                        scrollContainers: scrollStates.map((state) => state.evidence),
+                        overflowNodes: overflowNodes.slice(0, 12),
+                        offscreenNodes: offscreenNodes.slice(0, 12),
+                        focusableOffscreen,
+                    };
+                });
+                const documentOverflow = Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth);
+                const bodyOverflow = Math.max(0, document.body.scrollWidth - document.documentElement.clientWidth);
+                return {
+                    missingRoot: false,
+                    viewport: { width: innerWidth, height: innerHeight },
+                    ownerCount: owners.length,
+                    rootCount: roots.length,
+                    documentOverflow,
+                    bodyOverflow,
+                    roots: rootsEvidence,
+                    scrollContainers: rootsEvidence.flatMap((root) => root.scrollContainers),
+                    overflowNodes: rootsEvidence.flatMap((root) => root.overflowNodes),
+                    offscreenNodes: rootsEvidence.flatMap((root) => root.offscreenNodes),
+                    focusableOffscreen: rootsEvidence.flatMap((root) => root.focusableOffscreen),
+                };
+            }, testCase.owner);
+
+            const failures = [];
+            if (geometry.missingRoot) failures.push('missing-root');
+            if (geometry.documentOverflow > 1) failures.push(`document-overflow:${geometry.documentOverflow}`);
+            if (geometry.bodyOverflow > 1) failures.push(`body-overflow:${geometry.bodyOverflow}`);
+            if (geometry.overflowNodes.length) failures.push(`overflow-nodes:${geometry.overflowNodes.length}`);
+            const scrollFailures = geometry.scrollContainers.flatMap((container) => container.blocking.map((reason) => `${container.className || 'scroll-container'}:${reason}`));
+            if (scrollFailures.length) failures.push(...scrollFailures);
+            if (geometry.offscreenNodes.length) failures.push(`offscreen-nodes:${geometry.offscreenNodes.length}`);
+            if (geometry.focusableOffscreen.length) failures.push(`focusable-offscreen:${geometry.focusableOffscreen.length}`);
+            if (failures.length) evidence.failures.push({ family, sourceViewport, effectiveViewport, failures, geometry });
+            evidence.cases.push({
+                family,
+                route: testCase.route,
+                sourceViewport,
+                effectiveViewport,
+                passed: failures.length === 0,
+                failures,
+                ...geometry,
+            });
+        }
+    }
+    await page.setViewportSize({ width: 1366, height: 768 });
+    const evidenceDir = path.resolve(process.env.DCAT_BROWSER_EVIDENCE_DIR || path.join(root, 'artifacts/view-modernization-browser'));
+    const evidencePath = path.join(evidenceDir, 'reflow-200-proxy.json');
+    fs.mkdirSync(evidenceDir, { recursive: true });
+    fs.writeFileSync(evidencePath, `${JSON.stringify(evidence, null, 2)}\n`);
+    if (evidence.failures.length) {
+        fail(`automated 200% reflow proxy failed in ${evidence.failures.length}/${evidence.cases.length} cases; evidence: ${evidencePath}. ${JSON.stringify(evidence.failures.slice(0, 10))}`);
+    }
+    return evidence;
 }
 
 async function verifyKeyboardNavigation(page, baseUrl, adminPrefix) {

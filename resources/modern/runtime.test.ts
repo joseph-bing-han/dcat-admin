@@ -11,6 +11,31 @@ beforeEach(() => {
 afterEach(() => navigation.dispose());
 
 describe('native Dcat public lifecycle', () => {
+    it.each([
+        { left: 700, top: 400, expectedLeft: 600, expectedTop: 156 },
+        { left: 740, top: 400, expectedLeft: 617, expectedTop: 156 },
+        { left: 10, top: 20, expectedLeft: 8, expectedTop: 56 },
+    ])('keeps the page-size dropup visible and anchored at $left/$top', ({ left, top, expectedLeft, expectedTop }) => {
+        new NativeDcat();
+        document.querySelector('main')!.innerHTML = '<div class="dcat-modern-grid-view"><div class="dropdown dropup"><button data-toggle="dropdown">20</button><ul class="dropdown-menu"><li><a href="#">20</a></li></ul></div></div>';
+        const trigger = document.querySelector<HTMLButtonElement>('[data-toggle="dropdown"]')!;
+        const menu = document.querySelector<HTMLElement>('.dropdown-menu')!;
+        vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValue(785);
+        vi.spyOn(document.documentElement, 'clientHeight', 'get').mockReturnValue(600);
+        vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({ left, right: left + 60, top, bottom: top + 32, width: 60, height: 32 } as DOMRect);
+        vi.spyOn(menu, 'getBoundingClientRect').mockReturnValue({ width: 160, height: 240 } as DOMRect);
+        try {
+            trigger.click();
+            expect(trigger.getAttribute('aria-expanded')).toBe('true');
+            expect(menu.style.left).toBe(`${expectedLeft}px`);
+            expect(menu.style.top).toBe(`${expectedTop}px`);
+            trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+            expect(trigger.getAttribute('aria-expanded')).toBe('false');
+            expect(document.activeElement).toBe(trigger);
+            expect(menu.getAttribute('style')).toBeNull();
+        } finally { vi.restoreAllMocks(); }
+    });
+
     it('runs ready/init/boot without a jQuery global and cleans page observers', async () => {
         const dcat = new NativeDcat({ token: 'fixture-token', lang: { greeting: 'Hello :name' } });
         expect((window as unknown as { jQuery?: unknown }).jQuery).toBeUndefined();

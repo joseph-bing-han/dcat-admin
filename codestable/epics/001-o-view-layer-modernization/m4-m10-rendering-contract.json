@@ -1,7 +1,8 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-08-29",
-  "status": "implementation-complete-runtime-evidence-pending",
+  "status": "historical-gen1-rendering-contract",
+  "historicalScope": "M4-M10 bridge evidence; the current single-renderer contract is codestable/epics/001-o-view-layer-modernization/spec.md and compatibility-contract.md.",
   "defaultEnabled": false,
   "rules": [
     "React owns only an explicitly allowlisted capability boundary.",
@@ -137,6 +138,6 @@
     "view-modernization Dusk group",
     "five-viewport geometry/screenshots",
     "legacy regression suite",
-    "accessibility/manual keyboard and zoom review"
+    "automated semantic DOM, keyboard, focus and 200% reflow browser checks"
   ]
 }

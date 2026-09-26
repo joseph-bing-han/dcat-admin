@@ -3,7 +3,6 @@
         <span class="dcat-modern-widget-dropdown drop{{ $direction }}" data-dcat-native-widget-dropdown="1" data-dcat-dropdown-select="{{ $click ? '1' : '0' }}">
             <button id="{{ $buttonId }}" type="button" class="dcat-modern-button dcat-modern-button--secondary {{ $button['class'] }}" style="{{ $button['style'] }}" data-dcat-widget-dropdown-trigger="1" aria-label="{{ $buttonLabel }}" @if($buttonTitle) title="{{ $buttonTitle }}" @endif aria-haspopup="menu" aria-expanded="false" aria-controls="{{ $menuId }}">
                 <span data-dcat-dropdown-label>{!! $defaultLabel !!}</span>
-                <span aria-hidden="true">▾</span>
             </button>
             <ul id="{{ $menuId }}" class="dcat-modern-widget-dropdown__menu" role="menu" hidden>{!! $options !!}</ul>
         </span>

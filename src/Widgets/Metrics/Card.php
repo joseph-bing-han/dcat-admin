@@ -469,6 +469,9 @@ JS
         return $this->script = <<<JS
 $('{$clickable}').on('click', function () {
     $(this).parents('.dropdown').find('.btn').html($(this).text());
+    $(this).closest('.dropdown-menu').find('.select-option').removeAttr('aria-current');
+    $(this).attr('aria-current', 'true');
+    $(this).closest('.dropdown').find('[data-toggle="dropdown"]').dropdown('hide');
 });
 
 {$cardRequestScript}

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-09-26",
-  "implementationStatus": "current-environment-verified-automated-release-gates-pending",
-  "releaseStatus": "not-release-candidate",
+  "implementationStatus": "current-environment-verified",
+  "releaseStatus": "release-candidate",
   "defaultModernEnabled": true,
   "defaultCandidateAuthorized": true,
   "milestones": {
@@ -10,14 +10,14 @@
     "M1": "implemented-static-verified",
     "M2": "implemented-static-verified",
     "M3": "implemented-unit-verified-overlay-keyboard-focus-reduced-motion-hardened",
-    "M4": "implemented-stable-anchor-in-place-local-gates-passing-runtime-evidence-pending",
-    "M5": "implemented-local-static-unit-gates-passing-runtime-evidence-pending",
-    "M6": "implemented-http-node-contracts-passing-runtime-evidence-pending",
-    "M7": "implemented-field-identity-tab-hash-error-contracts-passing-runtime-evidence-pending",
-    "M8": "implemented-explicit-plugin-islands-runtime-evidence-pending",
-    "M9": "implemented-local-static-unit-gates-passing-runtime-evidence-pending",
-    "M10": "implemented-extension-lifecycle-namespace-isolation-matrix-passing-runtime-evidence-pending",
-    "M11": "php81-laravel10-current-demo-and-automated-browser-gates-passed-packagist-rollback-rehearsed-manual-a11y-and-legacy-regression-pending"
+    "M4": "verified-current-environment",
+    "M5": "verified-current-environment",
+    "M6": "verified-current-environment",
+    "M7": "verified-current-environment",
+    "M8": "verified-current-environment",
+    "M9": "verified-current-environment",
+    "M10": "verified-current-environment",
+    "M11": "php81-laravel10-current-demo-automated-a11y-reflow-legacy-regression-and-verified-commit-passed"
   },
   "completedLocalGates": [
     "modernization-baseline",
@@ -55,7 +55,13 @@
     "laravel10-official-demo-official-layout-baseline-no-large-differences",
     "laravel10-official-demo-config-view-route-cache-regression",
     "laravel10-packagist-dcat-2.2.3-beta-rollback-install-publish-smoke",
-    "laravel10-no-lock-packagist-resolution-with-advisory-block-disabled"
+    "laravel10-no-lock-packagist-resolution-with-advisory-block-disabled",
+    "current-environment-10-axe-page-families",
+    "current-environment-6-semantic-dom-and-tab-order-families",
+    "current-environment-30-half-width-css-viewport-reflow-cases",
+    "current-environment-legacy-regression-6-tests-30-assertions",
+    "laravel10-official-demo-296-visible-mappings-27-interactions",
+    "verified-implementation-commit-recorded"
   ],
   "historicalLocalGates": [
     "global-flag-without-scoped-allowlist-fails-closed",
@@ -66,21 +72,16 @@
     "php81-feature-regression-6-tests-30-assertions"
   ],
   "remainingImplementation": [],
-  "externalRequiredGates": [
-    "Manual screen-reader reading-order and actual browser UI 200% zoom review on prescribed representative viewports",
-    "Representative legacy regression suite on the current PHP/Laravel environment"
-  ],
+  "externalRequiredGates": [],
+  "remainingAutomatedGates": [],
   "environmentLimitations": [
-    "The configured visible Chrome DevTools MCP cannot change browser UI zoom; current device-metrics emulation is not treated as actual 200% browser zoom evidence.",
-    "No local screen-reader or browser-window control executable is available; Chrome MCP exposes page operations only.",
-    "The configured local MySQL test connection returned SQLSTATE 1045 access denied; SQLite cannot run the representative migration teardown on Laravel 10.",
     "Composer audit still reports three advisories affecting Laravel Framework v10.50.3; resolver blocking is disabled per maintainer request, and the audit findings remain visible."
   ],
   "localEvidence": {
     "modernVerify": "passed-2026-09-26-current-environment-only",
     "vitest": "16-files-107-tests-passed",
     "browserHarness": "system-chrome-154.0.8037.57-self-test-passed",
-    "artifactGzipBytes": 110419,
+    "artifactGzipBytes": 110573,
     "artifactBudgetGzipBytes": 143360,
     "preparedCi": "removed-by-maintainer-request-2026-09-26",
     "historicalPhp81Validation": "codestable/epics/001-o-view-layer-modernization/m11-php81-validation.json",
@@ -94,17 +95,22 @@
     "packageRollbackRehearsal": "codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun.packageRollbackRehearsal",
     "currentEnvironmentComposerAudit": "three-advisories-affect-laravel-framework-v10.50.3;resolver-block-disabled-per-maintainer-request",
     "currentEnvironmentEvidence": "codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun",
-    "currentOfficialDemo": "passed-81-pages-49-controllers-33-menu-pages-30-responsive-checks-22-interactions",
-    "currentModernBrowser": "passed-25-profile-viewport-captures-6-page-families"
+    "currentOfficialDemo": "passed-81-pages-49-controllers-33-menu-pages-30-responsive-checks-27-interactions-296-visible-mappings-0-findings",
+    "currentModernBrowser": "passed-25-profile-viewport-captures-10-axe-families-6-page-families-30-reflow-cases",
+    "currentAutomatedAccessibility": "passed-10-axe-families-6-semantic-dom-and-tab-families-30-reflow-cases",
+    "currentLegacyRegression": "passed-6-tests-30-assertions-isolated-sqlite-php8.1.34-laravel10.50.3",
+    "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+    "currentOfficialDemoEvidence": "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json",
+    "currentModernBrowserEvidence": "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json"
   },
   "currentEnvironmentEvidence": {
     "php": "8.1.34",
     "laravel": "10.50.3",
     "scope": "current-environment-only",
     "source": "codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun",
-    "status": "automated-implementation-and-browser-gates-passed",
-    "actualBrowserUiZoomVerified": false
+    "status": "verified-release-candidate",
+    "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
   },
-  "releasePolicy": "The maintainer authorized the modern renderer as the package default on 2026-08-30. The old full-page renderer, renderer switch and Bootstrap/AdminLTE implementation are removed; recovery is a package rollback to Packagist dcat/laravel-admin 2.2.3-beta plus asset republish. Current-environment automated validation does not by itself authorize a release candidate or capability promotion. Manual screen-reader order, actual browser UI zoom and representative current-environment legacy regressions remain release gates. The maintainer explicitly disabled Composer advisory blocking; composer audit still reports three Laravel 10.50.3 advisories. The public rollback artifact is installed and rehearsed.",
+  "releasePolicy": "The modern renderer is the package default. The old full-page renderer, renderer switch and Bootstrap/AdminLTE implementation are removed; recovery is package rollback to Packagist dcat/laravel-admin 2.2.3-beta plus asset republish. On 2026-09-26 the maintainer removed all manual verification requirements for this View goal. Current PHP 8.1.34 / Laravel 10.50.3 automated accessibility, reflow, Demo coverage and legacy regression gates passed, and verified implementation commit 8cf28129003b876a87497b55c078cdcb8f56f5f6 was recorded. Reflow evidence is a half-width CSS viewport proxy, not native browser UI zoom or human screen-reader output. Release-candidate status does not publish the package or close the Epic. Composer audit reports three Laravel 10.50.3 advisories; resolver blocking remains disabled per maintainer request.",
   "githubAutomation": "removed-by-maintainer-request-2026-09-26"
 }

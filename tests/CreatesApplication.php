@@ -22,6 +22,8 @@ trait CreatesApplication
 
     protected function boot()
     {
+        $this->ensureIsolatedSqliteDatabase();
+
         $this->artisan('admin:publish');
 
         Schema::defaultStringLength(191);
@@ -51,8 +53,26 @@ trait CreatesApplication
         return $path;
     }
 
+    protected function ensureIsolatedSqliteDatabase()
+    {
+        if ($this->app['db']->getDefaultConnection() === 'sqlite' && ! $this->isIsolatedSqliteDatabase()) {
+            throw new \RuntimeException('SQLite feature tests require DB_DATABASE=:memory: or DCAT_TEST_ISOLATED_SQLITE=true.');
+        }
+    }
+
     protected function destory()
     {
+        if ($this->app && $this->app->environment('testing') && $this->app['db']->getDefaultConnection() === 'sqlite') {
+            (new \CreateTestTables())->down();
+            DB::select("delete from `migrations` where `migration` = '2016_11_22_093148_create_test_tables'");
+
+            $this->artisan('migrate:fresh');
+
+            $this->app['db']->purge();
+
+            return;
+        }
+
         //(new \CreateAdminTables())->down();
         //(new \CreateAdminSettingsTable())->down();
         //(new \CreateAdminExtensionsTable())->down();
@@ -67,6 +87,13 @@ trait CreatesApplication
         DB::select("delete from `migrations` where `migration` = '2016_11_22_093148_create_test_tables'");
 
         Artisan::call('migrate:rollback');
+    }
+
+    protected function isIsolatedSqliteDatabase()
+    {
+        $database = config('database.connections.sqlite.database');
+
+        return $database === ':memory:' || filter_var(env('DCAT_TEST_ISOLATED_SQLITE', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     public function migrateTestTables()

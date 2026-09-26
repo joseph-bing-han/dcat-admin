@@ -29,7 +29,7 @@
                             <div class="col-sm-12">
                                 <div class="help-block with-errors"></div>
 
-                                <input name="{{ $name }}[keys][{{ $loop->index }}]" value="{{ $k }}" class="form-control" required/>
+                                <input name="{{ $name }}[keys][{{ $loop->index }}]" value="{{ $k }}" class="form-control" aria-label="{{ strip_tags($keyLabel) }}" required/>
 
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="help-block with-errors"></div>
-                                <input name="{{ $name }}[values][{{ $loop->index }}]" value="{{ $v }}" class="form-control" />
+                                <input name="{{ $name }}[values][{{ $loop->index }}]" value="{{ $v }}" class="form-control" aria-label="{{ strip_tags($valueLabel) }}" />
                             </div>
                         </div>
                     </td>
@@ -73,7 +73,7 @@
                 <div class="form-group  ">
                     <div class="col-sm-12">
                         <div class="help-block with-errors"></div>
-                        <input name="{{ $name }}[keys][{key}]" class="form-control" required/>
+                        <input name="{{ $name }}[keys][{key}]" class="form-control" aria-label="{{ strip_tags($keyLabel) }}" required/>
                     </div>
                 </div>
             </td>
@@ -81,7 +81,7 @@
                 <div class="form-group  ">
                     <div class="col-sm-12">
                         <div class="help-block with-errors"></div>
-                        <input name="{{ $name }}[values][{key}]" class="form-control" />
+                        <input name="{{ $name }}[values][{key}]" class="form-control" aria-label="{{ strip_tags($valueLabel) }}" />
                     </div>
                 </div>
             </td>

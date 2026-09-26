@@ -1,22 +1,30 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-09-26",
-  "status": "b0-b9-complete-b10-b12-in-progress",
+  "status": "b0-b12-verified-current-environment",
   "impactGraphUsable": false,
   "revalidationRequired": true,
-  "promotionRule": "Gen1 experimental capabilities cannot be promoted under compatibility contract 4.0.0 until B0 coverage registry and Bootstrap-free browser evidence exist",
+  "promotionRule": "All 14 capabilities were promoted only after current-environment automated gates passed and verified implementation commit 8cf28129003b876a87497b55c078cdcb8f56f5f6 was recorded. This does not claim validation on other PHP/Laravel combinations.",
   "localVerification": {
-    "status": "current-environment-modern-verification-passed-release-evidence-pending",
+    "status": "current-environment-verified-commit-recorded",
     "command": "npm run modern:verify",
-    "renderingContract": "codestable/epics/001-o-view-layer-modernization/m4-m10-rendering-contract.json",
-    "runtimeEvidence": "artifacts/view-modernization-browser/browser-contracts.json",
+    "currentRenderingContract": "codestable/epics/001-o-view-layer-modernization/spec.md",
+    "historicalRenderingContract": "codestable/epics/001-o-view-layer-modernization/m4-m10-rendering-contract.json",
+    "runtimeEvidence": "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json",
     "currentEnvironment": "PHP 8.1.34 / Laravel 10.50.3",
     "capturedAt": "2026-09-26",
     "modernVerification": "303-inventory-296-visible-870-signals-16-vitest-files-107-tests",
-    "artifactGzipBytes": {"javascript": 98059, "css": 12360, "total": 110419},
-    "officialDemoEvidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/demo-browser-report.json",
+    "artifactGzipBytes": {
+      "javascript": 98059,
+      "css": 12514,
+      "total": 110573
+    },
+    "officialDemoEvidence": "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json",
     "lighthouseAccessibilityEvidence": "artifacts/dcat-admin-demo/2026-09-26-single-renderer-current/accessibility",
-    "actualBrowserUiZoomVerified": false
+    "automated200PercentReflow": "passed-30-cases-6-families-5-source-viewports-half-width-css-viewport-proxy",
+    "automatedAccessibility": "passed-10-axe-families-6-semantic-dom-and-tab-order-families",
+    "legacyRegression": "passed-6-tests-30-assertions-php8.1.34-laravel10.50.3-isolated-sqlite",
+    "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
   },
   "contracts": {
     "uiUx": {
@@ -45,15 +53,15 @@
   },
   "targetContracts": {
     "epicSpec": {
-      "sha256": "dab59b59a5942241855d055ea2e153677f84abff402df0bd91d41d6adb229307"
+      "sha256": "e120345085dcf84a62f39c1d6add89cab2729ae0c2d60f74ab70de162589d399"
     },
     "compatibility": {
       "version": "4.0.0",
-      "sha256": "04be1237379b9baa197853d3497354eedbdd77b0c3ef5fb76b21383791f5a8ff"
+      "sha256": "6c3a440a4ecdee45632ddff4bd7ac421e5a5148654403c7f4d9c2ad859965a44"
     },
     "uiUx": {
       "version": "1.1.0",
-      "sha256": "f5676062a700da59882629a067eed3d4c2dd59e7f930c9cd9b823cd5d758c54f"
+      "sha256": "63a61598491b75ce086280d6c0d5bf2136ccd8fd8f3062ded4a6911c866a169e"
     }
   },
   "capabilities": [
@@ -61,10 +69,17 @@
       "capabilityId": "SYS-LEGACY-RUNTIME-001",
       "pageFamily": "System",
       "modernCapabilityIds": [],
-      "modernStatus": "experimental",
+      "modernStatus": "verified",
       "fallbackScope": "global",
       "dependsOn": [],
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix"
+      "implementationStatus": "verified-current-environment",
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#nativeRuntime",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#rendererLockdown",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
+      ]
     },
     {
       "capabilityId": "LAYOUT-VERTICAL-001",
@@ -77,12 +92,19 @@
         "layout.navbar",
         "layout.footer"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "stable-anchor-in-place-react-lifecycle-plus-controlled-menu-header-rendering",
       "fallbackScope": "page",
       "dependsOn": [
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#viewports",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#bootstrapFreeShell",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#ui",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -93,12 +115,19 @@
         "layout.menu",
         "layout.horizontal"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "stable-anchor-in-place-react-lifecycle-plus-controlled-menu-rendering",
       "fallbackScope": "page",
       "dependsOn": [
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#viewports",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#bootstrapFreeShell",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#ui",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -107,12 +136,19 @@
       "modernCapabilityIds": [
         "layout.full-page"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "stable-anchor-in-place-react-lifecycle",
       "fallbackScope": "page",
       "dependsOn": [
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#viewports",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#b8Login",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#b8ServerFallbacks",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -121,12 +157,18 @@
       "modernCapabilityIds": [
         "layout.shell"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "bridge-lifecycle-compatible",
       "fallbackScope": "route",
       "dependsOn": [
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#nativeRuntime",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#rendererLockdown",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -135,13 +177,20 @@
       "modernCapabilityIds": [
         "grid.read"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "structured-react-table-with-displayer-islands",
       "fallbackScope": "page",
       "dependsOn": [
         "LAYOUT-VERTICAL-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#gridRead",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.grid",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#reflow200",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -150,13 +199,20 @@
       "modernCapabilityIds": [
         "grid.interactions"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "react-composition-exact-legacy-http-transport",
       "fallbackScope": "page",
       "dependsOn": [
         "GRID-READ-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#gridInteractions",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#gridFilterMatrix",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#gridActionMatrix",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -165,13 +221,20 @@
       "modernCapabilityIds": [
         "form.basic"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "react-layout-exact-control-transport",
       "fallbackScope": "page",
       "dependsOn": [
         "LAYOUT-VERTICAL-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#formBasic",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#formLayout",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.form",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -180,13 +243,21 @@
       "modernCapabilityIds": [
         "form.advanced"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "explicit-legacy-plugin-islands",
       "fallbackScope": "component",
       "dependsOn": [
         "FORM-BASIC-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#formAdvancedNative",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#formAdvancedVendor",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#formAdvancedCompat",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#formAdvancedOptional",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -195,13 +266,20 @@
       "modernCapabilityIds": [
         "show.detail"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "structured-react-standard-fields",
       "fallbackScope": "page",
       "dependsOn": [
         "LAYOUT-VERTICAL-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#modernFamilies.show",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.show",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#reflow200",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -210,13 +288,20 @@
       "modernCapabilityIds": [
         "tree.page"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "payload-react-native-reorder-with-custom-action-slots",
       "fallbackScope": "page",
       "dependsOn": [
         "LAYOUT-VERTICAL-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#modernFamilies.tree",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.tree",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#reflow200",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -225,13 +310,20 @@
       "modernCapabilityIds": [
         "widget.surface"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "payload-react-native-box-card-datacard-dashboard-native-dropdown-bounded-modal-compat",
       "fallbackScope": "component",
       "dependsOn": [
         "LAYOUT-VERTICAL-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#b8Surfaces",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.widget",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#reflow200",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -240,13 +332,20 @@
       "modernCapabilityIds": [
         "system.page"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "b0-b9-browser-verified-pending-support-matrix",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "payload-react-native-login-feedback-exception-with-bootstrap-free-server-fallback",
       "fallbackScope": "route",
       "dependsOn": [
         "LAYOUT-FULLPAGE-001",
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#b8Login",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#b8ServerFallbacks",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.system",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     },
     {
@@ -255,15 +354,22 @@
       "modernCapabilityIds": [
         "extension.island"
       ],
-      "modernStatus": "experimental",
-      "implementationStatus": "complete-local-gates-passing",
+      "modernStatus": "verified",
+      "implementationStatus": "verified-current-environment",
       "implementationMode": "versioned-extension-api-with-legacy-fallback",
       "fallbackScope": "component",
       "dependsOn": [
         "SYS-LEGACY-RUNTIME-001"
+      ],
+      "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
+      "verificationEvidence": [
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#accessibility.extension",
+        "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json#rendererLockdown",
+        "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json#coverage.registryFindings"
       ]
     }
   ],
   "verificationScope": "current-environment-only",
-  "releaseEvidenceStatus": "official-demo-and-automated-browser-gates-passed-packagist-rollback-rehearsed-manual-a11y-and-legacy-regression-pending"
+  "releaseEvidenceStatus": "current-environment-release-candidate-evidence-complete",
+  "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
 }

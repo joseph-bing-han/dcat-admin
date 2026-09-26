@@ -14,6 +14,8 @@
             select = $(select);
 
             select.select2(configs);
+            select.next('.select2').find('ul.select2-selection__rendered').attr('role', 'list');
+            select.closest('form').find('ul.select2-selection__rendered').attr('role', 'list');
 
             var value = select.data('value') + '';
 
@@ -24,6 +26,8 @@
     });
     @else
     $this.select2(configs);
+    $this.next('.select2').find('ul.select2-selection__rendered').attr('role', 'list');
+    $this.closest('form').find('ul.select2-selection__rendered').attr('role', 'list');
     @endif
 
     {!! $cascadeScript !!}

@@ -4689,21 +4689,21 @@
       ]
     },
     {
-      "path": "resources/dist/modern/assets/dcat-modern-B5gzLpNK.css",
-      "owner": "published-output",
-      "signals": [
-        "bootstrap-class",
-        "bootstrap-plugin",
-        "adminlte"
-      ]
-    },
-    {
       "path": "resources/dist/modern/assets/dcat-modern-DSKKiJ_i.js",
       "owner": "published-output",
       "signals": [
         "bootstrap-class",
         "adminlte",
         "jquery"
+      ]
+    },
+    {
+      "path": "resources/dist/modern/assets/dcat-modern-DgnJeOUU.css",
+      "owner": "published-output",
+      "signals": [
+        "bootstrap-class",
+        "bootstrap-plugin",
+        "adminlte"
       ]
     },
     {

@@ -15,10 +15,10 @@ These are local verification gates. GitHub Actions and `.github` configuration a
 - The current PHP/Laravel environment recorded in `m0/support-matrix.json` passes package installation, resource publication, modern native/compat smoke, shared contracts and the system-Chrome browser contract harness. Other version combinations are excluded by the maintainer's 2026-09-26 decision; passing results apply only to the recorded environment.
 - Five M0 viewports pass DOM/geometry runtime fixtures.
 - Existing representative Controller/API feature suites remain green in the current environment.
-- Accessibility evidence covers automated checks plus keyboard/focus order, screen-reader reading order and 200% zoom at the prescribed viewports.
+- Accessibility evidence comes from automated axe, semantic DOM/landmark order, keyboard/focus and 200% reflow checks at the prescribed viewports. Record the browser emulation method and reject overflow or unreachable controls; do not label simulated reflow as native browser UI zoom or screen-reader output.
 - A rollback rehearsal installs the exact Packagist artifact `dcat/laravel-admin:2.2.3-beta` on Laravel 10 and proves that republishing assets restores service without a database change or frontend rebuild.
-- `m11-release-status.json` has no remaining external gate and the capability matrix records the verified commit before any promotion decision.
+- `m11-release-status.json` has no remaining automated gate and the capability matrix records the verified commit before any promotion decision.
 
-Validation sequence: publish the prebuilt assets; verify the full official Demo Controller/page set through the modern View; inspect `dcat:modern:telemetry` and compat diagnostics; keep unsupported third-party Form fields and unclassified extension surfaces inside their Dcat-owned compat islands.
+Validation sequence: publish the prebuilt assets; verify the full official Demo Controller/page set through the modern View; assert automated telemetry and compat diagnostics contracts; keep unsupported third-party Form fields and unclassified extension surfaces inside their Dcat-owned compat islands.
 
 Rollback: there is no renderer switch or fallback marker. Roll the package version back, republish assets with `php artisan vendor:publish --tag=dcat-admin-assets --force`, and clear configuration/view caches.
