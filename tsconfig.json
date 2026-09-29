@@ -4,6 +4,9 @@
         "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "moduleResolution": "Bundler",
+        "paths": {
+            "@/*": ["./resources/modern/ui/*"]
+        },
         "jsx": "react-jsx",
         "strict": true,
         "noEmit": true,
@@ -15,4 +18,3 @@
     },
     "include": ["resources/modern/**/*.ts", "resources/modern/**/*.tsx", "vite.config.mts", "vitest.config.mts"]
 }
-

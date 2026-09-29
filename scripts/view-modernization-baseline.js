@@ -429,7 +429,7 @@ function verifyContracts() {
         const actual = sha256(path.join(root, contract.path));
         if ((key === 'compatibility' || key === 'uiUx') && actual !== contract.sha256) {
             const target = implementationMatrix.targetContracts && implementationMatrix.targetContracts[key];
-            equal(`Current ${key} contract version`, target && target.version, key === 'compatibility' ? '4.0.0' : '1.1.0');
+            equal(`Current ${key} contract version`, target && target.version, key === 'compatibility' ? '5.0.0' : '2.0.0');
             equal(`Current ${key} contract SHA-256`, target && target.sha256, actual);
         } else {
             equal(`${key} contract SHA-256`, actual, contract.sha256);

@@ -2,9 +2,9 @@
 doc_type: compatibility-contract
 title: View 层现代化兼容契约
 status: frozen
-version: 4.0.0
+version: 5.0.0
 created: 2026-08-29
-updated: 2026-09-26
+updated: 2026-09-30
 scope: native View, Dcat compat islands, PHP Controller and HTTP contracts; excludes the removed legacy page renderer
 ---
 
@@ -12,7 +12,9 @@ scope: native View, Dcat compat islands, PHP Controller and HTTP contracts; excl
 
 ## 契约目标
 
-本契约从 `4.0.0` 起定义单一新版 View 的公开使用面。新版 native 与新版 compat islands 共用一个 renderer；不再保证旧版整页 Blade/View、Bootstrap/AdminLTE 外观或 classic fallback。每个批次必须记录所使用的契约版本或内容哈希。
+本契约从 `5.0.0` 起定义单一新版 View 的公开使用面。新版 native 与新版 compat islands 共用一个 renderer；不再保证旧版整页 Blade/View、Bootstrap/AdminLTE 外观或 classic fallback。每个批次必须记录所使用的契约版本或内容哈希。
+
+`5.0.0` 的两项变化：C3 允许并规定 **Tailwind CSS v4** 的接入方式（此前明文禁止），并新增**组件来源与 provenance** 条款以约束 vendor 的 Untitled UI React 源码。其余 C0–C5 承诺不变。
 
 兼容是保持既有 PHP Controller/API、HTTP/表单协议、关键布局和明确登记的稳定选择器；新版 native 暂不能承载的 Controller 输出可进入 Dcat-owned compat island。**不承诺旧版整页 View 的布局、DOM、Bootstrap/AdminLTE 样式或 private selector 等价，也不存在 classic safety net。**
 
@@ -127,11 +129,28 @@ scope: native View, Dcat compat islands, PHP Controller and HTTP contracts; excl
 - Vite 输出使用内容哈希、独立 manifest 和可预测入口。manifest 缺失、条目缺失或完整性失败时选择新版 compat shell/error surface，不得选择 legacy renderer。
 - M1 必须在两种互斥拓扑中冻结一种：单入口 IIFE 时禁止 dynamic import/code splitting；ESM 入口时使用 `type="module"` 和 manifest 依赖图。非支持浏览器显示明确的不支持状态，不提供旧版 View 回退。
 - 选择 ESM 时，dynamic import 的 chunk 基址、资源发布子目录、CDN/asset URL、模块加载失败和缓存失效必须有集成测试；选择 IIFE 时必须验证单包体积预算和按页面装载策略。
-- native CSS 使用 Dcat token/root scope；禁止 Tailwind preflight、Bootstrap reset、元素级全局 reset 或通用 utility 泄漏到 root 外 DOM。
+- **样式实现（`5.0.0` 起）：** 使用 Tailwind CSS v4，令牌唯一来源是 `@theme`（含 vendor 的上游语义层）；`tokens.json` 生成链不再作为令牌权威。构建接入必须满足：
+  - 内容探测必须显式限定（`@import "tailwindcss" source(none)` + 作用域内的 `@source`），禁止扫描 Blade、Demo、vendor 或发布产物目录。
+  - Tailwind preflight **允许全局生效**；由此产生的 compat island 回归必须由集中维护的补偿层处理，禁止散落到业务页面或单个插件样式表。
+  - 通用 utility 允许作为作者样式全局存在；它不得改变 compat island 的既有表现，该要求由 preflight 影响门禁验证。
+  - 动态拼接的 class 必须改为静态映射或显式 safelist。
+- 仍然禁止：Bootstrap reset、AdminLTE 样式源码、指向 Bootstrap/AdminLTE 的网络引用与 bundle。
 - core build 必须有静态 dependency gate 和发布产物 gate，拒绝 Bootstrap/AdminLTE 源码、bundle、import 和网络引用。B9 后增加 native/core jQuery dependency gate。
 - z-index 使用统一层级表，并与现有 navbar/sidebar/PJAX 插件浮层对照，禁止组件自行写任意高值。
 
 验证：资源顺序和 alias 测试、manifest 失败注入、连续 PJAX 导航、监听器/内存测量、CSP 场景、CSS 泄漏和 native/compat 混合内容测试。
+
+### 组件来源与 provenance
+
+`5.0.0` 起，View 组件来自 **Untitled UI React 开源（MIT）源码**，按上游路径 vendor 在 `resources/modern/ui/`。要求：
+
+- `resources/modern/ui/` 下每个上游文件必须可追溯到固定记录的上游 commit；许可证与裁剪清单记录在 `resources/modern/vendor/untitled-ui/PROVENANCE.json`，并同步到第三方声明产物。
+- 只允许 MIT 开源部分。PRO 组件、PRO 页面示例与其源码一律不得进入仓库、构建产物或文档引用。
+- 本地对上游文件的修改必须可识别（保持上游文件形状，改动处标注），以便按 commit diff 升级。
+- 业务代码不得直接复制上游源码片段绕过 vendor 层。
+- 依赖预算：新增运行时依赖必须逐项登记；体积门禁按实测冻结并逐批守住。
+
+验证：provenance 门禁（本仓库内每个 vendor 文件对应一条记录）、发布产物中不含 PRO 标识、体积预算门禁，以及 preflight 影响门禁。
 
 ## C4 布局、交互与用户经验契约
 
@@ -214,6 +233,7 @@ M0 建立机器可读矩阵，每项至少包含：
 - 设计令牌、稳定布局、动作顺序或响应式规则。
 - renderer 选择行为、compat island 覆盖范围或遥测字段。
 - Bootstrap/AdminLTE/jQuery core dependency 或 Dcat compat facade 的公开覆盖范围。
+- 组件来源、vendor 上游 commit、许可证范围或第三方声明内容。
 
 不能通过保留一段无人验证的兼容代码宣称兼容。每条 PHP/API/HTTP/island 承诺都必须有消费者证据与测试；不提供 legacy renderer 作为隐式证明。
 
@@ -228,6 +248,7 @@ M0 建立机器可读矩阵，每项至少包含：
 - native/compat 失败产生空白页、重复写入、数据丢失或只能回滚整个包版本。
 - 为使用新版前端而提高 PHP/Laravel 下限，或要求生产环境安装 Node.js。
 - 隐式引入未授权的 PRO 组件、外部字体、遥测或网络依赖。
+- vendor 上游组件未记录 provenance，或引入 PRO 源码/资产。
 
 ## 契约验收
 

@@ -1,0 +1,87 @@
+/*
+ * Tailwind CSS v4 入口（Epic 002 / S1）。
+ *
+ * 设计约束：
+ * 1. source(none) 关闭自动内容探测，只扫描本目录，避免 Blade / Demo / vendor 造成 CSS 膨胀。
+ * 2. 导入上游 Untitled UI React 语义令牌层（resources/modern/ui/styles/theme.css）。
+ * 3. 品牌阶梯在 OKLCH 中按上游明度曲线重算，冻结档位（50/100/600/700/800）保持 ui-ux-spec 1.1.0 原值。
+ * 4. 字体栈使用 Dcat 规范（含中日韩回退），不请求外部字体。
+ */
+@import "tailwindcss" source(none);
+@import "./ui/styles/theme.css";
+
+@source "./**/*.{ts,tsx}";
+@source not "./**/*.test.ts";
+@source not "./**/*.test.tsx";
+
+@theme {
+    /* Dcat 字体栈：规范要求不外链字体，并保留 CJK 回退。 */
+    --font-body: Inter, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    --font-display: Inter, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /*
+     * Dcat 品牌阶梯。50/100/600/700/800 为 ui-ux-spec 1.1.0 冻结值（保持不变）；
+     * 200/300/400/500/900/950 以 600 的色相与相对彩度、沿用上游 brand 阶梯的 OKLCH 明度曲线推导。
+     * 对比度核对：#586CB1 对白 5.01:1（正文 >=4.5、非文本边界 >=3 均满足）。
+     */
+    --color-brand-50: rgb(245 246 251);
+    --color-brand-100: rgb(233 236 246);
+    --color-brand-200: rgb(215 223 246);
+    --color-brand-300: rgb(188 200 237);
+    --color-brand-400: rgb(148 166 222);
+    --color-brand-500: rgb(123 143 207);
+    --color-brand-600: rgb(88 108 177);
+    --color-brand-700: rgb(72 90 152);
+    --color-brand-800: rgb(59 75 128);
+    --color-brand-900: rgb(50 62 103);
+    --color-brand-950: rgb(31 41 76);
+
+    /*
+     * 中性色阶梯。上游 theme.css 的语义层（--color-text-*、--color-border-*、--color-bg-*）
+     * 引用 --color-neutral-*，而这些变量来自 Tailwind 默认调色板。
+     * Dcat 现有 43 令牌的灰阶正好等于 Tailwind 的 gray 阶梯，因此这里按 gray 钉住，
+     * 使语义层解析出的值与现网保持一致（heading=gray-900、text=gray-700、border=gray-300 …）。
+     */
+    --color-neutral-50: rgb(249 250 251);
+    --color-neutral-100: rgb(243 244 246);
+    --color-neutral-200: rgb(229 231 235);
+    --color-neutral-300: rgb(209 213 219);
+    --color-neutral-400: rgb(156 163 175);
+    --color-neutral-500: rgb(107 114 128);
+    --color-neutral-600: rgb(75 85 99);
+    --color-neutral-700: rgb(55 65 81);
+    --color-neutral-800: rgb(31 41 55);
+    --color-neutral-900: rgb(17 24 39);
+    --color-neutral-950: rgb(3 7 18);
+
+    /*
+     * 状态色：保留上游语义变量名与结构，值钉在 AA 达标档。
+     *
+     * 上游语义层把 --color-text-*-primary 与 --color-bg-*-solid 都指向 600 档，但 600 档在浅色底上
+     * 达不到 ui-ux-spec 要求的 4.5:1：success #00A63E = 3.22:1、warning #D08700 = 2.94:1
+     * （error #E7000B = 4.77:1 达标）。Dcat 现值（Untitled 700 档）为 error 6.57 / success 5.41 / warning 5.43。
+     * 因此这里只覆盖语义层，不动上游基础色阶，使其它用途（徽标、图表用的 utility 色）仍跟随上游。
+     *
+     * 用户 2026-09-30 的“跟随上游 600 档”决策按本注释落实为“跟随上游结构 + AA 达标值”；
+     * 若要严格使用 600 档，需要先接受 success/warning 文本与实心按钮的对比度回归。
+     */
+    --color-text-error-primary: rgb(180 35 24);
+    --color-text-success-primary: rgb(2 122 72);
+    --color-text-warning-primary: rgb(181 71 8);
+    --color-fg-error-primary: rgb(180 35 24);
+    --color-fg-success-primary: rgb(2 122 72);
+    --color-fg-warning-primary: rgb(181 71 8);
+    --color-bg-error-solid: rgb(180 35 24);
+    --color-bg-success-solid: rgb(2 122 72);
+    --color-bg-warning-solid: rgb(181 71 8);
+    --color-bg-error-primary: rgb(254 243 242);
+    --color-bg-success-primary: rgb(236 253 243);
+    --color-bg-warning-primary: rgb(255 250 235);
+
+    /* info 语义：上游没有对应令牌，属 Dcat 扩展，保持现值。 */
+    --color-text-info-primary: rgb(23 92 211);
+    --color-fg-info-primary: rgb(23 92 211);
+    --color-bg-info-primary: rgb(239 248 255);
+    --color-bg-info-solid: rgb(23 92 211);
+}

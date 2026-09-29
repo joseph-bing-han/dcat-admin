@@ -5,7 +5,21 @@ const path = require('path');
 
 const root = path.resolve(__dirname, '..');
 const output = path.join(root, 'resources/dist/modern/THIRD_PARTY_NOTICES.txt');
-const roots = ['react', 'react-dom', 'react-aria-components'];
+/*
+ * 依赖图根：核心运行时，加上 vendor 的 Untitled UI 组件实际引用的运行时包
+ * （Epic 002 / S2 起）。vendor 组件一旦被引入构建，这些包就进入发布产物，必须有许可声明。
+ */
+const roots = [
+    'react',
+    'react-dom',
+    'react-aria-components',
+    '@untitledui/icons',
+    '@internationalized/date',
+    '@react-aria/utils',
+    '@react-stately/utils',
+    'react-aria',
+    'tailwind-merge',
+];
 const packages = new Map();
 const missing = [];
 
@@ -43,7 +57,8 @@ const sections = [
     '----------------------------',
     `Repository: ${untitledProvenance.repository}`,
     `Revision: ${untitledProvenance.revision}`,
-    `Selected sources: ${untitledProvenance.selectedSources.join(', ')}`,
+    `Vendored files: ${untitledProvenance.selectedSources.length} (see resources/modern/vendor/untitled-ui/PROVENANCE.json for the per-file list, hashes and the documented exclusions)`,
+    `Vendored families: ${summarizeVendoredFamilies(untitledProvenance.selectedSources)}`,
     `Adaptation: ${untitledProvenance.adaptation}`,
     '',
     untitledLicense,
@@ -137,3 +152,18 @@ function normalizeRepository(repository) {
     return repository.url || null;
 }
 
+/* 把 vendor 文件路径折叠成 "目录 (n)" 形式，避免通知文件罗列上百行路径。 */
+function summarizeVendoredFamilies(sources) {
+    const families = new Map();
+    (sources || []).forEach((source) => {
+        const parts = source.split('/');
+        const family = parts.length > 2 && parts[0] === 'components'
+            ? `${parts[0]}/${parts[1]}/${parts[2]}`
+            : parts.slice(0, Math.min(2, parts.length)).join('/');
+        families.set(family, (families.get(family) || 0) + 1);
+    });
+    return Array.from(families.entries())
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([family, count]) => `${family} (${count})`)
+        .join(', ');
+}

@@ -2,9 +2,9 @@
 doc_type: ui-ux-spec
 title: View 层现代化 UI/UE 规范
 status: frozen
-version: 1.1.0
+version: 2.0.0
 created: 2026-08-29
-updated: 2026-09-26
+updated: 2026-09-30
 scope: modern renderer
 ---
 
@@ -12,9 +12,19 @@ scope: modern renderer
 
 ## 规范地位
 
-本文从 `1.0.0` 起作为 modern View 的冻结设计与验收权威。`1.1.0` 根据用户 2026-09-25 的视觉优化要求更新控件和表面样式；稳定布局、品牌色、字段与动作顺序不变。所有实现与视觉证据须引用本版本；公共模式统一维护，不能在业务页面各自补丁。
+本文从 `1.0.0` 起作为 modern View 的冻结设计与验收权威。`1.1.0` 根据用户 2026-09-25 的视觉优化要求更新控件和表面样式。`2.0.0` 根据用户 2026-09-30 的决定，把**组件与样式来源改为 Untitled UI React（MIT 开源部分）＋ Tailwind CSS v4**，并采用上游字号体系；稳定布局、品牌色、字段与动作顺序不变。所有实现与视觉证据须引用本版本；公共模式统一维护，不能在业务页面各自补丁。
 
-目标是现代化视觉、可访问性和实现质量，不改变老用户已经形成的页面布局、导航方向、动作位置和任务顺序。Untitled UI 提供组件参考，不取代本项目的兼容契约和设计令牌。
+目标是现代化视觉、可访问性和实现质量，不改变老用户已经形成的页面布局、导航方向、动作位置和任务顺序。
+
+**维护归属：** 本文件与 [`compatibility-contract.md`](compatibility-contract.md) 是项目级设计权威，当前由 Epic `002-o-untitled-ui-react-adoption` 的变更周期维护（因两份文件在 Epic 001 关闭时未毕业到 Project Spec）。Epic 002 关闭时须把其中仍然成立的稳定约束合并进 `codestable/spec/view-layer/`。
+
+### 组件与样式来源（`2.0.0` 起）
+
+- 组件来源是 **Untitled UI React 开源组件源码**，按上游路径 vendor 在 `resources/modern/ui/`，并由 `PROVENANCE.json` 固定上游 commit 与许可证明细。
+- 样式实现是 **Tailwind CSS v4**；令牌唯一来源是 `tailwindcss` 的 `@theme`（含 vendor 的上游语义层），不再维护自研令牌生成链。
+- 不再使用“Untitled UI 仅作组件参考”的旧口径；自研 `components.tsx` 的 DOM 组件退役。
+- 只允许使用已验证为 MIT 的上游源码。PRO 组件、PRO 页面示例与其源码一律不得引入。
+- Tailwind preflight 全局生效；compat island 的兼容由集中维护的补偿层承担（见「兼容与 preflight」节）。
 
 ## 设计原则
 
@@ -48,17 +58,21 @@ font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
 ### 字号与行高
 
-| 令牌 | 字号/行高 | 用途 |
-|---|---:|---|
-| `text-xs` | 12/16px | 辅助元数据、紧凑标签；不得承载主要说明 |
-| `text-sm` | 13/18px | 表格次要信息、紧凑控件 |
-| `text-md` | 14/20px | 默认正文、表单、按钮和表格 |
-| `text-lg` | 16/24px | 面板标题、Modal 标题 |
-| `text-xl` | 18/26px | 页面描述较短的区块标题 |
-| `display-sm` | 20/28px | 默认页面标题 |
-| `display-md` | 24/32px | 登录或 full-page 页面标题上限 |
+`2.0.0` 起采用上游 Untitled UI 字号体系（与 1.1.0 的差异见末列）：
 
-页面内禁止超过 `24px` 的标题；紧凑面板禁止使用 display 字级。文本必须换行或截断并提供完整内容访问方式，不能溢出或遮挡相邻控件。
+| 令牌 | 字号/行高 | 用途 | 相对 1.1.0 |
+|---|---:|---|---|
+| `text-xs` | 12/18px | 辅助元数据、紧凑标签；不得承载主要说明 | 行高 16→18 |
+| `text-sm` | 14/20px | 表格次要信息、紧凑控件 | 13/18→14/20 |
+| `text-md` | 16/24px | 默认正文、表单、按钮和表格 | 14/20→16/24 |
+| `text-lg` | 18/28px | 面板标题、Modal 标题 | 16/24→18/28 |
+| `text-xl` | 20/28px | 区块标题 | 18/26→20/28 |
+| `display-xs` | 24/32px | 默认页面标题 | 20/28→24/32 |
+| `display-sm` | 30/38px | 登录或 full-page 页面标题上限 | 24/32→30/38 |
+
+页面内禁止超过 `display-xs`（24px）以外的字级用于正文区块；登录与 full-page 可使用 `display-sm`。紧凑面板禁止使用 display 字级。文本必须换行或截断并提供完整内容访问方式，不能溢出或遮挡相邻控件。
+
+上游 `display-md` 及以上（36px+）不允许在后台页面使用。
 
 ### 间距
 
@@ -113,6 +127,10 @@ font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 - 品牌色只用于交互和关键识别，不作为大面积页面背景。
 - 禁止渐变、装饰性光斑、纯气氛背景和以紫蓝色铺满界面。
 - 深色侧栏是现有布局配置，可使用独立语义令牌，但必须满足同样的状态与对比度规则。
+
+**实现方式（`2.0.0` 起）：** 上表的值由 Tailwind `@theme` 变量承载；组件只使用 Tailwind 语义工具类（如 `bg-brand-solid`、`text-secondary`、`ring-primary`），不得写裸十六进制。Dcat 令牌到上游语义变量的对应关系见 Epic 002 的 [token-mapping.md](../../002-o-untitled-ui-react-adoption/token-mapping.md)。
+
+**状态色的 AA 结论（2026-09-30 实测）：** 上游语义层把 `--color-text-*-primary` 与 `--color-bg-*-solid` 指向 600 档，其中 success `#00A63E`（3.22:1）与 warning `#D08700`（2.94:1）达不到本规范的 4.5:1；error `#E7000B`（4.77:1）达标。因此 `2.0.0` 保留上游语义变量名与结构，但把 error / success / warning 的语义值钉在本规范的 AA 达标值（`#B42318` / `#027A48` / `#B54708`，即上游 700 档，分别 6.57 / 5.41 / 5.43）。上游基础色阶不变，徽标等使用 utility 色阶的场景仍跟随上游。`info` 上游无对应语义，属 Dcat 扩展。
 
 ### 边框、圆角与阴影
 
@@ -297,14 +315,26 @@ Grid 列选择器的选项按单列逐行排列，All 与字段项之间有分�
 
 AI 生成设计或代码时必须遵守：
 
-1. 只能使用本文令牌；发现缺失令牌时停止局部发挥，先提交规范变更。
+1. 只能使用本文令牌与上游语义工具类；发现缺失令牌时先按本规范变更流程提交变更，不在页面里写裸值或私有 class。
 2. 不改变稳定布局、动作顺序、字段名称、查询参数或请求语义。
 3. 不新增渐变、装饰性背景、超大标题、营销式 hero、嵌套卡片或超过 8px 圆角。
-4. 不在单个页面复制基础组件或写私有颜色/间距；复用受控组件。
+4. 不在单个页面复制基础组件或写私有颜色/间距；组件必须来自 `resources/modern/ui/` 的 vendor 层，业务代码不直接复制上游源码片段。
 5. 每个组件实现全部状态、键盘路径、焦点规则、响应式约束和新版 compat 内容路径。
-6. 引入 Untitled UI 代码前记录来源、版本和许可证；不得假定 PRO 组件可用。
+6. 引入或更新 Untitled UI 代码时必须同步 `PROVENANCE.json`（上游 commit、路径、许可证、本地裁剪），并确认来源为 MIT 开源部分；不得引入 PRO 组件、PRO 页面示例或源码。
 7. 截图更新必须对应规范条款，并由稳定夹具的几何断言与差异阈值自动验证；不能将意外差异批量设为新基线。
-8. 完成前扫描 CSS 颜色、间距、圆角、z-index 和字体声明，拒绝未令牌化值。
+8. 完成前扫描 CSS 颜色、间距、圆角、z-index 和字体声明，拒绝未令牌化值；`styles.css` / `compat-facade.css` 中的自研令牌用法须按 token-mapping 换为语义变量。
+9. 动态拼接的 Tailwind class 必须改为静态映射或显式 safelist，不得依赖运行时字符串拼接。
+
+## 兼容与 preflight
+
+`2.0.0` 起 Tailwind preflight 全局生效。preflight 位于 `@layer base`，会重置元素级默认值（`*` 的 margin/padding/`border:0 solid`、标题的 font-size/weight 继承、列表符号、`img` 变块级、表单控件 appearance 归一化等）。compat island 里的旧模板与第三方插件依赖这些默认值。
+
+处置原则：
+
+- 补偿规则集中在 `resources/modern/compat-preflight-restore.css`，作用域为 `.dcat-modern-active`，一律使用 `:where()` 保持最低特异性，并放在无 layer 的作者样式里（优先级高于 `@layer base`，同时任何显式声明仍可覆盖它）。
+- 不允许把补偿散落到业务页面或单个插件样式表。
+- 门禁：`node scripts/view-modernization-preflight-impact.mjs --build-baseline --strict` 必须零差异。该脚本用系统 Chrome 对真实插件 CSS 与真实 Select2 DOM 做接入前后的计算样式对比，覆盖 30 个探针。
+- 新增或升级 compat island 的插件时，必须把其代表控件加入该脚本的探针集合。
 
 ## 视觉验收清单
 

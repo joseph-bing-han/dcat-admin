@@ -6,8 +6,515 @@
   "license": "MIT",
   "copyright": "Copyright (c) 2025 Untitled UI",
   "selectedSources": [
+    "components/application/date-picker/calendar.tsx",
+    "components/application/date-picker/cell.tsx",
+    "components/application/date-picker/date-picker.tsx",
+    "components/application/date-picker/date-range-picker.tsx",
+    "components/application/date-picker/range-calendar.tsx",
+    "components/application/loading-indicator/loading-indicator.tsx",
+    "components/application/modals/modal.tsx",
+    "components/application/pagination/pagination-base.tsx",
+    "components/application/pagination/pagination-dot.tsx",
+    "components/application/pagination/pagination-line.tsx",
+    "components/application/pagination/pagination.tsx",
+    "components/application/slideout-menus/slideout-menu.tsx",
+    "components/application/table/table.tsx",
+    "components/application/tabs/tabs.tsx",
+    "components/base/avatar/avatar-label-group.tsx",
+    "components/base/avatar/avatar-profile-photo.tsx",
+    "components/base/avatar/avatar.tsx",
+    "components/base/avatar/base-components/avatar-add-button.tsx",
+    "components/base/avatar/base-components/avatar-company-icon.tsx",
+    "components/base/avatar/base-components/avatar-count.tsx",
+    "components/base/avatar/base-components/avatar-online-indicator.tsx",
+    "components/base/avatar/base-components/index.tsx",
+    "components/base/avatar/base-components/verified-tick.tsx",
+    "components/base/avatar/utils.ts",
+    "components/base/badges/badge-groups.tsx",
+    "components/base/badges/badge-types.ts",
+    "components/base/badges/badges.tsx",
+    "components/base/button-group/button-group.tsx",
+    "components/base/buttons/button-utility.tsx",
     "components/base/buttons/button.tsx",
-    "components/base/toggle/toggle.tsx"
+    "components/base/buttons/close-button.tsx",
+    "components/base/checkbox/checkbox.tsx",
+    "components/base/dropdown/dropdown.tsx",
+    "components/base/file-upload-trigger/file-upload-trigger.tsx",
+    "components/base/form/form.tsx",
+    "components/base/input/hint-text.tsx",
+    "components/base/input/input-date.tsx",
+    "components/base/input/input-file.tsx",
+    "components/base/input/input-group.tsx",
+    "components/base/input/input-number.tsx",
+    "components/base/input/input-tags-outer.tsx",
+    "components/base/input/input-tags.tsx",
+    "components/base/input/input.tsx",
+    "components/base/input/label.tsx",
+    "components/base/progress-indicators/progress-circles.tsx",
+    "components/base/progress-indicators/progress-indicators.tsx",
+    "components/base/progress-indicators/simple-circle.tsx",
+    "components/base/radio-buttons/radio-buttons.tsx",
+    "components/base/select/combobox.tsx",
+    "components/base/select/multi-select.tsx",
+    "components/base/select/popover.tsx",
+    "components/base/select/select-item.tsx",
+    "components/base/select/select-native.tsx",
+    "components/base/select/select-shared.tsx",
+    "components/base/select/select.tsx",
+    "components/base/select/tag-select.tsx",
+    "components/base/tags/base-components/tag-checkbox.tsx",
+    "components/base/tags/base-components/tag-close-x.tsx",
+    "components/base/tags/tags.tsx",
+    "components/base/textarea/textarea.tsx",
+    "components/base/toggle/toggle.tsx",
+    "components/base/tooltip/tooltip.tsx",
+    "components/foundations/dot-icon.tsx",
+    "components/foundations/featured-icon/featured-icon.tsx",
+    "hooks/use-breakpoint.ts",
+    "hooks/use-resize-observer.ts",
+    "styles/theme.css",
+    "utils/cx.ts",
+    "utils/is-react-component.ts"
   ],
-  "adaptation": "Dcat uses the pinned components as interaction/state-model references. The implementation delegates Button and Switch interaction semantics to react-aria-components 1.20.0 and supplies independent Dcat-scoped CSS/tokens. Untitled Tailwind classes, cx utilities, application examples and PRO/commercial source are not vendored."
+  "adaptation": "Untitled UI React 开源组件源码按上游路径 vendored 到 resources/modern/ui/。本地通过 tsconfig/vite 的 @/* 别名指向上游路径，因此组件文件保持上游原样；本地必要的改动登记在 resources/modern/ui/PATCHES.md。仅使用 MIT 开源部分，PRO 组件与页面示例不纳入。",
+  "vendoredTo": "resources/modern/ui/",
+  "files": [
+    {
+      "path": "components/application/date-picker/calendar.tsx",
+      "bytes": 5047,
+      "sha256": "9bd9d085340852c96810986db96bfa7862d4e2a90a7613efd50a576da22da8a8"
+    },
+    {
+      "path": "components/application/date-picker/cell.tsx",
+      "bytes": 5590,
+      "sha256": "5276acf52e43a8d3745a723011a4436a3650a8895791b5c9cc827505c7f6e7ef"
+    },
+    {
+      "path": "components/application/date-picker/date-picker.tsx",
+      "bytes": 4068,
+      "sha256": "2644218cc4aed8d535e4cb7c23ec2eb507501140dfb5e3dcd9b7f09e79576ed9"
+    },
+    {
+      "path": "components/application/date-picker/date-range-picker.tsx",
+      "bytes": 8463,
+      "sha256": "bc60eee51ab3f7b89c4a4a3775df3b4b66ef5a02fc6a30c448603992acc54c96"
+    },
+    {
+      "path": "components/application/date-picker/range-calendar.tsx",
+      "bytes": 9267,
+      "sha256": "f1cd37b25c43c3bfb542dd7aa9e52440f6732dceb5dd4abc89f9b7f86a1af362"
+    },
+    {
+      "path": "components/application/loading-indicator/loading-indicator.tsx",
+      "bytes": 4782,
+      "sha256": "423cdbd0cf04a274a0da37d21912ffd961ef053dbc002e094039dd225c4e2692"
+    },
+    {
+      "path": "components/application/modals/modal.tsx",
+      "bytes": 2216,
+      "sha256": "d698ac483dcf8e305b5258b0edbb860ea45c1562a82a7fe5717baa6c08272d42"
+    },
+    {
+      "path": "components/application/pagination/pagination-base.tsx",
+      "bytes": 13938,
+      "sha256": "00e5327f3d3362e2ce2c783c045b89c32d60ce3f52f288858624718f837c8976"
+    },
+    {
+      "path": "components/application/pagination/pagination-dot.tsx",
+      "bytes": 2226,
+      "sha256": "7593d3f99004a736ed17850deb29aa2b86c296c7a64439db5348e81d13d824f0"
+    },
+    {
+      "path": "components/application/pagination/pagination-line.tsx",
+      "bytes": 1980,
+      "sha256": "7293ebcd828d37e1df8470fb3360a40be7e63b5229958f4cf1b21656d2f05039"
+    },
+    {
+      "path": "components/application/pagination/pagination.tsx",
+      "bytes": 21253,
+      "sha256": "8b1f94c0627fef690930f8ee813d074722906919ec1aa278e040a2cf9954f151"
+    },
+    {
+      "path": "components/application/slideout-menus/slideout-menu.tsx",
+      "bytes": 4658,
+      "sha256": "242c25873ebb543db0d982e1c49b2d8fcca21a595e726c3bd185447497a6d918"
+    },
+    {
+      "path": "components/application/table/table.tsx",
+      "bytes": 12041,
+      "sha256": "f91d47fdba53705123ab304a14c2fe46e955e216c40170af3648322343ac40c7"
+    },
+    {
+      "path": "components/application/tabs/tabs.tsx",
+      "bytes": 9626,
+      "sha256": "090aa84ea228281db1eb3ef811038bef3b2aa6e1b93174ced73a71ea0bf16914"
+    },
+    {
+      "path": "components/base/avatar/avatar-label-group.tsx",
+      "bytes": 1156,
+      "sha256": "9d69a72bea31b01ba4c5186be54553bc68a3f0dc76ed8e5abd0164445c43af6e"
+    },
+    {
+      "path": "components/base/avatar/avatar-profile-photo.tsx",
+      "bytes": 4437,
+      "sha256": "9267f71474e337b1faf908cad857a59d6993f733352e0dda0fe275d69eb61be5"
+    },
+    {
+      "path": "components/base/avatar/avatar.tsx",
+      "bytes": 5154,
+      "sha256": "49bcc021bf717ab395a6caec94bd19cb82eb25d3e13afafa74aa937582e0ba28"
+    },
+    {
+      "path": "components/base/avatar/base-components/avatar-add-button.tsx",
+      "bytes": 1381,
+      "sha256": "4676000225227c5e9f6a0e953c03c015a5c10ea0de282024ddaabb3c8600032d"
+    },
+    {
+      "path": "components/base/avatar/base-components/avatar-company-icon.tsx",
+      "bytes": 599,
+      "sha256": "52223fe32cd9f6b1f08702eb052af37a875f380c3f2626ccc8c2e6da0329bb09"
+    },
+    {
+      "path": "components/base/avatar/base-components/avatar-count.tsx",
+      "bytes": 477,
+      "sha256": "ac7958c908a28fe7c4e090d54af4dcfb5cceb1faf3c2bac94ea0cb8a08bc088d"
+    },
+    {
+      "path": "components/base/avatar/base-components/avatar-online-indicator.tsx",
+      "bytes": 1979,
+      "sha256": "40dd93e07eb5d2875298586f027bad205b78aabb3be6a296ef036437595b0226"
+    },
+    {
+      "path": "components/base/avatar/base-components/index.tsx",
+      "bytes": 152,
+      "sha256": "d630103c098195bb12b76683ddce85402dcc394feef45d2427e478209d2c2bd5"
+    },
+    {
+      "path": "components/base/avatar/base-components/verified-tick.tsx",
+      "bytes": 3060,
+      "sha256": "9cf7b0cd9970923bd6eb9d0a1c82eab1ddcdda007a6e94e48b047f7ef85b2473"
+    },
+    {
+      "path": "components/base/avatar/utils.ts",
+      "bytes": 518,
+      "sha256": "a4bd713895f91ea8e2723ad786ecdacb577331f34a66598e26bba099f465193f"
+    },
+    {
+      "path": "components/base/badges/badge-groups.tsx",
+      "bytes": 6377,
+      "sha256": "921b113bbedc4c47069116f3a7e0eaf9a50d370683a77db85cf840986848e09a"
+    },
+    {
+      "path": "components/base/badges/badge-types.ts",
+      "bytes": 3482,
+      "sha256": "086f2d74cddd0decb0fa78b80609ff17968df7a9c09661d813243ead847d1501"
+    },
+    {
+      "path": "components/base/badges/badges.tsx",
+      "bytes": 15123,
+      "sha256": "3ba3b3a1da36b92154ae8f7e831b6fc8213e7d7ffd2bc73095b29d552e043333"
+    },
+    {
+      "path": "components/base/button-group/button-group.tsx",
+      "bytes": 4304,
+      "sha256": "1871ab9149bc6fe1637ef202fb9d717f79f523f2da8ae423e17e07383d5d7c28"
+    },
+    {
+      "path": "components/base/buttons/button-utility.tsx",
+      "bytes": 4006,
+      "sha256": "33365a02e747433dcd6d24950542b42b869ced3585cd04475126553c6e6ad7df"
+    },
+    {
+      "path": "components/base/buttons/button.tsx",
+      "bytes": 11832,
+      "sha256": "1eb74e3672d0f8c527d90afb4ad7ec95b5253574b5505866d23c91a54381c85a"
+    },
+    {
+      "path": "components/base/buttons/close-button.tsx",
+      "bytes": 2012,
+      "sha256": "312c6b022a6792a8943922d59b81fbe7c3bc0912d9451d4d7386b9fa94d8ad38"
+    },
+    {
+      "path": "components/base/checkbox/checkbox.tsx",
+      "bytes": 4534,
+      "sha256": "4266edfa3562c505e869ba55c81a64e7bdd86962835aa0ea9c460fd7ffc89bd1"
+    },
+    {
+      "path": "components/base/dropdown/dropdown.tsx",
+      "bytes": 8116,
+      "sha256": "867271bc38e7cb3fca0a795795ca5cbb7afeb05079991abd96c3ebdc1345a84d"
+    },
+    {
+      "path": "components/base/file-upload-trigger/file-upload-trigger.tsx",
+      "bytes": 2401,
+      "sha256": "a784f4d43ee461a6bd19fc4d43a8cd32d21c6cbb8f2f878053d6fb2f130816c1"
+    },
+    {
+      "path": "components/base/form/form.tsx",
+      "bytes": 266,
+      "sha256": "a90bbe7d4cd6f63be0127a70b753da72dfbb00f9e82d915e5e0313f3ad31fdbb"
+    },
+    {
+      "path": "components/base/input/hint-text.tsx",
+      "bytes": 1074,
+      "sha256": "521941d440c71a807fc81ee50ee6262ea414ab5fc4a39f5ce5ea5ff16f3b3037"
+    },
+    {
+      "path": "components/base/input/input-date.tsx",
+      "bytes": 9727,
+      "sha256": "c3f54bdb875535170eecb035cca0f82d1da5f04c07fff15090bf5ec2a1421a66"
+    },
+    {
+      "path": "components/base/input/input-file.tsx",
+      "bytes": 4785,
+      "sha256": "fe384369b187f1622b42d498b2d8a8d8f62b2a71c16aec920c8dd17bba085d86"
+    },
+    {
+      "path": "components/base/input/input-group.tsx",
+      "bytes": 7256,
+      "sha256": "cecbfefdf142fb26f2f5b45b90eec9509e3d125264b7b4f55ec260c29c2006a0"
+    },
+    {
+      "path": "components/base/input/input-number.tsx",
+      "bytes": 7401,
+      "sha256": "ebf11bd4a2b72fd7a9ff55ca1d1c689c26360d9d441c08c1836be7b218e5d74f"
+    },
+    {
+      "path": "components/base/input/input-tags-outer.tsx",
+      "bytes": 6959,
+      "sha256": "4399e31396af2f3c0791fc8591e7ba43afe60e60d768dfff35fcec84f7359e48"
+    },
+    {
+      "path": "components/base/input/input-tags.tsx",
+      "bytes": 12809,
+      "sha256": "38d2e9e2aa23f4fec3253dd79229be820128e889f525ef94d3b66feebe7eb256"
+    },
+    {
+      "path": "components/base/input/input.tsx",
+      "bytes": 11392,
+      "sha256": "efd3961f68eecd391857411fd28929d25639d9b779471bffa6e2bf4d68d5df4b"
+    },
+    {
+      "path": "components/base/input/label.tsx",
+      "bytes": 2456,
+      "sha256": "12c33452d3f864b5e254021b83de02b6874225c3c39d95db4e3befd5ec113a77"
+    },
+    {
+      "path": "components/base/progress-indicators/progress-circles.tsx",
+      "bytes": 6886,
+      "sha256": "d6055c16337c7a546a6cc71e73fa135af0faf8f97413d97960b244ac8fe38f3f"
+    },
+    {
+      "path": "components/base/progress-indicators/progress-indicators.tsx",
+      "bytes": 4904,
+      "sha256": "0a8189b5f78080e8e81aa712dc352dd213d4fd008e73fc20e660c2aa7d88929c"
+    },
+    {
+      "path": "components/base/progress-indicators/simple-circle.tsx",
+      "bytes": 1189,
+      "sha256": "bc05fc8b4e0d6d56da14196e6351e3a78f6a4e2493804f339843450ed8c91bc0"
+    },
+    {
+      "path": "components/base/radio-buttons/radio-buttons.tsx",
+      "bytes": 4243,
+      "sha256": "853415c4a92754637d6896515e11d9bbcc91423b21ae11dd3e5554007bc3d612"
+    },
+    {
+      "path": "components/base/select/combobox.tsx",
+      "bytes": 7409,
+      "sha256": "ae8996154967a26c4103ccd964ed00560804a76c7d39bacf5414064c9af3a787"
+    },
+    {
+      "path": "components/base/select/multi-select.tsx",
+      "bytes": 14369,
+      "sha256": "6eaf7c1829d2684dc763045662ebc10dffbf086023510bb989bd46e03102917d"
+    },
+    {
+      "path": "components/base/select/popover.tsx",
+      "bytes": 1577,
+      "sha256": "a52e8f8f4537b2d1bca089a8ba726e17e1c4c25ce6e38b86af6855048aacf51f"
+    },
+    {
+      "path": "components/base/select/select-item.tsx",
+      "bytes": 5306,
+      "sha256": "93a5e1ac3bc7a9ac4131ab9404d965d7d96e594ef18fbcd7abb0b556a070a2e1"
+    },
+    {
+      "path": "components/base/select/select-native.tsx",
+      "bytes": 5106,
+      "sha256": "e655674e44fca22b69752cdff1481f6c80c5c4f9a502980917fca24b2d14e0dc"
+    },
+    {
+      "path": "components/base/select/select-shared.tsx",
+      "bytes": 1684,
+      "sha256": "abfd514facc4e3e32ff5421a54359bb6bc17f8a580f266799fc1c063c958c9d7"
+    },
+    {
+      "path": "components/base/select/select.tsx",
+      "bytes": 5976,
+      "sha256": "5c7f17225c9171c987fd632082a4909353e17a9087da452fc5fd345b2f406e10"
+    },
+    {
+      "path": "components/base/select/tag-select.tsx",
+      "bytes": 15478,
+      "sha256": "77ad54af80f63dc3c213c2b69b6df15514a0d0b7bfe818ff70b7151e80f84648"
+    },
+    {
+      "path": "components/base/tags/base-components/tag-checkbox.tsx",
+      "bytes": 1673,
+      "sha256": "2359c1dae409736e228fe3f09566de0cb51ed57e3b4cde4fa3cb2e73abfb3406"
+    },
+    {
+      "path": "components/base/tags/base-components/tag-close-x.tsx",
+      "bytes": 1319,
+      "sha256": "5d5fa633f18a1c9bc2fcc070bb794d770bad785286032e5eb309967519d7d50e"
+    },
+    {
+      "path": "components/base/tags/tags.tsx",
+      "bytes": 6439,
+      "sha256": "c22cf1fb3cfb1a3a0f6500082138cf52b1f622198614849e15be5b5e3899b7ad"
+    },
+    {
+      "path": "components/base/textarea/textarea.tsx",
+      "bytes": 4588,
+      "sha256": "f89cf45750697eb5385b1fd20c828624686998f590daa95cf54efabd6a75de5c"
+    },
+    {
+      "path": "components/base/toggle/toggle.tsx",
+      "bytes": 4639,
+      "sha256": "ca63d139ae984f5ef0b255b68325071448ddc3e1d208dd3dae397b10f5620cef"
+    },
+    {
+      "path": "components/base/tooltip/tooltip.tsx",
+      "bytes": 4425,
+      "sha256": "7256ff4b994a14c4d2bb1363de0f90434a33b05944b55d1f9337ad0a2102ca59"
+    },
+    {
+      "path": "components/foundations/dot-icon.tsx",
+      "bytes": 610,
+      "sha256": "a908145b197665d9fc0148d93d7a67806a7548bb69e82d7c2b21a80f9568b4f6"
+    },
+    {
+      "path": "components/foundations/featured-icon/featured-icon.tsx",
+      "bytes": 6421,
+      "sha256": "2c9e0227bcd87c88cc87c20ba119d701de61f855d0add2bc9360b8ecebebe06d"
+    },
+    {
+      "path": "hooks/use-breakpoint.ts",
+      "bytes": 1110,
+      "sha256": "ba5c0a5d3e67b3a798b747462518bdf958a01844116cebe9ac2bbe1439643260"
+    },
+    {
+      "path": "hooks/use-resize-observer.ts",
+      "bytes": 1822,
+      "sha256": "321c8af4aa1381839b0459425f243151d2c56d2cdaed836cb28c56809f20eb5c"
+    },
+    {
+      "path": "styles/theme.css",
+      "bytes": 44172,
+      "sha256": "52241a7d0d28f7022b59f11006d5f4b6b38e8173ef1ef2d81fb62cde520e344c"
+    },
+    {
+      "path": "utils/cx.ts",
+      "bytes": 756,
+      "sha256": "d32cbae0ef101a957c58c0fff7b81738917c9f6b3f150103301e26192af62bcf"
+    },
+    {
+      "path": "utils/is-react-component.ts",
+      "bytes": 1361,
+      "sha256": "2f24cf5e7c8cc9b8bb16750a59fbe58db32fc11c09d3b4d57288b15b31a98541"
+    }
+  ],
+  "fileCount": 69,
+  "totalBytes": 403842,
+  "exclusions": [
+    {
+      "pattern": "components/application/carousel",
+      "reason": "需要 embla-carousel-react；后台不引入轮播"
+    },
+    {
+      "pattern": "components/application/charts",
+      "reason": "需要 recharts；会顶穿体积预算，后台图表不在本 Epic 范围"
+    },
+    {
+      "pattern": "components/application/empty-state",
+      "reason": "需要 @untitledui/file-icons；S4 决定 Grid 空态是否引入该依赖后再纳入"
+    },
+    {
+      "pattern": "components/application/file-upload",
+      "reason": "需要 motion/react 与 @untitledui/file-icons；后台上传走 compat island（webuploader）"
+    },
+    {
+      "pattern": "components/application/app-navigation",
+      "reason": "S3 处理 shell 时按需纳入；sidebar-simple 依赖上游品牌 logo，需先设计替换方案"
+    },
+    {
+      "pattern": "components/base/buttons/app-store-buttons",
+      "reason": "营销/品牌资产，不属于后台"
+    },
+    {
+      "pattern": "components/base/buttons/app-store-buttons-outline",
+      "reason": "营销/品牌资产，不属于后台"
+    },
+    {
+      "pattern": "components/base/buttons/social-button",
+      "reason": "营销/品牌资产，不属于后台"
+    },
+    {
+      "pattern": "components/base/buttons/social-logos",
+      "reason": "营销/品牌资产，不属于后台"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-account",
+      "reason": "应用级模式（账户卡/团队切换），Dcat 有自己的用户区；只取基础 dropdown.tsx"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-avatar",
+      "reason": "应用级模式，同上"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-button-",
+      "reason": "应用级模式，同上"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-context-menu-",
+      "reason": "应用级模式，同上"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-icon-",
+      "reason": "应用级模式，同上"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-integration",
+      "reason": "应用级模式，同上"
+    },
+    {
+      "pattern": "components/base/dropdown/dropdown-search-",
+      "reason": "应用级模式，同上"
+    },
+    {
+      "pattern": "components/base/form/hook-form.tsx",
+      "reason": "需要 react-hook-form；Dcat 表单由 PHP 侧驱动，不引入表单库"
+    },
+    {
+      "pattern": "components/base/input/pin-input.tsx",
+      "reason": "需要 input-otp"
+    },
+    {
+      "pattern": "components/base/input/input-payment.tsx",
+      "reason": "需要 foundations/payment-icons 品牌资产"
+    },
+    {
+      "pattern": "components/base/slider",
+      "reason": "Dcat 无对应字段；需要时再单独评估"
+    },
+    {
+      "pattern": ".demo.tsx",
+      "reason": "上游示例文件"
+    },
+    {
+      "pattern": ".story.tsx",
+      "reason": "上游 Storybook 文件"
+    }
+  ]
 }

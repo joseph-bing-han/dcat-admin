@@ -58,12 +58,12 @@
       "sha256": "a8e6eeeb36009a2d22887d88bacd7f53141bd9a3e41ee9467aa79f3edeeeb5be"
     },
     "compatibility": {
-      "version": "4.0.0",
-      "sha256": "6c3a440a4ecdee45632ddff4bd7ac421e5a5148654403c7f4d9c2ad859965a44"
+      "version": "5.0.0",
+      "sha256": "fc3e120c513a4814a6c4a9e3ae2f0ee4c0f5cca6ba90b4397e4e7d7faa80fb53"
     },
     "uiUx": {
-      "version": "1.1.0",
-      "sha256": "d6f478c20c0404525adda171e3a3f454ca4383048504491a16c520c7a7b0fbcc"
+      "version": "2.0.0",
+      "sha256": "3bff46d1ccc3221449feb171263e153a67b8c017196ab883f814e84dd3c8e627"
     }
   },
   "capabilities": [

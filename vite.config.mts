@@ -1,8 +1,14 @@
+import path from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [tailwindcss(), react()],
+    resolve: {
+        // vendor 的 Untitled UI 组件保持上游 `@/...` 导入写法，便于按 commit diff 升级。
+        alias: { '@': path.resolve(__dirname, 'resources/modern/ui') },
+    },
     define: {
         'process.env.NODE_ENV': JSON.stringify('production'),
     },
