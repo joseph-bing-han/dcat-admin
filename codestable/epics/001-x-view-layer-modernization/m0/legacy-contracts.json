@@ -137,7 +137,7 @@
         "<div class=\"app-content content\">",
         "<div class=\"content-wrapper\" id=\"{{ $pjaxContainerId }}\"",
         "<footer class=\"main-footer",
-        "<script>Dcat.boot();</script>"
+        "Dcat.boot();</script>"
       ]
     },
     {
@@ -153,7 +153,7 @@
       "literals": [
         "<div class=\"app-content content\">",
         "<div class=\"wrapper\" id=\"{{ $pjaxContainerId }}\" role=\"main\">",
-        "<script>Dcat.boot();</script>"
+        "Dcat.boot();</script>"
       ]
     },
     {

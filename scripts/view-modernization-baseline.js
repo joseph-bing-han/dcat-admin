@@ -6,16 +6,16 @@ const path = require('path');
 const zlib = require('zlib');
 
 const root = path.resolve(__dirname, '..');
-const m0Dir = path.join(root, 'codestable/epics/001-o-view-layer-modernization/m0');
+const m0Dir = path.join(root, 'codestable/epics/001-x-view-layer-modernization/m0');
 const baseline = readJson(path.join(m0Dir, 'baseline.json'));
 const matrix = readJson(path.join(m0Dir, 'capability-matrix.json'));
-const implementationMatrix = readJson(path.join(root, 'codestable/epics/001-o-view-layer-modernization/implementation-capability-matrix.json'));
+const implementationMatrix = readJson(path.join(root, 'codestable/epics/001-x-view-layer-modernization/implementation-capability-matrix.json'));
 const supportMatrix = readJson(path.join(m0Dir, 'support-matrix.json'));
 const sourcePolicy = readJson(path.join(m0Dir, 'frontend-source-policy.json'));
 const performance = readJson(path.join(m0Dir, 'performance-budget.json'));
 const legacyContracts = readJson(path.join(m0Dir, 'legacy-contracts.json'));
-const coverageRegistry = readJson(path.join(root, 'codestable/epics/001-o-view-layer-modernization/coverage-registry.json'));
-const dependencyCensus = readJson(path.join(root, 'codestable/epics/001-o-view-layer-modernization/dependency-census.json'));
+const coverageRegistry = readJson(path.join(root, 'codestable/epics/001-x-view-layer-modernization/coverage-registry.json'));
+const dependencyCensus = readJson(path.join(root, 'codestable/epics/001-x-view-layer-modernization/dependency-census.json'));
 const composer = readJson(path.join(root, 'composer.json'));
 const packageJson = readJson(path.join(root, 'package.json'));
 const errors = [];
@@ -44,9 +44,9 @@ function verifyImplementationMatrix() {
         equal('Implementation revalidation flag while graph is frozen', implementationMatrix.revalidationRequired, true);
     }
     const contractMap = {
-        manifest: { version: '1.0.0', path: 'codestable/epics/001-o-view-layer-modernization/contracts/manifest-v1.json' },
-        payload: { version: '1.1.0', path: 'codestable/epics/001-o-view-layer-modernization/contracts/payload-v1.1.json' },
-        bridge: { version: '1.0.0', path: 'codestable/epics/001-o-view-layer-modernization/contracts/bridge-v1.json' },
+        manifest: { version: '1.0.0', path: 'codestable/epics/001-x-view-layer-modernization/contracts/manifest-v1.json' },
+        payload: { version: '1.1.0', path: 'codestable/epics/001-x-view-layer-modernization/contracts/payload-v1.1.json' },
+        bridge: { version: '1.0.0', path: 'codestable/epics/001-x-view-layer-modernization/contracts/bridge-v1.json' },
     };
 
     Object.keys(contractMap).forEach((key) => {

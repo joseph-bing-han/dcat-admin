@@ -48,7 +48,7 @@
 @endphp
 <body class="dcat-admin-body full-page {{ $configData['body_class'] }}"{!! $modernFullPage ? ' data-dcat-react-component="layout.full-page"' : '' !!}>
 
-<script>
+<script{!! Dcat\Admin\Admin::modern()->nonceAttribute() !!}>
     var Dcat = CreateDcat({!! Dcat\Admin\Admin::jsVariables() !!});
 </script>
 
@@ -70,7 +70,7 @@
 {!! Dcat\Admin\Admin::asset()->jsToHtml() !!}
 
 
-<script>Dcat.boot();</script>
+<script{!! Dcat\Admin\Admin::modern()->nonceAttribute() !!}>Dcat.boot();</script>
 
 </body>
 </html>

@@ -13,7 +13,7 @@
     "scannedFiles": 1764,
     "filesWithSignals": 870,
     "bootstrapClassFiles": 647,
-    "bootstrapPluginFiles": 90,
+    "bootstrapPluginFiles": 91,
     "adminlteFiles": 31,
     "jqueryFiles": 424
   },
@@ -4689,7 +4689,7 @@
       ]
     },
     {
-      "path": "resources/dist/modern/assets/dcat-modern-DSKKiJ_i.js",
+      "path": "resources/dist/modern/assets/dcat-modern-BEp4lTJ1.js",
       "owner": "published-output",
       "signals": [
         "bootstrap-class",
@@ -4698,7 +4698,7 @@
       ]
     },
     {
-      "path": "resources/dist/modern/assets/dcat-modern-DgnJeOUU.css",
+      "path": "resources/dist/modern/assets/dcat-modern-CCkNmYHK.css",
       "owner": "published-output",
       "signals": [
         "bootstrap-class",
@@ -6386,6 +6386,7 @@
       "owner": "dcat-core",
       "signals": [
         "bootstrap-class",
+        "bootstrap-plugin",
         "jquery"
       ]
     },

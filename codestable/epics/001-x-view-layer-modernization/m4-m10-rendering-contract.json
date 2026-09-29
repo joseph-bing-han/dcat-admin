@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "updatedAt": "2026-08-29",
   "status": "historical-gen1-rendering-contract",
-  "historicalScope": "M4-M10 bridge evidence; the current single-renderer contract is codestable/epics/001-o-view-layer-modernization/spec.md and compatibility-contract.md.",
+  "historicalScope": "M4-M10 bridge evidence; the current single-renderer contract is codestable/epics/001-x-view-layer-modernization/spec.md and compatibility-contract.md.",
   "defaultEnabled": false,
   "rules": [
     "React owns only an explicitly allowlisted capability boundary.",

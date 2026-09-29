@@ -1,6 +1,6 @@
 # Modern View Extension API
 
-Existing Blade/Renderable extension output remains supported without changes. Modern extension UI is optional and must keep a complete fallback.
+Existing Blade/Renderable extension output remains supported without changes inside the single modern View runtime. Modern extension UI is optional and must keep a complete Dcat-owned compat path.
 
 ## Server-side island
 
@@ -12,7 +12,7 @@ $html = Admin::modern()->island(
 );
 ```
 
-The capability id is `extension.sample-card`. If modern rendering is unavailable or not allowlisted, `island()` returns only the original fallback HTML.
+The capability id is `extension.sample-card`. The island is always hosted by the modern View runtime. If the native extension registration is unavailable, the Dcat-owned compat content remains visible inside the same modern page; there is no old full-page renderer or allowlist switch.
 
 ## Browser registration
 
@@ -37,7 +37,6 @@ The bridge owns the React root. After a successful React commit the fallback nod
 
 Extension registrations are isolated from core capabilities. Browser registrations must use `family: 'extension'` and an `extension.*` capability id. Duplicate ids are rejected, and the public `unregister()` API cannot remove core capabilities. Extensions must unregister their own id before replacing an implementation.
 
-Extensions must not overwrite `window.Dcat`, mutate jQuery prototypes or hijack the global PJAX handler. Components unable to preserve existing HTTP, DOM or lifecycle contracts must remain legacy.
+Extensions must not overwrite `window.Dcat`, mutate jQuery prototypes or hijack the global PJAX handler. Components unable to preserve existing HTTP, DOM or lifecycle contracts must remain inside a declared compat island until a native adapter is implemented; they must not introduce an old whole-page renderer.
 
-Rollback can be performed by removing the capability allowlist entry, excluding the route, disabling the `extension` family or disabling modern globally. No database change is required.
-
+An extension can recover at component scope by unregistering its own capability, allowing the exact compat node to be restored. If the package runtime itself must be reverted, use the documented package-version rollback and republish the modern assets; there is no route, family, global renderer switch or classic fallback. No database change is required.

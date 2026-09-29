@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const outputPath = path.join(root, 'codestable/epics/001-o-view-layer-modernization/form-capability-registry.json');
+const outputPath = path.join(root, 'codestable/epics/001-x-view-layer-modernization/form-capability-registry.json');
 const checkOnly = process.argv.includes('--check');
 const errors = [];
 

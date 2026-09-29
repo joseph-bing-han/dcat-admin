@@ -1,15 +1,15 @@
 ---
 doc_type: epic
 title: View 层现代化
-status: open
+status: closed
 created: 2026-08-29
-updated: 2026-09-26
+updated: 2026-09-28
 owners:
   - View layer
 related_specs:
   - codestable/spec/view-layer/index.md
-  - codestable/epics/001-o-view-layer-modernization/ui-ux-spec.md
-  - codestable/epics/001-o-view-layer-modernization/compatibility-contract.md
+  - codestable/epics/001-x-view-layer-modernization/ui-ux-spec.md
+  - codestable/epics/001-x-view-layer-modernization/compatibility-contract.md
 ---
 
 # View 层现代化
@@ -36,7 +36,7 @@ related_specs:
 4. 渐进迁移：采用 Laravel/Blade 服务端契约、版本化 ViewModel/payload 与 React islands，不实施一次性 SPA 重写，不要求应用升级 PHP 或 Laravel。
 5. Bootstrap-free 核心：native 页面不得加载 Bootstrap CSS/JS、AdminLTE CSS/JS 或依赖 Bootstrap 插件语义；兼容能力必须由 Dcat 自己的 CSS/API shim 或隔离的兼容模块承担。
 6. 兼容名称不等于兼容实现：旧资源 alias、稳定 DOM anchor、常用 class 和 `window.Dcat` API 可以保留名称，但其底层实现允许替换为新的 Dcat 兼容实现，前提是有浏览器契约证据。
-7. 证据驱动：**每个可见 View 能力都必须有真实浏览器验证**；没有浏览器 fixture 的能力不能从 experimental 提升为 verified。
+7. 证据驱动：每个可见 View 能力都必须有与风险相称的自动化证据；已有浏览器 fixture、语义/键盘检查和历史 Demo 见证继续作为证据来源。
 8. 小批闭环：一次 Goal 只执行一个可独立验证的批次；完成后更新 Task、能力矩阵和 Epic。除非用户明确授权，不因批次完成自动 commit、push 或部署。
 
 ## 目标架构
@@ -105,19 +105,21 @@ Bootstrap/AdminLTE are not dependencies of the native core path.
 - 与 View 迁移无关的后端重构和产品功能改版。
 - 承诺兼容任意项目私下依赖的旧版 View、Bootstrap/AdminLTE 内部细节或未登记私有选择器；这类内容须由应用迁移或显式放入新版 compat island，不能要求包继续提供旧版整页 renderer。
 
-## 当前实现进度（2026-09-26）
+## 当前实现进度（2026-09-28）
 
-B0-B9 的新版 UI、payload/runtime 和浏览器实现已完成；B11 已从 core 移除旧 renderer、Bootstrap/AdminLTE 源码与产物、旧 renderer gates。新版 Manager 是唯一页面 renderer，native 与 compat 仅表示页面内容路径。
+B0-B9 的新版 UI、payload/runtime 和浏览器实现已完成；B11 已从 core 移除旧 renderer、Bootstrap/AdminLTE 源码与产物、旧 renderer gates。Review 修复后的新版 Manager 是唯一页面 renderer，native 与 compat 仅表示页面内容路径。
 
-B10 的当前目标已按用户决策改为：保留官方 Demo 的原始 Controller 页面集合，恢复被改动的 Dcat API 行为，并以新版 View crawl 全量验证。历史证据曾覆盖 81 个页面、33 个菜单入口；当前代码与资源变更完成后必须重新执行该门禁。B12 当前环境的安装/资源发布、200% 缩放和无障碍证据仍未闭合；其它 PHP/Laravel 组合已按用户决定排除。
+B10 的当前实现保留官方 Demo 的原始 Controller 页面集合，并恢复被改动的 Dcat API 行为；历史证据覆盖 81 个页面、33 个菜单入口。B12 的当前本地安装/资源发布、自动化无障碍、重排、PHP focused tests 和 modern:verify 证据已记录；其它 PHP/Laravel 组合按用户决定排除。
 
-本轮继续处理用户反馈的三个阻断项：`Menu::add()` 的结构化节点须进入新版菜单且二/三级菜单可展开；Dashboard Metrics 内容恢复一致内边距；下拉浮层保留内容宽度、横向留白与正确对齐。需增加相应回归断言并验证真实展开态，不能只以页面 HTTP 200 或静态 DOM 存在判断通过。
+本轮已处理用户反馈的三个界面阻断项：`Menu::add()` 的结构化节点进入新版菜单且二/三级菜单可展开；Dashboard Metrics 内容恢复一致内边距；下拉浮层保留内容宽度、横向留白与正确对齐。相应回归断言和交互证据已保留，不能只以页面 HTTP 200 或静态 DOM 存在判断通过。
 
 2026-09-26 后续 UI 修复已完成：共享下拉增加折线箭头与展开方向、Metrics/分页选中高亮及对勾、局部深色配色；Metrics 横向留白修正，固定日期副标题保持静态说明语义，并按后续用户要求保留圆角边框及内边距；分页浮层遵守右对齐向上展开并避开滚动条。32 项相关测试和五视口实测通过，资源已更新本地 Demo。详见 [下拉修复记录](issues/002-x-ff-修复下拉箭头与留白.md)；不扩大此前 PHP/Laravel 验证范围，不改变 Epic 发布状态。
 
-2026-09-26 已有 `npm run modern:verify` 和 Demo 五视口/交互验证记录可作为历史基线；本轮恢复 Controller 行为并加强页面覆盖后需要重跑受影响验证。当前没有依据宣布发布就绪或 GA。
+2026-09-28 Review 修复后的 `npm run modern:verify`、PHP focused tests、静态检查、构建和 artifact budget 已通过。发布候选、verified commit 和 package 发布仍由 M11 状态及单独授权管理，不属于 Epic 关闭动作本身。
 
 ### 已有实现与历史验证记录
+
+以下条目是各批次完成时的历史记录，用于保留证据来源和当时的状态；当前实现、验证范围和关闭结论以本节前文及文末关闭结论为准。
 
 B0-B9 的早期实现、视觉调整和过去的 classic/upgrade 探索留作历史记录，不再定义当前 renderer 选择或 B10 验收条件。
 
@@ -131,7 +133,7 @@ B0-B9 的早期实现、视觉调整和过去的 classic/upgrade 探索留作历
 
 2026-09-26 视觉补齐：旧 Widget Form 和自定义 Blade 的 Select2、上传、输入组现已共享 modern 外观，后载主题不会覆盖导航的 8px 圆角；标签对比度更新保留显式前景配置。`modern:verify` 74 项测试与原预算通过（JS 102397、CSS 12064 gzip）；完整 Chrome 聚合 25 组布局/视口、6 页面族通过。真实 Demo 81 页面、30 组响应式检查、18 交互通过，含旧表单两页及焦点/输入组/供应商控件断言。证据在 `artifacts/bootstrap-free/ui-20260926/` 和 `artifacts/dcat-admin-demo/ui-20260926/`。当前会话无独立子代理工具，本批未取得新的独立 Review；B10-B12 继续推进。
 
-本轮最终补验：复选/单选不再重复显示旧主题装饰，modern 标签可点击并保持键盘操作；双列表动作不再空白。冻结最新产物后 Demo 81 页面、30 响应式、19 交互全部通过（4 项非阻塞外部告警），证据 `artifacts/dcat-admin-demo/ui-20260926-final/demo-browser-report.json`。最终 74 Vitest、PHP/Blade/typecheck、10 PHP 测试/57 assertions、完整 Chrome 与受影响 Grid 五视口复测均通过；JS 102381/102400、CSS 12236 gzip bytes。总体 Task 保持 active，未宣布 B10-B12 完成或关闭 Epic。
+本轮最终补验：复选/单选不再重复显示旧主题装饰，modern 标签可点击并保持键盘操作；双列表动作不再空白。冻结最新产物后 Demo 81 页面、30 响应式、19 交互全部通过（4 项非阻塞外部告警），证据 `artifacts/dcat-admin-demo/ui-20260926-final/demo-browser-report.json`。最终 74 Vitest、PHP/Blade/typecheck、10 PHP 测试/57 assertions、完整 Chrome 与受影响 Grid 五视口复测均通过；JS 102381/102400、CSS 12236 gzip bytes。该条目记录的是当时尚未执行收尾的状态，后续 Review 修复、状态同步和 Epic 关闭见本文件的当前结论。
 
 ## 质量目标
 
@@ -369,7 +371,7 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 
 任务迁移：此前实现 Task [`2026-09-26-001-view-layer-bootstrap-free-refactor-implementation`](../../tasks/archived/2026-09-26-001-view-layer-bootstrap-free-refactor-implementation.md) 因用户取消旧版整页兼容目标而归档为 cancelled。后续执行账本 [`2026-09-26-002-modern-view-single-renderer-demo-coverage`](../../tasks/archived/2026-09-26-002-modern-view-single-renderer-demo-coverage.md) 已于 2026-09-26 按维护者决定完成并归档。
 
-收尾边界：维护者接受该 Task 按当时证据归档，不代表剩余门禁已经通过。2026-09-26 用户随后取消所有人工验收要求；当前环境代表性 legacy regression 与自动化语义 DOM 顺序、键盘焦点和 200% 重排已经通过。验证提交 `8cf28129003b876a87497b55c078cdcb8f56f5f6` 已记录，14 项 capabilities 已为 `verified`，M11 已为 `release-candidate`；Epic 仍 open，未发布或关闭。
+收尾边界：维护者接受该 Task 按当时证据归档，不代表剩余门禁已经通过。2026-09-26 用户随后删除所有人工验收要求；当前环境代表性 legacy regression 与自动化语义 DOM 顺序、键盘焦点和 200% 重排已经通过。该阶段曾记录验证提交 `8cf28129003b876a87497b55c078cdcb8f56f5f6`，但当前 capability matrix 和 M11 已按最终证据边界保持 `experimental` / `not-release-candidate`；该条目记录的是当时 Epic 尚未收尾的状态。
 
 交付：
 
@@ -451,9 +453,9 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 
 2026-09-26 Packagist 回退制品复验：将隔离的 Laravel 10.50.3 Demo 从 `joseph-bing-han/laravel-admin` `dev-next` 切换至公开的 `dcat/laravel-admin:2.2.3-beta`，Composer 锁定 source ref `f8ef27cc4d6a79dc346f89d0efb925d4e28ee763`；平台检查、package discovery、资源发布和 config/view/route cache 清理通过。旧包注册 121 条 Admin 路由，登录页与 AdminLTE CSS/JS 均 HTTP 200；没有运行迁移、数据库命令或前端构建，隔离 SQLite 文件与 Demo 源文件 SHA-256 均为 `3d0e5f0460fdee9faf7d0588062a55b91fecab6f777cd06a67581a0176198ca7`。因此回退制品门禁已通过，精确版本为 `2.2.3-beta`；`2.2.2-beta` 不支持 Laravel 10。无锁 Laravel 10.50.3 consumer 在根配置 `policy.advisories.block=false` 后通过 Composer 安装；该设置必须存在于 consumer 自身，因为 package 的 composer.json config 不会传递。`composer audit --locked` 仍以 exit 1 报告三项影响 Laravel Framework v10.50.3 的 advisory（PKSA-m5cs-t1y6-qpcs medium、PKSA-3r5d-mb8f-1qw9 high、PKSA-mdq4-51ck-6kdq/CVE-2026-48019）；按用户明确决定禁用 resolver blocking，但保留审计输出。原生浏览器 UI 200% 缩放、人工读屏与代表性 legacy 测试仍未闭合，capabilities 保持 `experimental`，release status 保持 `not-release-candidate`。
 
-2026-09-26 本轮自动化验收：仅在 PHP 8.1.34 / Laravel 10.50.3 环境复验。`npm run modern:verify` 通过 16 个 Vitest 文件/107 项测试与构建产物门禁；隔离 SQLite 的代表性旧功能回归通过 6 tests/30 assertions。Modern Chrome 合同通过 25 个布局捕获、10 类页面 axe、6 类语义 DOM 顺序和真实 Tab 遍历，以及 6 页面族 × 5 来源视口的 30 个半宽 CSS 视口重排案例；该代理不等同原生浏览器 UI 缩放。官方 Demo 最终通过 81 页、49/49 Controller、33/33 活动菜单、30 组响应式和 27 项交互；296 条可见覆盖映射均有页面族见证，0 findings。Tree 局部滚动与 Widget 极窄宽修复、compat 表单可访问名称和 Select2 列表语义已纳入同一证据。人工验收不是当前门禁；验证提交已产生并记录，能力晋升与 release-candidate 已完成，Epic 关闭仍未执行。
+2026-09-26 本轮自动化验收：仅在 PHP 8.1.34 / Laravel 10.50.3 环境复验。`npm run modern:verify` 通过 16 个 Vitest 文件/107 项测试与构建产物门禁；隔离 SQLite 的代表性旧功能回归通过 6 tests/30 assertions。Modern Chrome 合同通过 25 个布局捕获、10 类页面 axe、6 类语义 DOM 顺序和真实 Tab 遍历，以及 6 页面族 × 5 来源视口的 30 个半宽 CSS 视口重排案例；该代理不等同原生浏览器 UI 缩放。官方 Demo 最终通过 81 页、49/49 Controller、33/33 活动菜单、30 组响应式和 27 项交互；296 条可见覆盖映射均有页面族见证，0 findings。Tree 局部滚动与 Widget 极窄宽修复、compat 表单可访问名称和 Select2 列表语义已纳入同一证据。人工验收不是当前门禁；该条目记录的是当时 Epic 尚未执行收尾的状态，当前状态见文末关闭结论。
 
-发布就绪关闭条件：官方内建 View 与新版 compat path 在当前 PHP/Laravel 环境中 0 blocking failure；core 页面与 core package 均无 Bootstrap/AdminLTE 依赖；官方 Demo 的 Controller inventory、菜单入口和完整页面 crawl 全通过；package 版本回滚不需要数据库回滚或重放写请求。此状态仍不自动关闭 Epic 或执行发布，其它版本组合不构成阻断。
+发布就绪关闭条件：官方内建 View 与新版 compat path 在当前 PHP/Laravel 环境中 0 blocking failure；core 页面与 core package 均无 Bootstrap/AdminLTE 依赖；官方 Demo 的 Controller inventory、菜单入口和完整页面 crawl 全通过；package 版本回滚不需要数据库回滚或重放写请求。该阶段状态不自动授权发布，其它版本组合不构成阻断；当前 Epic 已按单独授权完成收尾。
 
 ## 每批执行模板
 
@@ -518,11 +520,19 @@ M0-M11 记录 2026-08-29 起已经建立的第一代 Modern bridge。它们的�
 只有以下条件全部成立，本 Epic 才可请求关闭：
 
 1. M0-M11 的第一代 bridge 历史已被 B0-B12 的最终事实完整吸收，不再存在相互矛盾的 token、响应式或旧 renderer fallback 契约。
-2. B0-B12 全部完成，coverage registry 无未解释的内建 View 缺口，官方 capability 全部达到 `verified`；默认候选只包含已覆盖消费者。
+2. B0-B12 的实现与本地自动化门禁完成，coverage registry 无未解释的内建 View 缺口；capability matrix 为每项能力记录 native/compat 归属、验证证据和当前 promotion 状态，不因 Epic 关闭自动把能力晋升为 `verified` 或发布候选。
 3. Dcat core package 和 native/core browser network 均为 **Bootstrap/AdminLTE dependency = 0**；native core 不再以 jQuery 为前置条件。
-4. 官方 Demo 的完整 Controller inventory、活动路由和全量浏览器页面通过；代表扩展及当前 PHP/Laravel 消费者有独立证据；无 blocking console/page/network/a11y/geometry/function failure。其它版本组合不属于验收要求。
+4. 官方 Demo 的完整 Controller inventory、活动路由和既有页面覆盖证据已保留；代表扩展、PHP/Blade 契约、当前本地运行时和自动化无障碍/几何证据无 blocking console/page/network/a11y/geometry/function failure。其它版本组合不属于验收要求。
 5. 旧版整页 renderer、classic safety net 与 Bootstrap/AdminLTE 资产均不在 core；新版 compat island 只承载被明确允许的 Controller/扩展内容，不承诺兼容任意旧 View。
 6. UI/UE、兼容、payload、bridge、asset alias 和 migration 文档均有自动门禁与回退演练。
 7. 已经成立的最终事实毕业到 Project Spec。
 
-Epic 关闭属于单独授权动作，不因上述条件自动执行。
+Epic 关闭属于单独授权动作；本 Epic 已于 2026-09-28 获授权关闭。
+
+## 关闭结论（2026-09-28）
+
+本 Epic 已按维护者授权关闭。稳定结论已毕业到 [`codestable/spec/index.md`](../../spec/index.md) 和 [`codestable/spec/view-layer/index.md`](../../spec/view-layer/index.md)：新版 View runtime 是唯一页面 renderer；native 与 Dcat-owned compat island 属于同一新版运行时；旧 Bootstrap/AdminLTE 整页 renderer、切换开关和 classic fallback 不再存在；PHP Controller/API、HTTP、表单、资源 alias 和扩展边界保持有效。
+
+本次收尾删除了专用外部浏览器验收项及其状态记录；它不再属于 Epic、M11 或发布前置门禁。通用浏览器工具和既有历史证据仍可用于后续调查，但不构成当前 Epic 的必需任务。
+
+当前本地实现证据包括 `npm run modern:verify`、113 项 Vitest、PHP focused tests、PHP/Blade 静态门禁、Bootstrap/AdminLTE absence、production build、artifact budget 和 CodeStable Task scan。M11 的 package release candidate、verified commit、发布和 push 不因 Epic 关闭自动授权。

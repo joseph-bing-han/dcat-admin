@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-26",
-  "implementationStatus": "current-environment-verified",
-  "releaseStatus": "release-candidate",
+  "updatedAt": "2026-09-28",
+  "implementationStatus": "current-environment-local-verification-complete",
+  "releaseStatus": "not-release-candidate",
   "defaultModernEnabled": true,
   "defaultCandidateAuthorized": true,
   "milestones": {
@@ -17,7 +17,7 @@
     "M8": "verified-current-environment",
     "M9": "verified-current-environment",
     "M10": "verified-current-environment",
-    "M11": "php81-laravel10-current-demo-automated-a11y-reflow-legacy-regression-and-verified-commit-passed"
+    "M11": "current-environment-review-fixes-local-verified"
   },
   "completedLocalGates": [
     "modernization-baseline",
@@ -46,7 +46,6 @@
     "modern-asset-url-html-escaping",
     "system-chrome-axe-browser-harness-self-test",
     "reduced-motion-animation-and-transition-disable-gate",
-    "php81-laravel10-consumer-browser-contracts",
     "consumer-local-package-path-verification",
     "consumer-bash-fail-fast-gates",
     "laravel10-official-demo-81-page-browser-regression",
@@ -61,14 +60,13 @@
     "current-environment-30-half-width-css-viewport-reflow-cases",
     "current-environment-legacy-regression-6-tests-30-assertions",
     "laravel10-official-demo-296-visible-mappings-27-interactions",
-    "verified-implementation-commit-recorded"
+    "verified-implementation-commit-recorded",
+    "review-fixes-local-verification-113-tests-php-focused-static-and-build-gates"
   ],
   "historicalLocalGates": [
     "global-flag-without-scoped-allowlist-fails-closed",
     "blocked-session-storage-fallback-still-navigates",
     "prepared-ci-yaml-parse",
-    "php81-laravel8-consumer-browser-contracts",
-    "php81-laravel9-consumer-browser-contracts",
     "php81-feature-regression-6-tests-30-assertions"
   ],
   "remainingImplementation": [],
@@ -78,13 +76,13 @@
     "Composer audit still reports three advisories affecting Laravel Framework v10.50.3; resolver blocking is disabled per maintainer request, and the audit findings remain visible."
   ],
   "localEvidence": {
-    "modernVerify": "passed-2026-09-26-current-environment-only",
-    "vitest": "16-files-107-tests-passed",
+    "modernVerify": "passed-2026-09-27-review-fixes-local-gates",
+    "vitest": "16-files-113-tests-passed",
     "browserHarness": "system-chrome-154.0.8037.57-self-test-passed",
-    "artifactGzipBytes": 110573,
+    "artifactGzipBytes": 111250,
     "artifactBudgetGzipBytes": 143360,
     "preparedCi": "removed-by-maintainer-request-2026-09-26",
-    "historicalPhp81Validation": "codestable/epics/001-o-view-layer-modernization/m11-php81-validation.json",
+    "historicalPhp81Validation": "codestable/epics/001-x-view-layer-modernization/m11-php81-validation.json",
     "historicalPhp81Consumers": [
       "laravel-8.83.29-passed",
       "laravel-9.52.22-passed",
@@ -92,25 +90,26 @@
     ],
     "historicalPhp81FeatureRegression": "6-tests-30-assertions-passed",
     "historicalPhp80ComposerResolution": "platform-php-8.0.0-dry-run-passed-laravel-8.83.29-dusk-6.25.2",
-    "packageRollbackRehearsal": "codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun.packageRollbackRehearsal",
+    "packageRollbackRehearsal": "codestable/epics/001-x-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun.packageRollbackRehearsal",
     "currentEnvironmentComposerAudit": "three-advisories-affect-laravel-framework-v10.50.3;resolver-block-disabled-per-maintainer-request",
-    "currentEnvironmentEvidence": "codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun",
-    "currentOfficialDemo": "passed-81-pages-49-controllers-33-menu-pages-30-responsive-checks-27-interactions-296-visible-mappings-0-findings",
-    "currentModernBrowser": "passed-25-profile-viewport-captures-10-axe-families-6-page-families-30-reflow-cases",
+    "currentEnvironmentEvidence": "local-review-fix-gates-2026-09-27",
+    "reviewFixTask": "codestable/tasks/archived/2026-09-28-001-repair-modern-view-review-findings.md",
+    "historicalOfficialDemo": "passed-81-pages-49-controllers-33-menu-pages-30-responsive-checks-27-interactions-296-visible-mappings-0-findings",
+    "historicalModernBrowser": "passed-25-profile-viewport-captures-10-axe-families-6-page-families-30-reflow-cases",
     "currentAutomatedAccessibility": "passed-10-axe-families-6-semantic-dom-and-tab-families-30-reflow-cases",
     "currentLegacyRegression": "passed-6-tests-30-assertions-isolated-sqlite-php8.1.34-laravel10.50.3",
     "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6",
-    "currentOfficialDemoEvidence": "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json",
-    "currentModernBrowserEvidence": "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json"
+    "historicalOfficialDemoEvidence": "artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/demo-browser-report.json",
+    "historicalModernBrowserEvidence": "artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json"
   },
   "currentEnvironmentEvidence": {
     "php": "8.1.34",
     "laravel": "10.50.3",
     "scope": "current-environment-only",
-    "source": "codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json#currentRun",
-    "status": "verified-release-candidate",
+    "source": "local-review-fix-gates-2026-09-27",
+    "status": "local-verification-complete",
     "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
   },
-  "releasePolicy": "The modern renderer is the package default. The old full-page renderer, renderer switch and Bootstrap/AdminLTE implementation are removed; recovery is package rollback to Packagist dcat/laravel-admin 2.2.3-beta plus asset republish. On 2026-09-26 the maintainer removed all manual verification requirements for this View goal. Current PHP 8.1.34 / Laravel 10.50.3 automated accessibility, reflow, Demo coverage and legacy regression gates passed, and verified implementation commit 8cf28129003b876a87497b55c078cdcb8f56f5f6 was recorded. Reflow evidence is a half-width CSS viewport proxy, not native browser UI zoom or human screen-reader output. Release-candidate status does not publish the package or close the Epic. Composer audit reports three Laravel 10.50.3 advisories; resolver blocking remains disabled per maintainer request.",
+  "releasePolicy": "The modern renderer is the package default. The old full-page renderer, renderer switch and Bootstrap/AdminLTE implementation are removed; no old renderer fallback is part of this goal. Current PHP 8.1.34 / Laravel 10.50.3 local review-fix gates passed, including modern:verify, focused PHP tests, static checks, build and artifact budget. Capabilities remain experimental until a separately authorized verified commit promotion; this status is not release-candidate. Historical Demo and browser evidence remains indexed separately from the required local gates. Reflow evidence is a half-width CSS viewport proxy, not native browser UI zoom or human screen-reader output. Publishing, capability promotion and push remain separate authorized actions. Composer audit reports three Laravel 10.50.3 advisories; resolver blocking remains disabled per maintainer request.",
   "githubAutomation": "removed-by-maintainer-request-2026-09-26"
 }

@@ -12,7 +12,7 @@ These are local verification gates. GitHub Actions and `.github` configuration a
 - Published `resources/dist/modern/manifest.json` resolves one hashed IIFE entry plus scoped CSS.
 - Initial modern JS/CSS/total transfer stays within the frozen M0 gzip budgets.
 - No modern source uses dynamic `import()`, runtime ESM chunks, `:has()`, external fonts or unscoped CSS.
-- The current PHP/Laravel environment recorded in `m0/support-matrix.json` passes package installation, resource publication, modern native/compat smoke, shared contracts and the system-Chrome browser contract harness. Other version combinations are excluded by the maintainer's 2026-09-26 decision; passing results apply only to the recorded environment.
+- The package passes resource publication, modern native/compat smoke, shared contracts and the system-Chrome self-test included in the local verification command. Other version combinations are outside the maintained validation scope.
 - Five M0 viewports pass DOM/geometry runtime fixtures.
 - Existing representative Controller/API feature suites remain green in the current environment.
 - Accessibility evidence comes from automated axe, semantic DOM/landmark order, keyboard/focus and 200% reflow checks at the prescribed viewports. Record the browser emulation method and reject overflow or unreachable controls; do not label simulated reflow as native browser UI zoom or screen-reader output.

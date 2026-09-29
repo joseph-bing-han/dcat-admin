@@ -17,9 +17,9 @@ const evidenceDir = path.resolve(process.env.DCAT_DEMO_EVIDENCE_DIR || path.join
 const baselinePath = process.env.DCAT_DEMO_BASELINE ? path.resolve(process.env.DCAT_DEMO_BASELINE) : null;
 const takeScreenshots = process.env.DCAT_DEMO_SCREENSHOTS !== '0';
 const interactionsOnly = process.argv.includes('--interactions-only');
-const validationContract = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json'), 'utf8'));
+const validationContract = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-x-view-layer-modernization/m11-demo-laravel10-validation.json'), 'utf8'));
 const demoControllerBaseline = validationContract.demoControllerBaseline;
-const coverageRegistry = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-o-view-layer-modernization/coverage-registry.json'), 'utf8'));
+const coverageRegistry = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-x-view-layer-modernization/coverage-registry.json'), 'utf8'));
 const modernBrowserEvidencePath = path.resolve(process.env.DCAT_MODERN_BROWSER_EVIDENCE || path.join(root, 'artifacts/view-modernization-browser/2026-09-26-automated/browser-contracts.json'));
 const modernBrowserEvidence = fs.existsSync(modernBrowserEvidencePath)
     ? JSON.parse(fs.readFileSync(modernBrowserEvidencePath, 'utf8'))

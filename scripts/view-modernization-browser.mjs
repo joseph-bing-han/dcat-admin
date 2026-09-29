@@ -9,9 +9,9 @@ import { verifyModernUi } from './view-modernization-ui-browser.mjs';
 
 const require = createRequire(import.meta.url);
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const contractPath = path.join(root, 'codestable/epics/001-o-view-layer-modernization/m0/legacy-contracts.json');
+const contractPath = path.join(root, 'codestable/epics/001-x-view-layer-modernization/m0/legacy-contracts.json');
 const contract = JSON.parse(fs.readFileSync(contractPath, 'utf8'));
-const gridCapabilityPath = path.join(root, 'codestable/epics/001-o-view-layer-modernization/grid-capability-registry.json');
+const gridCapabilityPath = path.join(root, 'codestable/epics/001-x-view-layer-modernization/grid-capability-registry.json');
 const gridCapabilities = JSON.parse(fs.readFileSync(gridCapabilityPath, 'utf8'));
 const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const selfTest = process.argv.includes('--self-test');

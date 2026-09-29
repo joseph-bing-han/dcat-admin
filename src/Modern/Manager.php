@@ -96,13 +96,18 @@ class Manager
 
     protected function clientConfig()
     {
+        $diagnostics = config('admin.modern.diagnostics');
+        if ($diagnostics === null) {
+            $diagnostics = config('app.debug', false);
+        }
+
         return [
             'enabled' => $this->available(),
             'compat' => $this->usesCompatRenderer(),
             'bridgeVersion' => static::BRIDGE_VERSION,
             'payloadVersion' => static::PAYLOAD_VERSION,
             'telemetry' => (bool) config('admin.modern.telemetry', true),
-            'diagnostics' => (bool) config('admin.modern.diagnostics', config('app.debug', false)),
+            'diagnostics' => (bool) $diagnostics,
         ];
     }
 
@@ -180,7 +185,7 @@ class Manager
         return Admin::asset()->url('@admin/modern/'.ltrim($file, '/'));
     }
 
-    protected function nonceAttribute()
+    public function nonceAttribute()
     {
         $nonce = config('admin.modern.csp_nonce');
 

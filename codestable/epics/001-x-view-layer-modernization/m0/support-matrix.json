@@ -6,7 +6,7 @@
   "phpLaravel": {
     "projectPhpConstraint": ">=8.0.0",
     "projectLaravelConstraint": "^8.0|^9.0|^10.0",
-    "verificationStatus": "current-environment-verified-release-candidate",
+    "verificationStatus": "current-environment-local-verification-complete",
     "verificationScope": "current-environment-only",
     "currentEnvironment": {
       "php": "8.1",
@@ -104,7 +104,7 @@
       "driver": "playwright-core-system-chrome",
       "script": "scripts/view-modernization-browser.mjs",
       "independentFromHistoricalDuskChromedriver": true,
-      "reason": "The current PHP/Laravel consumer exercises modern browser contracts independently of the ChromeDriver binary bundled by historical Dusk releases."
+      "reason": "The optional browser matrix harness is independent of the ChromeDriver binary bundled by historical Dusk releases."
     },
     "legacyDuskReference": {
       "laravelSeries": "8",

@@ -2,7 +2,7 @@
 
 > **图示状态：当前。** 本文只记录已经成立的 View 层真相，不包含现代化目标。
 
-> **当前事实（2026-09-26）：** Admin 页面由新版 View runtime 接管。manifest 有效时使用 native React View；native 不适用或 manifest 缺失时使用 Dcat-owned compat shell/island。旧版 Bootstrap/AdminLTE 整页 renderer、renderer 开关和 classic 回退已从当前实现中移除。兼容契约保留 PHP Controller/API、HTTP/表单协议和登记的稳定锚点，不承诺旧版整页 View、任意 Bootstrap class 或私有 DOM 等价。当前环境的完整复验和 GA 仍未闭合；进度见 [View 现代化 Epic](../../epics/001-o-view-layer-modernization/spec.md)。
+> **当前事实（2026-09-28）：** Admin 页面由新版 View runtime 接管。manifest 有效时使用 native React View；native 不适用或 manifest 缺失时使用 Dcat-owned compat shell/island。旧版 Bootstrap/AdminLTE 整页 renderer、renderer 开关和 classic 回退已从当前实现中移除。兼容契约保留 PHP Controller/API、HTTP/表单协议和登记的稳定锚点，不承诺旧版整页 View、任意 Bootstrap class 或私有 DOM 等价。View 现代化 Epic 已关闭；发布候选与 Git 提交仍按独立授权和状态记录管理。
 
 验证范围按用户 2026-09-26 的决定限定为当前实际使用的 PHP/Laravel 版本，本轮是官方 Demo 的 PHP 8.1.34 / Laravel 10.50.3。不要求验证其它版本组合；旧多版本矩阵仅作历史参考，不能将单环境证据写成其它版本已通过。
 
@@ -75,11 +75,11 @@ Browser-visible modern admin page
 
 任意扩展可能依赖未文档化的内部 DOM。此类内容可以留在新版 compat island；未知内部选择器和旧版整页布局不属于稳定契约，也不提供旧 renderer 回退。
 
-## 当前规模与验证缺口
+## 当前规模与验证证据
 
 - B11 当前源码盘点为 140 个 Blade、821 个受盘点资源文件；旧 AdminLTE 与 Bootstrap 源码/编译目录已从 core 移除，包仍发布 modern 和 modern-compat 产物及 Dcat facade。
 - 官方 Demo 基线记录了 81 个可达页面、33 个活动菜单入口；完整新版 View crawl 已在 [已归档执行记录](../../tasks/archived/2026-09-26-002-modern-view-single-renderer-demo-coverage.md) 中完成并按维护者决定收尾。
-- 当前 PHP 8.1.34 / Laravel 10.50.3 环境的资源发布、`modern:verify`（107 项测试）、五视口浏览器合同、Demo 全路由 crawl、10 类 axe 页面、6 类语义 DOM/Tab 顺序和 30 个半宽 CSS 视口重排案例均已通过；代表性旧功能回归在隔离 SQLite 下通过 6 tests/30 assertions。Demo 覆盖 81 页、49 个 Controller、33 个活动菜单、30 组响应式和 27 项交互，296 条可见 registry 映射均有见证。Dashboard、Form、Grid、Layer Lighthouse accessibility 均为 100。Packagist `dcat/laravel-admin:2.2.3-beta` 回退、资源重发与运行 smoke 已通过；`2.2.2-beta` 不满足 Laravel 10 约束。人工验证已从 View 发布门禁移除；重排代理不代表原生浏览器 UI 缩放。验证提交 `8cf28129003b876a87497b55c078cdcb8f56f5f6` 已形成，能力矩阵 14 项均为 `verified`，发布状态为 `release-candidate`；Epic 仍 open，未发布或关闭。其它 PHP/Laravel 组合已排除在验收范围外。最新证据见 [当前环境验证记录](../../epics/001-o-view-layer-modernization/m11-demo-laravel10-validation.json)、`artifacts/view-modernization-browser/2026-09-26-automated/` 与 `artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/`。
+- 历史 PHP 8.1.34 / Laravel 10.50.3 证据包含资源发布、`modern:verify`、五视口浏览器合同、Demo 全路由 crawl、10 类 axe 页面、6 类语义 DOM/Tab 顺序和 30 个半宽 CSS 视口重排案例；代表性旧功能回归在隔离 SQLite 下通过 6 tests/30 assertions。Demo 覆盖 81 页、49 个 Controller、33 个活动菜单、30 组响应式和 27 项交互，296 条可见 registry 映射均有见证。2026-09-27 Review 修复后，当前 checkout 的 `modern:verify` 通过 16 个文件/113 项 Vitest 测试，PHP focused tests、PHP/Blade 静态检查、Bootstrap absence、构建和 artifact budget 通过。14 项能力的实现与状态记录已同步，Epic 已关闭；发布候选与 verified commit 仍按 M11 状态管理。其它 PHP/Laravel 组合已排除在验收范围外。历史证据见 [当前环境验证记录](../../epics/001-x-view-layer-modernization/m11-demo-laravel10-validation.json)、`artifacts/view-modernization-browser/2026-09-26-automated/` 与 `artifacts/dcat-admin-demo/2026-09-26-demo-witness-freshness-final/`。
 
 历史 classic 基线仅作为对照证据；后续验证不要求部署旧 View，而以新版 native/compat 行为、稳定后端契约和 Demo 页面覆盖为准。
 

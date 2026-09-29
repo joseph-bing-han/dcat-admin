@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'resources/dist/modern');
 const manifestPath = path.join(dist, 'manifest.json');
 const noticesPath = path.join(dist, 'THIRD_PARTY_NOTICES.txt');
-const budget = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m0/performance-budget.json'), 'utf8'));
+const budget = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-x-view-layer-modernization/m0/performance-budget.json'), 'utf8'));
 const errors = [];
 
 if (!fs.existsSync(manifestPath)) {

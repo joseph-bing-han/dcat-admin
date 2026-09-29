@@ -1,4 +1,4 @@
-import { act } from 'react';
+import React, { act } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { bridge, registerCoreCapability } from './bridge';
 
@@ -169,6 +169,54 @@ describe('DcatReact bridge', () => {
         expect(island?.querySelector('[data-dcat-modern-fallback]')?.textContent).toContain('Legacy survives');
         await act(async () => bridge.unregister('extension.broken'));
         consoleError.mockRestore();
+    });
+
+    it('restores the exact fallback when a committed React view fails during a later update', async () => {
+        document.body.innerHTML = '<div data-dcat-modern-request="1"><div data-dcat-react-component="late-broken"><div data-dcat-modern-fallback><input value="draft"></div></div></div>';
+        const island = document.querySelector<HTMLElement>('[data-dcat-react-component="late-broken"]')!;
+        const fallback = island.querySelector<HTMLElement>('[data-dcat-modern-fallback]')!;
+        let failRender!: () => void;
+        const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+        const LateBroken = () => {
+            const [failed, setFailed] = React.useState(false);
+            failRender = () => setFailed(true);
+            if (failed) throw new Error('late extension failure');
+            return React.createElement('strong', null, 'Committed extension');
+        };
+
+        bridge.registerReact({
+            id: 'extension.late-broken',
+            family: 'extension',
+            selector: '[data-dcat-react-component="late-broken"]',
+            fallbackScope: 'component',
+            render: () => React.createElement(LateBroken),
+        });
+        await act(async () => bridge.start());
+        await act(async () => Promise.resolve());
+        expect(fallback.isConnected).toBe(false);
+
+        await act(async () => failRender());
+
+        expect(fallback.isConnected).toBe(true);
+        expect(fallback.querySelector('input')).not.toBeNull();
+        expect(island.hasAttribute('data-dcat-modern-react-mounted')).toBe(false);
+        await act(async () => bridge.unregister('extension.late-broken'));
+        consoleError.mockRestore();
+    });
+
+    it('does not include malformed payload text in telemetry', async () => {
+        document.body.innerHTML = '<div data-dcat-modern-request="1"><div class="payload-probe"></div><script data-dcat-modern-payload="extension.payload-probe">PRIVATE_PAYLOAD_SENTINEL</script></div>';
+        const events: Array<Record<string, unknown>> = [];
+        const listener = (event: Event) => events.push((event as CustomEvent<Record<string, unknown>>).detail);
+        window.addEventListener('dcat:modern:telemetry', listener);
+        bridge.register({ id: 'extension.payload-probe', family: 'extension', selector: '.payload-probe', fallbackScope: 'component', mount: () => undefined });
+
+        await act(async () => bridge.start());
+
+        expect(events.some((event) => event.code === 'PAYLOAD_INVALID_JSON')).toBe(true);
+        expect(JSON.stringify(events)).not.toContain('PRIVATE_PAYLOAD_SENTINEL');
+        window.removeEventListener('dcat:modern:telemetry', listener);
+        await act(async () => bridge.unregister('extension.payload-probe'));
     });
 
     it('preserves an extension payload and exact fallback node across unmount/remount cycles', async () => {

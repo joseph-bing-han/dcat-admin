@@ -119,6 +119,15 @@ class ModernRendererTest extends TestCase
         $this->assertSame(3, $nonceCalls);
     }
 
+    public function testNullDiagnosticsFollowsApplicationDebugMode()
+    {
+        config(['app.debug' => true, 'admin.modern.diagnostics' => null]);
+
+        $config = json_decode(strip_tags($this->manager->pageConfigHtml()), true);
+
+        $this->assertTrue($config['diagnostics']);
+    }
+
     public function testMissingManifestUsesBootstrapFreeCompatWithoutAnyClassicFallback()
     {
         $this->manifest->valid = false;

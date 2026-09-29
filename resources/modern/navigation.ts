@@ -165,25 +165,36 @@ export class NativeNavigation {
             // 只有响应确定可替换时才清理旧页面，取消或失败的请求保留用户输入。
             emit(container, 'before-replace', detail);
             host.wait();
+            const previousChildren = Array.from(container.childNodes);
+            const previousTitle = document.title;
             container.replaceChildren(template.content);
-            await executePageScripts(container, current);
-            if (!current()) return;
-            if (options.history !== false) {
-                if (!options.replace) history.replaceState({ ...history.state, dcatPjax: { url: location.href, scroll: [scrollX, scrollY] } }, '', location.href);
-                history[options.replace ? 'replaceState' : 'pushState']({ ...history.state, dcatPjax: { url: destination.href, scroll: options.scroll || [0, 0] } }, '', destination.href);
-            }
-            if (title) document.title = title;
-            emit(container, 'success', detail);
-            emit(container, 'complete', detail);
-            host.triggerReady();
-            emit(container, 'end', detail);
-            window.dispatchEvent(new CustomEvent('dcat:modern:navigation', { detail: { url: destination.href } }));
-            requestAnimationFrame(() => {
+            try {
+                await executePageScripts(container, current);
                 if (!current()) return;
-                window.scrollTo(...(options.scroll || [0, 0]));
-                const focus = container.querySelector<HTMLElement>('h1, [autofocus]');
-                if (focus && !options.scroll) { focus.tabIndex = -1; focus.focus({ preventScroll: true }); }
-            });
+                if (options.history !== false) {
+                    if (!options.replace) history.replaceState({ ...history.state, dcatPjax: { url: location.href, scroll: [scrollX, scrollY] } }, '', location.href);
+                    history[options.replace ? 'replaceState' : 'pushState']({ ...history.state, dcatPjax: { url: destination.href, scroll: options.scroll || [0, 0] } }, '', destination.href);
+                }
+                if (title) document.title = title;
+                emit(container, 'success', detail);
+                emit(container, 'complete', detail);
+                host.triggerReady();
+                emit(container, 'end', detail);
+                window.dispatchEvent(new CustomEvent('dcat:modern:navigation', { detail: { url: destination.href } }));
+                requestAnimationFrame(() => {
+                    if (!current()) return;
+                    window.scrollTo(...(options.scroll || [0, 0]));
+                    const focus = container.querySelector<HTMLElement>('h1, [autofocus]');
+                    if (focus && !options.scroll) { focus.tabIndex = -1; focus.focus({ preventScroll: true }); }
+                });
+            } catch (error) {
+                // Restore the exact old nodes when a destination asset fails after replacement.
+                // This keeps unsaved values and the previous page lifecycle recoverable.
+                container.replaceChildren(...previousChildren);
+                document.title = previousTitle;
+                host.triggerReady();
+                throw error;
+            }
         } catch (error) {
             if (current()) {
                 host.wait(false);

@@ -96,7 +96,7 @@ required(bridgeSource, 'registry.has(capability.id)', 'Capability registration m
 
 required(adapters, "selector: '[data-dcat-modern-extension=\"1\"]'", 'Core extension classification must remain isolated from core React component markers.');
 
-const renderingContract = JSON.parse(read(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m4-m10-rendering-contract.json')));
+const renderingContract = JSON.parse(read(path.join(root, 'codestable/epics/001-x-view-layer-modernization/m4-m10-rendering-contract.json')));
 if (renderingContract.status !== 'historical-gen1-rendering-contract') {
     errors.push('M4-M10 rendering contract must be marked as historical after the single-renderer transition.');
 }
@@ -110,7 +110,7 @@ if (renderingContract.status !== 'historical-gen1-rendering-contract') {
     }
 });
 
-const implementationMatrix = JSON.parse(read(path.join(root, 'codestable/epics/001-o-view-layer-modernization/implementation-capability-matrix.json')));
+const implementationMatrix = JSON.parse(read(path.join(root, 'codestable/epics/001-x-view-layer-modernization/implementation-capability-matrix.json')));
 if (![
     'gen1-bridge-evidence-preserved-contract-v3-revalidation-required',
     'bootstrap-free-implementation-external-runtime-evidence-pending',
@@ -122,7 +122,7 @@ if (![
     errors.push('Implementation capability matrix status is outside the recognized migration/revalidation states.');
 }
 
-const releaseStatus = JSON.parse(read(path.join(root, 'codestable/epics/001-o-view-layer-modernization/m11-release-status.json')));
+const releaseStatus = JSON.parse(read(path.join(root, 'codestable/epics/001-x-view-layer-modernization/m11-release-status.json')));
 if (releaseStatus.defaultModernEnabled !== true || releaseStatus.defaultCandidateAuthorized !== true) {
     errors.push('M11 release state must record explicit maintainer authorization for default-modern.');
 }

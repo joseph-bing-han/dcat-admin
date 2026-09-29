@@ -27,12 +27,12 @@
   },
   "contracts": {
     "compatibility": {
-      "path": "codestable/epics/001-o-view-layer-modernization/compatibility-contract.md",
+      "path": "codestable/epics/001-x-view-layer-modernization/compatibility-contract.md",
       "version": "1.0.0",
       "sha256": "63e20ddbf496f08263da5bf23ba7206f21c18b9d13a8d068d5a7da7910b3ef1a"
     },
     "uiUx": {
-      "path": "codestable/epics/001-o-view-layer-modernization/ui-ux-spec.md",
+      "path": "codestable/epics/001-x-view-layer-modernization/ui-ux-spec.md",
       "version": "1.0.0",
       "sha256": "5f926ab91eb4f12610e9f92403b864a8f042802a92f14cd3539f57152db239f3"
     }
@@ -42,4 +42,3 @@
     "Any intentional inventory or frozen-contract change must update this file in the same implementation batch and expand verification according to the compatibility contract."
   ]
 }
-

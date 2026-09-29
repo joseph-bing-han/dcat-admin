@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const epicDir = path.join(root, 'codestable/epics/001-o-view-layer-modernization');
+const epicDir = path.join(root, 'codestable/epics/001-x-view-layer-modernization');
 const registryPath = path.join(epicDir, 'coverage-registry.json');
 const censusPath = path.join(epicDir, 'dependency-census.json');
 const checkOnly = process.argv.includes('--check');

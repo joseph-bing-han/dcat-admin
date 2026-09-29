@@ -6108,6 +6108,7 @@
       "visible": true,
       "legacyDependencies": [
         "bootstrap-class",
+        "bootstrap-plugin",
         "jquery"
       ],
       "stableSelectors": [],

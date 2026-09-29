@@ -894,7 +894,7 @@ class Asset
                     continue;
                 }
                 $this->renderedStylesheets[$path] = true;
-                $html .= "<link rel=\"stylesheet\" href=\"{$this->withVersionQuery($path)}\">";
+                $html .= "<link rel=\"stylesheet\" href=\"{$this->withVersionQuery($path)}\"{$this->nonceAttribute()}>";
             }
         }
 
@@ -956,7 +956,7 @@ class Asset
                     continue;
                 }
                 $this->renderedScripts[$path] = true;
-                $html .= "<script src=\"{$this->withVersionQuery($path)}\"></script>";
+                $html .= "<script src=\"{$this->withVersionQuery($path)}\"{$this->nonceAttribute()}></script>";
             }
         }
 
@@ -993,7 +993,7 @@ class Asset
                     continue;
                 }
                 $this->renderedScripts[$path] = true;
-                $html .= "<script src=\"{$this->withVersionQuery($path)}\"></script>";
+                $html .= "<script src=\"{$this->withVersionQuery($path)}\"{$this->nonceAttribute()}></script>";
             }
         }
 
@@ -1009,7 +1009,7 @@ class Asset
         $directScript = implode(";\n", array_unique($this->directScript));
 
         return <<<HTML
-<script data-exec-on-popstate>
+<script data-exec-on-popstate{$this->nonceAttribute()}>
 (function () {
     try {
         {$directScript}
@@ -1035,6 +1035,17 @@ HTML;
     {
         $style = implode('', array_unique($this->style));
 
-        return "<style>$style</style>";
+        return "<style{$this->nonceAttribute()}>$style</style>";
+    }
+
+    protected function nonceAttribute()
+    {
+        $nonce = config('admin.modern.csp_nonce');
+
+        if ($nonce instanceof \Closure) {
+            $nonce = $nonce();
+        }
+
+        return $nonce ? ' nonce="'.e($nonce).'"' : '';
     }
 }

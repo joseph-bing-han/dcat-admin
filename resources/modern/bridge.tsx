@@ -116,8 +116,8 @@ function payloadEntries(): Array<{ node: HTMLScriptElement; envelope: PayloadEnv
                 return;
             }
             result.push({ node, envelope });
-        } catch (error) {
-            telemetry('PAYLOAD_INVALID_JSON', { message: error instanceof Error ? error.message : String(error) });
+        } catch {
+            telemetry('PAYLOAD_INVALID_JSON');
         }
     });
     return result;
@@ -246,14 +246,17 @@ function mountElement(capability: RegisteredCapability, element: HTMLElement): v
                             });
                         }
                     }}
-                    onError={(error) => {
+                    onError={() => {
                         item.reactReady = false;
                         const current = mounted.get(element);
-                        if (current?.get(capability.id) === item) syncMountedAttributes(element, current);
-                        telemetry('CAPABILITY_RENDER_FAILED', {
-                            capability: capability.id,
-                            message: error instanceof Error ? error.message : String(error),
-                        });
+                        if (current?.get(capability.id) === item) {
+                            if (item.fallbackDetached && item.fallback) {
+                                element.insertBefore(item.fallback, item.host);
+                                item.fallbackDetached = false;
+                            }
+                            syncMountedAttributes(element, current);
+                        }
+                        telemetry('CAPABILITY_RENDER_FAILED', { capability: capability.id });
                         if (capability.fallbackScope !== 'component') fallback('CAPABILITY_PAGE_FALLBACK');
                     }}
                 >
@@ -263,7 +266,7 @@ function mountElement(capability: RegisteredCapability, element: HTMLElement): v
         } else {
             reactRoot.render(<CapabilityHost capability={capability.id} />);
         }
-    } catch (error) {
+    } catch {
         const capabilities = mounted.get(element);
         if (capabilities?.has(capability.id)) {
             capabilities.delete(capability.id);
@@ -281,10 +284,7 @@ function mountElement(capability: RegisteredCapability, element: HTMLElement): v
             element.removeAttribute('data-dcat-modern-capability');
             element.removeAttribute('data-dcat-modern-react-mounted');
         }
-        telemetry('CAPABILITY_MOUNT_FAILED', {
-            capability: capability.id,
-            message: error instanceof Error ? error.message : String(error),
-        });
+        telemetry('CAPABILITY_MOUNT_FAILED', { capability: capability.id });
         if (capability.fallbackScope !== 'component') fallback('CAPABILITY_PAGE_FALLBACK');
     }
 }

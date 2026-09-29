@@ -4,7 +4,7 @@ The modern View layer is the only renderer. Installing or upgrading publishes th
 
 ## What changed
 
-The package ships a content-hashed React IIFE, scoped CSS and a Vite manifest under `resources/dist/modern`. The server exposes a modern manager that has no switch back to the removed Bootstrap/AdminLTE renderer, and the browser exposes the versioned `window.DcatReact` bridge. M4-M10 capability boundaries are documented in `codestable/epics/001-o-view-layer-modernization/m4-m10-rendering-contract.json`.
+The package ships a content-hashed React IIFE, scoped CSS and a Vite manifest under `resources/dist/modern`. The server exposes a modern manager that has no switch back to the removed Bootstrap/AdminLTE renderer, and the browser exposes the versioned `window.DcatReact` bridge. M4-M10 capability boundaries are documented in `codestable/epics/001-x-view-layer-modernization/m4-m10-rendering-contract.json`.
 
 React owns supported structure where it can do so without changing public behavior. Existing HTTP/form contracts remain the transport authority. When a Controller output carries required listeners, jQuery data, a third-party instance or arbitrary extension HTML, the exact node is moved into a React-owned compat island and restored on unmount; it is never cloned into a second live form/id/plugin instance. This does not provide an alternate old page renderer or guarantee old Bootstrap/AdminLTE styling.
 
@@ -14,7 +14,7 @@ React owns supported structure where it can do so without changing public behavi
 2. Clear Laravel configuration/view caches after publishing the new package configuration and assets.
 3. Validate representative Grid/Form/Show/Tree/plugin-heavy pages. Unsupported or unclassified structures stay in a Dcat compatibility island rather than reverting to the old UI.
 4. Review `dcat:modern:telemetry` and the compat migration diagnostics for structures that still need a native implementation.
-5. Validate the current PHP/Laravel environment recorded in `m0/support-matrix.json` with the local `npm run modern:browser` script. Other version combinations and GitHub Actions are not required by the maintainer's 2026-09-26 decisions; do not recreate `.github` or require workflow installation. Record the actual versions with the results.
+5. Run the required local modern verification against the package checkout. Other version combinations and GitHub Actions are not required by the maintainer's decisions; do not recreate `.github` or require workflow installation. Record the actual versions with any optional browser investigation.
 
 `config/admin.php` only contains renderer settings now:
 

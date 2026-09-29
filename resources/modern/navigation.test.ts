@@ -57,6 +57,28 @@ describe('native navigation', () => {
         expect(navigation.status().pendingRequests).toBe(0);
     });
 
+    it('restores the previous page when a destination script fails after replacement', async () => {
+        const draft = document.querySelector<HTMLInputElement>('#draft')!;
+        draft.value = 'Unsaved input';
+        const fetch = vi.fn().mockResolvedValue(response('<h1 id="destination">Destination</h1><script src="/missing.js"></script>'));
+        vi.stubGlobal('fetch', fetch);
+        const originalAppendChild = document.head.appendChild.bind(document.head);
+        vi.spyOn(document.head, 'appendChild').mockImplementation((node) => {
+            const result = originalAppendChild(node);
+            if (node instanceof HTMLScriptElement) queueMicrotask(() => node.dispatchEvent(new Event('error')));
+            return result;
+        });
+
+        await navigation.navigate(host, '/destination');
+
+        expect(document.querySelector('#draft')).toBe(draft);
+        expect(draft.value).toBe('Unsaved input');
+        expect(document.querySelector('#destination')).toBeNull();
+        expect(location.pathname).toBe('/');
+        expect(host.error).toHaveBeenCalledWith('Page asset could not be loaded');
+        expect(host.triggerReady).toHaveBeenCalledTimes(1);
+    });
+
     it('aborts superseded reads and never commits a stale response', async () => {
         let release!: (response: Response) => void;
         const pending = new Promise<Response>((resolve) => { release = resolve; });

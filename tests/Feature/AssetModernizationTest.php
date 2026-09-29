@@ -32,6 +32,7 @@ class AssetModernizationTest extends TestCase
                 'assets_server' => null,
                 'https' => false,
                 'secure' => false,
+                'modern' => ['csp_nonce' => null],
             ],
         ]));
         $this->container->instance('admin.color', new class
@@ -132,6 +133,20 @@ class AssetModernizationTest extends TestCase
         ] as $path) {
             $this->assertNull($asset->getRealPath($path), $path.' should use the Bootstrap-free compat runtime');
         }
+    }
+
+    public function testGeneratedAssetTagsCarryTheConfiguredCspNonce()
+    {
+        config(['admin.modern.csp_nonce' => 'asset-nonce']);
+        $asset = new Asset();
+        $asset->require('@toastr');
+        $asset->script('window.test = true');
+        $asset->style('body { color: red; }');
+
+        $this->assertStringContainsString('nonce="asset-nonce"', $asset->cssToHtml());
+        $this->assertStringContainsString('nonce="asset-nonce"', $asset->jsToHtml());
+        $this->assertStringContainsString('nonce="asset-nonce"', $asset->scriptToHtml());
+        $this->assertStringContainsString('nonce="asset-nonce"', $asset->styleToHtml());
     }
 
     public function testEveryGeneratedLegacyFacadePathMapsInModernRequests()
