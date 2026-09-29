@@ -258,3 +258,5 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 ### S1 发现的既有门禁缺陷（非本 Epic 引入，S7 处理）
 
 `npm run modern:verify` 的执行顺序是 `modern:coverage --check` → … → `modern:build`，即**先用旧产物校验 census，再重新构建**。任何改变产物内容哈希的源码改动（Tailwind 让 CSS 哈希变动变得频繁）都会让 census 在构建后立即过期，必须额外手动跑一次 `node scripts/view-modernization-coverage.js` 才能再次通过。S1 期间已遇到两次。S7 需要把 `modern:build` 提到 census 校验之前，或让 census 校验基于构建后的产物。
+
+2026-09-30：S0/S1/S2 以单主题提交落盘。提交 `e363d118`「迁移 View 组件层到 Untitled UI React 与 Tailwind v4」（107 文件，含 69 个 vendor 源文件），提交前 `modern:verify` 退出码 0。同批修复了 preflight 门禁自身的两个缺陷：基线构建改为输出到临时目录（原先会清空发布目录并删除 THIRD_PARTY_NOTICES.txt），以及新增陈旧标记守卫与 SIGINT/SIGTERM 恢复（原先被强杀会把 `index.tsx` 留在「关闭 Tailwind」的中间态并静默产出错误产物）。

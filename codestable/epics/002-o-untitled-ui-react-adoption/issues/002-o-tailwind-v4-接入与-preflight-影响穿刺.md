@@ -90,3 +90,10 @@ Tailwind CSS v4 已接入构建，Untitled UI 的语义令牌层可用，Dcat �
 - 沉淀检查：
 - 关闭判断与验证摘要：
 - 遗留：
+
+2026-09-30（提交前复测时发现并修复的两个脚本缺陷）：
+
+1. **基线构建会改坏发布目录。** `buildWithoutTailwind()` 原先直接 `vite build`，而 `vite.config.mts` 的 `emptyOutDir: true` 会清空 `resources/dist/modern/`，连带删除该目录里非 Vite 产物 `THIRD_PARTY_NOTICES.txt`。修复：基线构建改为输出到临时目录（`--outDir <tmp> --emptyOutDir`），并在 `finally` 中删除临时目录，不再触碰发布目录。
+2. **SIGKILL 会留下「Tailwind 被关闭」的中间态。** 脚本靠 `finally` 恢复 `resources/modern/index.tsx`，但强杀不会执行 `finally`；残留状态会让后续 `modern:verify` 静默构建出不含 Tailwind 的 CSS（实测产物退回 111250 gzip），而 census 也会记录错误哈希。修复：入口增加陈旧标记守卫（发现 `// preflight-impact:` 标记即拒绝运行并提示恢复），并注册 `SIGINT`/`SIGTERM` 处理器恢复入口；只有 SIGKILL 无法拦截，由守卫兜底。
+
+两条都属于「脚本自身会把工作区改坏」的类型，已随本批提交。
