@@ -121,7 +121,10 @@ class Tooltip extends Widget
 
         Admin::script(
             <<<JS
-$('{$this->selector}').on('mouseover', function () {
+$('{$this->selector}').off('.dcatTooltip').on('mouseenter.dcatTooltip', function () {
+    // 重复初始化或触发时，先清理该按钮已有的提示层。
+    var previous = $(this).attr('layer-idx');
+    if (previous) layer.close(previous);
     var title = '{$title}' || $(this).data('title');
     var idx = layer.tips(title, this, {
       tips: ['{$this->placement}', '{$background}'],
@@ -130,7 +133,7 @@ $('{$this->selector}').on('mouseover', function () {
     });
     
     $(this).attr('layer-idx', idx);
-}).on('mouseleave', function () {
+}).on('mouseleave.dcatTooltip', function () {
     layer.close($(this).attr('layer-idx'));
     
     $(this).attr('layer-idx', '');

@@ -15,6 +15,12 @@ function field(name: string, asterisk = true): FormFieldPayload {
     };
 }
 
+it('reads the row/column surface used by dynamic modal forms', () => {
+    const form = document.createElement('form');
+    form.innerHTML = '<div data-dcat-modern-fallback><div class="row"><div class="col-md-12"><div class="box-body"><div class="fields-group"></div></div></div></div></div>';
+    expect(() => readFormModel(form, payload([]))).not.toThrow();
+});
+
 function payload(fields: FormFieldPayload[]): FormViewPayload {
     return {
         id: 'profile', title: '', mode: 'edit', action: '/users/1', method: 'POST', multipart: true,
@@ -36,6 +42,18 @@ async function render(html: string, data: FormViewPayload | null = null) {
 }
 
 describe('Form payload and compatibility ownership', () => {
+    it('retains the complete step extension container and its generated navigation', async () => {
+        const { host, unmount } = await render(
+            '<div class="box-body"><div class="fields-group dcat-step-box" style="max-width:950px"><ul class="dcat-step"><li>1</li></ul><div class="dcat-step-form"><div id="first-step">Fields</div></div><div class="sw-toolbar"><button class="sw-btn-next" type="button">Next</button></div></div></div>',
+            payload([]),
+        );
+        const box = host.querySelector<HTMLElement>('.dcat-step-box')!;
+        expect(box.style.maxWidth).toBe('950px');
+        expect(box.querySelector('.dcat-step-form #first-step')).not.toBeNull();
+        expect(box.querySelector('.sw-toolbar .sw-btn-next')?.textContent).toBe('Next');
+        await unmount();
+    });
+
     it('renders native controls from server values and retains protocol hidden inputs', async () => {
         const { form, host, unmount } = await render(
             '<div class="box-body"><div class="fields-group"><div class="form-group row"><div class="control-label">username</div><div><input id="old" name="username" value="old value"></div></div></div></div><input type="hidden" name="_token" value="csrf"><input type="hidden" name="_method" value="PUT">',

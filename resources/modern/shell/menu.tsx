@@ -8,7 +8,10 @@
  * Dcat 必须保留 260px / 5.4rem 折叠 / 水平菜单，因此容器仍由 Dcat 的 shell 控制，只复用行与列表结构。
  */
 import { type FC, type HTMLAttributes, useState } from 'react';
+import { RouterProvider } from 'react-aria-components';
 import { NavItemBase } from '@/components/application/app-navigation/base-components/nav-item';
+import { navigation, type NavigationHost } from '../navigation';
+import { dismissSidebarPreview } from '../runtime';
 
 export interface ShellMenuNode {
     id: string;
@@ -30,14 +33,23 @@ export interface ShellMenuPayload {
  * Dcat 的菜单图标是图标字体类名（font-awesome / feather），上游 `NavItemBase` 期望传入一个图标组件。
  * 这里把类名包装成组件；尺寸与颜色对齐上游图标（20px、fg-quaternary），保证行高与对齐一致。
  */
-function createMenuIcon(iconClass: string): FC<HTMLAttributes<HTMLOrSVGElement>> {
-    const MenuIcon: FC<HTMLAttributes<HTMLOrSVGElement>> = () => (
-        <i
-            aria-hidden="true"
-            className={`${iconClass} mr-2 h-5 w-5 shrink-0 text-center text-base leading-5 text-fg-quaternary`}
-        />
+export function MenuIcon({ iconClass, className = '' }: { iconClass: string; className?: string }) {
+    const classes = iconClass.trim().split(/\s+/);
+    const isCircle = !iconClass.trim() || classes.includes('icon-circle');
+    // 默认图标不依赖字体字形，避免字体未加载时出现方块；兼容仅配置 fa-* 的菜单。
+    const fontClass = isCircle ? '' : `${classes.some((value) => value.startsWith('fa-')) ? 'fa ' : ''}${iconClass}`;
+    return (
+        <i aria-hidden="true" className={`${fontClass} ${className}`}>
+            {isCircle && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block align-middle"><circle cx="12" cy="12" r="8" /></svg>}
+        </i>
     );
-    return MenuIcon;
+}
+
+function createMenuIcon(iconClass: string): FC<HTMLAttributes<HTMLOrSVGElement>> {
+    const Icon: FC<HTMLAttributes<HTMLOrSVGElement>> = () => (
+        <MenuIcon iconClass={iconClass} className="mr-2 h-5 w-5 shrink-0 text-center text-base leading-5 text-fg-quaternary" />
+    );
+    return Icon;
 }
 
 function iconClassFor(item: ShellMenuNode, defaultIcon: string): string {
@@ -45,20 +57,31 @@ function iconClassFor(item: ShellMenuNode, defaultIcon: string): string {
 }
 
 function ShellMenuLeaf({ item, defaultIcon }: { item: ShellMenuNode; defaultIcon: string }) {
+    let href = item.url;
+    // 上游组件把 http 地址一律视为外链；同源站内菜单改为路径，避免新窗口和外链图标。
+    if (!item.external && /^https?:\/\//i.test(href)) {
+        const url = new URL(href);
+        if (url.origin === window.location.origin) {
+            href = `${url.pathname}${url.search}${url.hash}`;
+        }
+    }
     return (
         <li className="nav-item py-px" data-id={item.id} data-dcat-menu-leaf="1" ref={(node) => {
             const link = node?.querySelector('a');
             if (!link) return;
             // 折叠侧栏隐藏可见文本时仍保留名称；外链契约由适配层恢复。
             link.setAttribute('aria-label', item.title);
-            if (item.external) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+            link.target = item.external ? '_blank' : '_self';
+            if (item.external) link.rel = 'noopener noreferrer';
+            else link.removeAttribute('rel');
         }}>
             <NavItemBase
                 type="link"
-                href={item.url}
+                href={href}
                 current={item.active}
                 icon={createMenuIcon(iconClassFor(item, defaultIcon))}
                 truncate={false}
+                onClick={dismissSidebarPreview}
             >
                 {item.title}
             </NavItemBase>
@@ -122,10 +145,17 @@ function ShellMenuRow({ item, defaultIcon }: { item: ShellMenuNode; defaultIcon:
  */
 export function ShellMenu({ payload }: { payload: ShellMenuPayload }) {
     return (
-        <ul className="dcat-shell-menu nav-sidebar flex flex-col px-2 pt-3 pb-2">
-            {payload.items.map((item, index) => (
-                <ShellMenuRow key={`${item.id}-${index}`} item={item} defaultIcon={payload.defaultIcon} />
-            ))}
-        </ul>
+        // AriaLink 阻止点击冒泡，通过官方路由入口复用 PJAX，避免完整重载丢失侧栏状态。
+        <RouterProvider navigate={(href) => {
+            const dcat = (window as unknown as { Dcat?: NavigationHost }).Dcat;
+            if (dcat) void navigation.navigate(dcat, href);
+            else window.location.assign(href);
+        }}>
+            <ul className="dcat-shell-menu nav-sidebar flex flex-col px-2 pt-3 pb-2">
+                {payload.items.map((item, index) => (
+                    <ShellMenuRow key={`${item.id}-${index}`} item={item} defaultIcon={payload.defaultIcon} />
+                ))}
+            </ul>
+        </RouterProvider>
     );
 }

@@ -1,8 +1,26 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { NativeNavigation, type NavigationHost } from './navigation';
+import { executePageScripts, NativeNavigation, type NavigationHost } from './navigation';
 
 let navigation: NativeNavigation;
 let host: NavigationHost;
+
+it('loads dynamic dialog dependencies before activating inline initializers', async () => {
+    const container = document.createElement('div');
+    container.innerHTML = '<script src="/dialog-tree-dependency.js"></script><script>window.dialogTreeInit = true;</script><script type="application/json">{"nodes":[]}</script>';
+    document.body.appendChild(container);
+    const inline = container.querySelectorAll('script')[1];
+    const execution = executePageScripts(container, () => container.isConnected);
+    expect(container.querySelectorAll('script')[1]).toBe(inline);
+    const dependency = document.head.querySelector<HTMLScriptElement>('script[src$="/dialog-tree-dependency.js"]')!;
+    expect(dependency).not.toBeNull();
+    dependency.dispatchEvent(new Event('load'));
+    await execution;
+    expect(container.querySelector('script')).not.toBe(inline);
+    expect(container.querySelector('script')?.textContent).toBe('window.dialogTreeInit = true;');
+    expect(container.querySelector('script[type="application/json"]')?.textContent).toBe('{"nodes":[]}');
+    dependency.remove();
+    container.remove();
+});
 
 function pageConfig(renderer: string | null = '1') {
     const marker = renderer === null ? '' : ` data-dcat-r="${renderer}"`;

@@ -10,17 +10,14 @@
                         @endphp
                         <li>
                             <a href="{{ $self->url($column, $value, true) }}"
-                               class="{{$active ? 'active' : ''}}">{{ $option }}</a>
+                               class="{{$active ? 'active' : ''}}" @if($active) aria-current="true" @endif>{{ $option }}</a>
                             @if(!$active && $selector['type'] == 'many')
-                                &nbsp;
-                                <a href="{{ $self->url($column, $value) }}" class="add"><i class="feather icon-plus-square"></i></a>
-                            @else
-                                <a style="visibility: hidden;"><i class="feather icon-plus-square"></i></a>
+                                <a href="{{ $self->url($column, $value) }}" class="add" aria-label="Add {{ $option }}"><i class="feather icon-plus-square" aria-hidden="true"></i></a>
                             @endif
                         </li>
                     @endforeach
                     <li>
-                        <a href="{{ $self->url($column) }}" class="clear"><i class="feather icon-trash-2"></i></a>
+                        <a href="{{ $self->url($column) }}" class="clear" aria-label="Clear {{ $selector['label'] }}"><i class="feather icon-trash-2" aria-hidden="true"></i></a>
                     </li>
                 </ul>
             </div>

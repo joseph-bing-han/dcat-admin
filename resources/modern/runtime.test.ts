@@ -10,7 +10,198 @@ beforeEach(() => {
 
 afterEach(() => navigation.dispose());
 
+describe('collapsed sidebar preview', () => {
+    beforeEach(() => {
+        vi.stubGlobal('innerWidth', 1366);
+        document.body.className = 'dcat-modern-active sidebar-collapse';
+        document.body.innerHTML = '<button data-widget="pushmenu">Toggle navigation</button><aside class="main-sidebar"><details><summary>Forms</summary><a href="#form">Form</a></details></aside><button id="content">Content</button>';
+        window.dispatchEvent(new Event('resize'));
+    });
+
+    afterEach(() => {
+        document.body.className = '';
+        vi.unstubAllGlobals();
+    });
+
+    const moveMouse = (type: 'mouseover' | 'mouseout', target: Element, relatedTarget: EventTarget | null) => {
+        target.dispatchEvent(new MouseEvent(type, { bubbles: true, relatedTarget }));
+    };
+    const isPreviewed = () => document.body.classList.contains('sidebar-hover');
+
+    it('previews on entry, stays open within the sidebar and closes on exit without toggling the layout', () => {
+        const sidebar = document.querySelector('.main-sidebar')!;
+        const summary = sidebar.querySelector('summary')!;
+        const changed = vi.fn();
+        document.addEventListener('dcat:sidebar:changed', changed);
+        try {
+            moveMouse('mouseover', sidebar, document.body);
+            expect(isPreviewed()).toBe(true);
+            expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+            expect(document.querySelector('[data-widget="pushmenu"]')!.getAttribute('aria-expanded')).toBe('false');
+            moveMouse('mouseout', sidebar, summary);
+            moveMouse('mouseover', summary, sidebar);
+            expect(isPreviewed()).toBe(true);
+            moveMouse('mouseout', summary, document.querySelector('#content'));
+            expect(isPreviewed()).toBe(false);
+            expect(changed).not.toHaveBeenCalled();
+        } finally {
+            document.removeEventListener('dcat:sidebar:changed', changed);
+        }
+    });
+
+    it('keeps groups usable and dismisses a selected link until the mouse re-enters', () => {
+        const sidebar = document.querySelector('.main-sidebar')!;
+        const summary = sidebar.querySelector('summary')!;
+        const link = sidebar.querySelector('a')!;
+        const select = vi.fn((event: Event) => event.preventDefault());
+        link.addEventListener('click', select);
+        summary.click();
+        expect(sidebar.querySelector('details')!.open).toBe(true);
+        expect(isPreviewed()).toBe(true);
+        expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+        link.click();
+        expect(select).toHaveBeenCalledOnce();
+        expect(isPreviewed()).toBe(false);
+        expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+        moveMouse('mouseover', summary, link);
+        expect(isPreviewed()).toBe(false);
+        moveMouse('mouseout', summary, document.body);
+        moveMouse('mouseover', sidebar, document.body);
+        expect(isPreviewed()).toBe(true);
+    });
+
+    it('supports keyboard focus without leaving the preview pinned after focus exits', () => {
+        const summary = document.querySelector('summary')!;
+        summary.focus();
+        expect(isPreviewed()).toBe(true);
+        summary.click();
+        document.querySelector('a')!.focus();
+        expect(isPreviewed()).toBe(true);
+        document.querySelector<HTMLButtonElement>('#content')!.focus();
+        expect(isPreviewed()).toBe(false);
+        expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+    });
+
+    it.each(['outside click', 'Escape', 'dcat:pjax:start', 'dcat:pjax:before-replace', 'dcat:pjax:loaded'])('dismisses on %s', (action) => {
+        document.querySelector('summary')!.focus();
+        expect(isPreviewed()).toBe(true);
+        if (action === 'outside click') document.querySelector<HTMLButtonElement>('#content')!.click();
+        else if (action === 'Escape') document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        else document.dispatchEvent(new CustomEvent(action));
+        expect(isPreviewed()).toBe(false);
+        expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+        if (action === 'Escape') expect(document.activeElement).toBe(document.querySelector('[data-widget="pushmenu"]'));
+    });
+
+    it('keeps the explicit toggle independent from the preview', () => {
+        const toggle = document.querySelector<HTMLButtonElement>('[data-widget="pushmenu"]')!;
+        moveMouse('mouseover', document.querySelector('.main-sidebar')!, document.body);
+        toggle.click();
+        expect(isPreviewed()).toBe(false);
+        expect(document.body.classList.contains('sidebar-collapse')).toBe(false);
+        expect(toggle.getAttribute('aria-expanded')).toBe('true');
+        toggle.click();
+        expect(isPreviewed()).toBe(false);
+        expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+        expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('clears the desktop preview at the mobile breakpoint and preserves drawer controls', () => {
+        const sidebar = document.querySelector('.main-sidebar')!;
+        moveMouse('mouseover', sidebar, document.body);
+        vi.stubGlobal('innerWidth', 375);
+        window.dispatchEvent(new Event('resize'));
+        expect(isPreviewed()).toBe(false);
+        moveMouse('mouseover', sidebar, document.body);
+        document.querySelector('summary')!.focus();
+        expect(isPreviewed()).toBe(false);
+        const toggle = document.querySelector<HTMLButtonElement>('[data-widget="pushmenu"]')!;
+        toggle.click();
+        expect(document.body.classList.contains('sidebar-open')).toBe(true);
+        expect(toggle.getAttribute('aria-expanded')).toBe('true');
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        expect(document.body.classList.contains('sidebar-open')).toBe(false);
+        expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it.each(['dcat-modern-active', 'dcat-modern-active sidebar-collapse horizontal-menu', 'sidebar-collapse'])('does not preview outside the collapsed modern vertical layout: %s', (classes) => {
+        document.body.className = classes;
+        moveMouse('mouseover', document.querySelector('.main-sidebar')!, document.body);
+        document.querySelector('summary')!.focus();
+        document.querySelector('summary')!.click();
+        expect(isPreviewed()).toBe(false);
+    });
+});
+
 describe('native Dcat public lifecycle', () => {
+    it('previews uploaded data images in a dialog and returns focus after closing', () => {
+        Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { configurable: true, value() { this.setAttribute('open', ''); } });
+        Object.defineProperty(HTMLDialogElement.prototype, 'close', { configurable: true, value() { this.removeAttribute('open'); this.dispatchEvent(new Event('close')); } });
+        const dcat = new NativeDcat();
+        const button = document.createElement('button');
+        document.body.appendChild(button);
+        button.focus();
+        const open = vi.spyOn(window, 'open');
+        const url = 'data:image/png;base64,aGVsbG8=';
+        dcat.helpers.previewImage(url, null, 'Avatar');
+        const dialog = document.querySelector<HTMLDialogElement>('.dcat-modern-image-preview')!;
+        expect(dialog.open).toBe(true);
+        expect(dialog.querySelector('img')!.src).toBe(url);
+        expect(dialog.querySelector('img')!.alt).toBe('Avatar');
+        expect(open).not.toHaveBeenCalled();
+        dialog.querySelector('button')!.click();
+        expect(dialog.isConnected).toBe(false);
+        expect(document.activeElement).toBe(button);
+    });
+    it('shows one fullscreen loading indicator and removes it when finished', () => {
+        const dcat = new NativeDcat();
+        dcat.loading();
+        dcat.loading();
+        expect(document.querySelectorAll('[data-dcat-fullscreen-loading]')).toHaveLength(1);
+        expect(document.querySelector('[role="status"] .dcat-modern-loading-spinner')).not.toBeNull();
+        expect(document.body.getAttribute('aria-busy')).toBe('true');
+        dcat.loading(false);
+        expect(document.querySelector('[data-dcat-fullscreen-loading]')).toBeNull();
+        expect(document.documentElement.classList.contains('dcat-is-loading')).toBe(false);
+        expect(document.body.getAttribute('aria-busy')).toBe('false');
+    });
+    it('toggles only the async table filter and preserves its submit handler', () => {
+        new NativeDcat();
+        document.querySelector('#pjax-container')!.innerHTML = '<div class="async-table"><div class="filter-button-group"><button type="button">Filter</button></div><div class="filter-box d-none"><form class="grid-filter-form"><input name="username"><button>Search</button></form></div><table></table></div>';
+        const table = document.querySelector<HTMLElement>('.async-table')!;
+        const button = table.querySelector<HTMLButtonElement>('.filter-button-group button')!;
+        const filter = table.querySelector<HTMLElement>('.filter-box')!;
+        const form = table.querySelector<HTMLFormElement>('form')!;
+        const submit = vi.fn((event: Event) => event.preventDefault());
+        form.addEventListener('submit', submit);
+        button.click();
+        expect(filter.classList.contains('d-none')).toBe(false);
+        expect(table.classList.contains('d-none')).toBe(false);
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        expect(submit).toHaveBeenCalledOnce();
+        button.click();
+        expect(filter.classList.contains('d-none')).toBe(true);
+        expect(table.classList.contains('d-none')).toBe(false);
+    });
+
+    it('keeps native grid selection working when table ancestors cancel clicks', () => {
+        new NativeDcat();
+        document.querySelector('#pjax-container')!.innerHTML = '<section class="dcat-modern-grid-view"><table><thead><tr><th><input type="checkbox" class="select-all" data-dcat-grid-select-all="1"></th></tr></thead><tbody><tr><td><input type="checkbox" data-dcat-grid-row-selector="1"></td></tr><tr><td><input type="checkbox" data-dcat-grid-row-selector="1"></td></tr></tbody></table></section>';
+        const table = document.querySelector('table')!;
+        table.addEventListener('click', (event) => event.preventDefault());
+        const selectAll = table.querySelector<HTMLInputElement>('.select-all')!;
+        const rows = Array.from(table.querySelectorAll<HTMLInputElement>('[data-dcat-grid-row-selector]'));
+        selectAll.click();
+        expect(selectAll.checked).toBe(true);
+        expect(rows.every((input) => input.checked)).toBe(true);
+        rows[0].click();
+        expect(selectAll.checked).toBe(false);
+        expect(selectAll.indeterminate).toBe(true);
+        selectAll.click();
+        selectAll.click();
+        expect(rows.every((input) => !input.checked)).toBe(true);
+    });
+
     it.each([
         { left: 700, top: 400, expectedLeft: 600, expectedTop: 156 },
         { left: 740, top: 400, expectedLeft: 617, expectedTop: 156 },

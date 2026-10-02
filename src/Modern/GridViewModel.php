@@ -11,9 +11,22 @@ use Illuminate\Support\Arr;
 
 class GridViewModel
 {
+    // 首屏模板与 React 共用语义色，避免挂载时把实色标签换成浅色标签。
+    protected const LABEL_TONES = [
+        '586cb1' => 'primary', '4c60a3' => 'primary', '62a8ea' => 'primary',
+        '6d8be6' => 'primary', '4e9876' => 'primary', '458769' => 'primary',
+        '21b978' => 'success', 'dda451' => 'warning', 'ea5455' => 'danger',
+        '3085d6' => 'info', 'd2d6de' => 'neutral',
+    ];
+
     public static function make(Grid $grid, string $tableId): array
     {
         $visibleColumns = $grid->getVisibleColumns()->values();
+        // 组合表头的单列位于第一层，行数据必须按完整可见列顺序读取。
+        $columnNames = array_values($grid->getVisibleColumnNames());
+        $bodyColumns = collect($columnNames)->map(function ($name) use ($grid) {
+            return $grid->allColumns()->get($name);
+        });
         $columns = [];
         $slots = [
             ['id' => 'grid-toolbar', 'kind' => 'compat', 'role' => 'toolbar'],
@@ -48,7 +61,7 @@ class GridViewModel
         $rows = [];
         foreach ($grid->rows()->values() as $rowIndex => $row) {
             $cells = [];
-            foreach ($visibleColumns as $columnIndex => $column) {
+            foreach ($bodyColumns as $columnIndex => $column) {
                 $payload = $column->getModernCellPayload($rowIndex);
                 if (! $payload && ! $column->hasDisplayCallbacks()) {
                     $payload = static::plainCell($row->model(), $column->getName());
@@ -68,6 +81,10 @@ class GridViewModel
                     ];
                 }
 
+                if ($payload['kind'] === 'labels') {
+                    $background = strtolower(ltrim(trim($payload['style']['backgroundColor'] ?? ''), '#'));
+                    $payload['tone'] = static::LABEL_TONES[$background] ?? null;
+                }
                 $payload['attributes'] = static::attributes($column->getAttributes());
                 $cells[] = $payload;
             }
@@ -95,6 +112,7 @@ class GridViewModel
             'tableClassName' => $grid->formatTableClass(),
             'tableContainerClassName' => $grid->formatTableParentClass(),
             'columns' => $columns,
+            'columnNames' => $columnNames,
             'complexHeaders' => $complexHeaders,
             'complexHeaderCompat' => $complexHeaderCompat,
             'rows' => $rows,

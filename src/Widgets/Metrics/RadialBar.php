@@ -178,6 +178,7 @@ HTML;
 
         $justifyClass = $this->chartPullRight ? 'justify-content-between' : 'justify-content-center';
 
+        // 空图表先占据列宽，避免延迟渲染等待宽度而 flex 子项又等待图表内容。
         return <<<HTML
 <div class="card-content">
     <div class="row">
@@ -185,7 +186,7 @@ HTML;
         
         <div class="col-sm-{$this->contentWidth[1]} d-flex {$justifyClass}">
             <div></div>
-            <div>{$this->renderChart()}</div>
+            <div class="w-100" style="min-width: 0;">{$this->renderChart()}</div>
         </div>
     </div>
     <div class="metric-footer">

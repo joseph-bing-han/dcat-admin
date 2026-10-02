@@ -1,4 +1,7 @@
-<thead data-dcat-modern-slot="grid-quick-create">
+@php
+    $modernQuickCreate = Dcat\Admin\Admin::modern()->available('grid') && Dcat\Admin\Admin::modern()->capabilityEnabled('grid.read');
+@endphp
+<{{ $modernQuickCreate ? 'tbody' : 'thead' }} data-dcat-modern-slot="grid-quick-create"{!! $modernQuickCreate ? ' class="dcat-modern-grid-quick-create" data-dcat-modern-legacy-island="grid-quick-create"' : '' !!}>
 <tr class="{{ $elementClass }} quick-create" style="cursor: pointer">
     <td colspan="{{ $columnCount }}" style="background: {{ Dcat\Admin\Admin::color()->darken('#ededed', 1) }}">
         <span class="create cursor-pointer" style="display: block;">
@@ -18,7 +21,7 @@
         </form>
     </td>
 </tr>
-</thead>
+</{{ $modernQuickCreate ? 'tbody' : 'thead' }}>
 
 <script>
     var ctr = $('.{!! $elementClass !!}'),

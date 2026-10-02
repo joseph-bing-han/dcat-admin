@@ -142,6 +142,11 @@ function standardFormSurface(fallback: HTMLElement): HTMLElement {
         return fallback;
     }
 
+    // 弹窗表单使用 row/column 包装，不包含标准页面的 card。
+    const dialogColumns = Array.from(fallback.querySelectorAll<HTMLElement>(':scope > .row > .col-md-12')).filter((column) =>
+        Array.from(column.children).some((child) => child.classList.contains('box-body')));
+    if (dialogColumns.length === 1) return dialogColumns[0];
+
     const cards = Array.from(fallback.querySelectorAll<HTMLElement>('.card')).filter((card) => {
         if (card.closest('.form-group')) return false;
         return Array.from(card.children).some((child) => child.classList.contains('box-body'));
@@ -356,7 +361,8 @@ function readPayloadLayout(node: FormLayoutNodePayload, items: Map<string, FormI
 
 export function readFormModel(form: HTMLElement, payload: FormViewPayload | null = null): FormModel {
     const fallback = directFallback(form);
-    if (!payload?.layout.tree) {
+    // 分步扩展拥有容器、导航和工具栏，必须整体保留，避免字段提取拆散插件结构。
+    if (!payload?.layout.tree || fallback.querySelector('.dcat-step-box')) {
         return { compatNodes: meaningfulNodes(fallback.childNodes), headerNodes: [], footerNodes: [], hiddenNodes: [], sections: [] };
     }
     const nativeHiddenNames = new Set((payload?.fields ?? [])

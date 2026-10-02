@@ -532,6 +532,39 @@ async function runInteractionChecks(page) {
         if (await menu.isVisible() || await trigger.getAttribute('aria-expanded') !== 'false') throw new Error('Metrics dropdown did not close after selection');
     });
 
+    checks.metricChartRendering = await interaction(async () => {
+        const metricUrl = `${baseUrl}${adminPrefix}/components/metric-cards`;
+        await page.goto(metricUrl, { waitUntil: 'networkidle' });
+        await verifyMetricCharts(page);
+
+        for (const title of ['Avg Sessions', 'Product Orders', 'Tickets']) {
+            const card = page.locator('[id^="metric-card-"]').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
+            const previousId = await card.locator('[id^="apex-chart-"]').getAttribute('id');
+            await card.locator('[data-toggle="dropdown"]').click();
+            await card.locator('.select-option[data-option="28"]').click();
+            await page.waitForFunction((id) => !document.getElementById(id), previousId);
+            await verifyMetricCharts(page);
+        }
+
+        await page.locator(`a[href="${baseUrl}${adminPrefix}/components/modal"]`).click();
+        await page.waitForURL(`${baseUrl}${adminPrefix}/components/modal`);
+        if (await page.evaluate(() => window.Dcat.charts.count()) !== 0) throw new Error('Metric charts survived PJAX cleanup');
+        await page.locator(`a[href="${metricUrl}"]`).click();
+        await page.waitForURL(metricUrl);
+        await verifyMetricCharts(page);
+
+        const viewport = page.viewportSize();
+        try {
+            await page.setViewportSize({ width: 375, height: 812 });
+            await verifyMetricCharts(page);
+            if (await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)) {
+                throw new Error('Metric cards overflow the mobile viewport');
+            }
+        } finally {
+            await page.setViewportSize(viewport);
+        }
+    });
+
     checks.gridControls = await interaction(async () => {
         await page.goto(`${baseUrl}${adminPrefix}/components/grid`, { waitUntil: 'networkidle' });
         if (await page.locator('.grid-table').count() < 1 && await page.locator('table').count() < 1) throw new Error('grid table not rendered');
@@ -821,6 +854,24 @@ async function runInteractionChecks(page) {
     });
 
     return checks;
+}
+
+async function verifyMetricCharts(page) {
+    const titles = ['New Users', 'New Devices', 'Avg Sessions', 'Product Orders', 'Tickets', 'Goal Overview'];
+    // 等待异步数据和图表布局完成，避免只检查卡片文本而漏掉空白绘图区。
+    await page.waitForFunction((expectedTitles) => expectedTitles.every((title) => {
+        const card = Array.from(document.querySelectorAll('[id^="metric-card-"]'))
+            .find((node) => node.querySelector('h2')?.textContent.trim() === title);
+        const charts = card?.querySelectorAll('svg.apexcharts-svg');
+        if (charts?.length !== 1) return false;
+        const svg = charts[0];
+        const bounds = svg.getBoundingClientRect();
+        const cardBounds = card.getBoundingClientRect();
+        const paths = Array.from(svg.querySelectorAll('path'));
+        return bounds.width > 0 && bounds.height > 0
+            && bounds.left >= cardBounds.left - 1 && bounds.right <= cardBounds.right + 1
+            && paths.length > 0 && paths.every((path) => !/NaN|Infinity/.test(path.getAttribute('d') || ''));
+    }), titles, { timeout: 10_000 });
 }
 
 async function runResponsiveChecks(page) {

@@ -1,6 +1,7 @@
 import React, { act } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { bridge, registerCoreCapability } from './bridge';
+import { overlayStore } from './store';
 
 beforeEach(async () => {
     await act(async () => bridge.stop());
@@ -37,6 +38,76 @@ describe('DcatReact bridge', () => {
         const second = bridge.status();
         expect(second.started).toBe(true);
         expect(second.mountedRoots).toBe(first.mountedRoots);
+    });
+
+    it.each(['container', 'document'])('preserves shell styles during PJAX replacement dispatched on %s', async (target) => {
+        document.body.innerHTML = '<aside class="shell-fixture"></aside><main id="pjax-container" data-dcat-modern-request="1"><div class="page-fixture"></div></main>';
+        const pageCleanup = vi.fn();
+        const shellCleanup = vi.fn();
+        const pageMount = vi.fn(() => pageCleanup);
+        const shellMount = vi.fn(() => shellCleanup);
+        bridge.register({ id: 'extension.pjax-page', family: 'extension', selector: '.page-fixture', fallbackScope: 'component', mount: pageMount });
+        bridge.register({ id: 'extension.pjax-shell', family: 'extension', selector: '.shell-fixture', fallbackScope: 'component', mount: shellMount });
+        await act(async () => bridge.start());
+        const container = document.querySelector<HTMLElement>('#pjax-container')!;
+        const shellHost = document.querySelector('.shell-fixture [data-dcat-modern-managed]');
+        const overlay = document.getElementById('dcat-modern-overlay-root');
+        document.body.classList.add('sidebar-collapse');
+
+        try {
+            await act(async () => {
+                bridge.notify('Page notice', 'neutral', 0);
+                (target === 'container' ? container : document).dispatchEvent(new CustomEvent('dcat:pjax:before-replace', {
+                    bubbles: true,
+                    detail: { container: '#pjax-container' },
+                }));
+            });
+            // 在新页面脚本尚未加载、loaded 尚未触发的空档验证外壳状态。
+            expect(pageCleanup).toHaveBeenCalledOnce();
+            expect(shellCleanup).not.toHaveBeenCalled();
+            expect(document.querySelector('.page-fixture [data-dcat-modern-managed]')).toBeNull();
+            expect(document.querySelector('.shell-fixture [data-dcat-modern-managed]')).toBe(shellHost);
+            expect(document.body.classList.contains('dcat-modern-active')).toBe(true);
+            expect(document.body.classList.contains('dcat-modern-request-enabled')).toBe(true);
+            expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
+            expect(overlayStore.snapshot().notices).toHaveLength(0);
+
+            container.innerHTML = '<div class="page-fixture">Next page</div>';
+            await act(async () => document.dispatchEvent(new CustomEvent('dcat:pjax:loaded')));
+            expect(pageMount).toHaveBeenCalledTimes(2);
+            expect(shellMount).toHaveBeenCalledOnce();
+            expect(document.querySelector('.shell-fixture [data-dcat-modern-managed]')).toBe(shellHost);
+            expect(document.getElementById('dcat-modern-overlay-root')).toBe(overlay);
+            expect(document.body.classList.contains('dcat-modern-active')).toBe(true);
+        } finally {
+            await act(async () => {
+                bridge.unregister('extension.pjax-page');
+                bridge.unregister('extension.pjax-shell');
+            });
+            document.body.classList.remove('sidebar-collapse');
+        }
+    });
+
+    it('keeps global styles when the last mounted capability belongs to a local scope', async () => {
+        bridge.register({ id: 'extension.local-unmount', family: 'extension', selector: '.fixture', fallbackScope: 'component', mount: () => undefined });
+        try {
+            await act(async () => bridge.start());
+            await act(async () => bridge.unmount(document.getElementById('app')!));
+            expect(bridge.status().mountedRoots).toBe(0);
+            expect(document.body.classList.contains('dcat-modern-active')).toBe(true);
+            expect(document.body.classList.contains('dcat-modern-request-enabled')).toBe(true);
+        } finally {
+            bridge.unregister('extension.local-unmount');
+        }
+    });
+
+    it.each(['document', 'body', 'html'])('clears global styles when unmounting the entire %s', async (scope) => {
+        await act(async () => bridge.start());
+        const root = scope === 'document' ? document : scope === 'body' ? document.body : document.documentElement;
+        await act(async () => bridge.unmount(root));
+        expect(bridge.status().mountedRoots).toBe(0);
+        expect(document.body.classList.contains('dcat-modern-active')).toBe(false);
+        expect(document.body.classList.contains('dcat-modern-request-enabled')).toBe(false);
     });
 
     it('unmounts a page scope even when a vendor overwrites window.Element', async () => {

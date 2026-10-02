@@ -742,6 +742,63 @@ async function verifyBootstrapFreeShell(page, baseUrl, adminPrefix) {
     }
     evidence.collapsedBrand = collapsedBrand;
 
+    const inspectPreview = () => page.evaluate(() => {
+        const geometry = (selector) => {
+            const element = document.querySelector(selector);
+            const rect = element.getBoundingClientRect();
+            return { x: rect.x, width: rect.width };
+        };
+        const sidebar = document.querySelector('.main-sidebar');
+        const fullLogo = sidebar.querySelector('.logo-lg');
+        const miniLogo = sidebar.querySelector('.logo-mini');
+        return {
+            collapsed: document.body.classList.contains('sidebar-collapse'),
+            previewed: document.body.classList.contains('sidebar-hover'),
+            sidebar: geometry('.main-sidebar'),
+            slot: geometry('.main-menu'),
+            content: geometry('.app-content.content'),
+            navbar: geometry('nav.header-navbar'),
+            footer: geometry('.main-footer'),
+            fullLogo: getComputedStyle(fullLogo).display,
+            miniLogo: getComputedStyle(miniLogo).display,
+            aboveNavbar: sidebar.contains(document.elementFromPoint(240, 24)),
+            ariaExpanded: document.querySelector('[data-widget="pushmenu"], .menu-toggle').getAttribute('aria-expanded'),
+        };
+    });
+    const beforePreview = await inspectPreview();
+    await page.locator('.main-sidebar').hover({ position: { x: 40, y: 90 } });
+    const preview = await inspectPreview();
+    if (!preview.collapsed || !preview.previewed || Math.abs(preview.sidebar.width - 260) > 0.5
+        || !preview.aboveNavbar || preview.fullLogo === 'none' || preview.miniLogo !== 'none' || preview.ariaExpanded !== 'false') {
+        fail(`collapsed: hover preview failed: ${JSON.stringify(preview)}`);
+    }
+    for (const region of ['slot', 'content', 'navbar', 'footer']) {
+        if (Math.abs(preview[region].x - beforePreview[region].x) > 0.5 || Math.abs(preview[region].width - beforePreview[region].width) > 0.5) {
+            fail(`collapsed: hover shifted ${region}: ${JSON.stringify({ beforePreview, preview })}`);
+        }
+    }
+    const group = page.locator('.dcat-shell-menu summary').first();
+    if (await group.count()) {
+        await group.click();
+        const afterGroup = await inspectPreview();
+        if (!afterGroup.collapsed || !afterGroup.previewed) fail(`collapsed: group click pinned or dismissed the sidebar: ${JSON.stringify(afterGroup)}`);
+    }
+    // 这里只验证选择后的侧栏状态；导航自身由独立 PJAX 用例覆盖。
+    await page.locator('.dcat-shell-menu a').first().evaluate((link) => link.addEventListener('click', (event) => event.preventDefault(), { once: true }));
+    await page.locator('.dcat-shell-menu a').first().click();
+    const afterSelection = await inspectPreview();
+    if (!afterSelection.collapsed || afterSelection.previewed || Math.abs(afterSelection.sidebar.width - beforePreview.sidebar.width) > 0.5) {
+        fail(`collapsed: menu selection did not restore the icon rail: ${JSON.stringify(afterSelection)}`);
+    }
+    await page.mouse.move(500, 100);
+    await page.locator('.main-sidebar').hover({ position: { x: 40, y: 90 } });
+    await page.mouse.move(500, 100);
+    const afterExit = await inspectPreview();
+    if (!afterExit.collapsed || afterExit.previewed || Math.abs(afterExit.sidebar.width - beforePreview.sidebar.width) > 0.5) {
+        fail(`collapsed: pointer exit did not restore the icon rail: ${JSON.stringify(afterExit)}`);
+    }
+    evidence.collapsedPreview = { beforePreview, preview, afterSelection, afterExit };
+
     await toggle.click();
 
     const expandedBrand = await page.evaluate(() => {

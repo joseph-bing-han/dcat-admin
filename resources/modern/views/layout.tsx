@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShellMenu, type ShellMenuPayload } from '../shell/menu';
+import { MenuIcon, ShellMenu, type ShellMenuPayload } from '../shell/menu';
 
 export interface LayoutMenuItem {
     id: string;
@@ -71,7 +71,7 @@ function HorizontalMenuItem({ item, defaultIcon, depth = 0 }: { item: LayoutMenu
                     }
                 } : undefined}
             >
-                <i className={`fa fa-fw ${icon}`} aria-hidden="true" />
+                <MenuIcon iconClass={icon} className="fa-fw" />
                 <p>
                     {item.title}
                 </p>

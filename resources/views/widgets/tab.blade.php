@@ -1,4 +1,4 @@
-<div {!! $attributes !!}>
+<div data-dcat-tab-widget {!! $attributes !!}>
     <ul class="nav nav-tabs {{ $tabStyle }}" @if($isTabList) role="tablist" @endif>
         @foreach($tabs as $id => $tab)
             @if($tab['type'] == \Dcat\Admin\Widgets\Tab::TYPE_CONTENT)

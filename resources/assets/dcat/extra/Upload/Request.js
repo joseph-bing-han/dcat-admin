@@ -11,7 +11,10 @@ export default class Request {
             uploader = parent.uploader;
 
         Dcat.confirm(parent.lang.trans('confirm_delete_file'), file.serverId, function () {
-            var post = options.deleteData;
+            var post = $.extend({}, options.deleteData);
+
+            // 删除接口同样需要 CSRF 参数，不能依赖旧全局 Ajax 配置。
+            post._token = post._token || options.upload?.formData?._token || options.formData?._token || Dcat.token;
 
             post.key = file.serverId;
 
@@ -29,9 +32,14 @@ export default class Request {
             $.post({
                 url: options.deleteUrl,
                 data: post,
-                success: function (result) {
+                timeout: 30000,
+                complete: function () {
                     Dcat.loading(false);
-
+                },
+                error: function (xhr, status) {
+                    Dcat.error(xhr.responseJSON?.message || (status === 'timeout' ? 'Request timed out' : 'File deletion failed'));
+                },
+                success: function (result) {
                     if (result.status) {
                         callback(result);
 

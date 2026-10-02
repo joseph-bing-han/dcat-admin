@@ -1,5 +1,5 @@
 <div {!! $attributes !!}>
-    <div class="card-header d-flex justify-content-between align-items-start pb-0">
+    <div class="card-header metric-card-header d-flex justify-content-between align-items-center">
         <div>
             @if($icon)
             <div class="avatar bg-rgba-{{ $style }} p-50 m-0">

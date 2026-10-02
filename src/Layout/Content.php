@@ -510,6 +510,11 @@ class Content implements Renderable
             $data['body_class'][] = 'horizontal-menu';
         }
 
+        // 首屏布局样式由服务端启用，避免等待脚本启动时 Logo 和外壳短暂失去约束。
+        if (Admin::modern()->runtimeAvailable() && !in_array('dcat-modern-active', $data['body_class'], true)) {
+            $data['body_class'][] = 'dcat-modern-active';
+        }
+
         return [
             'theme' => $data['theme'],
             'sidebar_collapsed' => $data['sidebar_collapsed'],

@@ -29,6 +29,7 @@ describe('Show modern view', () => {
                 actions: [
                     { kind: 'link' as const, action: 'list', label: 'List', url: '/users' },
                     { kind: 'link' as const, action: 'edit', label: 'Edit', url: '/users/1/edit' },
+                    { kind: 'button' as const, action: 'delete', label: 'Delete', url: '/users/1', redirect: '/users' },
                 ],
             },
             fields: [
@@ -47,6 +48,10 @@ describe('Show modern view', () => {
         expect(host.querySelector('[data-dcat-modern-show-field="native"] [data-show-value="name"]')?.textContent).toContain('Alice');
         expect(host.querySelector('[data-dcat-modern-show-field="native"] .box-show')).toBeNull();
         expect(host.querySelector('[aria-label="List"]')?.getAttribute('href')).toBe('/users');
+        expect(host.querySelector('[data-show-action="list"]')?.classList.contains('bg-primary')).toBe(true);
+        expect(host.querySelector('[data-show-action="edit"]')?.classList.contains('bg-brand-solid')).toBe(true);
+        expect(host.querySelector('[data-show-action="delete"]')?.classList.contains('bg-error-solid')).toBe(true);
+        expect(host.querySelector('[data-show-action="delete"]')?.getAttribute('data-redirect')).toBe('/users');
         expect(host.querySelector('[data-formatter="custom"]')).toBe(formatter);
         expect(host.querySelector('[data-relation="roles"]')).toBe(relation);
         await act(async () => root.unmount());

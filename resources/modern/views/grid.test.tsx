@@ -3,8 +3,61 @@ import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { describe, expect, it, vi } from 'vitest';
 import { GridView, readGridModel, type GridViewPayload } from './grid';
+import { navigation } from '../navigation';
 
 describe('Grid modern view', () => {
+    it('routes native sort and cell links through PJAX without the table swallowing clicks', async () => {
+        const owner = document.createElement('div');
+        owner.innerHTML = '<div data-dcat-modern-fallback></div>';
+        document.body.appendChild(owner);
+        const host = { config: { pjax_container_selector: '#pjax-container' }, wait: vi.fn(), triggerReady: vi.fn(), error: vi.fn() };
+        vi.stubGlobal('Dcat', host);
+        const navigate = vi.spyOn(navigation, 'navigate').mockResolvedValue();
+        const model = readGridModel(owner, {
+            tableId: 'links', empty: false, hasQuickCreate: false,
+            columns: [{ name: 'id', label: 'ID', serverType: 'text', header: { mode: 'native', sort: { href: '/records?sort=id', className: 'grid-sort', label: 'Order id', icon: 'down', active: false, nextType: 'desc' } } }],
+            rows: [{ key: '1', index: 0, cells: [{ kind: 'link', text: 'Open record', href: '/records/1' }] }],
+        });
+        const root = createRoot(owner);
+        try {
+            await act(async () => root.render(<GridView model={model} />));
+            for (const link of owner.querySelectorAll<HTMLAnchorElement>('a')) {
+                await act(async () => link.click());
+            }
+            expect(navigate).toHaveBeenNthCalledWith(1, host, '/records?sort=id');
+            expect(navigate).toHaveBeenNthCalledWith(2, host, '/records/1');
+        } finally {
+            await act(async () => root.unmount());
+            owner.remove();
+            navigate.mockRestore();
+            vi.unstubAllGlobals();
+        }
+    });
+
+    it('renders all body columns under combined and row-spanning headers', async () => {
+        const owner = document.createElement('div');
+        owner.innerHTML = '<div data-dcat-modern-fallback></div>';
+        document.body.appendChild(owner);
+        const model = readGridModel(owner, {
+            tableId: 'reports', empty: false, hasQuickCreate: false,
+            columns: [{ name: 'month', label: 'Month', serverType: 'text' }, { name: 'year', label: 'Year', serverType: 'text' }],
+            columnNames: ['id', 'month', 'year', 'date'],
+            complexHeaders: [
+                { label: 'ID', columns: ['id'], attributes: { rowspan: 2 } },
+                { label: 'Totals', columns: ['month', 'year'], attributes: { colspan: 2 } },
+                { label: 'Date', columns: ['date'], attributes: { rowspan: 2 } },
+            ],
+            rows: [{ key: '7', index: 0, cells: ['7', '12', '144', '2026-10-02'].map((text) => ({ kind: 'text' as const, text })) }],
+        });
+        expect('columnCount' in model && model.columnCount).toBe(4);
+        const root = createRoot(owner);
+        await act(async () => root.render(<GridView model={model} />));
+        expect(Array.from(owner.querySelectorAll('tbody td')).map((cell) => cell.textContent)).toEqual(['7', '12', '144', '2026-10-02']);
+        expect(owner.querySelector('thead th')?.getAttribute('rowspan')).toBe('2');
+        await act(async () => root.unmount());
+        owner.remove();
+    });
+
     it('preserves complex headers, expanded rows and quick-create node identity', async () => {
         const owner = document.createElement('div');
         owner.innerHTML = '<div data-dcat-modern-fallback><table><tbody data-dcat-modern-slot="grid-quick-create"><tr><td colspan="2"><input name="quick[name]" value="draft"></td></tr></tbody></table></div>';
@@ -251,8 +304,8 @@ describe('Grid modern view', () => {
                 { name: 'explicit', label: 'Explicit foreground', serverType: 'labels' },
             ],
             rows: [{ key: '1', index: 0, cells: [
-                { kind: 'labels', items: ['Administrator'], className: 'label', style: { backgroundColor: '#586CB1' } },
-                { kind: 'labels', items: ['Enabled'], className: 'badge', style: { backgroundColor: '#21b978' } },
+                { kind: 'labels', items: ['Administrator'], tone: 'primary', className: 'label', style: { backgroundColor: '#586CB1' } },
+                { kind: 'labels', items: ['Enabled'], tone: 'success', className: 'badge', style: { backgroundColor: '#21b978' } },
                 { kind: 'labels', items: ['Custom dark'], className: 'label', style: { backgroundColor: '#111827' } },
                 { kind: 'labels', items: ['Custom RGB'], className: 'label', style: { backgroundColor: 'rgb(17, 24, 39)' } },
                 { kind: 'labels', items: ['Custom light'], className: 'label', style: { backgroundColor: '#f3f4f6' } },

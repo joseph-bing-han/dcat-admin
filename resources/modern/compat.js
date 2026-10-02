@@ -1,4 +1,6 @@
-import { installCompatOverlays } from './compat-overlays';
+import { installLoadingPlugins, createProgress } from './compat-loading';
+import { installFormSerialization } from './compat-form';
+import { installCompatOverlays, positionLayerTip } from './compat-overlays';
 import { installCompatDiagnostics } from './compat-diagnostics';
 import { legacyFieldHelpers } from './compat-fields';
 import { DOMElement } from './platform';
@@ -7,10 +9,12 @@ import GridCompat from '../assets/dcat/js/extensions/Grid.js';
 import RowSelectorCompat from '../assets/dcat/js/extensions/RowSelector.js';
 import DialogFormCompat from '../assets/dcat/js/extensions/DialogForm.js';
 import ColorCompat from '../assets/dcat/js/extensions/Color.js';
+import { executePageScripts } from './navigation';
 
 const $ = window.jQuery || jQuery;
 window.jQuery = $;
 window.$ = $;
+installFormSerialization($);
 installCompatOverlays($);
 const compatState = {};
 Object.defineProperty(compatState, 'lastFormSubmit', { get: () => window.DcatNativeRuntime?.formState?.lastSubmit || null });
@@ -65,74 +69,6 @@ function safeCompatDestroy(callback) {
     }
 }
 
-function installLoadingPlugins() {
-    const overlayClass = 'dcat-modern-compat-loading';
-
-    $.fn.loading = function loading(options) {
-        if (options === false) {
-            return this.each(function () {
-                const $container = $(this);
-                $container.children(`.${overlayClass}`).remove();
-                if ($container.data('dcatModernLoadingPosition')) {
-                    this.style.position = $container.data('dcatModernLoadingPosition');
-                    $container.removeData('dcatModernLoadingPosition');
-                }
-            });
-        }
-
-        const opts = $.extend({
-            background: 'rgba(255,255,255,0.72)',
-            zIndex: 100,
-        }, options || {});
-
-        return this.each(function () {
-            const $container = $(this);
-            if ($container.children(`.${overlayClass}`).length) return;
-            const currentPosition = getComputedStyle(this).position;
-            if (currentPosition === 'static') {
-                $container.data('dcatModernLoadingPosition', this.style.position || '');
-                this.style.position = 'relative';
-            }
-            $('<div />', {
-                class: overlayClass,
-                role: 'status',
-                'aria-label': 'Loading',
-            }).css({
-                position: 'absolute',
-                inset: 0,
-                zIndex: opts.zIndex,
-                background: opts.background,
-                display: 'grid',
-                placeItems: 'center',
-                pointerEvents: 'none',
-            }).html('<span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>').appendTo($container);
-        });
-    };
-
-    $.fn.buttonLoading = function buttonLoading(start) {
-        return this.each(function () {
-            const $button = $(this);
-            if (start === false) {
-                const original = $button.data('dcatModernButtonHtml');
-                if (original === undefined) return;
-                $button
-                    .removeClass('disabled btn-loading')
-                    .removeAttr('disabled')
-                    .removeAttr('aria-disabled')
-                    .html(original)
-                    .removeData('dcatModernButtonHtml');
-                return;
-            }
-            if ($button.data('dcatModernButtonHtml') !== undefined) return;
-            $button.data('dcatModernButtonHtml', $button.html());
-            $button
-                .addClass('disabled btn-loading')
-                .attr('disabled', true)
-                .attr('aria-disabled', 'true')
-                .html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>');
-        });
-    };
-}
 
 function cleanupFormFieldIsland(root) {
     if (!(root instanceof HTMLElement)) return;
@@ -178,6 +114,7 @@ function installLayerCompat() {
 
     let layerIndex = 0;
     const instances = new Map();
+    const tipsByTarget = new WeakMap();
     const defaults = { shade: false, shadeClose: false, maxmin: false, resize: false };
     const appendContent = (container, content) => {
         if (content instanceof Node) {
@@ -295,6 +232,10 @@ function installLayerCompat() {
             document.addEventListener('keydown', keydown);
             if (settings.shadeClose) root.addEventListener('click', (event) => { if (event.target === root) close(index, true); });
             instances.set(index, { root, panel, options: settings, cleanup: () => document.removeEventListener('keydown', keydown) });
+            // innerHTML 不会执行脚本，动态表单须先加载依赖再初始化字段。
+            executePageScripts(content, () => root.isConnected)
+                .then(() => { if (root.isConnected) window.Dcat?.triggerReady(); })
+                .catch((error) => window.Dcat?.handleAjaxError(error));
             if (typeof settings.success === 'function') settings.success($(panel), index);
             queueMicrotask(() => (panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])') || panel).focus?.());
             return index;
@@ -313,6 +254,8 @@ function installLayerCompat() {
         },
         tips(title, target, options = {}) {
             const element = target instanceof DOMElement ? target : $(target)[0];
+            const previous = element && tipsByTarget.get(element);
+            if (previous) close(previous);
             const index = ++layerIndex;
             const tip = document.createElement('div');
             tip.id = `layui-layer${index}`;
@@ -320,17 +263,26 @@ function installLayerCompat() {
             tip.setAttribute('role', 'tooltip');
             tip.textContent = String(title ?? '');
             Object.assign(tip.style, {
-                position: 'fixed', zIndex: String(1055 + index), maxWidth: `${options.maxWidth || 320}px`,
+                position: 'fixed', zIndex: 'var(--dcat-modern-z-toast, 1200)', maxWidth: `${Math.min(options.maxWidth || 320, Math.max(0, innerWidth - 16))}px`,
                 padding: '6px 9px', borderRadius: 'var(--dcat-modern-radius-sm, 4px)',
                 background: options.tips?.[1] || '#111827', color: '#fff',
+                pointerEvents: 'none',
             });
             document.body.appendChild(tip);
-            const rect = element?.getBoundingClientRect?.();
-            if (rect) {
-                tip.style.left = `${Math.max(8, rect.left)}px`;
-                tip.style.top = `${Math.max(8, rect.bottom + 6)}px`;
-            }
-            instances.set(index, { root: tip, panel: tip, options, cleanup: null });
+            const update = () => {
+                if (!element?.isConnected || !tip.isConnected) return;
+                tip.style.maxWidth = `${Math.min(options.maxWidth || 320, Math.max(0, innerWidth - 16))}px`;
+                positionLayerTip(element, tip, Array.isArray(options.tips) ? options.tips[0] : options.tips);
+            };
+            update();
+            if (element) tipsByTarget.set(element, index);
+            window.addEventListener('resize', update);
+            window.addEventListener('scroll', update, true);
+            instances.set(index, { root: tip, panel: tip, options, cleanup: () => {
+                window.removeEventListener('resize', update);
+                window.removeEventListener('scroll', update, true);
+                if (element && tipsByTarget.get(element) === index) tipsByTarget.delete(element);
+            } });
             if (options.time) window.setTimeout(() => close(index, false), Number(options.time));
             return index;
         },
@@ -455,7 +407,7 @@ function installLegacyDcatSurface(dcat) {
         compatGrid.selected = (name) => compatGrid.selectors[name || '_def_']?.getSelectedKeys() || nativeGrid?.selected(name) || [];
         compatGrid.selectedRows = (name) => compatGrid.selectors[name || '_def_']?.getSelectedRows() || nativeGrid?.selectedRows(name) || [];
     }
-    if (typeof $.fn.loading !== 'function' || typeof $.fn.buttonLoading !== 'function') installLoadingPlugins();
+    if (typeof $.fn.loading !== 'function' || typeof $.fn.buttonLoading !== 'function') installLoadingPlugins($);
 
     dcat.RowSelector ||= (options) => new RowSelectorCompat(options);
     dcat.DialogForm ||= (options) => new DialogFormCompat(dcat, options);
@@ -466,11 +418,7 @@ function installLegacyDcatSurface(dcat) {
             validatorDefaults.errors[rule] = message || null;
         },
     };
-    dcat.NP ||= {
-        start() { dcat.loading?.(); return this; },
-        done() { dcat.loading?.(false); return this; },
-        configure() { return this; },
-    };
+    dcat.NP ||= createProgress();
     dcat.assets ||= {
         resolveHtml(html, done) {
             return {

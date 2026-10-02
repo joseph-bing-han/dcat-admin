@@ -60,13 +60,13 @@
     overflow-x: auto;
 }
 
-.dcat-modern-active .dcat-modern-table--structural {
+.dcat-modern-active .dcat-modern-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.dcat-modern-active .dcat-modern-table--structural th,
-.dcat-modern-active .dcat-modern-table--structural td {
+.dcat-modern-active .dcat-modern-table th,
+.dcat-modern-active .dcat-modern-table td {
     padding: 10px 12px;
     border-bottom: 1px solid var(--dcat-modern-border-subtle);
     text-align: left;
@@ -368,10 +368,44 @@
     margin-top: 12px;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .btn-outline.btn-primary {
-    color: var(--dcat-modern-primary) !important;
-    border-color: var(--dcat-modern-primary) !important;
-    background: transparent !important;
+/* 分段筛选按钮共用外轮廓，只在中间保留一条分隔线。 */
+.dcat-modern-active .filter-button-group--split {
+    gap: 0;
+    border-radius: var(--dcat-modern-radius-control);
+    box-shadow: var(--dcat-modern-shadow-control);
+}
+.dcat-modern-active .filter-button-group--split > .btn {
+    margin: 0;
+    box-shadow: none;
+}
+.dcat-modern-active .filter-button-group--split > .btn:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.dcat-modern-active .filter-button-group--split > .btn:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid var(--dcat-modern-primary) !important;
+}
+.dcat-modern-active .filter-button-group--split > .btn:focus-visible {
+    position: relative;
+    box-shadow: var(--dcat-modern-focus);
+}
+.dcat-modern-active .filter-button-group .dropdown-divider {
+    margin: 4px 0;
+    border-top: 1px solid var(--dcat-modern-border-subtle);
+}
+.dcat-modern-active .filter-button-group .filter-scope-cancel > a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dcat-modern-muted);
+    font-weight: 500;
+    background: var(--dcat-modern-surface-muted);
+}
+.dcat-modern-active .filter-button-group .filter-scope-cancel > a:hover {
+    color: var(--dcat-modern-text);
+    background: var(--dcat-modern-surface-hover);
 }
 
 
@@ -406,10 +440,10 @@
     top: 0;
     right: 0;
     bottom: 0;
-    width: min(450px, calc(100vw - 24px));
+    width: min(480px, 100vw);
     max-width: 100%;
     overflow: auto;
-    padding: 20px;
+    padding: 0 !important;
     background: var(--dcat-modern-surface);
     border-left: 1px solid var(--dcat-modern-border-subtle);
     box-shadow: var(--dcat-modern-shadow-modal);
@@ -420,23 +454,129 @@
 }
 
 .dcat-modern-active .dcat-modern-filter-panel--open {
-    transform: translateX(0);
+    /* 展开后解除 fixed 子菜单的包含块，保持视口坐标定位。 */
+    transform: none;
     visibility: visible;
 }
 
 .dcat-modern-active .dcat-modern-filter-close {
-    position: sticky;
-    top: 0;
-    float: right;
-    min-width: 32px;
-    min-height: 32px;
-    margin: -8px -8px 8px 8px;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    margin: 0;
     border: 1px solid var(--dcat-modern-border-subtle);
-    border-radius: var(--dcat-modern-radius-sm);
+    border-radius: 8px;
     background: var(--dcat-modern-surface);
     color: var(--dcat-modern-text);
     cursor: pointer;
     z-index: var(--dcat-modern-z-sticky);
+}
+
+/* 筛选抽屉复用旧控件节点，标签与控件分行，避免固定宽度挤压。 */
+.dcat-modern-active .dcat-modern-filter-panel .grid-filter-form {
+    padding: 0 24px 24px;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .grid-filter-form > .mb-1 {
+    height: auto !important;
+    margin: 0 -24px 24px !important;
+    padding: 20px 72px 20px 24px;
+    border-bottom: 1px solid var(--dcat-modern-border-subtle);
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .header {
+    position: static !important;
+    padding: 0 !important;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .header > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .filter-input {
+    width: 100% !important;
+    max-width: 100%;
+    padding: 0 !important;
+    float: none;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .filter-input .form-group {
+    margin: 0 0 24px;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .filter-input .input-group {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group > .input-group-prepend:not(.dropdown) {
+    flex: 0 0 100%;
+    order: -1;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group-prepend:not(.dropdown) .input-group-text {
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent !important;
+    color: var(--dcat-modern-text);
+    font: 500 14px/20px var(--dcat-modern-font-sans);
+    text-align: left;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group-text b {
+    font-weight: 500;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group > .form-control:not(.select2-hidden-accessible) {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
+    min-height: 40px;
+    border-radius: 8px;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group > .dropdown {
+    flex: 0 0 auto;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group > .input-group-prepend .filter-group {
+    min-width: 104px;
+    min-height: 40px;
+    border: 1px solid var(--dcat-modern-border);
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group > .select2-container {
+    flex: 1 1 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .select2-selection {
+    min-height: 40px;
+    border-radius: 8px;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group-addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    color: var(--dcat-modern-muted);
+    font-size: 14px;
+}
+
+.dcat-modern-active .dcat-modern-filter-panel .input-group-append .btn {
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 8px;
 }
 
 .dcat-modern-active .dcat-modern-filter-backdrop {
@@ -447,6 +587,7 @@
 }
 
 .dcat-modern-active .dcat-modern-confirm-dialog {
+    margin: auto;
     width: min(480px, calc(100vw - 32px));
     max-width: 100%;
     padding: 0;
@@ -460,6 +601,23 @@
 .dcat-modern-active .dcat-modern-confirm-dialog::backdrop {
     background: var(--dcat-modern-overlay-scrim);
 }
+
+.dcat-modern-active .dcat-modern-image-preview {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--dcat-modern-radius-panel);
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    background: var(--dcat-modern-surface);
+    box-shadow: var(--dcat-modern-shadow-modal);
+}
+.dcat-modern-active .dcat-modern-image-preview::backdrop { background: var(--dcat-modern-overlay-scrim); }
+.dcat-modern-active .dcat-modern-image-preview__card { position: relative; padding: 48px 16px 16px; }
+.dcat-modern-active .dcat-modern-image-preview img { display: block; max-width: calc(100vw - 64px); max-height: calc(100vh - 96px); width: auto; height: auto; object-fit: contain; }
+.dcat-modern-active .dcat-modern-image-preview button { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border: 0; border-radius: var(--dcat-modern-radius-control); background: transparent; color: var(--dcat-modern-muted); font-size: 24px; cursor: pointer; }
+.dcat-modern-active .dcat-modern-image-preview button:hover { background: var(--dcat-modern-surface-hover); }
+.dcat-modern-active .dcat-modern-image-preview button:focus-visible { outline: none; box-shadow: var(--dcat-modern-focus); }
 
 .dcat-modern-active .dcat-modern-confirm-card {
     display: grid;
@@ -504,7 +662,7 @@
     box-shadow: -1px 0 0 var(--dcat-modern-border-subtle);
 }
 
-.dcat-modern-active .dcat-modern-table--structural thead .dcat-modern-grid-fixed {
+.dcat-modern-active .dcat-modern-table thead .dcat-modern-grid-fixed {
     z-index: var(--dcat-modern-z-sticky);
     background: var(--dcat-modern-surface-muted);
 }
@@ -525,12 +683,6 @@
     padding: 12px 16px;
     background: var(--dcat-modern-surface-muted);
     border-top: 0;
-}
-
-.dcat-modern-active .dcat-modern-grid-view .btn-outline.btn-primary:hover,
-.dcat-modern-active .dcat-modern-grid-view .btn-outline.btn-primary.active {
-    color: var(--dcat-modern-primary-active) !important;
-    background: var(--dcat-modern-primary-soft) !important;
 }
 
 .dcat-modern-active .dcat-modern-form-body {
@@ -847,15 +999,15 @@
  * 2. 品牌态（Dcat 品牌色强调当前项与展开分组，上游用中性灰）；
  * 3. 折叠态（5.4rem 图标栏）与焦点环。
  */
-.dcat-modern-active .dcat-modern-navigation .dcat-shell-menu .nav-item > :is(a, summary) {
+.dcat-modern-active .dcat-modern-navigation .dcat-shell-menu :is(a, summary) {
     border-radius: var(--dcat-modern-radius-control);
 }
 
-.dcat-modern-active .dcat-modern-navigation .dcat-shell-menu .nav-item > :is(a, summary):hover, .dcat-modern-active .dcat-modern-navigation .dcat-shell-menu .nav-item > :is(a, summary):focus-visible {
+.dcat-modern-active .dcat-modern-navigation .dcat-shell-menu :is(a, summary):hover, .dcat-modern-active .dcat-modern-navigation .dcat-shell-menu :is(a, summary):focus-visible {
     outline: none;
 }
 
-.dcat-modern-active .dcat-modern-navigation .dcat-shell-menu .nav-item > :is(a, summary):focus-visible {
+.dcat-modern-active .dcat-modern-navigation .dcat-shell-menu :is(a, summary):focus-visible {
     box-shadow: var(--dcat-modern-focus);
 }
 
@@ -869,17 +1021,21 @@
     color: var(--color-text-brand-secondary, var(--dcat-modern-primary-hover));
 }
 
-/* 折叠态：只留图标，隐藏标签与展开箭头，并收起已展开的分组。 */
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .dcat-shell-menu .nav-item > :is(a, summary) {
-    justify-content: center;
-}
+/* 桌面折叠且未临时展开时只留图标；移动抽屉始终显示完整菜单。 */
+@media (min-width: 768px) {
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .dcat-shell-menu :is(a, summary) {
+        justify-content: center;
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .dcat-shell-menu .nav-item > :is(a, summary) > span, .dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .dcat-shell-menu .nav-item > :is(a, summary) > svg, .dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .dcat-shell-menu .dcat-shell-menu-subtree {
-    display: none;
-}
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .dcat-shell-menu :is(a, summary) > span,
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .dcat-shell-menu :is(a, summary) > svg,
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .dcat-shell-menu .dcat-shell-menu-subtree {
+        display: none;
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .dcat-shell-menu .nav-item > :is(a, summary) > i {
-    margin-right: 0;
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .dcat-shell-menu :is(a, summary) > i {
+        margin-right: 0 !important;
+    }
 }
 
 .dcat-modern-active .dcat-modern-navbar {
@@ -1119,35 +1275,6 @@
     margin-left: auto;
 }
 
-.dcat-modern-active .dcat-modern-show-payload .dcat-modern-show-actions [data-show-action] {
-    min-height: 34px;
-    padding: 6px 12px;
-    border-radius: var(--dcat-modern-radius-sm);
-    font: 500 14px/20px var(--dcat-modern-font-sans);
-    text-decoration: none;
-}
-
-.dcat-modern-active .dcat-modern-show-payload .dcat-modern-show-actions [data-show-action="list"] {
-    border-color: var(--dcat-modern-border);
-    background: var(--dcat-modern-surface);
-    color: var(--dcat-modern-text);
-}
-
-.dcat-modern-active .dcat-modern-show-payload .dcat-modern-show-actions [data-show-action="list"]:hover {
-    background: var(--dcat-modern-surface-hover);
-}
-
-.dcat-modern-active .dcat-modern-show-payload .dcat-modern-show-actions [data-show-action="delete"] {
-    border-color: var(--dcat-modern-danger);
-    background: var(--dcat-modern-danger);
-    color: var(--dcat-modern-on-primary);
-}
-
-.dcat-modern-active .dcat-modern-show-payload .dcat-modern-show-actions [data-show-action]:focus-visible {
-    outline: none;
-    box-shadow: var(--dcat-modern-focus);
-}
-
 .dcat-modern-active .dcat-modern-show-payload .dcat-modern-show-field {
     align-items: center;
 }
@@ -1381,6 +1508,7 @@
     display: grid;
     justify-items: center;
     gap: 12px;
+    padding: 24px;
     margin-bottom: 16px;
     text-align: center;
     color: var(--dcat-modern-text);
@@ -1615,13 +1743,97 @@
     overflow-x: auto;
     overflow-y: visible;
     overscroll-behavior-inline: contain;
-    border-block: 1px solid var(--dcat-modern-border-subtle);
+    margin-top: 0 !important;
+    border-bottom: 1px solid var(--dcat-modern-border-subtle);
+}
+
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr > th {
+    /* 覆盖旧资源 p-0 的 !important，表头与数据行使用相同水平间距。 */
+    padding: 10px 12px !important;
 }
 
 .dcat-modern-active .dcat-modern-grid-view {
     border: 1px solid var(--dcat-modern-border-subtle);
     border-radius: var(--dcat-modern-radius-panel);
     background: var(--dcat-modern-surface);
+}
+
+/* Blade 首屏和上游组件接管共用几何；不依赖挂载标记或延迟显示。 */
+.dcat-modern-active .dcat-modern-grid-table-card {
+    overflow: hidden;
+    border-radius: var(--dcat-modern-radius-panel);
+    background: var(--dcat-modern-surface);
+    box-shadow: 0 0 0 1px var(--dcat-modern-border-subtle);
+}
+
+.dcat-modern-active .dcat-modern-grid-toolbar > [data-dcat-modern-slot] {
+    display: contents;
+}
+
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > tbody > tr {
+    height: auto;
+}
+
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr > th > [role="group"],
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr > th > [role="group"] > div {
+    display: contents;
+}
+
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr > th::after,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > tbody > tr > td::after {
+    content: none;
+}
+
+.dcat-modern-active .dcat-modern-grid-empty {
+    padding: 24px 0;
+    text-align: center;
+}
+
+.dcat-modern-active .dcat-modern-grid-empty > [role="status"] {
+    padding: 0;
+}
+
+.dcat-modern-active .dcat-modern-grid-empty h2 {
+    margin: 0;
+    color: var(--dcat-modern-heading);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.dcat-modern-active .dcat-modern-grid-pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-grid-progress {
+    height: 8px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--dcat-modern-radius-sm);
+    background: var(--color-bg-quaternary);
+}
+
+.dcat-modern-active .dcat-modern-grid-progress > .progress-bar {
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: var(--color-fg-brand-primary);
+}
+
+.dcat-modern-active .dcat-modern-grid-expand {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-radius: var(--dcat-modern-radius-control);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--dcat-modern-muted);
 }
 
 .dcat-modern-active .dcat-modern-grid-view .vs-checkbox-con {
@@ -1642,7 +1854,8 @@
     accent-color: var(--dcat-modern-primary);
 }
 
-.dcat-modern-active .dcat-modern-grid-view .label {
+.dcat-modern-active .dcat-modern-grid-view .label,
+.dcat-modern-active .dcat-modern-show .show-field .label {
     display: inline-flex;
     align-items: center;
     min-height: 24px;
@@ -1687,7 +1900,7 @@
     min-width: 0;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table {
     color: var(--dcat-modern-text);
     background: var(--dcat-modern-surface);
     font-size: 14px;
@@ -1695,15 +1908,15 @@
     font-variant-numeric: tabular-nums;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural th,
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural td {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr > th,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > tbody > tr > td {
     padding: 8px 12px;
     border-bottom: 1px solid var(--dcat-modern-border-subtle);
     text-align: left;
     vertical-align: middle;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural thead th {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > thead > tr > th {
     height: 40px;
     background: var(--dcat-modern-surface-muted);
     color: var(--dcat-modern-muted);
@@ -1712,11 +1925,11 @@
     line-height: 16px;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural tbody td {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > tbody > tr > td {
     height: 48px;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural tbody tr:not(.dcat-modern-grid-row-selected):hover > td {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table tbody tr:not(.dcat-modern-grid-row-selected):hover > td {
     background: var(--dcat-modern-surface-hover);
 }
 
@@ -1724,25 +1937,25 @@
     background: var(--dcat-modern-grid-selected-bg, var(--dcat-modern-primary-soft));
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural tbody tr:focus-within {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table tbody tr:focus-within {
     outline: 2px solid var(--dcat-modern-primary);
     outline-offset: -2px;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural th a.grid-sort {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table th a.grid-sort {
     display: inline-block;
     border-radius: var(--dcat-modern-radius-sm);
     color: var(--dcat-modern-muted);
     vertical-align: middle;
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural th a.grid-sort:hover,
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural th a.grid-sort.active {
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table th a.grid-sort:hover,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table th a.grid-sort.active {
     color: var(--dcat-modern-primary-hover);
 }
 
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural th a.grid-sort:focus-visible,
-.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural a:focus-visible,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table th a.grid-sort:focus-visible,
+.dcat-modern-active .dcat-modern-grid-view .dcat-modern-table a:focus-visible,
 .dcat-modern-active .dcat-modern-grid-view .grid-dropdown-actions > [data-toggle="dropdown"]:focus-visible,
 .dcat-modern-active .dcat-modern-grid-view .btn:focus-visible,
 .dcat-modern-active .dcat-modern-grid-view .pagination .page-link:focus-visible {
@@ -1836,7 +2049,8 @@
     padding: 12px 16px;
 }
 
-.dcat-modern-active .dcat-modern-grid-pagination-range {
+.dcat-modern-active .dcat-modern-grid-pagination-range,
+.dcat-modern-active .dcat-modern-grid-pagination > span {
     color: var(--dcat-modern-muted);
     font-size: 12px;
 }
@@ -1906,7 +2120,7 @@
         min-height: 44px;
     }
 
-    .dcat-modern-active .dcat-modern-grid-view .dcat-modern-table--structural tbody td {
+    .dcat-modern-active .dcat-modern-grid-view .dcat-modern-table > tbody > tr > td {
         height: 48px;
     }
 

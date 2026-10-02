@@ -177,6 +177,9 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 
 - `views/layout.tsx` 与 `runtime.ts` 的 shell 部分（sidebar、navbar、menu、footer、breadcrumb、page header）改用 Untitled `app-navigation` 结构与 Tailwind 类。
 - 保持 260px 展开侧栏、折叠/水平/full-page profile、sticky/floating/hidden 顶栏、菜单分组与顺序、`data-dcat-react-component="layout.*"` 标记。
+- 桌面折叠态悬停或键盘焦点进入时，以高于顶栏的浮层临时展开，主内容、顶栏和页脚维持折叠布局。点击分组保留浮层，选择具体菜单项或移出后收缩；Escape、焦点离开与 PJAX 生命周期同样清理临时状态。总开关独立控制常驻状态，菜单导航沿用既有 PJAX，移动抽屉始终显示完整菜单。
+- PJAX 局部卸载保持 body 的全局样式标记，外壳和 Logo 在新页脚本加载期间保持原有尺寸与显示状态；仅完整卸载 document/body/html 时清理这些标记。页面组件和浮层仍按既有生命周期清理。
+- Content 的服务器布局类从首屏起包含 `dcat-modern-active`，native/compat、普通/全页布局均无需等待 DOMContentLoaded 才启用样式；React 挂载与 request-enabled 标记仍由运行时管理。用户自定义 body 类和布局设置保持。
 
 #### S3 批次 1 结果（2026-09-30，进行中）
 
@@ -197,9 +200,25 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 
 **体积提醒（更新 R2）**：CSS 32374、JS 110709，总 143083 / 143360，余量仅 **277 字节**；该限制现已取消，后续只记录实际体积。
 
+#### S3 折叠侧栏交互修复（2026-10-03，已验证）
+
+已移除分组点击触发总开关的逻辑，增加独立 `sidebar-hover` 临时状态，并用官方 `RouterProvider` 将上游菜单接回既有 PJAX，避免完整重载后恢复默认展开。浮层宽 260px，网格占位保留 5.4rem；桌面折叠规则不再影响移动抽屉。
+
+聚焦 Vitest 3 文件/57 项、类型检查、构建、artifact 和浏览器脚本语法检查通过，产物为 230720 gzip 字节。Chrome 官方扩展验证桌面悬停/分组/真实鼠标与键盘导航后收缩，主内容、顶栏和页脚几何不变，左边界保持 86.390625px；浮层层级 1051 高于顶栏 1050。375×812 抽屉宽 260px、标签完整、无横向溢出，Escape 关闭。Demo 为 PHP 8.1.34 / Laravel 10.50.3，本轮未重跑 PHP/Dusk、全量 `modern:verify` 或其他浏览器；独立 Review 工具不可用。
+
+详细根因、实现与本地截图见 [Issue004 本轮修复](issues/004-o-迁移-shell-到-app-navigation.md#2026-10-03-折叠侧栏交互修复已完成)，执行正本为 [归档 Task](../../tasks/archived/2026-10-03-001-fix-collapsed-sidebar-hover.md)。Issue/Epic 保持 open，不自动毕业。
+
+#### S3 页面跳转 Logo 闪现修复（2026-10-03，已验证）
+
+修正 bridge 局部卸载误清全局样式的范围，消除 mini Logo 在 before-replace 阶段恢复 225px 原始尺寸的闪现。Chrome 官方扩展展开/折叠及后退共 5 次导航、20 个生命周期采样均为单个可见 35px Logo，另一 Logo 隐藏，全局样式持续有效。聚焦 bridge/navigation/runtime 70 项、类型检查、build/artifact/diff-check 通过，产物为 230908 gzip 字节；验证范围与证据见 [Issue004 Logo 修复](issues/004-o-迁移-shell-到-app-navigation.md#2026-10-03-页面跳转-logo-闪现已完成) 和 [归档 Task](../../tasks/archived/2026-10-03-005-fix-navigation-logo-flash.md)。
+
+2026-10-03 补充：用户指出整页刷新仍会复现，已由 Content 在服务端补齐首屏样式标记。Chrome 暂停脚本后的首屏 Logo 即为 35px、mini 隐藏；恢复脚本后三次同 URL 文档刷新和两次 PJAX 均正常。当前 PHP 8.1.34 / Laravel 10.50.3 的 13 项/84 断言及 PHP/Blade 静态检查通过，前端资源未变化。证据与验证范围见 [Issue004 首屏修复](issues/004-o-迁移-shell-到-app-navigation.md#2026-10-03-整页刷新-logo-闪现已完成) 和 [归档 Task](../../tasks/archived/2026-10-03-006-fix-refresh-logo-flash.md)。
+
 ### S4 Grid 迁移（application/table）
 
 2026-10-02：**本轮完成并验证**。简单表格使用上游 Table，复杂表头/跨行列/展开/快速新增以原生结构保留冻结协议并由 TableCard 包裹；分页、空态、徽标、进度和展开操作使用上游组件。复杂 Grid/固定列/原节点恢复回归通过。
+
+2026-10-03：公共 Grid 首屏直接输出与 React 接管一致的外壳、表格密度、单元格、空态和分页；compat 岛样式从服务器首屏生效，快速新增统一 tbody。标签语义色由 GridViewModel 给出；原生排序/单元格 Link 经 RouterProvider 接入现有 PJAX。桌面/375px 首屏对照、复杂表头与固定列同数据对照、正常刷新录像和交互通过，PHP17/131、Vitest35、类型/静态/构建检查通过。报表页上方异步统计卡片的数据加载仍可改变整页高度，本次仅消除 Grid 接管跳变；async 兼容视图保持原协议。详见 [Issue005](issues/005-o-完成-view-组件迁移与验收.md#2026-10-03-grid-首屏布局一致性已完成) 和 [归档Task](../../tasks/archived/2026-10-03-009-fix-grid-first-paint.md)。
 
 - `views/grid.tsx` 的表格、表头/排序指示、分页、空态、加载态、行选择改用 Untitled `table`/`pagination`/`empty-state`。
 - 保持 `.dcat-modern-grid-view`、固定列、展开行、`data-dcat-grid-row-selector`、查询参数、displayer 与 filter 的 compat 结论。
@@ -217,7 +236,20 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 2026-10-02：**本轮完成并验证**。容器与操作消费上游 TableCard/Button，Modal/Drawer/Dropdown/Popover/Tooltip/EmptyState/LoadingIndicator 接入；Alert/Toast 无OSS独立组件，使用主题语义容器与上游Button。components.tsx 自研DOM组件退役。43旧变量仅为Tailwind主题别名；compat/preflight补偿限于原节点岛，旧Dcat.confirm协议保持。
 
 - Show、Tree、Widget、Dashboard、Login、System 及 Modal/Drawer/Toast/Tooltip/Popover 改用 Untitled 对应组件。
+- Dashboard 品牌卡片在专用样式中提供四边 24px 内边距，Logo、标题和资源链接居中，保留 12px 内部间距；窄屏链接自然换行，内容不贴边。通用 TableCard 不承担品牌卡片的留白。
 - compat island 补偿 CSS 收口：`compat-facade.css` 与 `compat-utilities.css` 按新语义令牌重写，处理 preflight 带来的重置影响（Select2、webuploader、TinyMCE、duallistbox、datetimepicker 等）。
+- 指标图表沿用 ApexCharts 兼容边界。图表外层容器必须在初始化前获得所在列的可用宽度，并能随列宽收缩；隐藏容器继续延迟渲染，PJAX 离开时清理图表实例。
+- 指标卡片的 `chart-info` 图例使用 8px CSS 状态圆点、8px 文字间距和至少 32px 行高，状态色取主题 primary/warning/danger；数值采用 600 字重、等宽数字和右对齐。日期筛选更新及窄屏重排后保持该样式，不依赖旧字体图标和间距工具类。
+
+2026-10-03：修复 RadialBar 共用布局中的空 flex 子项宽度为 0，导致 Bar/Round/RadialBar/SingleRound 一直等待初始化的问题。六图在首次加载、三次日期筛选、PJAX 返回、375px 移动视口及恢复桌面均正常绘制，无卡片或页面横向溢出；当前 PHP 8.1.34 / Laravel 10.50.3 的聚焦测试 12 项/56 断言通过。源码仅调整图表外层宽度，既有前端资源保持有效。证据、回归脚本与验证范围见 [Issue005 本轮修复](issues/005-o-完成-view-组件迁移与验收.md#2026-10-03-统计卡片图表修复已完成) 与 [归档 Task](../../tasks/archived/2026-10-03-002-fix-metric-chart-rendering.md)。
+
+2026-10-03：Product Orders 图例样式修正完成。Chrome 官方扩展验证桌面、日期切换、375×812 与恢复桌面，圆点/文字间距和数字样式稳定，无重叠或横向溢出，六图仍正常绘制，warn/error 为空。build/artifact/diff-check 通过，发布产物为 230893 gzip 字节；本轮仅修改 CSS 并重建资源，未重复 PHP/TS 或全量验证。证据与边界见 [Issue005 图例修正](issues/005-o-完成-view-组件迁移与验收.md#2026-10-03-订单图例样式修正已完成) 和 [归档 Task](../../tasks/archived/2026-10-03-003-fix-metric-legend-layout.md)。
+
+2026-10-03：Dashboard 品牌卡片内边距修正完成。桌面与 375px Chrome 扩展验证上下各 24px 留白、链接换行和页面无横向溢出；build/artifact/diff-check 通过，发布产物为 230894 gzip 字节。仅调整 Dashboard 专用 CSS 并重建资源；证据与验证范围见 [Issue005 品牌卡片修正](issues/005-o-完成-view-组件迁移与验收.md#2026-10-03-dashboard-品牌卡片内边距已完成) 和 [归档 Task](../../tasks/archived/2026-10-03-004-fix-dashboard-card-padding.md)。
+
+2026-10-03：Dashboard 品牌卡片的现代服务器 fallback 已与最终组件布局对齐，整页刷新不再先显示旧版 70px 品牌图像和白色标题。Chrome 官方扩展正常刷新 44 帧录像及桌面/375px 无脚本对照验证：首屏到挂载后 Logo 坐标、48px 尺寸、卡片高度与链接几何一致，24px 内边距保持。当前消费者 PHP 回归 14 项104断言与 php-static/语法/diff 检查通过；复用已有 CSS，无新增构建。详见 [Issue005 首屏修正](issues/005-o-完成-view-组件迁移与验收.md#2026-10-03-dashboard-刷新品牌图像位移已完成) 和 [归档 Task](../../tasks/archived/2026-10-03-007-fix-dashboard-logo-position.md)。
+
+2026-10-03：`btn-outline.btn-primary` 的线框规则已下移至公共按钮 facade，不再依赖 React 表格容器，服务器首屏即可显示透明背景和主题色线框。Chrome 官方扩展验证扩展页完整刷新录像及无脚本对照、Scaffold 线框/实色按钮对照通过；build/artifact/diff 检查通过，发布资源 230883 gzip 字节。详见 [Issue005 按钮首屏修正](issues/005-o-完成-view-组件迁移与验收.md#2026-10-03-线框按钮首屏颜色闪烁已完成) 和 [归档 Task](../../tasks/archived/2026-10-03-008-fix-outline-button-first-paint.md)。
 
 ### S7 门禁、体积观测与五视口重基线
 

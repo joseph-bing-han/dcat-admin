@@ -4,6 +4,31 @@
     font-size: 16px;
 }
 
+.dcat-modern-active .dcat-step-box {
+    width: 100%;
+}
+
+.dcat-modern-active .dcat-step-item.active .dcat-step-icons {
+    background-color: var(--dcat-modern-primary);
+    border-color: var(--dcat-modern-primary);
+}
+
+.dcat-modern-active .dcat-step-item.active .dcat-step-icon {
+    color: #fff;
+}
+
+.dcat-modern-active .dcat-step-box .sw-toolbar {
+    display: flex;
+    margin: 24px 0 0;
+    gap: 0;
+}
+
+.dcat-modern-active .dcat-step-box .sw-toolbar > .col-sm-10 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .dcat-modern-active *,
 .dcat-modern-active *::before,
 .dcat-modern-active *::after {
@@ -175,21 +200,201 @@
     transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
 }
 
-.dcat-modern-active .btn:hover { background: var(--dcat-modern-surface-hover); }
+.dcat-modern-active .btn:hover:not(:disabled):not(.disabled) { background: var(--dcat-modern-surface-hover); }
 .dcat-modern-active .btn:focus-visible { outline: none; box-shadow: var(--dcat-modern-focus); }
 .dcat-modern-active .btn:disabled,
 .dcat-modern-active .btn.disabled { opacity: .55; cursor: not-allowed; }
-.dcat-modern-active .btn-primary { border-color: var(--dcat-modern-primary); background: var(--dcat-modern-primary); color: var(--dcat-modern-on-primary); }
-.dcat-modern-active .btn-primary:hover { border-color: var(--dcat-modern-primary-hover); background: var(--dcat-modern-primary-hover); color: var(--dcat-modern-on-primary); }
-.dcat-modern-active .btn-danger { border-color: var(--dcat-modern-danger); background: var(--dcat-modern-danger); color: #fff; }
-.dcat-modern-active .btn-success { border-color: var(--dcat-modern-success); background: var(--dcat-modern-success); color: #fff; }
-.dcat-modern-active .btn-warning { border-color: var(--dcat-modern-warning); background: var(--dcat-modern-warning); color: #fff; }
+.dcat-modern-active .btn-loading { pointer-events: none; }
+.dcat-modern-active .dcat-modern-loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: dcat-loading-spin 700ms linear infinite;
+}
+.dcat-modern-active .dcat-modern-fullscreen-loading {
+    position: fixed;
+    inset: 0;
+    z-index: var(--dcat-modern-z-toast);
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--dcat-modern-surface) 72%, transparent);
+    color: var(--dcat-modern-primary);
+}
+.dcat-modern-active .dcat-modern-fullscreen-loading .dcat-modern-loading-spinner { width: 32px; height: 32px; border-width: 3px; }
+.dcat-modern-active .dcat-modern-progress { position: fixed; inset: 0 0 auto; height: 3px; z-index: var(--dcat-modern-z-toast); pointer-events: none; }
+.dcat-modern-active .dcat-modern-progress > span { display: block; height: 100%; background: var(--dcat-modern-primary); transition: width 200ms linear; }
+@keyframes dcat-loading-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+    .dcat-modern-active .dcat-modern-loading-spinner { animation: none; }
+}
 .dcat-modern-active .btn-sm { min-height: var(--dcat-modern-control-height-compact); padding: 4px 12px; font-size: 13px; }
 .dcat-modern-active .btn-lg { min-height: 40px; padding: 8px 16px; font-size: 16px; }
 .dcat-modern-active .btn-group { display: inline-flex; vertical-align: middle; }
 .dcat-modern-active .btn-group > .btn:not(:first-child) { margin-left: -1px; }
 
+/* 保留旧按钮类的语义，颜色及状态沿用现代主题。 */
+.dcat-modern-active :is(.btn-primary, .btn-outline-primary) { --dcat-btn-tone: var(--dcat-modern-primary); --dcat-btn-hover: var(--dcat-modern-primary-hover); }
+.dcat-modern-active :is(.btn-info, .btn-outline-info) { --dcat-btn-tone: var(--dcat-modern-info); --dcat-btn-hover: color-mix(in srgb, var(--dcat-modern-info) 85%, black); }
+.dcat-modern-active :is(.btn-success, .btn-outline-success) { --dcat-btn-tone: var(--dcat-modern-success); --dcat-btn-hover: color-mix(in srgb, var(--dcat-modern-success) 85%, black); }
+.dcat-modern-active :is(.btn-warning, .btn-outline-warning) { --dcat-btn-tone: var(--dcat-modern-warning); --dcat-btn-hover: color-mix(in srgb, var(--dcat-modern-warning) 85%, black); }
+.dcat-modern-active :is(.btn-danger, .btn-outline-danger) { --dcat-btn-tone: var(--dcat-modern-danger); --dcat-btn-hover: color-mix(in srgb, var(--dcat-modern-danger) 85%, black); }
+.dcat-modern-active :is(.btn-custom, .btn-outline-custom) { --dcat-btn-tone: var(--color-purple-600); --dcat-btn-hover: var(--color-purple-700); }
+.dcat-modern-active .btn-facebook { --dcat-btn-tone: #1877f2; --dcat-btn-hover: #0866d9; }
+.dcat-modern-active .btn-instagram { --dcat-btn-tone: #c13584; --dcat-btn-hover: #a52c70; }
+.dcat-modern-active :is(.btn-primary, .btn-info, .btn-success, .btn-warning, .btn-danger, .btn-custom, .btn-facebook, .btn-instagram) {
+    border-color: var(--dcat-btn-tone);
+    background: var(--dcat-btn-tone);
+    color: var(--dcat-modern-on-primary);
+}
+.dcat-modern-active :is(.btn-primary, .btn-info, .btn-success, .btn-warning, .btn-danger, .btn-custom, .btn-facebook, .btn-instagram):hover:not(:disabled):not(.disabled) {
+    border-color: var(--dcat-btn-hover);
+    background: var(--dcat-btn-hover);
+    color: var(--dcat-modern-on-primary);
+}
+.dcat-modern-active :is(.btn-outline-primary, .btn-outline-info, .btn-outline-success, .btn-outline-warning, .btn-outline-danger, .btn-outline-custom) {
+    border-color: var(--dcat-btn-tone);
+    background: transparent;
+    color: var(--dcat-btn-tone);
+    box-shadow: none;
+}
+.dcat-modern-active :is(.btn-outline-primary, .btn-outline-info, .btn-outline-success, .btn-outline-warning, .btn-outline-danger, .btn-outline-custom):hover:not(:disabled):not(.disabled) {
+    background: var(--dcat-btn-tone);
+    color: var(--dcat-modern-on-primary);
+}
+/* 组合类由服务端输出，线框外观不能依赖 React 表格挂载后的容器。 */
+.dcat-modern-active .btn-outline.btn-primary {
+    color: var(--dcat-modern-primary) !important;
+    border-color: var(--dcat-modern-primary) !important;
+    background: transparent !important;
+}
+.dcat-modern-active .btn-outline.btn-primary:hover,
+.dcat-modern-active .btn-outline.btn-primary.active {
+    color: var(--dcat-modern-primary-active) !important;
+    background: var(--dcat-modern-primary-soft) !important;
+}
+.dcat-modern-active .btn-light { background: var(--dcat-modern-surface-muted); }
+.dcat-modern-active .btn.shadow-0:not(:focus-visible) { box-shadow: none; }
+.dcat-modern-active .btn-group > .btn { position: relative; }
+.dcat-modern-active .btn-group > .btn:not(:first-child) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.dcat-modern-active .btn-group > .btn:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.dcat-modern-active .btn-group > .btn:is(:hover, :focus-visible) { z-index: 1; }
+
+/* 卡片标签页的标题与内容使用统一留白，显式配置的内容 padding 仍保留。 */
+.dcat-modern-active .card[data-dcat-tab-widget]:not(.nav-vertical) { padding: 0 !important; }
+.dcat-modern-active .card[data-dcat-tab-widget]:not(.nav-vertical) > .nav-tabs { padding: 8px 24px 0; }
+.dcat-modern-active .card[data-dcat-tab-widget]:not(.nav-vertical) > .tab-content:not([style*="padding"]) { padding: 24px; }
+
+/* 条件筛选器按标签分行，选项在行内排列并自动换行。 */
+.dcat-modern-active .grid-selector { width: 100%; margin-top: 16px; }
+.dcat-modern-active .grid-selector > .wrap {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid var(--dcat-modern-border-subtle);
+}
+.dcat-modern-active .grid-selector .select-label { padding-top: 6px; color: var(--dcat-modern-muted); font-weight: 500; }
+.dcat-modern-active .grid-selector .select-options > ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.dcat-modern-active .grid-selector .select-options li {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid var(--dcat-modern-border);
+    border-radius: var(--dcat-modern-radius-control);
+    overflow: hidden;
+}
+.dcat-modern-active .grid-selector .select-options a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 12px;
+    color: var(--dcat-modern-text);
+    background: var(--dcat-modern-surface);
+    text-decoration: none;
+    line-height: 20px;
+}
+.dcat-modern-active .grid-selector .select-options a:hover { background: var(--dcat-modern-surface-hover); }
+.dcat-modern-active .grid-selector .select-options a.active {
+    color: var(--dcat-modern-primary-active);
+    background: var(--dcat-modern-primary-subtle);
+    font-weight: 600;
+}
+.dcat-modern-active .grid-selector .select-options a.add {
+    padding: 6px 8px;
+    border-left: 1px solid var(--dcat-modern-border-subtle);
+    color: var(--dcat-modern-primary);
+}
+.dcat-modern-active .grid-selector .select-options a.clear { color: var(--dcat-modern-muted); }
+.dcat-modern-active .grid-selector .select-options a:focus-visible { outline: 2px solid var(--dcat-modern-primary); outline-offset: -2px; }
+@media (max-width: 575.98px) {
+    .dcat-modern-active .grid-selector > .wrap { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .dcat-modern-active .grid-selector .select-label { padding-top: 0; }
+}
+
 .dcat-modern-active .form-group { margin-bottom: 16px; }
+.dcat-modern-active .jstree-wrapper { width: 100%; }
+.dcat-modern-active .dcat-modern-widget-form-body { padding: 24px !important; }
+.dcat-modern-active .dcat-modern-widget-form-body .nav-tabs {
+    margin-top: 0 !important;
+    padding-left: 0 !important;
+    gap: 4px;
+}
+.dcat-modern-active .dcat-modern-widget-form-body .nav-tabs .nav-link { padding: 10px 16px; }
+.dcat-modern-active .dcat-modern-widget-form-body .tab-content {
+    margin-top: 0 !important;
+    padding: 24px 0 0 !important;
+}
+.dcat-modern-active .dcat-modern-widget-form-body .form-field.row {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 16px;
+    margin: 0 0 24px;
+}
+.dcat-modern-active .dcat-modern-widget-form-body .form-field.row > [class*="col-"] {
+    width: auto;
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+.dcat-modern-active .dcat-modern-widget-form-body .form-field > .control-label {
+    padding-top: 10px;
+    margin-bottom: 0;
+    color: var(--dcat-modern-heading);
+    font-weight: 500;
+}
+.dcat-modern-active .dcat-modern-widget-form-body .with-errors:empty { display: none; }
+.dcat-modern-active .dcat-modern-widget-form-body + .box-footer.row { margin: 0; padding: 16px 24px; }
+.dcat-modern-active .dcat-modern-widget-form-body + .box-footer > .col-md-2 { display: none; }
+.dcat-modern-active .dcat-modern-widget-form-body + .box-footer > .col-md-8 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: none;
+    padding: 0;
+}
+.dcat-modern-active .dcat-modern-widget-form-body + .box-footer .btn { margin: 0 !important; float: none !important; }
+.dcat-modern-active .dcat-modern-widget-form-body + .box-footer [type="reset"] { margin-right: auto !important; }
+.dcat-modern-active .dcat-modern-widget-form-body + .box-footer [type="submit"] { order: 1; }
+.dcat-modern-active .dcat-modern-widget-form-body .vs-radio-con,
+.dcat-modern-active .dcat-modern-widget-form-body .vs-checkbox-con { min-height: 40px; }
+@media (max-width: 575.98px) {
+    .dcat-modern-active .dcat-modern-widget-form-body { padding: 16px !important; }
+    .dcat-modern-active .dcat-modern-widget-form-body .form-field.row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .dcat-modern-active .dcat-modern-widget-form-body .form-field > .control-label { padding-top: 0; }
+}
 .dcat-modern-active .control-label { display: block; margin-bottom: 8px; color: var(--dcat-modern-heading); font-weight: 500; }
 @media (min-width: 768px) {
     .dcat-modern-active .form-horizontal .form-group.row > .control-label { padding-top: 8px; }
@@ -212,6 +417,11 @@
 .dcat-modern-active .form-control:not([data-dcat-ui-control]):disabled { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-disabled); cursor: not-allowed; }
 .dcat-modern-active .form-control:not([data-dcat-ui-control])[readonly] { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-muted); }
 .dcat-modern-active .form-control:not([data-dcat-ui-control]).is-invalid { border-color: var(--dcat-modern-danger); }
+/* Select2 默认把菜单挂到 body，其弹层必须高于抽屉和模态窗口。 */
+.dcat-modern-active > .select2-container--open {
+    z-index: calc(var(--dcat-modern-z-overlay) + 1);
+}
+
 .dcat-modern-active .select2-hidden-accessible {
     position: absolute !important;
     width: 1px !important;
@@ -320,6 +530,15 @@
 }
 .dcat-modern-active .card-header,
 .dcat-modern-active .box-header { padding: 12px 16px; border-bottom: 1px solid var(--dcat-modern-border-subtle); }
+.dcat-modern-active .metric-card-header {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-height: 56px;
+    padding: 12px 16px;
+}
+.dcat-modern-active .metric-card-header .card-title { margin: 0 !important; }
+.dcat-modern-active .metric-card-header > .metric-subtitle { align-self: center; }
 .dcat-modern-active .card-body,
 .dcat-modern-active .box-body,
 .dcat-modern-active .card > .metric-content { padding: 16px; }
@@ -342,6 +561,51 @@
     color: var(--dcat-modern-muted);
     font-size: 13px;
     line-height: 20px;
+    white-space: nowrap;
+}
+
+/* 指标图例不依赖旧间距工具类或字体图标，避免状态点紧贴文字。 */
+.dcat-modern-active .metric-content .chart-info {
+    align-items: center;
+    column-gap: 24px;
+    min-height: 32px;
+    margin-block: 0 !important;
+    padding-block: 4px;
+}
+.dcat-modern-active .metric-content .chart-info .series-info {
+    gap: 8px;
+    min-width: 0;
+    font-weight: 500;
+}
+.dcat-modern-active .metric-content .chart-info .series-info > span {
+    margin-inline-start: 0 !important;
+}
+.dcat-modern-active .metric-content .chart-info .series-info > i {
+    flex: 0 0 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    font-size: 0;
+}
+.dcat-modern-active .metric-content .chart-info .series-info > i::before {
+    content: none;
+}
+.dcat-modern-active .metric-content .chart-info .series-info > .text-primary {
+    color: var(--dcat-modern-primary) !important;
+}
+.dcat-modern-active .metric-content .chart-info .series-info > .text-warning {
+    color: var(--dcat-modern-warning) !important;
+}
+.dcat-modern-active .metric-content .chart-info .series-info > .text-danger {
+    color: var(--dcat-modern-danger) !important;
+}
+.dcat-modern-active .metric-content .chart-info .product-result {
+    margin-inline-start: auto;
+    color: var(--dcat-modern-heading);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
     white-space: nowrap;
 }
 
@@ -415,6 +679,49 @@
 .dcat-modern-active .dropdown-menu > li.dropdown-item { padding: 0; }
 .dcat-modern-active .dropdown-item:hover,
 .dcat-modern-active .dropdown-menu > li > a:hover { background: var(--dcat-modern-surface-hover); }
+
+.dcat-modern-active .dcat-modern-popover {
+    z-index: var(--dcat-modern-z-overlay);
+    width: max-content;
+    min-width: min(240px, calc(100vw - 16px));
+    border: 1px solid var(--dcat-modern-border-subtle);
+    border-radius: 12px;
+    background: var(--dcat-modern-surface);
+    box-shadow: var(--dcat-modern-shadow-overlay);
+    color: var(--dcat-modern-text);
+    font: 400 14px/20px var(--dcat-modern-font-sans);
+    overflow: auto;
+}
+.dcat-modern-active .dcat-modern-popover .popover-body { padding: 16px; }
+.dcat-modern-active .dcat-modern-popover .ie-container :is(.vs-checkbox-con, .vs-radio-con) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 32px;
+    margin: 0 !important;
+    cursor: pointer;
+}
+.dcat-modern-active .dcat-modern-popover .ie-container :is(.vs-checkbox, .vs-radio) { display: none; }
+.dcat-modern-active .dcat-modern-popover .ie-input:is([type="checkbox"], [type="radio"]) {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--dcat-modern-primary);
+}
+.dcat-modern-active .dcat-modern-popover .ie-container .error:empty { display: none; }
+.dcat-modern-active .dcat-modern-popover .ie-action {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--dcat-modern-border-subtle);
+}
+.dcat-modern-active .dcat-modern-popover .ie-action button {
+    float: none;
+    margin: 0;
+}
 
 .dcat-modern-active .column-selector .selectors {
     display: flex;
@@ -491,7 +798,8 @@
 .dcat-modern-active .tab-pane.active,
 .dcat-modern-active .tab-pane.show { display: block; }
 
-.dcat-modern-active .collapse { display: none; }
+/* Bootstrap 折叠由 display 控制，避免 Tailwind 同名工具类隐藏已展开的内容。 */
+.dcat-modern-active .collapse { display: none; visibility: visible; }
 .dcat-modern-active .collapse.show { display: block; }
 .dcat-modern-active tr.collapse.show { display: table-row; }
 
@@ -517,8 +825,45 @@
 .dcat-modern-active .modal-header,
 .dcat-modern-active .modal-body,
 .dcat-modern-active .modal-footer { padding: 16px; }
-.dcat-modern-active .modal-header { border-bottom: 1px solid var(--dcat-modern-border-subtle); }
+.dcat-modern-active .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--dcat-modern-border-subtle);
+}
+.dcat-modern-active .modal-header .modal-title { min-width: 0; margin: 0; font-size: 18px; font-weight: 600; color: var(--dcat-modern-heading); }
+.dcat-modern-active .modal-header > .close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--dcat-modern-radius-control);
+    background: transparent;
+    color: var(--dcat-modern-muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+.dcat-modern-active .modal-header > .close:hover { background: var(--dcat-modern-surface-hover); color: var(--dcat-modern-heading); }
+.dcat-modern-active .modal-header > .close:focus-visible { outline: none; box-shadow: var(--dcat-modern-focus); }
 .dcat-modern-active .modal-footer { border-top: 1px solid var(--dcat-modern-border-subtle); }
+
+.dcat-modern-active .dialog-footer.layui-layer-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--dcat-modern-border-subtle);
+}
+.dcat-modern-active .dialog-footer.layui-layer-btn .btn { margin: 0; }
 
 .dcat-modern-active {
     --dcat-shell-sidebar-width: 260px;
@@ -582,30 +927,43 @@
     margin-left: var(--dcat-shell-sidebar-width);
 }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) > .wrapper {
-    grid-template-columns: var(--dcat-shell-sidebar-collapsed-width) minmax(0, 1fr);
-}
+@media (min-width: 768px) {
+    .dcat-modern-active.sidebar-collapse:not(.horizontal-menu) > .wrapper {
+        grid-template-columns: var(--dcat-shell-sidebar-collapsed-width) minmax(0, 1fr);
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) > .wrapper > .main-menu,
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .main-sidebar {
-    width: var(--dcat-shell-sidebar-collapsed-width);
-}
+    .dcat-modern-active.sidebar-collapse:not(.horizontal-menu) > .wrapper > .main-menu,
+    .dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .main-sidebar {
+        width: var(--dcat-shell-sidebar-collapsed-width);
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) > .main-footer {
-    margin-left: var(--dcat-shell-sidebar-collapsed-width);
-}
+    .dcat-modern-active.sidebar-collapse:not(.horizontal-menu) > .main-footer {
+        margin-left: var(--dcat-shell-sidebar-collapsed-width);
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .navbar-header .logo-lg,
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .nav-sidebar > .nav-item > .nav-link p {
-    display: none;
-}
+    /* 临时展开只放大侧栏，保留网格占位、顶栏与页脚的折叠布局。 */
+    .dcat-modern-active.sidebar-collapse.sidebar-hover:not(.horizontal-menu) > .wrapper > .main-menu {
+        z-index: calc(var(--dcat-modern-z-sticky) + 1);
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .navbar-header .logo-mini {
-    display: inline-block;
-}
+    .dcat-modern-active.sidebar-collapse.sidebar-hover:not(.horizontal-menu) .main-sidebar {
+        z-index: calc(var(--dcat-modern-z-sticky) + 1);
+        width: var(--dcat-shell-sidebar-width);
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .nav-sidebar > .nav-item > .nav-link {
-    justify-content: center;
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .navbar-header .logo-lg,
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .nav-sidebar > .nav-item > .nav-link p,
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .nav-treeview {
+        display: none;
+    }
+
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .navbar-header .logo-mini {
+        display: inline-block;
+    }
+
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .nav-sidebar > .nav-item > .nav-link {
+        justify-content: center;
+    }
 }
 
 .dcat-modern-active.horizontal-menu > .wrapper {
@@ -846,22 +1204,24 @@
     box-shadow: var(--dcat-modern-focus);
 }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .main-sidebar .navbar-header {
-    justify-content: center;
-    padding-inline: 8px;
-}
+@media (min-width: 768px) {
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .main-sidebar .navbar-header {
+        justify-content: center;
+        padding-inline: 8px;
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .main-sidebar .navbar-header > .nav {
-    justify-content: center;
-}
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .main-sidebar .navbar-header > .nav {
+        justify-content: center;
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .main-sidebar .navbar-header .logo-lg {
-    display: none;
-}
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .main-sidebar .navbar-header .logo-lg {
+        display: none;
+    }
 
-.dcat-modern-active.sidebar-collapse:not(.horizontal-menu) .main-sidebar .navbar-header .logo-mini {
-    display: inline-flex;
-    align-items: center;
+    .dcat-modern-active.sidebar-collapse:not(.sidebar-hover):not(.horizontal-menu) .main-sidebar .navbar-header .logo-mini {
+        display: inline-flex;
+        align-items: center;
+    }
 }
 
 @media (max-width: 991.98px) {

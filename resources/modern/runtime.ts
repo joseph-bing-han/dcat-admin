@@ -186,8 +186,26 @@ function nativeHelpers() {
             };
         },
 
-        previewImage(url: string) {
-            window.open(url, '_blank', 'noopener,noreferrer');
+        previewImage(url: string, _options?: unknown, title = 'Image preview') {
+            if (!url) return;
+            const previousFocus = document.activeElement as HTMLElement | null;
+            const dialog = document.createElement('dialog');
+            dialog.className = 'dcat-modern-image-preview';
+            dialog.setAttribute('aria-label', title || 'Image preview');
+            dialog.innerHTML = '<div class="dcat-modern-image-preview__card"><button type="button" aria-label="Close image preview">×</button><img></div>';
+            const image = dialog.querySelector('img')!;
+            image.src = url;
+            image.alt = title || 'Image preview';
+            const close = () => { dialog.close(); };
+            dialog.querySelector('button')!.addEventListener('click', close);
+            dialog.addEventListener('click', (event) => { if (event.target === dialog) close(); });
+            dialog.addEventListener('close', () => {
+                dialog.remove();
+                if (previousFocus?.isConnected) previousFocus.focus();
+            }, { once: true });
+            document.body.appendChild(dialog);
+            dialog.showModal();
+            return dialog;
         },
     };
 }
@@ -206,8 +224,22 @@ function nativePjax(dcat: NativeDcat, url: string, options: { replace?: boolean 
     return navigation.navigate(dcat, url, options);
 }
 
+function canPreviewSidebar(): boolean {
+    return window.innerWidth >= 768
+        && document.body?.matches('.dcat-modern-active.sidebar-collapse:not(.horizontal-menu)');
+}
+
+export function dismissSidebarPreview(): void {
+    document.body?.classList.remove('sidebar-hover');
+}
+
+function previewSidebar(): void {
+    if (canPreviewSidebar()) document.body.classList.add('sidebar-hover');
+}
+
 function syncSidebarToggleState(): void {
     if (!document.body) return;
+    if (!canPreviewSidebar()) dismissSidebarPreview();
     const mobile = window.innerWidth < 768;
     const expanded = mobile
         ? document.body.classList.contains('sidebar-open')
@@ -223,6 +255,7 @@ function syncSidebarToggleState(): void {
 
 function toggleSidebar(): void {
     if (!document.body) return;
+    dismissSidebarPreview();
     if (window.innerWidth < 768) {
         document.body.classList.toggle('sidebar-open');
     } else {
@@ -240,13 +273,45 @@ function bindNativeShell(): void {
     if (shellBound) return;
     shellBound = true;
 
+    const sidebarFor = (target: EventTarget | null) => target instanceof DOMElement
+        ? target.closest<HTMLElement>('.main-sidebar')
+        : null;
+
+    document.addEventListener('mouseover', (eventValue) => {
+        const sidebar = sidebarFor(eventValue.target);
+        // 只在进入整个侧栏时展开，菜单点击收起后内部鼠标移动不能重新打开浮层。
+        if (!sidebar || (eventValue.relatedTarget instanceof Node && sidebar.contains(eventValue.relatedTarget))) return;
+        previewSidebar();
+    });
+
+    document.addEventListener('mouseout', (eventValue) => {
+        const sidebar = sidebarFor(eventValue.target);
+        if (!sidebar || (eventValue.relatedTarget instanceof Node && sidebar.contains(eventValue.relatedTarget))) return;
+        dismissSidebarPreview();
+    });
+
+    document.addEventListener('focusin', (eventValue) => {
+        if (sidebarFor(eventValue.target)) previewSidebar();
+    });
+
+    document.addEventListener('focusout', (eventValue) => {
+        const sidebar = sidebarFor(eventValue.target);
+        if (!sidebar || (eventValue.relatedTarget instanceof Node && sidebar.contains(eventValue.relatedTarget))) return;
+        dismissSidebarPreview();
+    });
+
     document.addEventListener('click', (eventValue) => {
         const target = eventValue.target instanceof DOMElement ? eventValue.target : null;
         if (!target || !document.body?.classList.contains('dcat-modern-active')) return;
         const toggle = target.closest<HTMLElement>('[data-widget="pushmenu"], .menu-toggle');
-        if (!toggle) return;
-        eventValue.preventDefault();
-        toggleSidebar();
+        if (toggle) {
+            eventValue.preventDefault();
+            toggleSidebar();
+        } else if (sidebarFor(target) && target.closest('summary, .has-treeview > a[href="#"]')) {
+            previewSidebar();
+        } else if (!sidebarFor(target) || target.closest('a[href]:not([href=""]):not([href="#"])')) {
+            dismissSidebarPreview();
+        }
     });
 
     document.addEventListener('keydown', (eventValue) => {
@@ -258,14 +323,24 @@ function bindNativeShell(): void {
             toggleSidebar();
             return;
         }
-        if (eventValue.key === 'Escape' && document.body.classList.contains('sidebar-open')) {
+        if (eventValue.key === 'Escape') {
+            if (document.body.classList.contains('sidebar-hover')) {
+                eventValue.preventDefault();
+                dismissSidebarPreview();
+                document.querySelector<HTMLElement>('[data-widget="pushmenu"], .menu-toggle')?.focus();
+            }
             document.body.classList.remove('sidebar-open');
             syncSidebarToggleState();
         }
     });
 
     window.addEventListener('resize', syncSidebarToggleState);
-    document.addEventListener('dcat:pjax:loaded', syncSidebarToggleState);
+    document.addEventListener('dcat:pjax:start', dismissSidebarPreview);
+    document.addEventListener('dcat:pjax:before-replace', dismissSidebarPreview);
+    document.addEventListener('dcat:pjax:loaded', () => {
+        dismissSidebarPreview();
+        syncSidebarToggleState();
+    });
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', syncSidebarToggleState, { once: true });
     } else {
@@ -388,7 +463,7 @@ function toggleGridFilter(root: HTMLElement): void {
     const rightSide = form.closest<HTMLElement>('.right-side-filter-container');
     if (!rightSide) {
         const box = form.closest<HTMLElement>('.filter-box') ?? form.parentElement;
-        const host = box?.parentElement ?? box;
+        const host = root.matches('.async-table') ? box : box?.parentElement ?? box;
         host?.classList.toggle('d-none');
         return;
     }
@@ -591,12 +666,26 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
             return;
         }
 
+        // 异步选择表格保留自身的查询事件，只接管筛选区域的展开。
+        const asyncTable = target.closest<HTMLElement>('.async-table');
+        if (asyncTable && target.closest('.filter-button-group > button:not([data-toggle="dropdown"])')) {
+            eventValue.preventDefault();
+            eventValue.stopImmediatePropagation();
+            toggleGridFilter(asyncTable);
+            return;
+        }
+
         const root = modernGridRoot(target);
         if (!root) {
             closeGridDropdowns();
             return;
         }
         root.dataset.dcatGridInteractions = 'native';
+        // 选择框由原生 change 处理，避免 React Aria 表头点击取消默认勾选。
+        if (target.matches('[data-dcat-grid-select-all="1"], [data-dcat-grid-row-selector="1"]')) {
+            eventValue.stopImmediatePropagation();
+            return;
+        }
         const customAction = target.closest<HTMLElement>('[data-action]')?.dataset.action;
         if (customAction && actions.has(customAction)) return;
 
@@ -976,6 +1065,17 @@ class NativeDcat {
     loading(active: boolean = true) {
         document.documentElement.classList.toggle('dcat-is-loading', active !== false);
         document.body?.setAttribute('aria-busy', active !== false ? 'true' : 'false');
+        const existing = document.querySelector('[data-dcat-fullscreen-loading]');
+        if (active === false) existing?.remove();
+        else if (!existing && document.body) {
+            const overlay = document.createElement('div');
+            overlay.className = 'dcat-modern-fullscreen-loading';
+            overlay.setAttribute('data-dcat-fullscreen-loading', '1');
+            overlay.setAttribute('role', 'status');
+            overlay.setAttribute('aria-label', 'Loading');
+            overlay.innerHTML = '<span class="dcat-modern-loading-spinner" aria-hidden="true"></span>';
+            document.body.appendChild(overlay);
+        }
     }
 
     confirm(title: string, content = '', onConfirm?: DcatCallback) {
@@ -1104,7 +1204,7 @@ document.addEventListener('dcat:pjax:before-replace', () => {
     columnSelectorTimers.forEach((timer) => window.clearTimeout(timer));
     quickSearchTimers.clear();
     columnSelectorTimers.clear();
-    document.querySelectorAll<HTMLDialogElement>('dialog.dcat-modern-confirm-dialog').forEach((dialog) => {
+    document.querySelectorAll<HTMLDialogElement>('dialog.dcat-modern-confirm-dialog, dialog.dcat-modern-image-preview').forEach((dialog) => {
         dialog.returnValue = 'cancel';
         dialog.close();
         dialog.remove();

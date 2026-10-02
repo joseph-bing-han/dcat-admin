@@ -1,5 +1,26 @@
 import { DOMElement } from './platform';
 
+// layer 的方向参数为 1 上、2 右、3 下、4 左；按触发元素居中并避开视口边界。
+export function positionLayerTip(trigger, tip, direction = 1) {
+    const anchor = trigger.getBoundingClientRect();
+    const box = tip.getBoundingClientRect();
+    const gap = 6;
+    const positions = {
+        1: { left: anchor.left + (anchor.width - box.width) / 2, top: anchor.top - box.height - gap },
+        2: { left: anchor.right + gap, top: anchor.top + (anchor.height - box.height) / 2 },
+        3: { left: anchor.left + (anchor.width - box.width) / 2, top: anchor.bottom + gap },
+        4: { left: anchor.left - box.width - gap, top: anchor.top + (anchor.height - box.height) / 2 },
+    };
+    let placement = Number(direction);
+    if (!positions[placement]) placement = 1;
+    const fits = ({ left, top }) => left >= 8 && top >= 8 && left + box.width <= innerWidth - 8 && top + box.height <= innerHeight - 8;
+    const opposite = { 1: 3, 2: 4, 3: 1, 4: 2 };
+    if (!fits(positions[placement]) && fits(positions[opposite[placement]])) placement = opposite[placement];
+    const { left, top } = positions[placement];
+    tip.style.left = `${Math.max(8, Math.min(left, innerWidth - box.width - 8))}px`;
+    tip.style.top = `${Math.max(8, Math.min(top, innerHeight - box.height - 8))}px`;
+}
+
 // 旧插件入口统一由 Dcat 管理事件、焦点、定位和页面卸载。
 export function installCompatOverlays($) {
     if ($.fn.modal?.dcatFacade) return;
@@ -81,6 +102,8 @@ function showModal(element, relatedTarget) {
     const focusFirst = () => (modalFocusable(element)[0] || element).focus();
     document.addEventListener('keydown', (event) => {
         if (Array.from(activeModals.keys()).pop() !== element) return;
+        // 原生图片预览位于顶层，键盘和焦点暂交给它，避免 Escape 同时关闭表单。
+        if (document.querySelector('dialog.dcat-modern-image-preview[open], dialog.dcat-modern-confirm-dialog[open]')) return;
         if (event.key === 'Escape' && options.keyboard) {
             event.preventDefault();
             event.stopImmediatePropagation();
@@ -95,6 +118,7 @@ function showModal(element, relatedTarget) {
         }
     }, { capture: true, signal: controller.signal });
     document.addEventListener('focusin', (event) => {
+        if (document.querySelector('dialog.dcat-modern-image-preview[open], dialog.dcat-modern-confirm-dialog[open]')) return;
         if (options.focus && Array.from(activeModals.keys()).pop() === element && !element.contains(event.target)) focusFirst();
     }, { signal: controller.signal });
     element.addEventListener('click', (event) => {

@@ -8,7 +8,58 @@ created: 2026-09-30
 
 # 迁移 shell 到 Untitled UI app-navigation
 
+2026-10-03 补充：用户确认剩余位置闪烁在 Dashboard 首页。逐帧录制显示侧栏 Logo 固定，位移来自欢迎卡片的旧版 fallback 与现代卡片切换；已通过对齐首屏模板修复，详见 [Issue005 的 Dashboard 首屏修正](005-o-完成-view-组件迁移与验收.md#2026-10-03-dashboard-刷新品牌图像位移已完成)。本轮独立验证刷新期间位置，前两轮尺寸修复记录保持原范围。
+
+## 2026-10-03 整页刷新 Logo 闪现（已完成）
+
+用户补充：上一轮 PJAX 修复后，刷新当前页面仍会闪现。正常模板的 body 未输出 `dcat-modern-active`，native/compat 均等 DOMContentLoaded 才启用样式；Chrome 官方扩展暂停脚本并刷新统计卡片页面，稳定复现 mini Logo 为 225×225，证明首次服务器渲染也缺少样式状态。
+
+已在 `Content::applyClasses()` 共用布局类生成处，为现代运行时输出且不重复 `dcat-modern-active`，让普通/全页布局及 native/compat 在脚本启动前就拥有样式；不提前标记 React 已挂载或 request-enabled。用户 body 类、暗色、折叠和水平菜单设置保持，上一轮局部卸载修复继续有效。
+
+- 当前 Demo **PHP 8.1.34 / Laravel 10.50.3** 下，`ModernRendererTest` 为 **13 项 / 84 断言通过**。新增用例在修复前失败，覆盖有无 manifest、字符串/数组自定义类和既有布局设置；PHP 语法、`modern:php-static`、`git diff --check` 通过。
+- Chrome 官方扩展暂停脚本并整页刷新：首屏 `active=true`、`request-enabled=false`，可见 Logo 为 35×35，mini 隐藏。恢复脚本后同 URL 连续 3 次正常刷新均显示正常，`performance.timeOrigin` 各异，证明重新加载了文档；六图绘制正常且位于卡片内。
+- 刷新后统计卡片→Modal→后退，两次 PJAX 的 8 个生命周期采样仍保持样式与 Logo。warn/error 为空，脚本执行开关已恢复，临时观测器已移除，视口保持 1912×906。CDP 不支持新文档注入，因此证据为无脚本首屏和真实刷新，未声称刷新过程逐帧采样。
+
+本地证据：[修复前无脚本首屏](../../../../artifacts/logo-refresh/before-no-script.jpg)、[修复后无脚本首屏](../../../../artifacts/logo-refresh/after-no-script.jpg)、[正常刷新](../../../../artifacts/logo-refresh/after.jpg)、[验证记录](../../../../artifacts/logo-refresh/verification.json)。[Task 已归档](../../../tasks/archived/2026-10-03-006-fix-refresh-logo-flash.md)，首屏行为已回写 Epic S3，Issue/Epic 保持 open。本次仅修改 PHP，前端资源无需重建；未重复 TS、全量门禁或其他浏览器验证，独立 Review 工具不可用。首屏/跳转两个阶段的边界由源码、测试和本 Issue 承载，无新增 Talk/Note/Tool。
+
+## 2026-10-03 页面跳转 Logo 闪现（已完成）
+
+用户反馈每次跳转左上角紫色 Logo 短暂放大。Chrome 官方扩展实测 Dashboard→Operation Log：`before-replace` 阶段 body 的 `dcat-modern-active` 与 `dcat-modern-request-enabled` 被移除，原本隐藏的 mini Logo 以 225×225 原始尺寸出现，`loaded` 后才恢复隐藏；正常 full Logo 为 35×35，整个过程未整页重载。
+
+根因是 `bridge.unmount(root)` 在仅卸载 PJAX 容器时也无条件清除全局样式状态。现已只在卸载整个 document/body/html 时清除全局标记；局部卸载保留样式，仍清理离开页面的组件、恢复 fallback 并重置浮层。修改位于 `resources/modern/bridge.tsx`，未改 Logo 图片或尺寸规则。
+
+- 新增 6 个回归用例覆盖容器/文档派发的 PJAX 生命周期、局部最后组件卸载、document/body/html 完整卸载。修复前 3 个局部卸载用例失败，修复后 bridge/navigation/runtime **3 文件 70 项通过**；`modern:typecheck`、`modern:build`、`modern:artifact`、`git diff --check` 通过。发布资源为 JS 196892 + CSS 34016 = **230908 gzip 字节**，仅观测。
+- Chrome 官方扩展验证 Operation Log→Dashboard→Modal→统计卡片、折叠态统计卡片→Dashboard、后退至统计卡片，共 **5 次导航 / 20 个生命周期采样**。start/before-replace/loaded/end 全部保留两项全局标记，可见 Logo 均为 35×35，另一 Logo 保持隐藏；`performance.timeOrigin` 不变，warn/error 为空。
+- 已恢复原展开侧栏，视口保持 1912×906，临时 CDP 观测器已移除。未重复 PHP、全量 modern:verify 或其他浏览器验证；独立子代理工具不可用，当前会话自查未发现新增缺陷。
+
+本地证据：[修复前采样](../../../../artifacts/logo-navigation/before.json)、[修复后采样](../../../../artifacts/logo-navigation/verification.json)、[展开截图](../../../../artifacts/logo-navigation/after.jpg)、[折叠截图](../../../../artifacts/logo-navigation/collapsed.jpg)。[Task 已归档](../../../tasks/archived/2026-10-03-005-fix-navigation-logo-flash.md)，结果已回写 Epic S3，Issue/Epic 保持 open。局部与全局卸载边界由代码注释、回归测试和本 Issue 承载，无新增 Talk/Note/Tool。
+
 2026-10-02：复核旧账本并补齐归档元数据，S3 浏览器验证的唯一 Task 正本为 `codestable/tasks/archived/2026-09-30-006-shell-browser-verification-and-facade-scope.md`。原验证记录保持；剩余迁移与最终验收由 Issue 005 承接。
+
+## 2026-10-03 折叠侧栏交互修复（已完成）
+
+用户确认：桌面折叠态悬停时，侧栏在主内容上方临时展开；点击分组保留浮层以选择子菜单，点击具体菜单项或移出侧栏后收缩。主内容、顶栏和页脚的位置与宽度保持折叠布局，总开关继续独立控制常驻状态。
+
+```text
+折叠：[图标栏] | 主内容固定
+悬停：[    菜单浮层    ] 覆盖主内容左侧，底层布局固定
+选择菜单项 / 移出 → 返回图标栏；分组点击 → 留在浮层
+```
+
+根因之一是 `shell/menu.tsx` 的分组点击主动触发 `pushmenu`，移除 `sidebar-collapse`；`runtime.ts` 缺少独立悬停态，CSS 只区分常驻展开/折叠。现已移除分组对总开关的调用，并增加独立 `sidebar-hover` 临时状态；侧栏浮层宽 260px，保留 5.4rem 网格占位。鼠标移出、叶子菜单选择、焦点离开、Escape 和 PJAX 生命周期清理浮层；桌面折叠样式限定在宽度不小于 768px 时生效，移动抽屉继续完整显示菜单。
+
+另一根因是上游 `AriaLink` 默认阻止点击冒泡，绕过原 document 级 PJAX 与收缩处理，完整重载后恢复服务端默认展开。现已通过官方 `RouterProvider` 把垂直菜单接回既有 `navigation.navigate`，并在菜单选择入口收起临时浮层；vendor 和持久化偏好保持原样。
+
+本轮验收：
+
+- `npm run modern:test -- resources/modern/runtime.test.ts resources/modern/views/layout.test.tsx resources/modern/navigation.test.ts`：3 文件、57 项通过。新增鼠标/键盘菜单路由用例单独复跑 2 项通过且无警告；导航套件原生整页跳转用例的 jsdom 提示不影响通过。
+- `modern:typecheck`、`modern:build`、`modern:artifact`、`node --check scripts/view-modernization-browser.mjs` 和 `git diff --check` 通过。发布资源已同步；JS 196878 + CSS 33842 = **230720 gzip 字节**，仅观测。
+- Chrome 官方扩展在 1912×906 桌面实测：悬停宽 260px，浮层 z-index 1051 高于顶栏 1050；主内容、顶栏、页脚的 x/y/width/height 保持不变，左边界始终为 86.390625px。分组点击保留浮层；真实鼠标 Modal→Users 与键盘 Enter Users→Modal 均走 PJAX，选择后保留折叠并关闭浮层；移出与再次进入正常。
+- 375×812 移动抽屉实测 x=0、宽 260px，标签完整、无横向溢出，Escape 关闭。临时视口已恢复，浏览器 warn/error 日志为空。
+
+本地证据：[折叠态](../../../../artifacts/sidebar-hover/collapsed.jpg)、[悬停浮层](../../../../artifacts/sidebar-hover/preview.jpg)、[移动抽屉](../../../../artifacts/sidebar-hover/mobile.jpg)、[几何记录](../../../../artifacts/sidebar-hover/verification.json)；`artifacts/` 为忽略目录。当前 Demo 运行 PHP 8.1.34 / Laravel 10.50.3，本轮无 PHP 改动，未重跑 PHP/Dusk、`modern:verify` 全链或其他浏览器。宿主无子代理工具，本轮为当前会话自查，未进行独立 Review。
+
+本轮 [Task 已归档](../../../tasks/archived/2026-10-03-001-fix-collapsed-sidebar-hover.md)，稳定行为已回写 [Epic S3](../spec.md#s3-shell-迁移app-navigation)。复用本 Issue 记录，Issue/Epic 保持 open，不毕业到 Project Spec。
 
 > **读者：** 跨会话接手的人——「要做成什么、别碰什么、现状与方案是否还成立、怎么验、关了要回写哪里」。
 

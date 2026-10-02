@@ -1,9 +1,34 @@
 // @ts-expect-error 兼容模块保留 jQuery 的旧调用面。
 import $ from 'jquery';
 // @ts-expect-error 生产 facade 是供旧扩展加载的 JavaScript 入口。
-import { installCompatOverlays } from './compat-overlays';
+import { installCompatOverlays, positionLayerTip } from './compat-overlays';
 
 installCompatOverlays($);
+
+it.each([
+    ['1', 270, 154], ['2', 386, 200], ['3', 270, 246], ['4', 154, 200],
+])('positions layer tips in direction %s relative to the trigger center', (direction, left, top) => {
+    const trigger = document.createElement('button');
+    const tip = document.createElement('div');
+    vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({ left: 300, right: 380, top: 200, bottom: 240, width: 80, height: 40 } as DOMRect);
+    vi.spyOn(tip, 'getBoundingClientRect').mockReturnValue({ width: 140, height: 40 } as DOMRect);
+    positionLayerTip(trigger, tip, direction);
+    expect(tip.style.left).toBe(`${left}px`);
+    expect(tip.style.top).toBe(`${top}px`);
+});
+
+it('flips layer tips near the viewport edge and follows a moved trigger', () => {
+    const trigger = document.createElement('button');
+    const tip = document.createElement('div');
+    let top = 10;
+    vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(() => ({ left: 300, right: 380, top, bottom: top + 40, width: 80, height: 40 }) as DOMRect);
+    vi.spyOn(tip, 'getBoundingClientRect').mockReturnValue({ width: 140, height: 40 } as DOMRect);
+    positionLayerTip(trigger, tip, '1');
+    expect(tip.style.top).toBe('56px');
+    top = 200;
+    positionLayerTip(trigger, tip, '1');
+    expect(tip.style.top).toBe('154px');
+});
 
 beforeEach(() => {
     document.dispatchEvent(new CustomEvent('dcat:pjax:before-replace'));
@@ -32,6 +57,24 @@ it('preserves modal cancellation, focus containment, Escape and focus return', (
     expect(document.body.classList.contains('modal-open')).toBe(false);
     opener.focus();
     expect(document.activeElement).toBe(opener);
+});
+
+it.each(['dcat-modern-image-preview', 'dcat-modern-confirm-dialog'])('lets top-level %s own focus and Escape while preserving the underlying form modal', (dialogClass) => {
+    document.body.innerHTML = '<div id="form" class="modal"><button>Save</button></div>';
+    $('#form').modal('show');
+    const preview = document.createElement('dialog');
+    preview.className = dialogClass;
+    preview.setAttribute('open', '');
+    preview.innerHTML = '<button>Close image preview</button>';
+    document.body.appendChild(preview);
+    const close = preview.querySelector<HTMLButtonElement>('button')!;
+    close.focus();
+    expect(document.activeElement).toBe(close);
+    close.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+    expect(document.querySelector('#form')!.classList.contains('show')).toBe(true);
+    preview.remove();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+    expect(document.querySelector('#form')!.classList.contains('show')).toBe(false);
 });
 
 it('honors tab hide/show cancellation, event order and keyboard activation', () => {

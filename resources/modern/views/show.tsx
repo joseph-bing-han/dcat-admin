@@ -83,7 +83,7 @@ export function readShowModel(owner: HTMLElement, payload: ShowViewPayload | nul
 
 function ShowAction({ action }: { action: ShowActionPayload }) {
     if (action.kind === 'link') {
-        return <Button href={action.url} color="primary" size="sm" aria-label={action.label} data-show-action={action.action}>{action.label}</Button>;
+        return <Button href={action.url} color={action.action === 'list' ? 'secondary' : 'primary'} size="sm" aria-label={action.label} data-show-action={action.action}>{action.label}</Button>;
     }
     const handleDelete = () => {
         const dcat = (window as unknown as { Dcat?: Record<string, any> }).Dcat;
@@ -107,7 +107,7 @@ function ShowAction({ action }: { action: ShowActionPayload }) {
     return (
         <Button
             type="button"
-            color="secondary" size="sm"
+            color={action.action === 'delete' ? 'primary-destructive' : 'secondary'} size="sm"
             aria-label={action.label}
             data-action={action.action}
             data-show-action={action.action}

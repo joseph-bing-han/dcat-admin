@@ -355,8 +355,11 @@ function unmount(root: ParentNode = document): void {
         }
     });
     overlayStore.reset();
-    document.body.classList.remove('dcat-modern-request-enabled');
-    document.body.classList.remove('dcat-modern-active');
+    // 局部卸载（如 PJAX 换页）仍保留外壳，不能让全局样式在新页面挂载前失效。
+    if (root === document || root === document.body || root === document.documentElement) {
+        document.body.classList.remove('dcat-modern-request-enabled');
+        document.body.classList.remove('dcat-modern-active');
+    }
 }
 
 function beforeNavigation(event: Event): void {

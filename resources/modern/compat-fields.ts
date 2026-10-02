@@ -1,9 +1,30 @@
 // 异步旧字段与 HTML 插入只进入兼容产物。
+import { executePageScripts, loadScript } from './navigation';
+
 export const legacyFieldHelpers = {
         async asyncRender(url: string, callback: (html: string) => void) {
             const response = await fetch(url, { credentials: 'same-origin', headers: { 'X-Requested-With': 'XMLHttpRequest' } });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            callback(await response.text());
+            const content = document.createElement('div');
+            content.innerHTML = await response.text();
+            const executable = Array.from(content.querySelectorAll<HTMLScriptElement>('script')).filter((script) =>
+                !script.type || /^(?:text|application)\/(?:java|ecma)script$|^module$/.test(script.type));
+            // jQuery 插入 HTML 时可能先执行初始化脚本，须先按顺序加载外部依赖。
+            for (const script of executable.filter((script) => script.src)) {
+                if (!Array.from(document.scripts).some((existing) => existing.src === script.src)) await loadScript(script);
+                script.remove();
+            }
+            const scripts = document.createElement('div');
+            for (const script of executable.filter((script) => !script.src)) scripts.appendChild(script);
+            callback(content.innerHTML);
+            scripts.hidden = true;
+            document.body.appendChild(scripts);
+            try {
+                await executePageScripts(scripts, () => scripts.isConnected);
+                (window as unknown as { Dcat?: { triggerReady?: () => void } }).Dcat?.triggerReady?.();
+            } finally {
+                scripts.remove();
+            }
         },
         async loadFields(_this: Element, options: {
             group?: string;

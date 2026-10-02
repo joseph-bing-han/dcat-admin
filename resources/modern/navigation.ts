@@ -44,12 +44,13 @@ export function loadScript(source: HTMLScriptElement | string): Promise<void> {
     return loaded;
 }
 
-async function executePageScripts(container: HTMLElement, current: () => boolean): Promise<void> {
+export async function executePageScripts(container: HTMLElement, current: () => boolean): Promise<void> {
     for (const source of Array.from(container.querySelectorAll<HTMLScriptElement>('script'))) {
         if (!current()) return;
         if (source.type && !/^(?:text|application)\/(?:java|ecma)script$|^module$/.test(source.type)) continue;
         if (source.src) {
             await loadScript(source);
+            if (!current()) return;
             source.remove();
         } else {
             const node = document.createElement('script');
