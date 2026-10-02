@@ -111,5 +111,10 @@
     "verifiedCommit": "8cf28129003b876a87497b55c078cdcb8f56f5f6"
   },
   "releasePolicy": "The modern renderer is the package default. The old full-page renderer, renderer switch and Bootstrap/AdminLTE implementation are removed; no old renderer fallback is part of this goal. Current PHP 8.1.34 / Laravel 10.50.3 local review-fix gates passed, including modern:verify, focused PHP tests, static checks, build and artifact budget. Capabilities remain experimental until a separately authorized verified commit promotion; this status is not release-candidate. Historical Demo and browser evidence remains indexed separately from the required local gates. Reflow evidence is a half-width CSS viewport proxy, not native browser UI zoom or human screen-reader output. Publishing, capability promotion and push remain separate authorized actions. Composer audit reports three Laravel 10.50.3 advisories; resolver blocking remains disabled per maintainer request.",
-  "githubAutomation": "removed-by-maintainer-request-2026-09-26"
+  "githubAutomation": "removed-by-maintainer-request-2026-09-26",
+  "sizePolicy": {
+    "mode": "observation-only",
+    "updated": "2026-10-02",
+    "reason": "Maintainer removed all file size limits; historical budget evidence is not a release condition."
+  }
 }

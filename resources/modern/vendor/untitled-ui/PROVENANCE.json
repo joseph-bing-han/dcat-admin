@@ -6,11 +6,15 @@
   "license": "MIT",
   "copyright": "Copyright (c) 2025 Untitled UI",
   "selectedSources": [
+    "components/application/app-navigation/base-components/nav-item.tsx",
+    "components/application/app-navigation/base-components/nav-list.tsx",
+    "components/application/app-navigation/config.ts",
     "components/application/date-picker/calendar.tsx",
     "components/application/date-picker/cell.tsx",
     "components/application/date-picker/date-picker.tsx",
     "components/application/date-picker/date-range-picker.tsx",
     "components/application/date-picker/range-calendar.tsx",
+    "components/application/empty-state/empty-state.tsx",
     "components/application/loading-indicator/loading-indicator.tsx",
     "components/application/modals/modal.tsx",
     "components/application/pagination/pagination-base.tsx",
@@ -80,6 +84,21 @@
   "vendoredTo": "resources/modern/ui/",
   "files": [
     {
+      "path": "components/application/app-navigation/base-components/nav-item.tsx",
+      "bytes": 4106,
+      "sha256": "30f9ca861a440d5724880476428952afa8e7277dbb9dcf8c34f90d07e5919bc2"
+    },
+    {
+      "path": "components/application/app-navigation/base-components/nav-list.tsx",
+      "bytes": 2843,
+      "sha256": "68cfcd74fc1c267bc23cc761491a74c40af8df869b39447515e5f4b6af692755"
+    },
+    {
+      "path": "components/application/app-navigation/config.ts",
+      "bytes": 769,
+      "sha256": "b83709e53830d685073bd4fd319ed236ec32d4eebe0ef4f02e6262e31f48264c"
+    },
+    {
       "path": "components/application/date-picker/calendar.tsx",
       "bytes": 5047,
       "sha256": "9bd9d085340852c96810986db96bfa7862d4e2a90a7613efd50a576da22da8a8"
@@ -103,6 +122,13 @@
       "path": "components/application/date-picker/range-calendar.tsx",
       "bytes": 9267,
       "sha256": "f1cd37b25c43c3bfb542dd7aa9e52440f6732dceb5dd4abc89f9b7f86a1af362"
+    },
+    {
+      "path": "components/application/empty-state/empty-state.tsx",
+      "bytes": 2038,
+      "sha256": "78bd5b6e5e55b90cdcf7ac09a6192aa8420fea83c738884f6519030199be8737",
+      "upstreamSha256": "7ca8e4f7d4bda8edc04b8eefe9a45864271ea826d3bfd063c59286f7870763a9",
+      "patch": "empty-state-core"
     },
     {
       "path": "components/application/loading-indicator/loading-indicator.tsx",
@@ -425,8 +451,8 @@
       "sha256": "2f24cf5e7c8cc9b8bb16750a59fbe58db32fc11c09d3b4d57288b15b31a98541"
     }
   ],
-  "fileCount": 69,
-  "totalBytes": 403842,
+  "fileCount": 73,
+  "totalBytes": 413598,
   "exclusions": [
     {
       "pattern": "components/application/carousel",
@@ -434,19 +460,39 @@
     },
     {
       "pattern": "components/application/charts",
-      "reason": "需要 recharts；会顶穿体积预算，后台图表不在本 Epic 范围"
-    },
-    {
-      "pattern": "components/application/empty-state",
-      "reason": "需要 @untitledui/file-icons；S4 决定 Grid 空态是否引入该依赖后再纳入"
+      "reason": "需要 recharts；后台图表不在本 Epic 范围"
     },
     {
       "pattern": "components/application/file-upload",
       "reason": "需要 motion/react 与 @untitledui/file-icons；后台上传走 compat island（webuploader）"
     },
     {
-      "pattern": "components/application/app-navigation",
-      "reason": "S3 处理 shell 时按需纳入；sidebar-simple 依赖上游品牌 logo，需先设计替换方案"
+      "pattern": "components/application/app-navigation/base-components/featured-cards",
+      "reason": "营销示例卡，只出现在上游 demo 中"
+    },
+    {
+      "pattern": "components/application/app-navigation/base-components/mobile-header",
+      "reason": "依赖上游品牌 logo（UntitledLogo）与 react-aria Modal/Dialog；Dcat 移动端继续用 sidebar-open 抽屉"
+    },
+    {
+      "pattern": "components/application/app-navigation/base-components/nav-account-card",
+      "reason": "依赖 motion/react、@react-types/overlays 与未 vendor 的 dropdown-account-button；Dcat 用户区由 navbar-user-panel.blade.php 渲染"
+    },
+    {
+      "pattern": "components/application/app-navigation/base-components/nav-button",
+      "reason": "仅 sidebar-slim/dual-tier 变体使用；本后台外壳不用 slim 变体"
+    },
+    {
+      "pattern": "components/application/app-navigation/header-navigation.tsx",
+      "reason": "应用级顶栏模式；Dcat 顶栏是冻结的 in-place 锚点（php-static 禁止 React 化），只借用外壳结构"
+    },
+    {
+      "pattern": "components/application/app-navigation/sidebar-navigation-base.tsx",
+      "reason": "barrel，重新导出上面被排除的文件"
+    },
+    {
+      "pattern": "components/application/app-navigation/sidebar-navigation/",
+      "reason": "sidebar-simple/slim/dual-tier/sections 变体依赖上游品牌 logo、motion 或 dropdown-account-button，且自带 280px 固定宽度与自有折叠模型；Dcat 需保留 260px、5.4rem 折叠与水平菜单"
     },
     {
       "pattern": "components/base/buttons/app-store-buttons",

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tabs } from '../components';
+import { Button, Tabs } from '../presentation';
+import { Input, Textarea, Select, Choice } from '../controls';
 import { directFallback, LegacyNodesIsland, meaningfulNodes, safeStructuralProps } from '../dom';
 
 export interface FormControlOptionPayload {
@@ -483,7 +484,7 @@ function NativeRangeControl({ control, describedBy, invalid }: { control: FormCo
                     ? (bounded && values.end ? { max: values.end } : {})
                     : (bounded && values.start ? { min: values.start } : {});
                 return (
-                    <input
+                    <Input
                         {...props}
                         {...limit}
                         key={input.key}
@@ -527,7 +528,7 @@ function NativeDualListControl({ control, describedBy, invalid }: { control: For
         <div id={control.id} className="dcat-modern-form-dual-list" data-dcat-modern-native-control="dual-list">
             <input type="hidden" name={`${control.name}[]`} value="" />
             {chosen.map((option) => <input key={option.value} type="hidden" name={`${control.name}[]`} value={option.value} />)}
-            <select
+            <Select
                 id={`${control.id}-available`}
                 className="form-control"
                 multiple
@@ -539,12 +540,12 @@ function NativeDualListControl({ control, describedBy, invalid }: { control: For
                 onChange={(event) => setAvailableChoice(collect(event.currentTarget))}
             >
                 {available.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-            </select>
+            </Select>
             <div className="dcat-modern-form-dual-list-actions">
-                <button type="button" className="btn btn-primary" onClick={add} disabled={!availableChoice.size} aria-label="Add selected options">→</button>
-                <button type="button" className="btn btn-secondary" onClick={remove} disabled={!selectedChoice.size} aria-label="Remove selected options">←</button>
+                <Button type="button" tone="primary" onPress={add} disabled={!availableChoice.size} aria-label="Add selected options">→</Button>
+                <Button type="button" tone="secondary" onPress={remove} disabled={!selectedChoice.size} aria-label="Remove selected options">←</Button>
             </div>
-            <select
+            <Select
                 id={`${control.id}-selected`}
                 className="form-control"
                 multiple
@@ -556,7 +557,7 @@ function NativeDualListControl({ control, describedBy, invalid }: { control: For
                 onChange={(event) => setSelectedChoice(collect(event.currentTarget))}
             >
                 {chosen.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-            </select>
+            </Select>
         </div>
     );
 }
@@ -604,7 +605,7 @@ function NativeControl({ control, describedBy, invalid, labelledBy }: { control:
         return <input {...shared as React.InputHTMLAttributes<HTMLInputElement>} {...marker} id={control.id} type="hidden" name={control.name} defaultValue={String(value)} />;
     }
     if (control.kind === 'textarea') {
-        return <textarea {...shared as React.TextareaHTMLAttributes<HTMLTextAreaElement>} {...marker} id={control.id} name={control.name} className={control.className} placeholder={control.placeholder} defaultValue={String(value)} />;
+        return <Textarea {...shared as React.TextareaHTMLAttributes<HTMLTextAreaElement>} {...marker} id={control.id} name={control.name} className={control.className} placeholder={control.placeholder} defaultValue={String(value)} />;
     }
     if (control.kind === 'display') {
         return <div {...marker} id={control.id} className={control.className}>{String(value)}</div>;
@@ -618,7 +619,7 @@ function NativeControl({ control, describedBy, invalid, labelledBy }: { control:
         return (
             <>
                 {control.multiple ? <input type="hidden" name={name} value="" /> : null}
-                <select
+                <Select
                     {...shared as React.SelectHTMLAttributes<HTMLSelectElement>}
                     {...marker}
                     id={control.id}
@@ -635,7 +636,7 @@ function NativeControl({ control, describedBy, invalid, labelledBy }: { control:
                             </optgroup>
                         ))
                         : control.options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                </select>
+                </Select>
             </>
         );
     }
@@ -655,17 +656,12 @@ function NativeControl({ control, describedBy, invalid, labelledBy }: { control:
                 {control.options.map((option, index) => {
                     const optionId = `${control.id}-${index}`;
                     return (
-                        <label key={option.value} className="dcat-modern-form-option" htmlFor={optionId}>
-                            <input
-                                {...shared as React.InputHTMLAttributes<HTMLInputElement>}
-                                id={optionId}
-                                type={control.kind}
-                                name={name}
-                                value={option.value}
-                                defaultChecked={checked.has(option.value)}
-                            />
-                            <span>{option.label}</span>
-                        </label>
+                        <Choice key={option.value}
+                            {...shared as React.InputHTMLAttributes<HTMLInputElement>}
+                            id={optionId} kind={control.kind === 'radio' ? 'radio' : 'checkbox'} name={name} value={option.value}
+                            defaultChecked={checked.has(option.value)} label={option.label}
+                            className="dcat-modern-form-option"
+                        />
                     );
                 })}
             </div>
@@ -676,11 +672,11 @@ function NativeControl({ control, describedBy, invalid, labelledBy }: { control:
         return (
             <span className="dcat-modern-form-switch" {...marker}>
                 <input type="hidden" name={control.name} value="0" />
-                <input {...shared as React.InputHTMLAttributes<HTMLInputElement>} id={control.id} type="checkbox" name={control.name} value="1" defaultChecked={checked} />
+                <Choice {...shared as React.InputHTMLAttributes<HTMLInputElement>} id={control.id} kind="switch" name={control.name} value="1" defaultChecked={checked} aria-labelledby={labelledBy} />
             </span>
         );
     }
-    const input = <input {...shared as React.InputHTMLAttributes<HTMLInputElement>} {...marker} id={control.id} type={control.type || 'text'} name={control.name} className={control.className} placeholder={control.placeholder} defaultValue={String(value)} />;
+    const input = <Input {...shared as React.InputHTMLAttributes<HTMLInputElement>} {...marker} id={control.id} type={control.type || 'text'} name={control.name} className={control.className} placeholder={control.placeholder} defaultValue={String(value)} />;
     return <AffixedControl control={control}>{input}</AffixedControl>;
 }
 

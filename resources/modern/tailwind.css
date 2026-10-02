@@ -14,7 +14,23 @@
 @source not "./**/*.test.ts";
 @source not "./**/*.test.tsx";
 
-@theme {
+/*
+ * 外壳 Blade 模板（Epic 002 / S3）。
+ *
+ * S1 的约定是只扫描 resources/modern/**，避免 Blade/Demo/vendor 造成 CSS 膨胀；
+ * shell 的 Tailwind 类写在 Blade 里（php-static 要求这些锚点保持在 Blade），不扫描就不会生成，
+ * 因此这里把范围限定在外壳的少数模板，并复测体积。业务页面与 compat island 仍不扫描。
+ */
+@source "../views/layouts/container.blade.php";
+@source "../views/layouts/content.blade.php";
+@source "../views/layouts/full-page.blade.php";
+@source "../views/partials/sidebar.blade.php";
+@source "../views/partials/navbar.blade.php";
+@source "../views/partials/breadcrumb.blade.php";
+@source "../views/partials/navbar-user-panel.blade.php";
+@source "../views/partials/sidebar-user-panel.blade.php";
+
+@theme static {
     /* Dcat 字体栈：规范要求不外链字体，并保留 CJK 回退。 */
     --font-body: Inter, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
     --font-display: Inter, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
@@ -84,4 +100,14 @@
     --color-fg-info-primary: rgb(23 92 211);
     --color-bg-info-primary: rgb(239 248 255);
     --color-bg-info-solid: rgb(23 92 211);
+    /* Dcat 的控件尺寸与层级扩展；其它旧变量仅作这些主题值的兼容别名。 */
+    --radius-none: 0;
+    --spacing-control: 2.5rem;
+    --spacing-control-compact: 2rem;
+    --spacing-control-touch: 2.75rem;
+    --z-index-sticky: 1050;
+    --z-index-overlay: 1055;
+    --z-index-toast: 1060;
+    --color-dcat-overlay: color-mix(in srgb, var(--color-neutral-900) 45%, transparent);
+    --shadow-dcat-focus: 0 0 0 2px color-mix(in srgb, var(--color-brand-600) 35%, transparent);
 }

@@ -9,7 +9,6 @@ const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'resources/dist/modern');
 const manifestPath = path.join(dist, 'manifest.json');
 const noticesPath = path.join(dist, 'THIRD_PARTY_NOTICES.txt');
-const budget = JSON.parse(fs.readFileSync(path.join(root, 'codestable/epics/001-x-view-layer-modernization/m0/performance-budget.json'), 'utf8'));
 const errors = [];
 
 if (!fs.existsSync(manifestPath)) {
@@ -39,20 +38,11 @@ const hashPattern = /-[A-Za-z0-9_-]{8,}\.(?:js|css)$/;
     if (!fs.existsSync(path.join(dist, file))) fail(`Manifest asset is missing: ${file}`);
 });
 
+const jsRaw = sumRaw(jsFiles);
+const cssRaw = sumRaw(cssFiles);
 const jsGzip = sumGzip(jsFiles);
 const cssGzip = sumGzip(cssFiles);
 const totalGzip = jsGzip + cssGzip;
-const modernBudget = budget.modernBudgets.firstModernPage;
-
-if (jsGzip > modernBudget.initialJsGzipBytesMax) {
-    fail(`Modern JS gzip budget exceeded: ${jsGzip} > ${modernBudget.initialJsGzipBytesMax}`);
-}
-if (cssGzip > modernBudget.initialCssGzipBytesMax) {
-    fail(`Modern CSS gzip budget exceeded: ${cssGzip} > ${modernBudget.initialCssGzipBytesMax}`);
-}
-if (totalGzip > modernBudget.initialTotalGzipBytesMax) {
-    fail(`Modern total gzip budget exceeded: ${totalGzip} > ${modernBudget.initialTotalGzipBytesMax}`);
-}
 
 const js = jsFiles.map((file) => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
 if (/\bimport\s*\(/.test(js)) fail('IIFE output contains dynamic import().');
@@ -139,6 +129,10 @@ function verifyScopedCss(file) {
     });
 }
 
+function sumRaw(files) {
+    return files.reduce((total, file) => total + fs.statSync(path.join(dist, file)).size, 0);
+}
+
 function sumGzip(files) {
     return files.reduce((total, file) => total + zlib.gzipSync(fs.readFileSync(path.join(dist, file)), { level: 9 }).length, 0);
 }
@@ -161,5 +155,5 @@ function finish() {
         errors.forEach((error) => console.error(`- ${error}`));
         process.exit(1);
     }
-    console.log(`Modern artifact OK: IIFE JS ${jsGzip} gzip bytes, CSS ${cssGzip} gzip bytes, total ${totalGzip} gzip bytes.`);
+    console.log(`Modern artifact OK: IIFE JS ${jsRaw} raw / ${jsGzip} gzip bytes, CSS ${cssRaw} raw / ${cssGzip} gzip bytes, total ${jsRaw + cssRaw} raw / ${totalGzip} gzip bytes (observation only).`);
 }

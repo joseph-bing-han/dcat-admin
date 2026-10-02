@@ -128,7 +128,7 @@ scope: native View, Dcat compat islands, PHP Controller and HTTP contracts; excl
 
 - Vite 输出使用内容哈希、独立 manifest 和可预测入口。manifest 缺失、条目缺失或完整性失败时选择新版 compat shell/error surface，不得选择 legacy renderer。
 - M1 必须在两种互斥拓扑中冻结一种：单入口 IIFE 时禁止 dynamic import/code splitting；ESM 入口时使用 `type="module"` 和 manifest 依赖图。非支持浏览器显示明确的不支持状态，不提供旧版 View 回退。
-- 选择 ESM 时，dynamic import 的 chunk 基址、资源发布子目录、CDN/asset URL、模块加载失败和缓存失效必须有集成测试；选择 IIFE 时必须验证单包体积预算和按页面装载策略。
+- 选择 ESM 时，dynamic import 的 chunk 基址、资源发布子目录、CDN/asset URL、模块加载失败和缓存失效必须有集成测试；选择 IIFE 时必须记录单包实际体积并验证按页面装载策略。
 - **样式实现（`5.0.0` 起）：** 使用 Tailwind CSS v4，令牌唯一来源是 `@theme`（含 vendor 的上游语义层）；`tokens.json` 生成链不再作为令牌权威。构建接入必须满足：
   - 内容探测必须显式限定（`@import "tailwindcss" source(none)` + 作用域内的 `@source`），禁止扫描 Blade、Demo、vendor 或发布产物目录。
   - Tailwind preflight **允许全局生效**；由此产生的 compat island 回归必须由集中维护的补偿层处理，禁止散落到业务页面或单个插件样式表。
@@ -148,9 +148,9 @@ scope: native View, Dcat compat islands, PHP Controller and HTTP contracts; excl
 - 只允许 MIT 开源部分。PRO 组件、PRO 页面示例与其源码一律不得进入仓库、构建产物或文档引用。
 - 本地对上游文件的修改必须可识别（保持上游文件形状，改动处标注），以便按 commit diff 升级。
 - 业务代码不得直接复制上游源码片段绕过 vendor 层。
-- 依赖预算：新增运行时依赖必须逐项登记；体积门禁按实测冻结并逐批守住。
+- 依赖登记：新增运行时依赖必须逐项登记；按用户 2026-10-02 决定，体积仅作观测，不设任何文件大小限制。
 
-验证：provenance 门禁（本仓库内每个 vendor 文件对应一条记录）、发布产物中不含 PRO 标识、体积预算门禁，以及 preflight 影响门禁。
+验证：provenance 门禁（本仓库内每个 vendor 文件对应一条记录）、发布产物中不含 PRO 标识、体积观测，以及 preflight 影响门禁。
 
 ## C4 布局、交互与用户经验契约
 

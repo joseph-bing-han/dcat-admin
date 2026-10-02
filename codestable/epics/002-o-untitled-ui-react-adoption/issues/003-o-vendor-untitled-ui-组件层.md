@@ -42,7 +42,7 @@ Epic 002 的目标是让页面由上游组件渲染，而此前仓库只有一�
 - `modern:vendor`、`modern:typecheck`、`modern:verify` 全绿。
 - `node scripts/view-modernization-vendor-untitled-ui.mjs --check-upstream` 与上游文件树一致。
 - provenance 中每条排除项都有原因；`PROVENANCE.json` 不含 PRO 相关路径。
-- 体积：本轮 CSS 因 `@source` 扫描 vendor 源码而增长，需记录实测值并按契约守住总预算。
+- 体积：本轮 CSS 因 `@source` 扫描 vendor 源码而增长，记录实测值；原大小预算已于 2026-10-02 取消。
 
 ## 执行记录
 

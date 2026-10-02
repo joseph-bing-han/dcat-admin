@@ -1,12 +1,13 @@
 @if($user)
 <li class="dropdown dropdown-user nav-item">
     <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"{!! Dcat\Admin\Admin::modern()->available('layout') && Dcat\Admin\Admin::modern()->capabilityEnabled('layout.navbar') ? ' data-dcat-modern-owned-toggle="1"' : '' !!}>
-        <div class="user-nav d-sm-flex d-none">
-            <span class="user-name text-bold-600">{{ $user->name }}</span>
+        {{-- Epic 002 / S3：Bootstrap 工具类换成 Tailwind；`dropdown-toggle` / `dropdown-menu` 等由 compat dropdown 驱动，保留。 --}}
+        <div class="user-nav hidden min-[576px]:flex">
+            <span class="user-name font-semibold">{{ $user->name }}</span>
             <span class="user-status"><i class="fa fa-circle text-success"></i> {{ trans('admin.online') }}</span>
         </div>
         <span>
-            <img class="round" src="{{ $user->getAvatar() }}" alt="avatar" height="40" width="40" />
+            <img class="round size-10 rounded-full object-cover" src="{{ $user->getAvatar() }}" alt="avatar" height="40" width="40" />
         </span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">

@@ -10,19 +10,28 @@ it('opens nested groups independently when added menus reuse database IDs', () =
     const root = createRoot(container);
     const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
     try {
+        // 垂直侧栏由上游 app-navigation 行组件渲染：分组是 <details>/<summary>，叶子是 <a>。
         act(() => root.render(<LayoutMenuView payload={{ horizontal: false, defaultIcon: '', items: [group('Admin', [leaf('Users')]), group('Forms', [group('Layouts', [leaf('Columns')])])] }} />));
-        const toggles = container.querySelectorAll<HTMLAnchorElement>('a[aria-expanded]');
+        const groups = Array.from(container.querySelectorAll<HTMLDetailsElement>('details'));
+        const toggles = Array.from(container.querySelectorAll<HTMLElement>('summary'));
+        expect(groups).toHaveLength(3);
+        expect(toggles).toHaveLength(3);
+        // 菜单项 id 仍保留在 DOM 上（标记契约），且行组件来自上游 NavItemBase。
+        expect(container.querySelectorAll<HTMLElement>('li[data-dcat-menu-group="1"]')).toHaveLength(3);
+        expect(container.querySelectorAll<HTMLElement>('li[data-dcat-menu-leaf="1"]')).toHaveLength(2);
+        expect(groups.every((element) => element.closest('.nav-sidebar') !== null)).toBe(true);
         const locationBefore = location.href;
         act(() => toggles[1].click());
-        expect(toggles[0].getAttribute('aria-expanded')).toBe('false');
-        expect(toggles[1].getAttribute('aria-expanded')).toBe('true');
-        const nested = container.querySelector<HTMLAnchorElement>('.nav-treeview a[aria-expanded]')!;
-        act(() => nested.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true })));
-        expect(nested.getAttribute('aria-expanded')).toBe('true');
+        expect(groups[1].open).toBe(true);
+        expect(groups[0].open).toBe(false);
+        const nestedGroup = groups[2];
+        const nestedToggle = nestedGroup.querySelector<HTMLElement>('summary')!;
+        act(() => nestedToggle.click());
+        expect(nestedGroup.open).toBe(true);
         expect(container.querySelector('a[href="/admin/Columns"]')).not.toBeNull();
         expect(location.href).toBe(locationBefore);
         act(() => toggles[1].click());
-        expect(container.querySelector('a[href="/admin/Columns"]')).toBeNull();
+        expect(groups[1].open).toBe(false);
         expect(errors).not.toHaveBeenCalled();
     } finally {
         act(() => root.unmount());

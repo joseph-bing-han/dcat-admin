@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Panel } from '../components';
+import { Button, Card, Panel } from '../presentation';
+import { ProgressBarBase } from '../ui/components/base/progress-indicators/progress-indicators';
 import { directFallback, LegacyNodesIsland, safeElementProps } from '../dom';
 
 export interface WidgetViewPayload {
@@ -40,6 +41,8 @@ export function readWidgetModel(owner: HTMLElement, payload: WidgetViewPayload):
         surfaceProps: safeElementProps(fallback),
     };
 }
+
+const progressColors: Record<string, string> = { success: 'bg-fg-success-primary', warning: 'bg-fg-warning-primary', danger: 'bg-fg-error-primary', info: 'bg-fg-brand-primary' };
 
 function Slot({ node, kind }: { node?: HTMLElement; kind: string }) {
     return node ? <LegacyNodesIsland nodes={[node]} kind={kind} /> : null;
@@ -82,9 +85,7 @@ export function WidgetView({ model }: { model: WidgetModel }) {
                         </div>
                         {payload.description ? <p className="dcat-modern-widget__description">{payload.description}</p> : null}
                         {payload.progress ? (
-                            <div className="dcat-modern-data-card__progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progressPercent} aria-label={payload.title || 'Progress'}>
-                                <span className={`dcat-modern-data-card__progress-bar dcat-modern-data-card__progress-bar--${payload.progress.style || 'primary'}`} style={{ width: `${progressPercent}%` }} />
-                            </div>
+                            <div ref={(node) => node?.querySelector('[role="progressbar"]')?.setAttribute('aria-label', payload.title || 'Progress')}><ProgressBarBase value={progressPercent} className="dcat-modern-data-card__progress" progressClassName={`dcat-modern-data-card__progress-bar--${payload.progress.style || 'primary'} ${progressColors[payload.progress.style] || 'bg-fg-brand-primary'}`} /></div>
                         ) : null}
                     </div>
                 )}
@@ -100,10 +101,10 @@ export function WidgetView({ model }: { model: WidgetModel }) {
                     {hasTools ? (
                         <div className="dcat-modern-widget__tools">
                             {payload.nativeTools?.collapse ? (
-                                <button type="button" className="dcat-modern-widget__tool" aria-label={collapsed ? 'Expand widget' : 'Collapse widget'} title={collapsed ? 'Expand widget' : 'Collapse widget'} aria-expanded={!collapsed} onClick={() => setCollapsed((value) => !value)}>{collapsed ? '+' : '−'}</button>
+                                <Button tone="tertiary" className="dcat-modern-widget__tool" aria-label={collapsed ? 'Expand widget' : 'Collapse widget'} title={collapsed ? 'Expand widget' : 'Collapse widget'} aria-expanded={!collapsed} onPress={() => setCollapsed((value) => !value)}>{collapsed ? '+' : '−'}</Button>
                             ) : null}
                             {payload.nativeTools?.remove ? (
-                                <button type="button" className="dcat-modern-widget__tool" aria-label="Remove widget" title="Remove widget" onClick={() => setRemoved(true)}>×</button>
+                                <Button tone="tertiary" className="dcat-modern-widget__tool" aria-label="Remove widget" title="Remove widget" onPress={() => setRemoved(true)}>×</Button>
                             ) : null}
                             {model.tools ? <Slot node={model.tools} kind="widget-tools" /> : null}
                         </div>

@@ -86,6 +86,7 @@ describe('Widget modern view', () => {
         expect(dataCard.textContent).toContain('Ready');
         expect(dataCard.querySelector('[data-dcat-modern-legacy-island]')).toBeNull();
         expect(dataCard.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('75');
+        expect(dataCard.querySelector('[role="progressbar"]')?.getAttribute('aria-label')).toBe('Revenue');
         expect(dataCard.querySelector('.dcat-modern-data-card__progress-bar--warning')).not.toBeNull();
         await act(async () => root.unmount());
         owner.remove();

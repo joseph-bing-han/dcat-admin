@@ -1,23 +1,7 @@
-# 本地对 vendor 源码的改动
+# 本地上游裁剪
 
-本目录是 Untitled UI React 开源组件源码（上游 revision 见 `../vendor/untitled-ui/PROVENANCE.json`）。
-文件按上游路径镜像，**默认保持原样**，以便未来按 commit diff 升级。
+## empty-state-core
 
-约束（`compatibility-contract.md` 5.0.0「组件来源与 provenance」）：
+来源：Untitled UI React OSS 固定 revision `c981a73bcd6b6c68d2a54070f20f020191212828` 的 `components/application/empty-state/empty-state.tsx`。
 
-- 任何本地改动都必须在本文件登记：文件、原因、改动摘要、以及是否可回填上游。
-- 改动后必须运行 `node scripts/view-modernization-vendor-untitled-ui.mjs` 更新 sha256；
-  但请把改动**写在适配层而不是原地改上游文件**，除非确无替代方案。
-
-## 当前登记
-
-（暂无）
-
-## 已知需要在后续切片处理的适配点
-
-| 位置 | 问题 | 处理方向 |
-|---|---|---|
-| `components/application/app-navigation/sidebar-navigation/sidebar-simple.tsx` | 引用上游品牌 logo `@/components/foundations/logo/untitledui-logo` | S3 纳入 shell 时改为可注入的品牌插槽，不 vendor 上游 logo |
-| `components/application/app-navigation/base-components/nav-account-card.tsx` | 引用 `@/hooks/use-breakpoint` 与 `@react-types/overlays` | S3 按需纳入，并补上缺失的 hook 或改为 Dcat 自有实现 |
-| `components/application/empty-state/empty-state.tsx` | 依赖 `@untitledui/file-icons` | S4 决定是否引入该依赖 |
-| `components/application/file-upload/draggable.tsx` | 依赖 `motion/react` 与 `@untitledui/file-icons` | 后台上传走 compat island，暂不纳入 |
+保留 Root、FeaturedIcon、Footer、Title、Description 原实现；删除依赖文件图标与营销插画的 Header/Illustration/FileTypeIcon/Avatar 装饰导出。Title 改用 h2，避免后台页内空态成为第二个 h1。未修改选择、动作或数据协议。上游与本地 SHA-256 同时记录在 PROVENANCE，vendor 工具的 `applyLocalPatches` 可重现此裁剪。

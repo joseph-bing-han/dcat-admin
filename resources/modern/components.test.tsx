@@ -2,7 +2,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { act } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { Alert, Button, Card, computeFloatingPosition, DropdownMenu, ErrorState, Input, MenuItem, Panel, Popover, Switch, Tabs, Textarea } from './components';
+import { Alert, Button, Card, DropdownMenu, ErrorState, Input, MenuItem, Panel, Popover, Switch, Tabs, Textarea } from './presentation';
+import { computeFloatingPosition } from './components';
 
 describe('modern primitives', () => {
     it('renders accessible disabled/loading button semantics', async () => {
@@ -127,13 +128,17 @@ describe('modern primitives', () => {
             </DropdownMenu>,
         ));
         const trigger = host.querySelector<HTMLButtonElement>('[aria-haspopup="menu"]')!;
-        await act(async () => trigger.click());
-        const first = host.querySelector<HTMLButtonElement>('[role="menuitem"]')!;
-        expect(document.activeElement).toBe(first);
+        await act(async () => { trigger.focus(); trigger.click(); });
+        await act(async () => new Promise((resolve) => setTimeout(resolve, 40)));
+        const first = document.querySelector<HTMLButtonElement>('[role="menuitem"]')!;
+        // 上游 Menu 在虚拟焦点模式下聚焦菜单容器，并标记当前项目。
+        expect(document.querySelector('[role="menu"]')?.contains(document.activeElement)).toBe(true);
+        expect(first.hasAttribute('data-focused')).toBe(true);
         await act(async () => {
             first.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
         });
-        expect(host.querySelector('[role="menu"]')).toBeNull();
+        expect(document.querySelector('[role="menu"]')).toBeNull();
+        await act(async () => new Promise((resolve) => setTimeout(resolve, 40)));
         expect(document.activeElement).toBe(trigger);
         await act(async () => root.unmount());
         host.remove();
@@ -145,19 +150,25 @@ describe('modern primitives', () => {
         const root = createRoot(host);
         await act(async () => root.render(<Popover label="Details"><button type="button">Inside</button></Popover>));
         const trigger = host.querySelector<HTMLButtonElement>('[aria-haspopup="dialog"]')!;
-        await act(async () => trigger.click());
-        const panel = host.querySelector<HTMLElement>('[role="dialog"]')!;
+        await act(async () => { trigger.focus(); trigger.click(); });
+        await act(async () => new Promise((resolve) => setTimeout(resolve, 40)));
+        const panel = document.querySelector<HTMLElement>('[role="dialog"]')!;
         await act(async () => {
             panel.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
         });
-        expect(host.querySelector('[role="dialog"]')).toBeNull();
+        expect(document.querySelector('[role="dialog"]')).toBeNull();
+        await act(async () => new Promise((resolve) => setTimeout(resolve, 40)));
         expect(document.activeElement).toBe(trigger);
 
-        await act(async () => trigger.click());
+        await act(async () => { trigger.focus(); trigger.click(); });
+        await act(async () => new Promise((resolve) => setTimeout(resolve, 40)));
         await act(async () => {
+            document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse', button: 0 }));
             document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+            document.body.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+            document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));
         });
-        expect(host.querySelector('[role="dialog"]')).toBeNull();
+        expect(document.querySelector('[role="dialog"]')).toBeNull();
         await act(async () => root.unmount());
         host.remove();
     });

@@ -5,6 +5,37 @@ import { describe, expect, it, vi } from 'vitest';
 import { GridView, readGridModel, type GridViewPayload } from './grid';
 
 describe('Grid modern view', () => {
+    it('preserves complex headers, expanded rows and quick-create node identity', async () => {
+        const owner = document.createElement('div');
+        owner.innerHTML = '<div data-dcat-modern-fallback><table><tbody data-dcat-modern-slot="grid-quick-create"><tr><td colspan="2"><input name="quick[name]" value="draft"></td></tr></tbody></table></div>';
+        document.body.appendChild(owner);
+        const quickRow = owner.querySelector('tr')!;
+        const quickInput = owner.querySelector('input')!;
+        const model = readGridModel(owner, {
+            tableId: 'complex-grid', empty: false, hasQuickCreate: true,
+            columns: [{ name: 'id', label: 'ID', serverType: 'text' }, { name: 'details', label: 'Details', serverType: 'expand' }],
+            complexHeaders: [{ label: 'Grouped columns', columns: ['id', 'details'], attributes: { colspan: 2, scope: 'colgroup' } }],
+            fixedColumns: { left: ['id'] },
+            rows: [{ key: '1', index: 0, cells: [{ kind: 'text', text: '1' }, { kind: 'expand', button: 'Expand', content: 'Expanded content', rowKey: '1', dataKey: 'details-1' }] }],
+        });
+        const host = document.createElement('div');
+        owner.appendChild(host);
+        const root = createRoot(host);
+        await act(async () => root.render(<GridView model={model} />));
+        expect(host.querySelector('thead tr:first-child th')?.getAttribute('colspan')).toBe('2');
+        expect(host.querySelector('thead tr:first-child th')?.getAttribute('scope')).toBe('colgroup');
+        expect(host.querySelector('.dcat-modern-grid-quick-create tr')).toBe(quickRow);
+        expect(host.querySelector('input')).toBe(quickInput);
+        expect(host.querySelector('thead tr:last-child th')?.classList.contains('dcat-modern-grid-fixed--left')).toBe(true);
+        await act(async () => host.querySelector<HTMLButtonElement>('[data-key="details-1"]')!.click());
+        expect(host.querySelector('[data-expand-row="details-1"] td')?.getAttribute('colspan')).toBe('2');
+        expect(host.querySelector('[data-expand-row="details-1"]')?.textContent).toBe('Expanded content');
+        await act(async () => root.unmount());
+        expect(owner.querySelector('[data-dcat-modern-slot="grid-quick-create"] tr')).toBe(quickRow);
+        expect(owner.querySelector('input')).toBe(quickInput);
+        owner.remove();
+    });
+
     it('preserves table identity, links, pagination and transports complex cells', async () => {
         const source = document.createElement('div');
         source.innerHTML = `

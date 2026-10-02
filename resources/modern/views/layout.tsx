@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ShellMenu, type ShellMenuPayload } from '../shell/menu';
 
 export interface LayoutMenuItem {
     id: string;
@@ -27,13 +28,17 @@ export interface LayoutHeaderPayload {
     }>;
 }
 
-function MenuItem({ item, horizontal, defaultIcon, depth = 0 }: { item: LayoutMenuItem; horizontal: boolean; defaultIcon: string; depth?: number }) {
+/*
+ * 水平菜单行。垂直侧栏已迁到 `shell/menu.tsx`（上游 app-navigation 行组件），
+ * 这里只保留 horizontal_menu 使用的 dropdown 结构：上游没有水平变体，
+ * 且 AdminLTE 的 `.navbar-horizontal` / `.dropdown-menu` 定位依赖它。
+ */
+function HorizontalMenuItem({ item, defaultIcon, depth = 0 }: { item: LayoutMenuItem; defaultIcon: string; depth?: number }) {
     const hasChildren = item.children.length > 0;
     const [open, setOpen] = useState(item.active);
     const icon = item.icon || defaultIcon;
     const itemClass = [
-        horizontal && hasChildren ? 'dropdown' : '',
-        !horizontal && hasChildren ? 'has-treeview' : '',
+        hasChildren ? 'dropdown' : '',
         depth > 0 && hasChildren ? 'dropdown-submenu' : '',
         'nav-item',
         open ? 'menu-open' : '',
@@ -52,8 +57,8 @@ function MenuItem({ item, horizontal, defaultIcon, depth = 0 }: { item: LayoutMe
                 className={[
                     'nav-link',
                     !hasChildren && item.active ? 'active' : '',
-                    hasChildren && horizontal ? 'dropdown-toggle' : '',
-                    hasChildren && item.active && horizontal ? 'active' : '',
+                    hasChildren ? 'dropdown-toggle' : '',
+                    hasChildren && item.active ? 'active' : '',
                 ].filter(Boolean).join(' ')}
                 onClick={hasChildren ? (event) => {
                     event.preventDefault();
@@ -66,17 +71,15 @@ function MenuItem({ item, horizontal, defaultIcon, depth = 0 }: { item: LayoutMe
                     }
                 } : undefined}
             >
-                <span className="dcat-modern-menu-indent" style={{ width: depth * 12 }} aria-hidden="true" />
                 <i className={`fa fa-fw ${icon}`} aria-hidden="true" />
                 <p>
                     {item.title}
-                    {hasChildren && !horizontal ? <i className="right fa fa-angle-left" aria-hidden="true" /> : null}
                 </p>
             </a>
             {hasChildren && open ? (
-                <ul className={`nav ${horizontal ? 'dropdown-menu' : 'nav-treeview'}`}>
+                <ul className="nav dropdown-menu">
                     {item.children.map((child, index) => (
-                        <MenuItem key={`${child.id}-${index}`} item={child} horizontal={horizontal} defaultIcon={defaultIcon} depth={depth + 1} />
+                        <HorizontalMenuItem key={`${child.id}-${index}`} item={child} defaultIcon={defaultIcon} depth={depth + 1} />
                     ))}
                 </ul>
             ) : null}
@@ -85,13 +88,19 @@ function MenuItem({ item, horizontal, defaultIcon, depth = 0 }: { item: LayoutMe
 }
 
 export function LayoutMenuView({ payload }: { payload: LayoutMenuPayload }) {
+    /*
+     * 垂直侧栏由上游 app-navigation 行组件渲染（Epic 002 / S3）。
+     * 水平菜单保留 Dcat 自己的 dropdown 结构：上游 app-navigation 没有水平变体，
+     * 而 horizontal_menu 依赖 AdminLTE 的 dropdown 定位与 .navbar-horizontal 外壳。
+     */
+    if (!payload.horizontal) {
+        return <ShellMenu payload={payload as ShellMenuPayload} />;
+    }
+
     return (
-        <ul
-            className={`nav nav-pills nav-sidebar ${payload.horizontal ? '' : 'flex-column'}`.trim()}
-            data-modern-treeview={payload.horizontal ? undefined : 'true'}
-        >
+        <ul className="nav nav-pills nav-sidebar">
             {payload.items.map((item, index) => (
-                <MenuItem key={`${item.id}-${index}`} item={item} horizontal={payload.horizontal} defaultIcon={payload.defaultIcon} />
+                <HorizontalMenuItem key={`${item.id}-${index}`} item={item} defaultIcon={payload.defaultIcon} />
             ))}
         </ul>
     );
@@ -102,18 +111,28 @@ export function LayoutHeaderView({ payload }: { payload: LayoutHeaderPayload }) 
         <div className="content-header dcat-modern-page-header">
             <section className="content-header breadcrumbs-top">
                 {payload.header || payload.description ? (
-                    <h1 className="float-left">
-                        <span className="text-capitalize">{payload.header}</span>
-                        {payload.description ? <small>{payload.description}</small> : null}
+                    <h1 className="m-0 flex max-w-full flex-wrap items-baseline gap-2 text-xl leading-7 font-semibold tracking-normal text-primary">
+                        <span className="capitalize">{payload.header}</span>
+                        {payload.description ? (
+                            <small className="m-0 text-sm leading-5 font-normal text-tertiary">{payload.description}</small>
+                        ) : null}
                     </h1>
                 ) : null}
                 {payload.breadcrumbs.length ? (
-                    <div className="breadcrumb-wrapper col-12">
-                        <ol className="breadcrumb float-right text-capitalize" aria-label="Breadcrumb">
+                    <div className="breadcrumb-wrapper w-full">
+                        <ol className="breadcrumb m-0 mt-2 flex max-w-full list-none flex-nowrap items-center gap-0 overflow-x-auto p-0 whitespace-nowrap" aria-label="Breadcrumb">
                             {payload.breadcrumbs.map((item, index) => (
-                                <li key={`${item.text}-${index}`} className={`breadcrumb-item ${item.current ? 'active' : ''}`.trim()} aria-current={item.current ? 'page' : undefined}>
+                                <li
+                                    key={`${item.text}-${index}`}
+                                    className={[
+                                        'breadcrumb-item m-0 inline-flex flex-none list-none items-center text-tertiary',
+                                        "not-first:before:mx-2 not-first:before:text-fg-quaternary not-first:before:content-['/']",
+                                        item.current ? 'active font-medium text-secondary' : '',
+                                    ].filter(Boolean).join(' ')}
+                                    aria-current={item.current ? 'page' : undefined}
+                                >
                                     {item.url && !item.current ? (
-                                        <a href={item.url}>
+                                        <a className="text-tertiary" href={item.url}>
                                             {item.icon ? <i className={`fa ${item.icon}`} aria-hidden="true" /> : null}
                                             {' '}{item.text}
                                         </a>
@@ -128,7 +147,7 @@ export function LayoutHeaderView({ payload }: { payload: LayoutHeaderPayload }) 
                         </ol>
                     </div>
                 ) : null}
-                <div className="clearfix" />
+                <div className="clear-both" />
             </section>
         </div>
     );

@@ -57,6 +57,10 @@ const includeDirectories = [
 
 /* 具体文件额外纳入（不在上面的目录清单里，但是组件依赖）。 */
 const includeFiles = [
+    'components/application/empty-state/empty-state.tsx',
+    'components/application/app-navigation/base-components/nav-item.tsx',
+    'components/application/app-navigation/base-components/nav-list.tsx',
+    'components/application/app-navigation/config.ts',
     'components/base/buttons/button.tsx',
     'components/base/buttons/button-utility.tsx',
     'components/base/buttons/close-button.tsx',
@@ -75,10 +79,15 @@ const includeFiles = [
  */
 const exclusions = [
     { pattern: 'components/application/carousel', reason: '需要 embla-carousel-react；后台不引入轮播' },
-    { pattern: 'components/application/charts', reason: '需要 recharts；会顶穿体积预算，后台图表不在本 Epic 范围' },
-    { pattern: 'components/application/empty-state', reason: '需要 @untitledui/file-icons；S4 决定 Grid 空态是否引入该依赖后再纳入' },
+    { pattern: 'components/application/charts', reason: '需要 recharts；后台图表不在本 Epic 范围' },
     { pattern: 'components/application/file-upload', reason: '需要 motion/react 与 @untitledui/file-icons；后台上传走 compat island（webuploader）' },
-    { pattern: 'components/application/app-navigation', reason: 'S3 处理 shell 时按需纳入；sidebar-simple 依赖上游品牌 logo，需先设计替换方案' },
+    { pattern: 'components/application/app-navigation/base-components/featured-cards', reason: '营销示例卡，只出现在上游 demo 中' },
+    { pattern: 'components/application/app-navigation/base-components/mobile-header', reason: '依赖上游品牌 logo（UntitledLogo）与 react-aria Modal/Dialog；Dcat 移动端继续用 sidebar-open 抽屉' },
+    { pattern: 'components/application/app-navigation/base-components/nav-account-card', reason: '依赖 motion/react、@react-types/overlays 与未 vendor 的 dropdown-account-button；Dcat 用户区由 navbar-user-panel.blade.php 渲染' },
+    { pattern: 'components/application/app-navigation/base-components/nav-button', reason: '仅 sidebar-slim/dual-tier 变体使用；本后台外壳不用 slim 变体' },
+    { pattern: 'components/application/app-navigation/header-navigation.tsx', reason: '应用级顶栏模式；Dcat 顶栏是冻结的 in-place 锚点（php-static 禁止 React 化），只借用外壳结构' },
+    { pattern: 'components/application/app-navigation/sidebar-navigation-base.tsx', reason: 'barrel，重新导出上面被排除的文件' },
+    { pattern: 'components/application/app-navigation/sidebar-navigation/', reason: 'sidebar-simple/slim/dual-tier/sections 变体依赖上游品牌 logo、motion 或 dropdown-account-button，且自带 280px 固定宽度与自有折叠模型；Dcat 需保留 260px、5.4rem 折叠与水平菜单' },
     { pattern: 'components/base/buttons/app-store-buttons', reason: '营销/品牌资产，不属于后台' },
     { pattern: 'components/base/buttons/app-store-buttons-outline', reason: '营销/品牌资产，不属于后台' },
     { pattern: 'components/base/buttons/social-button', reason: '营销/品牌资产，不属于后台' },
@@ -156,11 +165,12 @@ async function vendor(selected) {
         if (!response.ok) {
             fail(`下载失败（HTTP ${response.status}）：${upstreamPath}`);
         }
-        const content = Buffer.from(await response.arrayBuffer());
+        const upstream = Buffer.from(await response.arrayBuffer());
+        const content = applyLocalPatches(upstreamPath, upstream);
         const destination = path.join(targetRoot, upstreamPath);
         fs.mkdirSync(path.dirname(destination), { recursive: true });
         fs.writeFileSync(destination, content);
-        records.push({ path: upstreamPath, bytes: content.byteLength, sha256: sha256(content) });
+        records.push({ path: upstreamPath, bytes: content.byteLength, sha256: sha256(content), ...(content.equals(upstream) ? {} : { upstreamSha256: sha256(upstream), patch: 'empty-state-core' }) });
     }
 
     records.sort((a, b) => a.path.localeCompare(b.path));
@@ -279,4 +289,18 @@ function sha256(buffer) {
 function fail(message) {
     console.error(message);
     process.exit(1);
+}
+
+// 仅裁剪空态不使用的营销图案/插画导出，避免引入无关品牌资产依赖。
+function applyLocalPatches(upstreamPath, content) {
+    if (upstreamPath !== 'components/application/empty-state/empty-state.tsx') return content;
+    const source = content.toString('utf8');
+    const rootStart = source.indexOf('interface RootContextProps');
+    const rootEnd = source.indexOf('const Illustration =');
+    const footerStart = source.indexOf('const Footer =');
+    const footerEnd = source.indexOf('interface AvatarRadiusProps');
+    if ([rootStart, rootEnd, footerStart, footerEnd].some((index) => index < 0)) fail('EmptyState upstream shape changed; review the local patch.');
+    return Buffer.from('"use client";\nimport type { ComponentPropsWithRef } from "react";\nimport { createContext, useContext } from "react";\nimport { SearchLg } from "@untitledui/icons";\nimport { FeaturedIcon as FeaturedIconbase } from "@/components/foundations/featured-icon/featured-icon";\nimport { cx } from "@/utils/cx";\n\n'
+        + source.slice(rootStart, rootEnd) + source.slice(footerStart, footerEnd).replaceAll('"h1"', '"h2"').replaceAll('<h1', '<h2')
+        + 'export const EmptyState = Object.assign(Root, { FeaturedIcon, Footer, Title, Description });\n');
 }

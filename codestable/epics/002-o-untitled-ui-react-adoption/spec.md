@@ -47,7 +47,7 @@ related_specs:
 | 组件内部依赖 | 组件引用 `@/utils/cx`（clsx + tailwind-merge）、`@/utils/is-react-component` 与 `@theme` 语义令牌层（`bg-brand-solid`、`text-secondary`、`ring-primary` 等） |
 | 图标 | `@untitledui/icons` 为独立 MIT npm 包（0.0.23，`sideEffects:false`，可 tree-shake） |
 
-### 当前实现
+### 迁移前实现（2026-09-30，历史）
 
 - `resources/modern/components.tsx` 导出 30+ 个自研组件，样式类命名空间 `dcat-modern-*`；`resources/modern` 内共有 **238 个** `dcat-modern-*` 类名。
 - 样式实现为 43 个 Dcat 令牌（`tokens.json` → `tokens.css`/`tokens.ts` 生成）＋`styles.css` 2285 行＋`compat-facade.css` 979 行＋`compat-utilities.css` 224 行。
@@ -171,14 +171,35 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 
 新增依赖（5 个，均已进通知文件）：`@untitledui/icons`、`tailwind-merge`、`@internationalized/date`、`@react-stately/utils`、`@react-aria/utils`。`@/*` 别名使 vendor 文件保持上游原样。
 
-**体积结论（重要）**：CSS 19326 → **31865 gzip**，JS 不变 98131，总产物 **129996 / 143360**，余量由 25891 降到 **13364**。原因是 Tailwind 的 `@source` 属于**文件级内容探测**，不跟随 Vite 的 import 图——已 vendor 但暂未被引用的组件其 utility 也会先生成。这意味着 S3–S6 的 CSS 成本已被提前预付，余量变薄；因此 S3 起每批必须复测体积，S7 按最终实测重新冻结预算。
+**体积结论（重要）**：CSS 19326 → **31865 gzip**，JS 不变 98131，总产物 **129996 / 143360**，余量由 25891 降到 **13364**。原因是 Tailwind 的 `@source` 属于**文件级内容探测**，不跟随 Vite 的 import 图——已 vendor 但暂未被引用的组件其 utility 也会先生成。这意味着 S3–S6 的 CSS 成本已被提前预付，余量变薄；当时要求 S3 起逐批复测并在 S7 重新冻结；此大小限制已由 2026-10-02 决定取消。
 
 ### S3 shell 迁移（app-navigation）
 
 - `views/layout.tsx` 与 `runtime.ts` 的 shell 部分（sidebar、navbar、menu、footer、breadcrumb、page header）改用 Untitled `app-navigation` 结构与 Tailwind 类。
 - 保持 260px 展开侧栏、折叠/水平/full-page profile、sticky/floating/hidden 顶栏、菜单分组与顺序、`data-dcat-react-component="layout.*"` 标记。
 
+#### S3 批次 1 结果（2026-09-30，进行中）
+
+**已完成**：垂直侧栏菜单改由上游 `NavItemBase` 渲染（分组用原生 `<details>/<summary>`），页头/面包屑 React 视图与 sidebar/navbar/footer/breadcrumb 的 Blade 工具类改 Tailwind，`resources/modern/shell/` 承载 Dcat 侧适配；`adapters.tsx` 方向键导航纳入 `summary`；`vitest.config.mts` 增加 `@/*` 别名。
+
+**门禁**：`npm run modern:verify` 退出码 0（artifact JS 110709 + CSS 32401 = 143110 gzip）。子预算经用户授权重冻结：JS 102400 → 110848、CSS 40960 → 32512，总量 143360 与 ratio 0.56 不变（新增 `subBudgetRevision` 记录）；`m0/legacy-contracts.json` 的 sidebar 源字面量随 Tailwind 类更新并附 note。
+
+#### S3 批次 2 结果（2026-09-30，已完成验证）
+
+在真实消费者上补齐了批次 1 缺失的外壳证据，并修掉批次 1 自己引入的回归：
+
+- **环境**：PHP 8.1.34 + Laravel 10.50.3 消费者、隔离 MySQL 库、`serve-fixtures.php` 夹具路由（M0 兼容夹具必须在无 manifest 下走 compat）。完整配方与两个坑（install-dep 会覆盖 `.env` 并把包复制成快照；不要与 `modern:verify` 并发）写在 [S3 Issue](issues/004-o-迁移-shell-到-app-navigation.md) 的环境配方节。
+- **证据**：`--shell-only` 退出码 0（9 profiles）、全量浏览器契约退出码 0（25 captures / 6 families / axe / 200% reflow / rollback）、`modern:verify` 退出码 0（artifact JS 110709 + CSS 32374 = 143083 gzip）。
+- **回归与门禁**：批次 1 给 `logo-mini` 加的 Tailwind `hidden` 会让**折叠态品牌整体消失**（几何与全量套件都测不出）。已恢复原始结构，并在 `verifyBootstrapFreeShell` 增加「折叠态必须显示 mini 品牌、隐藏全量品牌与菜单标签；展开态相反」的断言；负向注入同一缺陷可让门禁失败，证明断言有效。
+- **facade 收口判定**：本批**不**删除外壳段规则。这些规则同时服务 React 菜单与服务端 fallback 两条路径（fallback 用同一套 `.main-sidebar/.navbar-header/.nav-link` 标记），几何/装饰的删除又缺少像素基线（本环境无 Pillow/ImageMagick/pixelmatch）；归属 S6（facade 按新语义令牌重写）与 S7（五视口视觉基线整批重做）。当前状态是「Tailwind 类与 facade 同值并存」，已显式记录为 S6 的输入。
+
+**未完成**（详见 Issue 的「遗留」）：水平菜单仍用 Dcat dropdown（上游无水平变体）；facade 外壳段收口待 S6；`demo:browser` 的选择器已同步但**未执行**（需要独立 demo 应用 `dcat-admin-demo` 与 30 分钟内的 modern 证据文件，本工作区没有该应用）。
+
+**体积提醒（更新 R2）**：CSS 32374、JS 110709，总 143083 / 143360，余量仅 **277 字节**；该限制现已取消，后续只记录实际体积。
+
 ### S4 Grid 迁移（application/table）
+
+2026-10-02：**本轮完成并验证**。简单表格使用上游 Table，复杂表头/跨行列/展开/快速新增以原生结构保留冻结协议并由 TableCard 包裹；分页、空态、徽标、进度和展开操作使用上游组件。复杂 Grid/固定列/原节点恢复回归通过。
 
 - `views/grid.tsx` 的表格、表头/排序指示、分页、空态、加载态、行选择改用 Untitled `table`/`pagination`/`empty-state`。
 - 保持 `.dcat-modern-grid-view`、固定列、展开行、`data-dcat-grid-row-selector`、查询参数、displayer 与 filter 的 compat 结论。
@@ -186,21 +207,29 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 
 ### S5 Form 迁移（base 控件 + form）
 
+2026-10-02：**本轮完成并验证**。InputBase/TextAreaBase/NativeSelect/Choice/Tabs 与双列表 Button 接入；多选/optgroup/颜色/范围保持原生协议；插件、提交工具与自定义节点保留原节点岛。锚点、required/error、FormData、非活动 panel、单选/reset 回归通过。
+
 - `views/form.tsx` 基本字段改用 Untitled `input`/`select`/`checkbox`/`radio-buttons`/`toggle`/`textarea`/`form`。
 - 保持 `data-dcat-modern-field`、`name/id`、CSRF、旧值恢复、错误定位与焦点顺序、compat field island。
 
 ### S6 其余页面族与浮层
 
+2026-10-02：**本轮完成并验证**。容器与操作消费上游 TableCard/Button，Modal/Drawer/Dropdown/Popover/Tooltip/EmptyState/LoadingIndicator 接入；Alert/Toast 无OSS独立组件，使用主题语义容器与上游Button。components.tsx 自研DOM组件退役。43旧变量仅为Tailwind主题别名；compat/preflight补偿限于原节点岛，旧Dcat.confirm协议保持。
+
 - Show、Tree、Widget、Dashboard、Login、System 及 Modal/Drawer/Toast/Tooltip/Popover 改用 Untitled 对应组件。
 - compat island 补偿 CSS 收口：`compat-facade.css` 与 `compat-utilities.css` 按新语义令牌重写，处理 preflight 带来的重置影响（Select2、webuploader、TinyMCE、duallistbox、datetimepicker 等）。
 
-### S7 门禁、预算与五视口重基线
+### S7 门禁、体积观测与五视口重基线
+
+2026-10-02：**本轮完成并验证**。modern:verify改为先构建再刷新coverage/census；tokens检查单一主题来源。16代表页/80五视口截图与axe通过，30重排代理通过，preflight30探针0差异。最终227418gzip字节，仅观测。证据和边界详见Issue005。
 
 - `tokens` 脚本改为校验 Tailwind `@theme` 单一来源；`baseline`、`artifact`、`php-static`、`bootstrap-absence`、`coverage` 脚本适配。
 - Vitest 与浏览器契约更新到新组件 DOM（保持 marker 断言不变）。
-- 五视口几何与截图基线整批重做；axe、语义 DOM、键盘焦点、200% 重排复跑；体积预算按实测重新冻结。
+- 五视口几何与截图基线整批重做；axe、语义 DOM、键盘焦点、200% 重排复跑；报告 raw/gzip 实测，不设置文件大小门禁。
 
 ## 门禁与验证
+
+2026-10-02 用户最终决定：彻底取消文件大小限制，替代此前“按最终实测重定预算”。本文较早批次中的预算与余量均为历史记录，不再是验收条件。
 
 每批沿用 001 已建立的门禁框架，并新增/调整：
 
@@ -208,7 +237,7 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 - **新增 provenance 门禁**：vendor 目录每个文件可追溯到 `PROVENANCE.json` 记录的上游 commit 与许可证；禁止引入 PRO 源码。
 - **新增 preflight 影响门禁**：compat island 代表控件（Select2、上传、编辑器、双列表、日期时间选择器）在 preflight 生效后视觉与交互可用。
 - 保持既有冻结断言：`data-dcat-*` 标记、PHP/Blade 侧 `dcat-modern-*` 锚点、PJAX 生命周期、Grid 查询参数、Form 载荷、动作顺序。
-- 体积：core JS/CSS gzip 预算按 S1 实测重新冻结，并在每个 slice 后守住，不得先放宽再补。
+- 体积：按用户 2026-10-02 最终决定，取消绝对、相对、分资源与增量 chunk 的文件大小限制；只报告 raw/gzip 实测，不冻结或重定预算。
 - 视觉：页面标题 20→24 属于已批准的口径变化，五视口几何必须在同一批内整体重做，不允许新旧基线混用。
 
 ## 风险与通断计划
@@ -216,7 +245,7 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 | 编号 | 风险 | 通断判据 |
 |---|---|---|
 | R1 | 全局 preflight 重置 compat island 的旧插件（Select2/上传/编辑器/双列表） | **S1 已量化并补偿**：30 探针 0 差异；S6 仍需按最终组件重跑同一门禁 |
-| R2 | 体积预算顶穿 | **进行中**：S1 后 117469（余量 25891）；S2 因 `@source` 文件级探测预付了全部 vendor 组件的 utility，升到 **129996（余量 13364）**。S3–S6 每批复测，S7 按最终实测重新冻结 |
+| R2 | 产物体积增长 | **仅观测**：用户 2026-10-02 已取消全部文件大小限制；保留 raw/gzip 统计与重复样式收口，不因大小阻断迁移或发布 |
 | R3 | 上游要求 `react-aria-components` 1.21 + React 19.3，当前 1.20 / 19.2.8 | S1 未升级依赖（Tailwind 与 react-aria 版本无关）；S2 vendor 组件时一并升级并保持 `modern:test` 全绿 |
 | R4 | 上游无版本化发布，只能 pin commit | provenance + 裁剪清单可用于未来 diff 升级；无法升级时显式记录 |
 | R5 | react-aria `Table` pattern 与 Grid 的表头/固定列/展开行/行选择语义冲突 | S4 前先做局部穿刺，保留查询参数与兼容语义 |
@@ -239,7 +268,7 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 4. `data-dcat-*`、PHP/Blade 锚点、PJAX、payload/bridge、Grid/Form 协议与动作顺序全部保持，证据与 001 同级。
 5. `ui-ux-spec` 2.0.0、`compatibility-contract` 5.0.0 已生效，契约指纹与门禁同步。
 6. compat island 在 preflight 下可用，有逐控件验证证据。
-7. 五视口几何与视觉基线、axe、语义 DOM、键盘、200% 重排、体积预算全部在新组件层上重新通过。
+7. 五视口几何与视觉基线、axe、语义 DOM、键盘、200% 重排全部在新组件层上重新通过，并报告产物 raw/gzip 实测。
 
 ## 推进记录
 
@@ -260,3 +289,7 @@ vendor **69 个文件 / 403842 字节**，上游 revision `c981a73bcd6b6c68d2a54
 `npm run modern:verify` 的执行顺序是 `modern:coverage --check` → … → `modern:build`，即**先用旧产物校验 census，再重新构建**。任何改变产物内容哈希的源码改动（Tailwind 让 CSS 哈希变动变得频繁）都会让 census 在构建后立即过期，必须额外手动跑一次 `node scripts/view-modernization-coverage.js` 才能再次通过。S1 期间已遇到两次。S7 需要把 `modern:build` 提到 census 校验之前，或让 census 校验基于构建后的产物。
 
 2026-09-30：S0/S1/S2 以单主题提交落盘。提交 `e363d118`「迁移 View 组件层到 Untitled UI React 与 Tailwind v4」（107 文件，含 69 个 vendor 源文件），提交前 `modern:verify` 退出码 0。同批修复了 preflight 门禁自身的两个缺陷：基线构建改为输出到临时目录（原先会清空发布目录并删除 THIRD_PARTY_NOTICES.txt），以及新增陈旧标记守卫与 SIGINT/SIGTERM 恢复（原先被强杀会把 `index.tsx` 留在「关闭 Tailwind」的中间态并静默产出错误产物）。
+
+2026-09-30：S3 批次 1 完成（未整体完成）。垂直侧栏菜单改由 vendor 的 `NavItemBase` 渲染（`details/summary` 披露结构），页头/面包屑 React 视图与 sidebar/navbar/footer/breadcrumb 的 Blade 工具类改 Tailwind，新增 `resources/modern/shell/` 适配层；vendor 增至 **72 文件 / 411560 字节**。用户授权重冻结子预算（JS 102400 → 110848、CSS 40960 → 32512，总量与 ratio 不变，`performance-budget.json` 新增 `subBudgetRevision`），原因是上游组件经 `@/utils/cx` 引入 `tailwind-merge`（约 9k gzip）。`npm run modern:verify` 退出码 0（artifact 143110 / 143360）。剩余：水平菜单归属、facade 外壳段收口、demo/浏览器契约与新 DOM 同步、真实浏览器 `--shell-only` 证据。
+
+2026-10-02：S4–S7 本轮执行完成，结果见 [Issue005](issues/005-o-完成-view-组件迁移与验收.md) 和 [归档Task](../../tasks/archived/2026-10-02-001-complete-untitled-view-migration.md)。保留复杂表格、原生多选/分组/颜色控件和原节点岛的协议适配；水平菜单仍为Dcat结构（上游无水平变体），不是未迁移的垂直行组件。完整本地门禁、当前环境PHP20/117与扩展新DOM证据通过；最终core JS/CSS共227418gzip字节，不设限制。独立Review工具不可用，额外上游树核验HTTP403；原生UI缩放/人工读屏/独立Demo全站crawl未执行。Epic保持open，不自动毕业、提交或发布。

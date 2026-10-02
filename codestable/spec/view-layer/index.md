@@ -92,3 +92,7 @@ Browser-visible modern admin page
 - `resources/modern/`：新版 View、bridge、native/compat runtime 与样式。
 - `scripts/view-modernization-bootstrap-absence.js`、`package.json`：旧 UI 依赖门禁与构建/验证入口。
 - `tests/Browser/`：已有浏览器行为证据及选择器依赖。
+
+2026-10-02 维护者决定：View 构建产物不设文件大小限制（绝对、相对、分资源和增量 chunk 均取消）。脚本保留 raw/gzip 观测、完整性、许可证、兼容与行为门禁；历史预算记录不再作为当前验收条件。
+
+当前已证实的组件层事实（2026-10-02）：内建控件与容器已消费固定revision的Untitled UI OSS组件，Dcat适配层负责冻结的DOM/载荷协议；components.tsx只保留几何纯函数。主题值来自Tailwind @theme，43个旧CSS变量为兼容别名。简单Grid使用上游Table，复杂表头/展开/quick-create使用原生结构与TableCard；多选/optgroup/颜色等原生语义、插件与自定义原节点岛继续保留。旧Dcat.confirm返回dialog协议与新的DcatReact上游Modal并存。此增量由[当前执行结果](../../epics/002-o-untitled-ui-react-adoption/issues/005-o-完成-view-组件迁移与验收.md)证明；Epic002仍open，本段不表示Epic关闭或发布候选晋级。

@@ -1,3 +1,5 @@
+import { Button } from '../ui/components/base/buttons/button';
+import { TableCard } from '../ui/components/application/table/table';
 import React from 'react';
 import { directFallback, LegacyNodesIsland, meaningfulNodes } from '../dom';
 
@@ -81,10 +83,9 @@ export function readShowModel(owner: HTMLElement, payload: ShowViewPayload | nul
 
 function ShowAction({ action }: { action: ShowActionPayload }) {
     if (action.kind === 'link') {
-        return <a href={action.url} className="btn btn-sm btn-primary" aria-label={action.label} data-show-action={action.action}>{action.label}</a>;
+        return <Button href={action.url} color="primary" size="sm" aria-label={action.label} data-show-action={action.action}>{action.label}</Button>;
     }
-    const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    const handleDelete = () => {
         const dcat = (window as unknown as { Dcat?: Record<string, any> }).Dcat;
         if (!dcat || action.action !== 'delete') return;
         const execute = async () => {
@@ -104,18 +105,18 @@ function ShowAction({ action }: { action: ShowActionPayload }) {
         else void execute();
     };
     return (
-        <button
+        <Button
             type="button"
-            className="btn btn-sm btn-white"
+            color="secondary" size="sm"
             aria-label={action.label}
             data-action={action.action}
             data-show-action={action.action}
             data-url={action.url}
             data-redirect={action.redirect || undefined}
-            onClick={handleDelete}
+            onPress={handleDelete}
         >
             {action.label}
-        </button>
+        </Button>
     );
 }
 
@@ -144,7 +145,7 @@ function PayloadShowView({ model }: { model: PayloadShowModel }) {
         <div className="row dcat-modern-show-payload" data-dcat-modern-show-renderer="payload">
             {payload.standardPanel ? (
                 <div className={`col-md-${payload.width}`}>
-                    <div className="card dcat-box">
+                    <TableCard.Root className="dcat-box">
                         {(payload.panel.title || payload.panel.actions.length) ? (
                             <div className="box-header with-border dcat-modern-show-header">
                                 {payload.panel.title ? <h3 className="box-title">{payload.panel.title}</h3> : null}
@@ -165,7 +166,7 @@ function PayloadShowView({ model }: { model: PayloadShowModel }) {
                                 <div className="clearfix" />
                             </div>
                         </div>
-                    </div>
+                    </TableCard.Root>
                 </div>
             ) : model.primaryCompatNode ? <LegacyNodesIsland nodes={[model.primaryCompatNode]} kind="show-custom-panel" /> : null}
             {relationNodes.length ? (

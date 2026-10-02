@@ -1,7 +1,7 @@
 /* Dcat-owned compatibility surface. This file implements only the legacy class contract used by Dcat; it contains no Bootstrap or AdminLTE source. */
 
 .dcat-modern-root {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .dcat-modern-active *,
@@ -20,12 +20,12 @@
     line-height: 1.5;
 }
 
-.dcat-modern-active a {
+.dcat-modern-active :where(a:not([data-rac]):not(.btn)) {
     color: var(--dcat-modern-primary);
     text-decoration: none;
 }
 
-.dcat-modern-active a:hover {
+.dcat-modern-active :where(a:not([data-rac]):not(.btn)):hover {
     color: var(--dcat-modern-primary-hover);
 }
 
@@ -194,7 +194,7 @@
 @media (min-width: 768px) {
     .dcat-modern-active .form-horizontal .form-group.row > .control-label { padding-top: 8px; }
 }
-.dcat-modern-active .form-control,
+.dcat-modern-active .form-control:not([data-dcat-ui-control]),
 .dcat-modern-active .custom-select {
     display: block;
     width: 100%;
@@ -207,11 +207,11 @@
     font: inherit;
     box-shadow: var(--dcat-modern-shadow-control);
 }
-.dcat-modern-active textarea.form-control { min-height: 88px; resize: vertical; }
-.dcat-modern-active .form-control:focus { outline: none; border-color: var(--dcat-modern-primary); box-shadow: var(--dcat-modern-focus); }
-.dcat-modern-active .form-control:disabled { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-disabled); cursor: not-allowed; }
-.dcat-modern-active .form-control[readonly] { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-muted); }
-.dcat-modern-active .form-control.is-invalid { border-color: var(--dcat-modern-danger); }
+.dcat-modern-active textarea.form-control:not([data-dcat-ui-control]) { min-height: 88px; resize: vertical; }
+.dcat-modern-active .form-control:not([data-dcat-ui-control]):focus { outline: none; border-color: var(--dcat-modern-primary); box-shadow: var(--dcat-modern-focus); }
+.dcat-modern-active .form-control:not([data-dcat-ui-control]):disabled { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-disabled); cursor: not-allowed; }
+.dcat-modern-active .form-control:not([data-dcat-ui-control])[readonly] { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-muted); }
+.dcat-modern-active .form-control:not([data-dcat-ui-control]).is-invalid { border-color: var(--dcat-modern-danger); }
 .dcat-modern-active .select2-hidden-accessible {
     position: absolute !important;
     width: 1px !important;
@@ -230,7 +230,7 @@
 .dcat-modern-active .invalid-feedback { display: block; margin-top: 4px; color: var(--dcat-modern-danger); }
 .dcat-modern-active .help-block { margin-top: 4px; color: var(--dcat-modern-muted); font-size: 12px; }
 .dcat-modern-active .input-group { display: flex; align-items: stretch; width: 100%; }
-.dcat-modern-active .input-group > .form-control { flex: 1 1 auto; min-width: 0; }
+.dcat-modern-active .input-group > .form-control:not([data-dcat-ui-control]) { flex: 1 1 auto; min-width: 0; }
 .dcat-modern-active .input-group-prepend,
 .dcat-modern-active .input-group-append { display: flex; }
 .dcat-modern-active .input-group-text {
@@ -251,15 +251,15 @@
     border-end-end-radius: 0;
     border-inline-end: 0;
 }
-.dcat-modern-active .input-group > .input-group-prepend + .form-control {
+.dcat-modern-active .input-group > .input-group-prepend + .form-control:not([data-dcat-ui-control]) {
     border-start-start-radius: 0;
     border-end-start-radius: 0;
 }
-.dcat-modern-active .input-group > .form-control:not(:last-child) {
+.dcat-modern-active .input-group > .form-control:not([data-dcat-ui-control]):not(:last-child) {
     border-start-end-radius: 0;
     border-end-end-radius: 0;
 }
-.dcat-modern-active .input-group.iconpicker-container > .form-control {
+.dcat-modern-active .input-group.iconpicker-container > .form-control:not([data-dcat-ui-control]) {
     border-start-end-radius: var(--dcat-modern-radius-control);
     border-end-end-radius: var(--dcat-modern-radius-control);
 }
@@ -756,9 +756,9 @@
     gap: 8px;
     margin: 0;
     color: var(--dcat-modern-heading);
-    font-size: 20px;
+    font-size: var(--text-display-xs);
     font-weight: 600;
-    line-height: 28px;
+    line-height: var(--text-display-xs--line-height);
     letter-spacing: 0;
 }
 
@@ -976,4 +976,8 @@
     .dcat-modern-active:not(.horizontal-menu) > .wrapper > .main-menu {
         transition: none;
     }
+}
+
+.dcat-modern-active .btn {
+    text-decoration: none;
 }

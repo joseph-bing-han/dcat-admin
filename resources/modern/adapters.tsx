@@ -95,7 +95,8 @@ function conditionalEnhancement(className: string, predicate: (element: HTMLElem
 function keyboardNavigation(element: HTMLElement, context: MountContext) {
     const handler = (event: KeyboardEvent) => {
         if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-        const links = Array.from(element.querySelectorAll<HTMLElement>('a[href]:not([tabindex="-1"])'))
+        // 垂直侧栏的分组行是原生 <summary>（上游 app-navigation 披露结构），叶子行是 <a>。
+        const links = Array.from(element.querySelectorAll<HTMLElement>('a[href]:not([tabindex="-1"]), summary:not([tabindex="-1"])'))
             .filter((link) => link.offsetParent !== null);
         if (!links.length) return;
         const active = links.indexOf(document.activeElement as HTMLElement);
@@ -285,4 +286,3 @@ export const coreCapabilities: RegisteredCapability[] = [
         mount: progressiveEnhancement('dcat-modern-extension-island'),
     },
 ];
-

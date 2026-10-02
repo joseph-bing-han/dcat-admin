@@ -721,7 +721,43 @@ async function verifyBootstrapFreeShell(page, baseUrl, adminPrefix) {
     if (Math.abs(collapsedByToggle.sidebarWidth - collapsedByToggle.expectedWidth) > 0.5 || collapsedByToggle.ariaExpanded !== 'false') {
         fail(`vertical: native collapse toggle failed: ${JSON.stringify(collapsedByToggle)}`);
     }
+
+    /*
+     * Epic 002 / S3：折叠态的品牌与菜单标签行为必须显式断言。
+     * 只检查几何（260px / 5.4rem）会漏掉「折叠后品牌消失」这类回归：S3 批次 1 曾在 Blade 上给
+     * `logo-mini` 加了 `hidden`，几何与全量门禁都通过，但折叠态的品牌实际被隐藏了。
+     */
+    const collapsedBrand = await page.evaluate(() => {
+        const mini = document.querySelector('.main-sidebar .navbar-header .logo-mini');
+        const full = document.querySelector('.main-sidebar .navbar-header .logo-lg');
+        const label = document.querySelector('.dcat-shell-menu .nav-item > a > span, .dcat-shell-menu .nav-item > summary > span');
+        return {
+            mini: mini ? getComputedStyle(mini).display : 'missing',
+            full: full ? getComputedStyle(full).display : 'missing',
+            menuLabel: label ? getComputedStyle(label).display : 'missing',
+        };
+    });
+    if (collapsedBrand.full !== 'none' || collapsedBrand.mini === 'none' || collapsedBrand.mini === 'missing' || collapsedBrand.menuLabel !== 'none') {
+        fail(`collapsed: brand or menu-label state is wrong: ${JSON.stringify(collapsedBrand)}`);
+    }
+    evidence.collapsedBrand = collapsedBrand;
+
     await toggle.click();
+
+    const expandedBrand = await page.evaluate(() => {
+        const mini = document.querySelector('.main-sidebar .navbar-header .logo-mini');
+        const full = document.querySelector('.main-sidebar .navbar-header .logo-lg');
+        const label = document.querySelector('.dcat-shell-menu .nav-item > a > span, .dcat-shell-menu .nav-item > summary > span');
+        return {
+            mini: mini ? getComputedStyle(mini).display : 'missing',
+            full: full ? getComputedStyle(full).display : 'missing',
+            menuLabel: label ? getComputedStyle(label).display : 'missing',
+        };
+    });
+    if (expandedBrand.mini !== 'none' || expandedBrand.full === 'none' || expandedBrand.menuLabel === 'none') {
+        fail(`vertical: restored brand or menu-label state is wrong: ${JSON.stringify(expandedBrand)}`);
+    }
+    evidence.expandedBrand = expandedBrand;
 
     await page.goto(adminUrl(baseUrl, adminPrefix, routes.modernCollapsed), { waitUntil: 'networkidle' });
     const collapsed = await page.evaluate(() => ({

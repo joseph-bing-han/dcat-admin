@@ -66,7 +66,7 @@ const pluginStylesheets = [
 ].filter((relative) => fs.existsSync(path.join(root, relative)));
 
 const fixtureMarkup = `
-<div class="dcat-modern-active dcat-modern-root" id="island">
+<div class="dcat-modern-active dcat-modern-root"><div id="island" data-dcat-modern-legacy-island="preflight-probes">
     <div class="row">
         <div class="col-6"><div class="p-2 text-muted" id="probe-facade-utility">facade utility</div></div>
         <div class="col-6"><div class="d-flex align-items-center justify-content-between"><span>a</span><span>b</span></div></div>
@@ -200,7 +200,7 @@ function currentBuiltCss() {
 }
 
 /*
- * 基线 = 关闭 Tailwind 入口后的构建产物。
+ * 基线 = 保留 Tailwind 主题与 utilities、仅关闭 preflight 与补偿层的构建产物。
  * 全程 try/finally 保证 index.tsx 与 dist 一定恢复，避免把“基线产物”留在工作区。
  *
  * 注意：基线构建输出到临时目录。Vite 的 emptyOutDir 会清空输出目录，
@@ -209,12 +209,17 @@ function currentBuiltCss() {
  */
 async function buildWithoutTailwind() {
     const original = fs.readFileSync(entryPath, 'utf8');
+    const baselineThemePath = path.join(root, 'resources/modern/.preflight-baseline.css');
+    const theme = fs.readFileSync(path.join(root, 'resources/modern/tailwind.css'), 'utf8');
+    const withoutPreflight = theme.replace('@import "tailwindcss" source(none);', '@layer theme, base, components, utilities;\n@import "tailwindcss/theme.css" layer(theme);\n@import "tailwindcss/utilities.css" layer(utilities) source(none);');
+    if (withoutPreflight === theme) fail('未找到 Tailwind 导入，无法隔离 preflight');
     const snapshotDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dcat-preflight-'));
     const snapshotPath = path.join(snapshotDir, 'modern-before.css');
     const buildOutDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dcat-preflight-build-'));
     const restore = () => {
         try {
             fs.writeFileSync(entryPath, original);
+            fs.rmSync(baselineThemePath, { force: true });
         } catch (_) {
             // 恢复失败时不再抛错，避免掩盖原始退出原因；陈旧标记守卫会在下次运行时拦下。
         }
@@ -228,7 +233,7 @@ async function buildWithoutTailwind() {
     process.once('SIGTERM', () => onSignal('SIGTERM'));
 
     const disabled = original
-        .replace(/^import '\.\/tailwind\.css';$/m, '// preflight-impact: tailwind entry disabled')
+        .replace(/^import '\.\/tailwind\.css';$/m, "import './.preflight-baseline.css'; // preflight-impact: preflight disabled")
         .replace(/^import '\.\/compat-preflight-restore\.css';$/m, '// preflight-impact: restore layer disabled');
 
     if (disabled === original) {
@@ -236,6 +241,7 @@ async function buildWithoutTailwind() {
     }
 
     try {
+        fs.writeFileSync(baselineThemePath, withoutPreflight);
         fs.writeFileSync(entryPath, disabled);
         runBaselineBuild(buildOutDir);
         fs.copyFileSync(cssFromManifest(buildOutDir), snapshotPath);

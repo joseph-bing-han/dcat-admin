@@ -10,7 +10,7 @@ These are local verification gates. GitHub Actions and `.github` configuration a
 
 - `npm ci && npm run modern:verify` succeeds from a clean checkout.
 - Published `resources/dist/modern/manifest.json` resolves one hashed IIFE entry plus scoped CSS.
-- Initial modern JS/CSS/total transfer stays within the frozen M0 gzip budgets.
+- Report modern JS/CSS/total raw and gzip measurements; no absolute, relative, per-asset or incremental-chunk size limit applies.
 - No modern source uses dynamic `import()`, runtime ESM chunks, `:has()`, external fonts or unscoped CSS.
 - The package passes resource publication, modern native/compat smoke, shared contracts and the system-Chrome self-test included in the local verification command. Other version combinations are outside the maintained validation scope.
 - Five M0 viewports pass DOM/geometry runtime fixtures.

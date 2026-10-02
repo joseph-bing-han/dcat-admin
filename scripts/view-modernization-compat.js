@@ -5,7 +5,13 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const scope = '.dcat-modern-active';
 const rules = ['/* Dcat 自有兼容工具类，由 view-modernization-compat.js 生成。 */'];
-const add = (name, declarations) => rules.push(`${scope} .${name} { ${declarations} }`);
+// 与 Tailwind 同名的工具类置于 base 层，避免兼容规则覆盖上游 utilities。
+const add = (name, declarations) => {
+    const overlaps = /^(?:[mp][tblrxy]?-(?:[0-5]|auto)|w-(?:25|50|75|100)|border-0|flex-shrink-0)$/.test(name);
+    rules.push(overlaps
+        ? `@layer base { ${scope} .${name} { ${declarations.replace(/ !important/g, '')} } }`
+        : `${scope} .${name} { ${declarations} }`);
+};
 
 for (const [prefix, property] of [['m', 'margin'], ['p', 'padding']]) {
     for (const [axis, sides] of Object.entries({ '': [''], t: ['-top'], b: ['-bottom'], l: ['-left'], r: ['-right'], x: ['-left', '-right'], y: ['-top', '-bottom'] })) {

@@ -1,3 +1,6 @@
+import { Button } from '../presentation';
+import { Button as UiButton } from '../ui/components/base/buttons/button';
+import { TableCard } from '../ui/components/application/table/table';
 import React from 'react';
 import { directFallback, LegacyNodesIsland, meaningfulNodes } from '../dom';
 
@@ -169,17 +172,17 @@ function NativeTree({ model }: { model: PayloadTreeModel }) {
                     <li key={node.id} role="treeitem" aria-level={level} aria-expanded={hasChildren ? open : undefined} className="dcat-modern-tree-node" data-tree-node-id={node.id}>
                         <div className="dcat-modern-tree-node-row">
                             {hasChildren ? (
-                                <button type="button" className="btn btn-sm btn-white dcat-modern-tree-disclosure" aria-label={`${open ? 'Collapse' : 'Expand'} ${node.label}`} onClick={() => toggle(node.id)}>
+                                <Button type="button" tone="secondary" className="dcat-modern-tree-disclosure" aria-label={`${open ? 'Collapse' : 'Expand'} ${node.label}`} onClick={() => toggle(node.id)}>
                                     {open ? '−' : '+'}
-                                </button>
+                                </Button>
                             ) : <span className="dcat-modern-tree-disclosure-spacer" aria-hidden="true" />}
                             <span className="dcat-modern-tree-label">{node.label}</span>
                             {actionNode ? <LegacyNodesIsland nodes={[actionNode]} kind="tree-node-actions" /> : null}
                             <span className="dcat-modern-tree-reorder" aria-label={`Reorder ${node.label}`}>
-                                <button type="button" className="btn btn-sm btn-white" aria-label={`Move ${node.label} up`} disabled={index === 0} onClick={() => mutate(node.id, 'up')}>↑</button>
-                                <button type="button" className="btn btn-sm btn-white" aria-label={`Move ${node.label} down`} disabled={index === items.length - 1} onClick={() => mutate(node.id, 'down')}>↓</button>
-                                <button type="button" className="btn btn-sm btn-white" aria-label={`Indent ${node.label}`} disabled={index === 0 || level + subtreeDepth(node) > payload.maxDepth} onClick={() => mutate(node.id, 'indent')}>→</button>
-                                <button type="button" className="btn btn-sm btn-white" aria-label={`Outdent ${node.label}`} disabled={level === 1} onClick={() => mutate(node.id, 'outdent')}>←</button>
+                                <Button type="button" tone="secondary" aria-label={`Move ${node.label} up`} disabled={index === 0} onClick={() => mutate(node.id, 'up')}>↑</Button>
+                                <Button type="button" tone="secondary" aria-label={`Move ${node.label} down`} disabled={index === items.length - 1} onClick={() => mutate(node.id, 'down')}>↓</Button>
+                                <Button type="button" tone="secondary" aria-label={`Indent ${node.label}`} disabled={index === 0 || level + subtreeDepth(node) > payload.maxDepth} onClick={() => mutate(node.id, 'indent')}>→</Button>
+                                <Button type="button" tone="secondary" aria-label={`Outdent ${node.label}`} disabled={level === 1} onClick={() => mutate(node.id, 'outdent')}>←</Button>
                             </span>
                         </div>
                         {hasChildren && open ? renderNodes(node.children, level + 1) : null}
@@ -190,20 +193,20 @@ function NativeTree({ model }: { model: PayloadTreeModel }) {
     );
 
     return (
-        <div className="dcat-modern-tree-view" data-dcat-modern-tree-renderer="payload" data-tree-id={payload.id}>
+        <TableCard.Root className="dcat-modern-tree-view" data-dcat-modern-tree-renderer="payload" data-tree-id={payload.id}>
             <div className="card-header pb-1 with-border dcat-modern-tree-toolbar">
                 <div className="dcat-modern-tree-toolbar-primary">
-                    <button type="button" className="btn btn-primary btn-sm" aria-label="Expand all" onClick={() => setExpanded(new Set(allIds(nodes)))}>Expand</button>
-                    <button type="button" className="btn btn-primary btn-sm" aria-label="Collapse all" onClick={() => setExpanded(new Set())}>Collapse</button>
-                    {payload.useSave ? <button type="button" className="btn btn-primary btn-sm" aria-label="Save tree order" disabled={saving} onClick={() => void save()}>{saving ? 'Saving…' : 'Save'}</button> : null}
-                    {payload.useRefresh ? <button type="button" className="btn btn-outline-primary btn-sm" aria-label="Refresh tree" onClick={refresh}>Refresh</button> : null}
+                    <Button type="button" tone="primary" aria-label="Expand all" onClick={() => setExpanded(new Set(allIds(nodes)))}>Expand</Button>
+                    <Button type="button" tone="primary" aria-label="Collapse all" onClick={() => setExpanded(new Set())}>Collapse</Button>
+                    {payload.useSave ? <Button type="button" tone="primary" aria-label="Save tree order" disabled={saving} onClick={() => void save()}>{saving ? 'Saving…' : 'Save'}</Button> : null}
+                    {payload.useRefresh ? <Button type="button" tone="secondary" aria-label="Refresh tree" onClick={refresh}>Refresh</Button> : null}
                 </div>
-                {payload.useCreate ? <a href={payload.createUrl} className="btn btn-primary btn-sm" aria-label="Create tree item">New</a> : null}
+                {payload.useCreate ? <UiButton href={payload.createUrl} color="primary" aria-label="Create tree item">New</UiButton> : null}
             </div>
             <div className="card-body dcat-modern-tree-body">
                 {nodes.length ? renderNodes(nodes) : <div className="help-block" role="status">No data</div>}
             </div>
-        </div>
+        </TableCard.Root>
     );
 }
 

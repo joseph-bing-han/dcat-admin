@@ -1,7 +1,7 @@
 import { DOMElement } from './platform';
 import React from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { CapabilityHost, OverlayHost } from './components';
+import { CapabilityHost, OverlayHost } from './presentation';
 import { overlayStore } from './store';
 import type {
     CapabilityDefinition,

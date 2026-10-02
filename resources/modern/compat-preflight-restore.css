@@ -6,113 +6,113 @@
  * compat island 里的旧模板与第三方插件 CSS（Select2 / webuploader / datetimepicker / editormd 等）
  * 依赖浏览器的元素默认值，重置后会出现留白消失、项目符号丢失、行内图标换行等回归。
  *
- * 处理方式：把 UA 默认值在 modern 作用域内显式恢复。规则一律放在**无 layer 的普通作者样式**里，
+ * 处理方式：仅在原节点兼容岛与扩展边界内恢复 UA 默认值。规则一律放在**无 layer 的普通作者样式**里，
  * 并使用最低特异性（:where()），因此：
  *   - 未分层的作者样式优先级高于 preflight 所在的 @layer base；
- *   - 任何显式声明（compat facade、插件 CSS、业务自定义）都仍然覆盖本文件。
+ *   - compat facade、插件 CSS、业务自定义仍可覆盖本文件；上游原生组件不受补偿影响。
  *
  * 数值取自 Chromium 的 UA 样式表；与“接入 Tailwind 之前”的实测计算样式一一对应，
  * 由 scripts/view-modernization-preflight-impact.mjs 作为门禁验证差异归零。
  */
 
-.dcat-modern-active :where(h1) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(h1) {
     margin-block: 0.67em;
     font-size: 2em;
     font-weight: bold;
 }
 
-.dcat-modern-active :where(h2) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(h2) {
     margin-block: 0.83em;
     font-size: 1.5em;
     font-weight: bold;
 }
 
-.dcat-modern-active :where(h3) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(h3) {
     margin-block: 1em;
     font-size: 1.17em;
     font-weight: bold;
 }
 
-.dcat-modern-active :where(h4) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(h4) {
     margin-block: 1.33em;
     font-size: 1em;
     font-weight: bold;
 }
 
-.dcat-modern-active :where(h5) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(h5) {
     margin-block: 1.67em;
     font-size: 0.83em;
     font-weight: bold;
 }
 
-.dcat-modern-active :where(h6) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(h6) {
     margin-block: 2.33em;
     font-size: 0.67em;
     font-weight: bold;
 }
 
-.dcat-modern-active :where(p) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(p) {
     margin-block: 1em;
 }
 
-.dcat-modern-active :where(ul, ol) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(ul, ol) {
     margin-block: 1em;
     padding-inline-start: 40px;
 }
 
-.dcat-modern-active :where(ul) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(ul) {
     list-style-type: disc;
 }
 
-.dcat-modern-active :where(ol) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(ol) {
     list-style-type: decimal;
 }
 
-.dcat-modern-active :where(a) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(a) {
     color: revert;
     text-decoration: revert;
 }
 
-.dcat-modern-active :where(b, strong) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(b, strong) {
     font-weight: bolder;
 }
 
-.dcat-modern-active :where(code, kbd, samp, pre) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(code, kbd, samp, pre) {
     font-family: revert;
     font-size: revert;
 }
 
-.dcat-modern-active :where(pre) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(pre) {
     margin-block: 1em;
 }
 
-.dcat-modern-active :where(blockquote) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(blockquote) {
     margin-block: 1em;
     margin-inline: 40px;
 }
 
-.dcat-modern-active :where(dl) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(dl) {
     margin-block: 1em;
 }
 
-.dcat-modern-active :where(dd) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(dd) {
     margin-inline-start: 40px;
 }
 
-.dcat-modern-active :where(small) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(small) {
     font-size: smaller;
 }
 
-.dcat-modern-active :where(img) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(img) {
     display: inline;
     vertical-align: baseline;
 }
 
-.dcat-modern-active :where(hr) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(hr) {
     color: gray;
 }
 
-.dcat-modern-active :where(button, input, select, textarea) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(button, input, select, textarea) {
     appearance: auto;
 }
 
@@ -121,6 +121,6 @@
  * 当前第一方与插件 CSS 都成对声明了 border-style，因此尚未观测到实际回归；
  * 这里以 0 特异性恢复 none，作为对扩展 CSS 与未来改动的保险。
  */
-.dcat-modern-active :where(*, ::before, ::after, ::backdrop) {
+.dcat-modern-active :where([data-dcat-modern-legacy-island], [data-dcat-modern-legacy-field], .dcat-modern-extension-island) :where(*, ::before, ::after, ::backdrop) {
     border-style: none;
 }

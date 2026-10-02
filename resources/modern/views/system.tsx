@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Card, Checkbox, Input } from '../components';
+import { Alert, Button, Card, Checkbox, Input } from '../presentation';
 import { LegacyNodesIsland, meaningfulNodes } from '../dom';
 
 export interface SystemViewPayload {
@@ -120,7 +120,7 @@ function FeedbackView({ model }: { model: SystemModel }) {
     const tone = payload.tone === 'danger' || payload.tone === 'warning' || payload.tone === 'success' ? payload.tone : 'neutral';
     return (
         <Alert tone={tone} className="dcat-modern-feedback" data-dcat-modern-system-renderer="feedback">
-            <button type="button" className="dcat-modern-feedback__dismiss" aria-label="Dismiss notification" onClick={() => setVisible(false)}>×</button>
+            <Button type="button" tone="tertiary" className="dcat-modern-feedback__dismiss" aria-label="Dismiss notification" onPress={() => setVisible(false)}>×</Button>
             {payload.title ? <h4>{payload.title}</h4> : null}
             {payload.renderer === 'compat' && model.contentSlot
                 ? <LegacyNodesIsland nodes={[model.contentSlot]} kind="system-feedback-content" />

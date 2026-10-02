@@ -1,5 +1,12 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { directFallback, LegacyNodesIsland, meaningfulNodes, safeStructuralProps } from '../dom';
+import { Table, TableCard } from '../ui/components/application/table/table';
+import { Button } from '../ui/components/base/buttons/button';
+import { Pagination } from '../ui/components/application/pagination/pagination-base';
+import { EmptyState } from '../presentation';
+import { Badge } from '../ui/components/base/badges/badges';
+import type { BadgeColors } from '../ui/components/base/badges/badge-types';
+import { ProgressBarBase } from '../ui/components/base/progress-indicators/progress-indicators';
 
 export interface GridSortModel {
     href: string;
@@ -372,7 +379,7 @@ function fixedColumnIndexes(columns: GridViewPayload['columns'], names: string[]
     return columns.map((column, index) => wanted.has(column.name) ? index : -1).filter((index) => index >= 0);
 }
 
-function useFixedColumns(tableRef: React.RefObject<HTMLTableElement | null>, fixed: NativeGridModel['fixedColumns']) {
+function useFixedColumns(tableRef: React.RefObject<HTMLTableElement | null>, tableNode: HTMLTableElement | null, fixed: NativeGridModel['fixedColumns']) {
     useLayoutEffect(() => {
         const table = tableRef.current;
         if (!table || (!fixed.left.length && !fixed.right.length)) return undefined;
@@ -419,7 +426,7 @@ function useFixedColumns(tableRef: React.RefObject<HTMLTableElement | null>, fix
             observer?.disconnect();
             window.removeEventListener('resize', apply);
         };
-    }, [tableRef, fixed.left.join(','), fixed.right.join(',')]);
+    }, [tableRef, tableNode, fixed.left.join(','), fixed.right.join(',')]);
 }
 
 export function readGridModel(owner: HTMLElement, payload: GridViewPayload | null = null): GridModel {
@@ -523,14 +530,28 @@ function LegacyQuickCreateRows({ rows }: { rows: HTMLTableRowElement[] }) {
     return <tbody ref={host} className="dcat-modern-grid-quick-create" data-dcat-modern-legacy-island="grid-quick-create" />;
 }
 
-function GridCell({ cell, header = false, onExpandToggle, expanded = false }: { cell: GridCellModel; header?: boolean; onExpandToggle?: () => void; expanded?: boolean }) {
-    const Tag = header ? 'th' : 'td';
+function GridLabel({ children, className, style, tone, autoContrast }: { children: string; className: string; style?: React.CSSProperties; tone?: string; autoContrast: boolean }) {
+    const colors: Record<string, BadgeColors> = { primary: 'brand', success: 'success', warning: 'warning', danger: 'error', info: 'blue', neutral: 'gray' };
+    return <span className="contents" ref={(wrapper) => {
+        const badge = wrapper?.querySelector('span');
+        if (!badge) return;
+        // Badge 不转发 style/ref；保留 PHP 配置的自定义颜色与对比度修正。
+        badge.removeAttribute('style');
+        Object.assign(badge.style, style ?? {});
+        if (autoContrast) { badge.setAttribute('data-dcat-contrast', ''); gridLabelForeground(badge); }
+        else badge.removeAttribute('data-dcat-contrast');
+    }}><Badge size="sm" color={colors[tone ?? ''] ?? 'gray'} className={className}>{children}</Badge></span>;
+}
+
+function GridCell({ cell, header = false, onExpandToggle, expanded = false, component, collectionProps }: { cell: GridCellModel; header?: boolean; onExpandToggle?: () => void; expanded?: boolean; component?: React.ElementType; collectionProps?: Record<string, unknown> }) {
+    const Tag = component ?? (header ? 'th' : 'td');
     const common = {
         ...cell.props,
         colSpan: cell.colSpan,
         rowSpan: cell.rowSpan,
         width: cell.width,
         ...(header ? { scope: typeof cell.props.scope === 'string' ? cell.props.scope : 'col' } : {}),
+        ...collectionProps,
     };
 
     if (cell.kind === 'text') return <Tag {...common}>{cell.text}</Tag>;
@@ -555,13 +576,13 @@ function GridCell({ cell, header = false, onExpandToggle, expanded = false }: { 
         const tone = gridLabelTones[background.replace(/^#/, '')];
         const className = `dcat-modern-grid-label${tone ? ` dcat-modern-grid-label--${tone}` : ''} ${cell.className}`;
         const autoContrast = background && !tone && !cell.style?.color;
-        return <Tag {...common}>{cell.items.map((item, index) => <React.Fragment key={`${item}-${index}`}><span ref={autoContrast ? gridLabelForeground : undefined} data-dcat-contrast={autoContrast ? '' : undefined} className={className} style={cell.style}>{item}</span>{index < cell.items.length - 1 ? ' ' : null}</React.Fragment>)}</Tag>;
+        return <Tag {...common}>{cell.items.map((item, index) => <React.Fragment key={`${item}-${index}`}><GridLabel className={className} style={cell.style} tone={tone} autoContrast={Boolean(autoContrast)}>{item}</GridLabel>{index < cell.items.length - 1 ? ' ' : null}</React.Fragment>)}</Tag>;
     }
     if (cell.kind === 'images') {
         return <Tag {...common}>{cell.items.map((item, index) => <React.Fragment key={`${item.src}-${index}`}><img data-action={item.preview ? 'preview-img' : undefined} src={item.src} alt="" className="img img-thumbnail" style={{ maxWidth: item.maxWidth, maxHeight: item.maxHeight, cursor: item.preview ? 'pointer' : undefined }} />{index < cell.items.length - 1 ? ' ' : null}</React.Fragment>)}</Tag>;
     }
     if (cell.kind === 'progress') {
-        return <Tag {...common}><div className={cell.className}><div className="progress-bar" role="progressbar" aria-label={`Progress: ${cell.value}%`} aria-valuenow={cell.value} aria-valuemin={0} aria-valuemax={cell.max} style={{ width: `${cell.value}%` }} /></div></Tag>;
+        return <Tag {...common}><div ref={(node) => node?.querySelector('[role="progressbar"]')?.setAttribute('aria-label', `Progress: ${cell.value}%`)}><ProgressBarBase value={cell.value} max={cell.max} className={cell.className} progressClassName="progress-bar" /></div></Tag>;
     }
     if (cell.kind === 'downloads') {
         return <Tag {...common}>{cell.items.map((item, index) => <React.Fragment key={`${item.href}-${index}`}><a href={item.href} download={item.name} target="_blank" className="text-muted"><i className="feather icon-download" aria-hidden="true" /> {item.name}</a>{index < cell.items.length - 1 ? <br /> : null}</React.Fragment>)}</Tag>;
@@ -579,16 +600,16 @@ function GridCell({ cell, header = false, onExpandToggle, expanded = false }: { 
     if (cell.kind === 'expand') {
         return (
             <Tag {...common}>
-                <button
-                    type="button"
+                <Button
+                    color="tertiary"
                     className="grid-expand dcat-modern-grid-expand"
                     data-id={cell.rowKey}
                     data-key={cell.dataKey}
                     aria-expanded={expanded}
-                    onClick={onExpandToggle}
+                    onPress={onExpandToggle}
                 >
                     <i className={`feather ${expanded ? 'icon-chevrons-down' : 'icon-chevrons-right'}`} aria-hidden="true" />{' '}{cell.button}
-                </button>
+                </Button>
             </Tag>
         );
     }
@@ -671,17 +692,17 @@ function GridPagination({ model }: { model: GridPaginationModel | null }) {
     return (
         <div className="dcat-modern-grid-pagination">
             {model.range?.label ? <span className="d-none d-sm-inline dcat-modern-grid-pagination-range">{model.range.label}</span> : null}
-            <nav aria-label="Pagination">
+            <Pagination.Root page={Math.max(1, Number(model.items.find((item) => item.active)?.label) || 1)} total={Math.max(1, ...model.items.map((item) => Number(item.label) || 0))} className="flex items-center gap-1">
                 <ul className={model.className}>
                     {model.items.map((item, index) => (
                         <li key={`${item.label}-${index}`} className={item.className}>
                             {item.href && !item.disabled
-                                ? <a className="page-link" href={item.href} rel={item.rel} aria-label={item.ariaLabel}>{paginationItemLabel(item)}</a>
+                                ? <Button className="page-link" color="secondary" size="sm" href={item.href} rel={item.rel} aria-label={item.ariaLabel}>{paginationItemLabel(item)}</Button>
                                 : <span className="page-link" aria-current={item.active ? 'page' : undefined} aria-label={item.ariaLabel}>{paginationItemLabel(item)}</span>}
                         </li>
                     ))}
                 </ul>
-            </nav>
+            </Pagination.Root>
             {model.perPage?.options.length ? (
                 <div className="pull-right d-none d-sm-inline per-pages-selector" data-dcat-per-page-name={model.perPage.name}>
                     <span className="dropdown dropup">
@@ -706,7 +727,9 @@ function NativeGridView({ model }: { model: NativeGridModel }) {
     const tableClassName = String(model.tableProps.className ?? '');
     const tableContainerClassName = String(model.tableContainerProps.className ?? '');
     const tableRef = useRef<HTMLTableElement>(null);
-    useFixedColumns(tableRef, model.fixedColumns);
+    const [tableNode, setTableNode] = useState<HTMLTableElement | null>(null);
+    const attachTable = React.useCallback((node: HTMLTableElement | null) => { tableRef.current = node; setTableNode(node); }, []);
+    useFixedColumns(tableRef, tableNode, model.fixedColumns);
     useLayoutEffect(() => {
         const table = tableRef.current;
         if (!table) return;
@@ -718,17 +741,35 @@ function NativeGridView({ model }: { model: NativeGridModel }) {
             observer.observe(node, { attributes: true, attributeFilter: ['style', 'class'] });
         }
         return () => observer.disconnect();
-    }, []);
+    }, [tableNode]);
 
-    const table = (
-        <table ref={tableRef} {...model.tableProps} id={model.tableId || undefined} className={`dcat-modern-table ${tableClassName}`.trim()} data-dcat-modern-fixed-columns={model.fixedColumns.left.length || model.fixedColumns.right.length ? '1' : undefined}>
+    // collection 不支持跨行表头与直接插入的原始 tr；这些能力保留原生表格语义。
+    const collectionCompatible = model.headerRows.length === 1 && !model.quickCreateRows.length
+        && [...model.headerRows, ...model.rows].every((row) => row.cells.length === model.columnCount
+            && row.cells.every((cell) => cell.colSpan === 1 && cell.rowSpan === 1 && cell.kind !== 'expand'));
+    const tableProps = { ...model.tableProps, id: model.tableId || undefined, className: `dcat-modern-table ${tableClassName}`.trim(), 'data-dcat-modern-fixed-columns': model.fixedColumns.left.length || model.fixedColumns.right.length ? '1' : undefined };
+    const table = collectionCompatible ? (
+        <Table ref={attachTable} {...tableProps} aria-label={model.name || 'Data table'} selectionMode="none">
+            <Table.Header>
+                {model.headerRows[0].cells.map((cell, index) => React.cloneElement(GridCell({ cell, header: true, component: Table.Head, collectionProps: { id: `column-${index}`, isRowHeader: index === 0, ref: (node: HTMLTableCellElement | null) => { if (node) { node.setAttribute("scope", String(cell.props.scope ?? "col")); if (cell.width) node.setAttribute("width", cell.width); } } } }), { key: index }))}
+            </Table.Header>
+            <Table.Body renderEmptyState={() => <EmptyState title={model.emptyLabel} />}>
+                {model.rows.map((row, rowIndex) => (
+                    <Table.Row key={rowIndex} {...row.props} id={`row-${rowIndex}`}>
+                        {row.cells.map((cell, index) => React.cloneElement(GridCell({ cell, component: Table.Cell, collectionProps: { textValue: cell.kind === 'text' || cell.kind === 'link' ? cell.text : '' } }), { key: index }))}
+                    </Table.Row>
+                ))}
+            </Table.Body>
+        </Table>
+    ) : (
+        <table ref={attachTable} {...model.tableProps} id={model.tableId || undefined} className={`dcat-modern-table dcat-modern-table--structural ${tableClassName}`.trim()} data-dcat-modern-fixed-columns={model.fixedColumns.left.length || model.fixedColumns.right.length ? '1' : undefined}>
             {model.headerRows.length ? <thead><GridRows rows={model.headerRows} header /></thead> : null}
             <LegacyQuickCreateRows rows={model.quickCreateRows} />
             <tbody>
                 {model.rows.length
                     ? <GridRows rows={model.rows} columnCount={model.columnCount} />
                     : model.empty
-                        ? <tr><td colSpan={Math.max(1, model.columnCount)}><div className="dcat-modern-grid-empty"><span className="help-block"><i className="feather icon-alert-circle" aria-hidden="true" />&nbsp;{model.emptyLabel}</span></div></td></tr>
+                        ? <tr><td colSpan={Math.max(1, model.columnCount)}><EmptyState title={model.emptyLabel} /></td></tr>
                         : null}
             </tbody>
         </table>
@@ -736,10 +777,10 @@ function NativeGridView({ model }: { model: NativeGridModel }) {
     return (
         <section className="dcat-modern-grid-view" data-dcat-modern-grid-name={model.name} data-dcat-modern-grid-renderer="react-payload" data-dcat-grid-interactions="native">
             {model.beforeTable.length ? <div className="dcat-modern-grid-toolbar"><LegacyNodesIsland nodes={model.beforeTable} kind="grid-toolbar" /></div> : null}
-            {React.createElement(model.tableContainerTag, {
+            <TableCard.Root className="dcat-modern-grid-table-card">{React.createElement(model.tableContainerTag, {
                 ...model.tableContainerProps,
                 className: `dcat-modern-table-wrap ${tableContainerClassName}`.trim(),
-            }, table)}
+            }, table)}</TableCard.Root>
             {model.afterTable.length ? <div className="dcat-modern-grid-footer"><LegacyNodesIsland nodes={model.afterTable} kind="grid-footer" /></div> : null}
             <GridPagination model={model.pagination} />
         </section>

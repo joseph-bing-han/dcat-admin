@@ -166,7 +166,8 @@
     },
     {
       "path": "resources/views/partials/sidebar.blade.php",
-      "literals": ["main-menu-content", "main-horizontal-sidebar", "main-sidebar shadow", "header-navbar navbar-expand-sm navbar navbar-horizontal"]
+      "literals": ["main-menu-content", "main-horizontal-sidebar", "main-sidebar flex h-full min-h-0 flex-col border-r border-secondary bg-primary", "header-navbar navbar-expand-sm navbar navbar-horizontal"],
+      "note": "2026-09-30（Epic 002 / S3）：侧栏外壳改用 Tailwind 类，Bootstrap 的 `shadow` 工具类被 Tailwind 的边框/背景/布局类取代；`.main-sidebar` 锚点本身未变（见 selectorInventory）。"
     },
     {
       "path": "resources/assets/dcat/plugins/jquery-pjax/jquery.pjax.js",

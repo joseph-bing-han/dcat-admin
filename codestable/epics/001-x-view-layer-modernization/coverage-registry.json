@@ -2650,7 +2650,6 @@
       "serverEntry": "resources/views/partials/sidebar.blade.php",
       "visible": true,
       "legacyDependencies": [
-        "bootstrap-class",
         "adminlte"
       ],
       "stableSelectors": [],

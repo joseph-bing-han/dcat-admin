@@ -462,15 +462,19 @@ async function runInteractionChecks(page) {
         await page.goto(`${baseUrl}${adminPrefix}`, { waitUntil: 'networkidle' });
         const menu = page.locator('[data-dcat-react-component="layout.menu"] .dcat-modern-react-view');
         await menu.waitFor({ state: 'visible' });
-        const forms = menu.locator('.nav-sidebar > li > a[data-id="form"]');
+        // Epic 002 / S3：垂直侧栏由 Untitled `app-navigation` 行组件渲染。
+        // 分组行是 <li data-id> > <details> > <summary>，叶子行是 <li data-id> > <a>。
+        const forms = menu.locator('.nav-sidebar > li[data-id="form"] > details');
+        const formsToggle = forms.locator(':scope > summary');
         const before = page.url();
-        await forms.click();
-        if (await forms.getAttribute('aria-expanded') !== 'true') throw new Error('added Form menu did not expand');
-        const nested = forms.locator('..').locator(':scope > ul a[aria-expanded]').first();
-        await nested.focus();
+        await formsToggle.click();
+        if (!await forms.evaluate((node) => node.open)) throw new Error('added Form menu did not expand');
+        const nested = forms.locator('dd > ul > li > details').first();
+        const nestedToggle = nested.locator(':scope > summary');
+        await nestedToggle.focus();
         await page.keyboard.press('Space');
-        if (await nested.getAttribute('aria-expanded') !== 'true') throw new Error('third-level menu did not expand by keyboard');
-        const leaf = nested.locator('..').locator(':scope > ul a[href]:not([href="#"])').first();
+        if (!await nested.evaluate((node) => node.open)) throw new Error('third-level menu did not expand by keyboard');
+        const leaf = nested.locator('dd > ul > li > a[href]:not([href="#"])').first();
         if (!await leaf.isVisible()) throw new Error('expanded third-level menu is not visible');
         if (page.url() !== before) throw new Error('expanding a menu changed the URL');
         if (takeScreenshots) await page.screenshot({ path: path.join(evidenceDir, 'screenshots', 'sidebar-nested-expanded.png') });
@@ -872,7 +876,7 @@ async function runResponsiveChecks(page) {
                     content: rect('.app-content.content'),
                     app: rect('.content-body#app'),
                     gridTableWrap: overflow('.dcat-modern-grid-view .dcat-modern-table-wrap'),
-                    menu: appearance('.main-sidebar .nav-sidebar .nav-link.active'),
+                    menu: appearance('.main-sidebar .dcat-shell-menu a[aria-current="page"]'),
                     inputAddons: appearance('.form-horizontal .input-group > .input-group-prepend .input-group-text'),
                     groupedInputs: appearance('.form-horizontal .input-group > .input-group-prepend + input.form-control'),
                     vendorControls: appearance('.form-horizontal .select2-selection, .form-horizontal .web-uploader .webuploader-pick'),

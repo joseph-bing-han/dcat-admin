@@ -4,7 +4,7 @@
   "status": "frozen-asset-baseline",
   "measurement": {
     "authoritativeArtifact": "frozen comparison measurements; current generated facades are validated against production bundles",
-    "generatedFacadePolicy": "The numeric comparison baseline and all modernBudgets limits stay frozen. Paths registered in resources/modern/legacy-assets.json are generated from each modern build, so their current byte counts are not compared with old facade snapshots. modern:build regenerates these paths, and modern:artifact checks the actual current JS/CSS budgets.",
+    "generatedFacadePolicy": "Comparison measurements are historical observations. Generated facade integrity is checked against production bundles; file sizes are reported without limits.",
     "gzipLevel": 9,
     "nodeVersionObserved": "22.23.2",
     "legacyBaseAssets": {
@@ -15,21 +15,96 @@
       "jsRawBytes": 590584,
       "jsGzipBytes": 204454,
       "files": [
-        {"path": "adminlte/adminlte.css", "type": "css", "rawBytes": 96541, "gzipBytes": 12297},
-        {"path": "dcat/plugins/vendors.min.css", "type": "css", "rawBytes": 96541, "gzipBytes": 12297},
-        {"path": "dcat/plugins/extensions/toastr.css", "type": "css", "rawBytes": 6069, "gzipBytes": 2775},
-        {"path": "dcat/plugins/tables/datatable/datatables.min.css", "type": "css", "rawBytes": 14248, "gzipBytes": 2416},
-        {"path": "dcat/css/dcat-app.css", "type": "css", "rawBytes": 96541, "gzipBytes": 12297},
-        {"path": "dcat/css/nunito.css", "type": "css", "rawBytes": 10063, "gzipBytes": 679},
-        {"path": "dcat/css/bootstrap-icons.css", "type": "css", "rawBytes": 98309, "gzipBytes": 13542},
-        {"path": "dcat/plugins/vendors.min.js", "type": "js", "rawBytes": 126990, "gzipBytes": 43942},
-        {"path": "dcat/js/dcat-app.js", "type": "js", "rawBytes": 288769, "gzipBytes": 96367},
-        {"path": "adminlte/adminlte.js", "type": "js", "rawBytes": 126990, "gzipBytes": 43942},
-        {"path": "dcat/plugins/extensions/toastr.min.js", "type": "js", "rawBytes": 6081, "gzipBytes": 2135},
-        {"path": "dcat/plugins/jquery-pjax/jquery.pjax.min.js", "type": "js", "rawBytes": 15587, "gzipBytes": 6479},
-        {"path": "dcat/plugins/bootstrap-validator/validator.min.js", "type": "js", "rawBytes": 7741, "gzipBytes": 2584},
-        {"path": "dcat/plugins/layer/layer.js", "type": "js", "rawBytes": 16439, "gzipBytes": 8220},
-        {"path": "dcat/plugins/jquery.initialize/jquery.initialize.min.js", "type": "js", "rawBytes": 1987, "gzipBytes": 785}
+        {
+          "path": "adminlte/adminlte.css",
+          "type": "css",
+          "rawBytes": 96541,
+          "gzipBytes": 12297
+        },
+        {
+          "path": "dcat/plugins/vendors.min.css",
+          "type": "css",
+          "rawBytes": 96541,
+          "gzipBytes": 12297
+        },
+        {
+          "path": "dcat/plugins/extensions/toastr.css",
+          "type": "css",
+          "rawBytes": 6069,
+          "gzipBytes": 2775
+        },
+        {
+          "path": "dcat/plugins/tables/datatable/datatables.min.css",
+          "type": "css",
+          "rawBytes": 14248,
+          "gzipBytes": 2416
+        },
+        {
+          "path": "dcat/css/dcat-app.css",
+          "type": "css",
+          "rawBytes": 96541,
+          "gzipBytes": 12297
+        },
+        {
+          "path": "dcat/css/nunito.css",
+          "type": "css",
+          "rawBytes": 10063,
+          "gzipBytes": 679
+        },
+        {
+          "path": "dcat/css/bootstrap-icons.css",
+          "type": "css",
+          "rawBytes": 98309,
+          "gzipBytes": 13542
+        },
+        {
+          "path": "dcat/plugins/vendors.min.js",
+          "type": "js",
+          "rawBytes": 126990,
+          "gzipBytes": 43942
+        },
+        {
+          "path": "dcat/js/dcat-app.js",
+          "type": "js",
+          "rawBytes": 288769,
+          "gzipBytes": 96367
+        },
+        {
+          "path": "adminlte/adminlte.js",
+          "type": "js",
+          "rawBytes": 126990,
+          "gzipBytes": 43942
+        },
+        {
+          "path": "dcat/plugins/extensions/toastr.min.js",
+          "type": "js",
+          "rawBytes": 6081,
+          "gzipBytes": 2135
+        },
+        {
+          "path": "dcat/plugins/jquery-pjax/jquery.pjax.min.js",
+          "type": "js",
+          "rawBytes": 15587,
+          "gzipBytes": 6479
+        },
+        {
+          "path": "dcat/plugins/bootstrap-validator/validator.min.js",
+          "type": "js",
+          "rawBytes": 7741,
+          "gzipBytes": 2584
+        },
+        {
+          "path": "dcat/plugins/layer/layer.js",
+          "type": "js",
+          "rawBytes": 16439,
+          "gzipBytes": 8220
+        },
+        {
+          "path": "dcat/plugins/jquery.initialize/jquery.initialize.min.js",
+          "type": "js",
+          "rawBytes": 1987,
+          "gzipBytes": 785
+        }
       ]
     },
     "distributionRawBytesExcludingSourceMaps": 24833629
@@ -38,22 +113,21 @@
     "date": "2026-09-26",
     "path": "adminlte/adminlte.css, dcat/plugins/vendors.min.css, dcat/css/dcat-app.css, dcat/plugins/vendors.min.js, dcat/js/dcat-app.js, adminlte/adminlte.js",
     "reason": "B11 删除 packages/classic 与 core 的 Bootstrap/AdminLTE 源码后，13 条旧固定路径由 scripts/view-modernization-legacy-assets.js 生成 Dcat 自有 facade（同一 CSS facade 96,541 B / 12,297 B gzip；内嵌 compat 运行时的 JS facade 126,990 B / 43,942 B gzip；dcat-app.js 额外内嵌 native 核心 288,769 B / 96,367 B gzip），legacy base 由 1,401,272 / 353,467 gzip 降至 1,008,896 / 260,757 gzip；facade 会随 modern/compat  bundle 重构建而重新生成，因此数值以本次生成产物为准。",
-    "previous": {"legacyBaseRawBytes": 1401272, "legacyBaseGzipBytes": 353467, "legacyBaseCssRawBytes": 1040957, "legacyBaseCssGzipBytes": 216516, "legacyBaseJsRawBytes": 360315, "legacyBaseJsGzipBytes": 136951},
-    "current": {"legacyBaseRawBytes": 1008896, "legacyBaseGzipBytes": 260757, "legacyBaseCssRawBytes": 418312, "legacyBaseCssGzipBytes": 56303, "legacyBaseJsRawBytes": 590584, "legacyBaseJsGzipBytes": 204454}
-  },
-  "modernBudgets": {
-    "legacyPageWhenModernDisabled": {
-      "addedNetworkRequests": 0,
-      "addedTransferGzipBytes": 0,
-      "reason": "Dormant modern capability must not tax the default legacy path."
+    "previous": {
+      "legacyBaseRawBytes": 1401272,
+      "legacyBaseGzipBytes": 353467,
+      "legacyBaseCssRawBytes": 1040957,
+      "legacyBaseCssGzipBytes": 216516,
+      "legacyBaseJsRawBytes": 360315,
+      "legacyBaseJsGzipBytes": 136951
     },
-    "firstModernPage": {
-      "initialJsGzipBytesMax": 102400,
-      "initialCssGzipBytesMax": 40960,
-      "initialTotalGzipBytesMax": 143360,
-      "relativeToLegacyBaseGzipMax": 0.56,
-      "routeIncrementalChunkGzipBytesMax": 65536,
-      "reason": "The first modern path may add React and bridge code, but its initial transfer must remain materially below the measured 260049-byte Dcat facade base transfer and must not duplicate that facade CSS stack. The 143360-byte ceiling stays fixed; only the ratio against the smaller post-B11 base moved from 0.406 to 0.56."
+    "current": {
+      "legacyBaseRawBytes": 1008896,
+      "legacyBaseGzipBytes": 260757,
+      "legacyBaseCssRawBytes": 418312,
+      "legacyBaseCssGzipBytes": 56303,
+      "legacyBaseJsRawBytes": 590584,
+      "legacyBaseJsGzipBytes": 204454
     }
   },
   "legacyBuildObservation": {
@@ -63,7 +137,12 @@
     "trackedDistributionDriftDetected": true,
     "rebuiltBaseRawBytes": 1399345,
     "rebuiltBaseGzipBytes": 354188,
-    "npmAuditAtInstall": {"total": 89, "low": 5, "moderate": 60, "high": 24},
+    "npmAuditAtInstall": {
+      "total": 89,
+      "low": 5,
+      "moderate": 60,
+      "high": 24
+    },
     "warnings": [
       "The existing Mix/Webpack/Sass build emitted extensive deprecation warnings.",
       "The regenerated tracked distribution differed from the checked-in distribution; generated changes were discarded after measurement.",
@@ -75,5 +154,11 @@
     "PJAX navigation timing",
     "heap and listener stability across repeated PJAX navigation",
     "five-viewport layout geometry and visual fixtures"
-  ]
+  ],
+  "sizePolicy": {
+    "mode": "observation-only",
+    "updated": "2026-10-02",
+    "authorizedBy": "Joseph：彻底去除对文件大小的限制",
+    "reason": "Report raw and gzip measurements without enforcing absolute, relative, per-asset or incremental-chunk size limits."
+  }
 }
