@@ -82,16 +82,40 @@ http://127.0.0.1:8000/admin
 
 首次安装的默认管理员账号仍遵循 Dcat Admin 的安装约定。
 
-### 升级已有项目
+### 从 2.x 升级到 3.0
 
-升级后建议重新发布包资源，并清理 Laravel 缓存：
+在 **Laravel 业务项目根目录**（有 `artisan` 的目录）操作。使用 Docker 时，在运行该项目的 PHP 容器内执行下面的命令。
+
+1. 将业务项目 `composer.json` 中的依赖设为 `"joseph-bing-han/laravel-admin": "3.0.x-dev"`，然后更新包。`3.0.x-dev` 对应 Git 的 `3.0` 开发分支；发布稳定标签前不要写成 `^3.0`。
+
+   ```bash
+   composer update joseph-bing-han/laravel-admin --with-dependencies
+   ```
+
+2. **如果 Composer 更新已经完成，直接从这一步开始**：覆盖发布新版静态资源，并清理配置、路由和编译视图缓存。
 
 ```bash
-php artisan admin:publish --force
-php artisan optimize:clear
+php artisan admin:publish --assets --force
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 ```
 
-Modern 前端产物已经包含在 Composer 包中；业务项目部署时不需要执行 `npm install` 或 Vite build。
+资源发布会把 `vendor/joseph-bing-han/laravel-admin/resources/dist/` 复制到默认的 `public/vendor/dcat-admin/`，覆盖同名旧文件，并加入 `modern/` 下的 manifest、JS 和 CSS。若自定义了 `@admin` 资源路径，以实际配置为准。发布是覆盖复制，不会自动删除旧版本独有的文件；无需先删除整个目录，其中如有业务自定义文件，应先备份并迁出包资源目录。
+
+只发布资源也可以使用以下等价命令（之后仍需执行上面的缓存清理）：
+
+```bash
+php artisan vendor:publish --tag=dcat-admin-assets --force
+```
+
+不要用不带 `--assets` 的 `admin:publish --force` 作为常规升级命令，它还会覆盖配置、语言和迁移文件。保留现有 `config/admin.php` 的业务设置，按上方「默认配置」手动合并缺少的 `modern` 配置；`manifest` 通常保持 `null`。仅替换前端资源不需要运行 `admin:install` 或 `admin:update`，后者会发布迁移等文件并执行 `migrate`。
+
+3. 如果部署使用 CDN 或 `ADMIN_ASSETS_SERVER`，将同一版本的发布资源同步到资源服务器，并刷新相应缓存。浏览器强制刷新后台页面；若部署流程使用 Laravel 配置或路由缓存，再按原流程重建缓存。
+
+4. 验证升级结果：默认路径下应存在 `public/vendor/dcat-admin/modern/manifest.json` 及其引用的资源；浏览器 Network 中新版 JS/CSS 应返回成功响应。检查登录、菜单、Grid、Form、文件上传及 PJAX 切页。若仍显示旧样式，检查业务项目的 `resources/views/vendor/admin/` 模板覆盖、自定义 CSS 和手动引用的旧 Bootstrap/AdminLTE 资源，逐项与新版适配，避免直接删除业务定制。
+
+Modern Renderer 默认接管后台页面，无需额外启用开关。Modern 前端产物已经包含在 Composer 包中；业务项目部署时不需要执行 `npm install` 或 Vite build。每次更新本包后都应重新发布资源，确保 PHP 包、manifest 和浏览器加载的 JS/CSS 来自同一版本。
 
 更完整的升级和运维说明见 [Modern View Migration and Operations](docs/modern-view-migration.md)。
 
@@ -139,10 +163,17 @@ Modern 前端产物已经包含在 Composer 包中；业务项目部署时不需
 
 ```bash
 npm ci
-npm run modern:verify
+npm run dev
+npm run watch
+npm run prod
+npm run verify
 ```
 
-`modern:verify` 会执行：
+默认命令统一使用 Vite，新版视图、兼容 runtime、插件扩展、字体和静态资源都输出到 `resources/dist/`。`development` / `production` 分别是 `dev` / `prod` 的完整名称，`build` 等同于生产构建。`watch-poll` 使用轮询监听；`hot` 保留为 `watch` 别名，重建后需刷新消费应用，不提供 Webpack HMR。消费应用需要重新发布资源时运行 `php artisan admin:publish --assets --force`。
+
+测试和检查直接使用 `npm test`、`npm run typecheck`、`npm run artifact` 等命令，不再使用 `modern:` 前缀。
+
+`verify` 会执行：
 
 - PHP / Blade 静态兼容契约
 - TypeScript strict typecheck

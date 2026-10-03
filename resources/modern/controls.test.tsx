@@ -1,10 +1,37 @@
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { describe, expect, it } from 'vitest';
-import { Choice, Select } from './controls';
+import { Choice, Input, Select } from './controls';
 import { Tabs } from './presentation';
 
 describe('upstream form protocol adapters', () => {
+    it('applies explicit widths once and clears container styles on rerender', async () => {
+        const form = document.createElement('form');
+        document.body.appendChild(form);
+        const root = createRoot(form);
+        const render = (style?: React.CSSProperties) => <Input name="rate" defaultValue="75" required readOnly style={style} />;
+        await act(async () => root.render(render({ width: 80, flex: 'none', textAlign: 'right' })));
+        const input = form.querySelector('input')!;
+        const group = input.parentElement!;
+        expect(group.style.width).toBe('80px');
+        expect(input.style.width).toBe('100%');
+        expect(input.style.textAlign).toBe('right');
+        expect(input.required).toBe(true);
+        expect(input.readOnly).toBe(true);
+        expect(new FormData(form).get('rate')).toBe('75');
+        await act(async () => root.render(render({ width: '50%' })));
+        expect(group.style.width).toBe('50%');
+        expect(input.style.width).toBe('100%');
+        expect(group.style.flex).toBe('');
+        await act(async () => root.render(render()));
+        expect(group.style.width).toBe('');
+        expect(group.style.maxWidth).toBe('');
+        expect(input.style.width).toBe('');
+        expect(new FormData(form).get('rate')).toBe('75');
+        await act(async () => root.unmount());
+        form.remove();
+    });
+
     it('keeps radio visuals synchronized with native grouping and form reset', async () => {
         const form = document.createElement('form');
         document.body.appendChild(form);

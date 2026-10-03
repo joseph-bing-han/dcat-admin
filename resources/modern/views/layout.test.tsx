@@ -33,13 +33,15 @@ it.each([false, true])('keeps the collapsed layout when toggling a previewed gro
     }
 });
 
-it.each(['mouse', 'keyboard'])('routes a menu selection through PJAX and closes only the preview using %s', (input) => {
+it.each([[1366, 'mouse'], [1366, 'keyboard'], [375, 'mouse'], [375, 'keyboard']] as const)('routes a menu selection through PJAX and closes transient navigation at %spx using %s', (width, input) => {
+    vi.stubGlobal('innerWidth', width);
     const dcat: NavigationHost = { config: { pjax_container_selector: '#pjax-container' }, wait: vi.fn(), triggerReady: vi.fn(), error: vi.fn() };
     vi.stubGlobal('Dcat', dcat);
     const navigate = vi.spyOn(navigation, 'navigate').mockResolvedValue(undefined);
     const container = document.createElement('div');
     document.body.appendChild(container);
     document.body.classList.add('sidebar-collapse', 'sidebar-hover');
+    if (width < 768) document.body.classList.add('sidebar-open');
     const root = createRoot(container);
     try {
         act(() => root.render(<LayoutMenuView payload={{ horizontal: false, defaultIcon: '', items: [{
@@ -54,10 +56,11 @@ it.each(['mouse', 'keyboard'])('routes a menu selection through PJAX and closes 
         expect(navigate).toHaveBeenCalledExactlyOnceWith(dcat, '/admin/form?tab=fields');
         expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
         expect(document.body.classList.contains('sidebar-hover')).toBe(false);
+        expect(document.body.classList.contains('sidebar-open')).toBe(false);
     } finally {
         act(() => root.unmount());
         container.remove();
-        document.body.classList.remove('sidebar-collapse', 'sidebar-hover');
+        document.body.classList.remove('sidebar-collapse', 'sidebar-hover', 'sidebar-open');
         vi.unstubAllGlobals();
     }
 });

@@ -7,6 +7,48 @@ afterEach(() => {
 });
 
 describe('overlayStore notice queue', () => {
+    it('preserves notice timers and queues while resetting page dialogs and drawers', async () => {
+        vi.useFakeTimers();
+        [1, 2, 3, 4].forEach((value) => overlayStore.notify(`Notice ${value}`, 'success'));
+        const dialog = overlayStore.confirm({ title: 'Confirm', body: 'Continue?' });
+        overlayStore.openDrawer({ title: 'Details', body: 'Content' });
+        vi.advanceTimersByTime(2000);
+        overlayStore.reset({ preserveNotices: true });
+        expect(await dialog).toBe(false);
+        expect(overlayStore.snapshot().dialog).toBeNull();
+        expect(overlayStore.snapshot().drawer).toBeNull();
+        expect(overlayStore.snapshot().notices).toHaveLength(3);
+        expect(overlayStore.snapshot().noticeQueue).toHaveLength(1);
+        vi.advanceTimersByTime(4000);
+        expect(overlayStore.snapshot().notices.map((notice) => notice.message)).toEqual(['Notice 4']);
+        vi.advanceTimersByTime(6000);
+        expect(overlayStore.snapshot().notices).toEqual([]);
+    });
+
+    it('keeps success and failure notices visible for six seconds by default', () => {
+        vi.useFakeTimers();
+        const success = overlayStore.notify('Saved', 'success');
+        const failure = overlayStore.notify('Request failed', 'danger');
+        vi.advanceTimersByTime(4500);
+        expect(overlayStore.snapshot().notices.map((notice) => notice.id)).toEqual([success, failure]);
+        vi.advanceTimersByTime(1499);
+        expect(overlayStore.snapshot().notices).toHaveLength(2);
+        vi.advanceTimersByTime(1);
+        expect(overlayStore.snapshot().notices).toEqual([]);
+    });
+
+    it('preserves explicit timeouts and persistent notices', () => {
+        vi.useFakeTimers();
+        overlayStore.notify('Short notice', 'neutral', 500);
+        const persistent = overlayStore.notify('Persistent notice', 'danger', 0);
+        vi.advanceTimersByTime(500);
+        expect(overlayStore.snapshot().notices.map((notice) => notice.id)).toEqual([persistent]);
+        vi.advanceTimersByTime(20000);
+        expect(overlayStore.snapshot().notices.map((notice) => notice.id)).toEqual([persistent]);
+        overlayStore.dismissNotice(persistent);
+        expect(overlayStore.snapshot().notices).toEqual([]);
+    });
+
     it('shows at most three notices and promotes queued notices FIFO', () => {
         const ids = [1, 2, 3, 4, 5].map((value) => overlayStore.notify(`Notice ${value}`, 'neutral', 0));
         expect(overlayStore.snapshot().notices.map((notice) => notice.message)).toEqual(['Notice 1', 'Notice 2', 'Notice 3']);

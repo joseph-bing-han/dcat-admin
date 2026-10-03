@@ -54,7 +54,7 @@ export const overlayStore = {
         return state;
     },
 
-    notify(message: string, tone: NoticeTone = 'neutral', timeout = 4500): string {
+    notify(message: string, tone: NoticeTone = 'neutral', timeout = 6000): string {
         const notice: Notice = { id: id('notice'), message, tone, timeout };
         if (state.notices.length < 3) {
             state = { ...state, notices: [...state.notices, notice] };
@@ -117,11 +117,15 @@ export const overlayStore = {
         emit();
     },
 
-    reset(): void {
+    reset(options: { preserveNotices?: boolean } = {}): void {
         if (state.dialog) state.dialog.resolve(false);
-        clearAllNoticeTimers();
-        state = { notices: [], noticeQueue: [], dialog: null, drawer: null };
+        if (!options.preserveNotices) clearAllNoticeTimers();
+        state = {
+            notices: options.preserveNotices ? state.notices : [],
+            noticeQueue: options.preserveNotices ? state.noticeQueue : [],
+            dialog: null,
+            drawer: null,
+        };
         emit();
     },
 };
-

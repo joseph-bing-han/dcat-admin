@@ -28,13 +28,22 @@ class ResetPasswordCommand extends Command
         $userModel = config('admin.database.users_model');
 
         $users = $userModel::all();
+        $identifiers = $users->pluck('username')->merge($users->pluck('email'))
+            ->filter()->unique()->values()->toArray();
 
         askForUserName:
-        $username = $this->askWithCompletion('Please enter a username who needs to reset his password', $users->pluck('username')->toArray());
+        $username = $this->askWithCompletion('Please enter a username who needs to reset his password', $identifiers);
 
-        $user = $users->first(function ($user) use ($username) {
-            return $user->username == $username;
+        $matches = $users->filter(function ($user) use ($username) {
+            return $user->username == $username || ($user->email !== null && $user->email === $username);
         });
+
+        if ($matches->count() > 1) {
+            $this->error('Multiple users match this username or email address. Please enter a unique username or email address.');
+            goto askForUserName;
+        }
+
+        $user = $matches->first();
 
         if (is_null($user)) {
             $this->error('The user you entered is not exists');

@@ -8,7 +8,13 @@ import { ToggleBase } from './ui/components/base/toggle/toggle';
 
 // 服务端原生属性留在实际控件上，上游组件承担视觉，不改变表单序列化。
 export function Input({ className, disabled, required, ...props }: InputHTMLAttributes<HTMLInputElement>) {
-    return <InputBase {...props} data-dcat-ui-control="input" wrapperClassName="dcat-modern-upstream-input" size="sm" inputClassName={className} disabled={disabled} isDisabled={disabled} isRequired={required} />;
+    return <InputBase {...props} data-dcat-ui-control="input" groupRef={(node) => {
+        if (!node) return;
+        // 显式输入宽度必须约束上游容器，否则 affix 被 w-full 推到行尾。
+        node.style.width = props.style?.width != null ? String(typeof props.style.width === 'number' ? `${props.style.width}px` : props.style.width) : '';
+        node.style.maxWidth = props.style?.width != null ? '100%' : '';
+        node.style.flex = props.style?.flex != null ? String(props.style.flex) : '';
+    }} style={props.style?.width != null ? { ...props.style, width: '100%', flex: undefined } : props.style} wrapperClassName="dcat-modern-upstream-input" size="sm" inputClassName={className} disabled={disabled} isDisabled={disabled} isRequired={required} />;
 }
 
 export function Textarea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {

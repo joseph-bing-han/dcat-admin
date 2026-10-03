@@ -166,10 +166,10 @@ function verifySupportMatrix() {
 function verifyBrowserHarnessPolicy() {
     equal('playwright-core development dependency present', Boolean(packageJson.devDependencies['playwright-core']), true);
     equal('axe-core development dependency present', Boolean(packageJson.devDependencies['axe-core']), true);
-    equal('Browser contract script', packageJson.scripts['modern:browser'], 'node scripts/view-modernization-browser.mjs');
-    equal('Browser harness self-test script', packageJson.scripts['modern:browser:self-test'], 'node scripts/view-modernization-browser.mjs --self-test');
-    if (!packageJson.scripts['modern:verify'].includes('modern:browser:self-test')) {
-        errors.push('modern:verify must retain the system-Chrome browser harness self-test');
+    equal('Browser contract script', packageJson.scripts['browser'], 'node scripts/view-modernization-browser.mjs');
+    equal('Browser harness self-test script', packageJson.scripts['browser:self-test'], 'node scripts/view-modernization-browser.mjs --self-test');
+    if (!packageJson.scripts['verify'].includes('browser:self-test')) {
+        errors.push('verify must retain the system-Chrome browser harness self-test');
     }
 
     const installDep = fs.readFileSync(path.join(root, 'tests/bin/install-dep.sh'), 'utf8');

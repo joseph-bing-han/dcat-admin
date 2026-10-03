@@ -13,16 +13,31 @@ const add = (name, declarations) => {
         : `${scope} .${name} { ${declarations} }`);
 };
 
-for (const [prefix, property] of [['m', 'margin'], ['p', 'padding']]) {
-    for (const [axis, sides] of Object.entries({ '': [''], t: ['-top'], b: ['-bottom'], l: ['-left'], r: ['-right'], x: ['-left', '-right'], y: ['-top', '-bottom'] })) {
-        for (const size of [0, 1, 2, 3, 4, 5, ...(prefix === 'm' ? ['auto'] : [])]) {
-            const value = size === 'auto' ? 'auto' : `${Number(size) * 4}px`;
-            add(`${prefix}${axis}-${size}`, sides.map((side) => `${property}${side}: ${value} !important;`).join(' '));
+function addSpacing(breakpoint = '') {
+    for (const [prefix, property] of [['m', 'margin'], ['p', 'padding']]) {
+        for (const [axis, sides] of Object.entries({ '': [''], t: ['-top'], b: ['-bottom'], l: ['-left'], r: ['-right'], x: ['-left', '-right'], y: ['-top', '-bottom'] })) {
+            const sizes = { 0: '0px', 1: '4px', 2: '8px', 3: '12px', 4: '16px', 5: '20px', 25: '0.25rem', 50: '0.5rem', 75: '0.75rem' };
+            if (prefix === 'm') {
+                for (const [size, value] of Object.entries(sizes)) {
+                    if (size !== '0') sizes[`n${size}`] = `-${value}`;
+                }
+                sizes.auto = 'auto';
+            }
+            for (const [size, value] of Object.entries(sizes)) {
+                const name = `${prefix}${axis}-${breakpoint ? `${breakpoint}-` : ''}${size}`;
+                const declarations = sides.map((side) => `${property}${side}: ${value} !important;`).join(' ');
+                add(name, declarations);
+                if (!breakpoint && /^(?:[0-5]|auto)$/.test(size)) {
+                    // 重名类在原生 UI 仍遵循 Tailwind 层级，仅旧内容可覆盖组件默认间距。
+                    rules.push(`${scope} :where([data-dcat-modern-legacy-island]).${name}, ${scope} :where([data-dcat-modern-legacy-island]) .${name} { ${declarations} }`);
+                }
+            }
         }
     }
 }
 for (const [breakpoint, minimum] of [['', 0], ['sm', 576], ['md', 768], ['lg', 992], ['xl', 1200]]) {
     if (minimum) rules.push(`@media (min-width: ${minimum}px) {`);
+    addSpacing(breakpoint);
     const name = (base, suffix) => `${base}-${breakpoint ? `${breakpoint}-` : ''}${suffix}`;
     for (let span = 1; span <= 12; span++) add(name('col', span), `flex: 0 0 ${span / 12 * 100}%; max-width: ${span / 12 * 100}%;`);
     add(name('col', 'auto'), 'flex: 0 0 auto; width: auto; max-width: 100%;');

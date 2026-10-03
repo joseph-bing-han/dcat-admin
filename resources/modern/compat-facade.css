@@ -148,6 +148,7 @@
 .dcat-modern-active .flex-column { flex-direction: column !important; }
 .dcat-modern-active .flex-wrap { flex-wrap: wrap !important; }
 .dcat-modern-active .justify-content-between { justify-content: space-between !important; }
+.dcat-modern-active .justify-content-around { justify-content: space-around !important; }
 .dcat-modern-active .justify-content-center { justify-content: center !important; }
 .dcat-modern-active .justify-content-end { justify-content: flex-end !important; }
 .dcat-modern-active .align-items-center { align-items: center !important; }
@@ -159,8 +160,6 @@
 .dcat-modern-active .text-right { text-align: right !important; }
 .dcat-modern-active .text-center { text-align: center !important; }
 .dcat-modern-active .text-muted { color: var(--dcat-modern-muted) !important; }
-.dcat-modern-active .text-danger { color: var(--dcat-modern-danger) !important; }
-.dcat-modern-active .text-success { color: var(--dcat-modern-success) !important; }
 .dcat-modern-active .position-relative { position: relative !important; }
 .dcat-modern-active .w-100 { width: 100% !important; }
 
@@ -196,6 +195,7 @@
     line-height: 1.25;
     cursor: pointer;
     vertical-align: middle;
+    white-space: nowrap;
     box-shadow: var(--dcat-modern-shadow-control);
     transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
 }
@@ -282,6 +282,126 @@
 .dcat-modern-active .btn-group > .btn:not(:first-child) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
 .dcat-modern-active .btn-group > .btn:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .dcat-modern-active .btn-group > .btn:is(:hover, :focus-visible) { z-index: 1; }
+
+/* 公共命名颜色：动态业务模板无需参与Tailwind扫描。primary/secondary只作用于旧按钮，保留上游同名语义。 */
+.dcat-modern-active .bg-blue { --dcat-bg-color: var(--color-dcat-blue); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-blue-2 { --dcat-bg-color: var(--color-dcat-blue-2); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-blue-darker { --dcat-bg-color: var(--color-dcat-blue-darker); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-indigo { --dcat-bg-color: var(--color-dcat-indigo); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-indigo-darker { --dcat-bg-color: var(--color-dcat-indigo-darker); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-red { --dcat-bg-color: var(--color-dcat-red); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-red-darker { --dcat-bg-color: var(--color-dcat-red-darker); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-orange { --dcat-bg-color: var(--color-dcat-orange); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-orange-1 { --dcat-bg-color: var(--color-dcat-orange-1); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-orange-2 { --dcat-bg-color: var(--color-dcat-orange-2); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-green { --dcat-bg-color: var(--color-dcat-green); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-cyan { --dcat-bg-color: var(--color-dcat-cyan); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-cyan-darker { --dcat-bg-color: var(--color-dcat-cyan-darker); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-purple { --dcat-bg-color: var(--color-dcat-purple); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-custom { --dcat-bg-color: var(--color-dcat-custom); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-pink { --dcat-bg-color: var(--color-dcat-pink); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-yellow { --dcat-bg-color: var(--color-dcat-yellow); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-tear { --dcat-bg-color: var(--color-dcat-tear); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-tear-1 { --dcat-bg-color: var(--color-dcat-tear-1); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-gray { --dcat-bg-color: var(--color-dcat-gray); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-default { --dcat-bg-color: var(--color-dcat-default); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-light { --dcat-bg-color: var(--dcat-modern-surface-muted); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-dark { --dcat-bg-color: var(--color-dcat-dark); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-20 { --dcat-bg-color: var(--color-dcat-20); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-30 { --dcat-bg-color: var(--color-dcat-30); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-35 { --dcat-bg-color: var(--color-dcat-35); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-40 { --dcat-bg-color: var(--color-dcat-40); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-50 { --dcat-bg-color: var(--color-dcat-50); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-60 { --dcat-bg-color: var(--color-dcat-60); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-70 { --dcat-bg-color: var(--color-dcat-70); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-80 { --dcat-bg-color: var(--color-dcat-80); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-85 { --dcat-bg-color: var(--color-dcat-85); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-90 { --dcat-bg-color: var(--color-dcat-90); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-blue-1 { --dcat-bg-color: var(--color-dcat-blue-1); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-white50 { --dcat-bg-color: var(--color-dcat-white50); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .btn.bg-primary { --dcat-bg-color: var(--dcat-modern-primary); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .btn.bg-secondary { --dcat-bg-color: var(--dcat-modern-muted); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-info { --dcat-bg-color: var(--dcat-modern-info); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-success { --dcat-bg-color: var(--dcat-modern-success); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-warning { --dcat-bg-color: var(--dcat-modern-warning); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-danger { --dcat-bg-color: var(--dcat-modern-danger); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-white { --dcat-bg-color: var(--dcat-modern-on-primary); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-black { --dcat-bg-color: var(--color-black); background-color: var(--dcat-bg-color) !important; }
+.dcat-modern-active .bg-transparent { background-color: transparent !important; }
+
+/* 文字独立取色，bg-tear-1与text-orange-2等组合互不干扰。 */
+.dcat-modern-active .text-blue { color: var(--color-dcat-blue) !important; }
+.dcat-modern-active .text-blue-2 { color: var(--color-dcat-blue-2) !important; }
+.dcat-modern-active .text-blue-darker { color: var(--color-dcat-blue-darker) !important; }
+.dcat-modern-active .text-indigo { color: var(--color-dcat-indigo) !important; }
+.dcat-modern-active .text-indigo-darker { color: var(--color-dcat-indigo-darker) !important; }
+.dcat-modern-active .text-red { color: var(--color-dcat-red) !important; }
+.dcat-modern-active .text-red-darker { color: var(--color-dcat-red-darker) !important; }
+.dcat-modern-active .text-orange { color: var(--color-dcat-orange) !important; }
+.dcat-modern-active .text-orange-1 { color: var(--color-dcat-orange-1) !important; }
+.dcat-modern-active .text-orange-2 { color: var(--color-dcat-orange-2) !important; }
+.dcat-modern-active .text-green { color: var(--color-dcat-green) !important; }
+.dcat-modern-active .text-cyan { color: var(--color-dcat-cyan) !important; }
+.dcat-modern-active .text-cyan-darker { color: var(--color-dcat-cyan-darker) !important; }
+.dcat-modern-active .text-purple { color: var(--color-dcat-purple) !important; }
+.dcat-modern-active .text-custom { color: var(--color-dcat-custom) !important; }
+.dcat-modern-active .text-pink { color: var(--color-dcat-pink) !important; }
+.dcat-modern-active .text-yellow { color: var(--color-dcat-yellow) !important; }
+.dcat-modern-active .text-tear { color: var(--color-dcat-tear) !important; }
+.dcat-modern-active .text-tear-1 { color: var(--color-dcat-tear-1) !important; }
+.dcat-modern-active .text-gray { color: var(--color-dcat-gray) !important; }
+.dcat-modern-active .text-default { color: var(--color-dcat-default) !important; }
+.dcat-modern-active .text-light { color: var(--color-dcat-light) !important; }
+.dcat-modern-active .text-dark { color: var(--color-dcat-dark) !important; }
+.dcat-modern-active .text-20 { color: var(--color-dcat-20) !important; }
+.dcat-modern-active .text-30 { color: var(--color-dcat-30) !important; }
+.dcat-modern-active .text-35 { color: var(--color-dcat-35) !important; }
+.dcat-modern-active .text-40 { color: var(--color-dcat-40) !important; }
+.dcat-modern-active .text-50 { color: var(--color-dcat-50) !important; }
+.dcat-modern-active .text-60 { color: var(--color-dcat-60) !important; }
+.dcat-modern-active .text-70 { color: var(--color-dcat-70) !important; }
+.dcat-modern-active .text-80 { color: var(--color-dcat-80) !important; }
+.dcat-modern-active .text-85 { color: var(--color-dcat-85) !important; }
+.dcat-modern-active .text-90 { color: var(--color-dcat-90) !important; }
+.dcat-modern-active .text-blue-1 { color: var(--color-dcat-blue-1) !important; }
+.dcat-modern-active .text-white50 { color: var(--color-dcat-white50) !important; }
+.dcat-modern-active .btn.text-primary { color: var(--dcat-modern-primary) !important; }
+.dcat-modern-active .btn.text-secondary { color: var(--dcat-modern-muted) !important; }
+.dcat-modern-active .text-info { color: var(--dcat-modern-info) !important; }
+.dcat-modern-active .text-success { color: var(--dcat-modern-success) !important; }
+.dcat-modern-active .text-warning { color: var(--dcat-modern-warning) !important; }
+.dcat-modern-active .text-danger { color: var(--dcat-modern-danger) !important; }
+.dcat-modern-active .text-white { color: var(--dcat-modern-on-primary) !important; }
+.dcat-modern-active .text-black { color: var(--color-black) !important; }
+.dcat-modern-active .text-primary-darker { color: var(--dcat-modern-primary-hover) !important; }
+.dcat-modern-active .text-danger-darker { color: var(--color-dcat-red-darker) !important; }
+
+.dcat-modern-active .bg-primary-gradient {
+    background-image: linear-gradient(60deg, var(--dcat-modern-primary) 0%, color-mix(in srgb, var(--dcat-modern-primary) 95%, white) 37%, color-mix(in srgb, var(--dcat-modern-primary) 82%, white) 65%, color-mix(in srgb, var(--dcat-modern-primary) 78%, white) 100%);
+}
+
+/* 指定背景色的按钮同步边框和交互状态；禁用状态保留原色与透明度。 */
+.dcat-modern-active .btn:is(
+    .bg-blue, .bg-blue-2, .bg-blue-darker, .bg-indigo, .bg-indigo-darker, .bg-red, .bg-red-darker, .bg-orange,
+    .bg-orange-1, .bg-orange-2, .bg-green, .bg-cyan, .bg-cyan-darker, .bg-purple, .bg-custom, .bg-pink,
+    .bg-yellow, .bg-tear, .bg-tear-1, .bg-gray, .bg-default, .bg-light, .bg-dark, .bg-20,
+    .bg-30, .bg-35, .bg-40, .bg-50, .bg-60, .bg-70, .bg-80, .bg-85,
+    .bg-90, .bg-blue-1, .bg-white50, .bg-primary, .bg-secondary, .bg-info, .bg-success, .bg-warning,
+    .bg-danger, .bg-white, .bg-black
+) {
+    border-color: var(--dcat-bg-color);
+}
+.dcat-modern-active .btn:is(
+    .bg-blue, .bg-blue-2, .bg-blue-darker, .bg-indigo, .bg-indigo-darker, .bg-red, .bg-red-darker, .bg-orange,
+    .bg-orange-1, .bg-orange-2, .bg-green, .bg-cyan, .bg-cyan-darker, .bg-purple, .bg-custom, .bg-pink,
+    .bg-yellow, .bg-tear, .bg-tear-1, .bg-gray, .bg-default, .bg-light, .bg-dark, .bg-20,
+    .bg-30, .bg-35, .bg-40, .bg-50, .bg-60, .bg-70, .bg-80, .bg-85,
+    .bg-90, .bg-blue-1, .bg-white50, .bg-primary, .bg-secondary, .bg-info, .bg-success, .bg-warning,
+    .bg-danger, .bg-white, .bg-black
+):is(:hover, :active, .active):not(:disabled):not(.disabled) {
+    background-color: color-mix(in srgb, var(--dcat-bg-color) 85%, black) !important;
+    border-color: color-mix(in srgb, var(--dcat-bg-color) 85%, black);
+}
 
 /* 卡片标签页的标题与内容使用统一留白，显式配置的内容 padding 仍保留。 */
 .dcat-modern-active .card[data-dcat-tab-widget]:not(.nav-vertical) { padding: 0 !important; }
@@ -397,7 +517,12 @@
 }
 .dcat-modern-active .control-label { display: block; margin-bottom: 8px; color: var(--dcat-modern-heading); font-weight: 500; }
 @media (min-width: 768px) {
-    .dcat-modern-active .form-horizontal .form-group.row > .control-label { padding-top: 8px; }
+    .dcat-modern-active .form-horizontal .form-group.row > .control-label { padding-top: 8px; text-align: right; }
+}
+.dcat-modern-active .control-label.asterisk:not(:has(.dcat-modern-form-required))::before {
+    content: '*';
+    margin-inline-end: 4px;
+    color: var(--dcat-modern-danger);
 }
 .dcat-modern-active .form-control:not([data-dcat-ui-control]),
 .dcat-modern-active .custom-select {
@@ -416,6 +541,16 @@
 .dcat-modern-active .form-control:not([data-dcat-ui-control]):focus { outline: none; border-color: var(--dcat-modern-primary); box-shadow: var(--dcat-modern-focus); }
 .dcat-modern-active .form-control:not([data-dcat-ui-control]):disabled { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-disabled); cursor: not-allowed; }
 .dcat-modern-active .form-control:not([data-dcat-ui-control])[readonly] { background: var(--dcat-modern-surface-muted); color: var(--dcat-modern-muted); }
+.dcat-modern-active .quick-search-form {
+    min-width: 0;
+    max-width: 100%;
+}
+/* QuickSearch 的 rem 宽度输出在 label 上，行内 label 不会应用该配置。 */
+.dcat-modern-active .quick-search-form .table-filter > label {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 0;
+}
 .dcat-modern-active .form-control:not([data-dcat-ui-control]).is-invalid { border-color: var(--dcat-modern-danger); }
 /* Select2 默认把菜单挂到 body，其弹层必须高于抽屉和模态窗口。 */
 .dcat-modern-active > .select2-container--open {
@@ -542,11 +677,118 @@
 .dcat-modern-active .card-body,
 .dcat-modern-active .box-body,
 .dcat-modern-active .card > .metric-content { padding: 16px; }
+/* 自定义指标保留标签与金额层级，窄屏按完整指标换行，避免数值相连。 */
+.dcat-modern-active .metric-content > .d-flex.justify-content-around {
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.dcat-modern-active .metric-content > .d-flex.justify-content-around > .font-xl {
+    min-width: 0;
+    max-width: 100%;
+    margin-inline: 0 !important;
+    font-size: 18px;
+    line-height: 1.5;
+}
+.dcat-modern-active .metric-content .font-xl > .h2 {
+    margin: 4px 0 0;
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
 .dcat-modern-active .card-footer,
 .dcat-modern-active .box-footer { padding: 12px 16px; border-top: 1px solid var(--dcat-modern-border-subtle); }
 .dcat-modern-active .box-title,
 .dcat-modern-active .card-title,
 .dcat-modern-active .card-box-title { margin: 0; color: var(--dcat-modern-heading); font-weight: 600; }
+
+/* 自定义工具保留整块 Show 面板时，标题和字段不能继承通用卡片布局。 */
+.dcat-modern-active .dcat-modern-show .dcat-box > .box-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}
+.dcat-modern-active .dcat-modern-show .dcat-box > .box-header > .pull-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    margin-left: auto;
+    float: none !important;
+}
+.dcat-modern-active .dcat-modern-show .dcat-box > .box-header > .pull-right > :is(.btn, .btn-group) {
+    margin: 0 !important;
+    float: none !important;
+}
+/* 默认工具原先右浮动，改为 flex 后仍按列表、编辑、删除显示。 */
+.dcat-modern-active .dcat-modern-show .box-header > .pull-right > .btn-mini { order: 1; }
+.dcat-modern-active .dcat-modern-show .box-header > .pull-right > .btn-mini:has(a[href$="/edit"]) { order: 2; }
+.dcat-modern-active .dcat-modern-show .box-header > .pull-right > .btn-mini:has([data-action="delete"]) { order: 3; }
+.dcat-modern-active .dcat-modern-show .show-field { align-items: flex-start; }
+.dcat-modern-active .dcat-modern-show .show-field > .control-label { margin-bottom: 0; }
+/* 附件图标与文件名同排，长名称在内容列内换行。 */
+.dcat-modern-active .mailbox-attachments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.dcat-modern-active .mailbox-attachments > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    list-style: none;
+}
+.dcat-modern-active .mailbox-attachments > li + li { margin-top: 12px; }
+.dcat-modern-active .mailbox-attachment-icon { flex: 0 0 auto; }
+.dcat-modern-active .mailbox-attachment-info {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+.dcat-modern-active .mailbox-attachment-name {
+    grid-column: 1;
+    display: block;
+    overflow-wrap: anywhere;
+}
+.dcat-modern-active a.mailbox-attachment-name:hover { text-decoration: underline; }
+.dcat-modern-active .mailbox-attachment-size {
+    grid-column: 1;
+    grid-row: 2;
+}
+.dcat-modern-active .mailbox-attachment-download {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+}
+.dcat-modern-active .dcat-modern-show .show-field .box-show {
+    margin: 0;
+    border-radius: var(--dcat-modern-radius-control);
+}
+.dcat-modern-active .dcat-modern-show .show-field .box-show > .box-body {
+    border-radius: inherit;
+    min-height: 34px;
+    padding: 6px 10px;
+    overflow-wrap: anywhere;
+}
+.dcat-modern-active .dcat-modern-show .show-relation-container [data-dcat-modern-slot] {
+    min-width: 0;
+    max-width: 100%;
+}
+@media (max-width: 575.98px) {
+    .dcat-modern-active .dcat-modern-show .dcat-box > .box-header > .pull-right {
+        width: 100%;
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+    .dcat-modern-active .dcat-modern-show .show-field > .control-label { margin-bottom: 8px; }
+}
 .dcat-modern-active .metric-subtitle {
     display: inline-flex;
     align-items: center;
@@ -677,6 +919,20 @@
 .dcat-modern-active .dropdown-item,
 .dcat-modern-active .dropdown-menu > li > a { display: block; width: 100%; padding: 8px 12px; border-radius: var(--dcat-modern-radius-sm); color: var(--dcat-modern-text); white-space: nowrap; }
 .dcat-modern-active .dropdown-menu > li.dropdown-item { padding: 0; }
+/* 列筛选的重置链接是按钮，不能继承普通菜单项的整行宽度。 */
+.dcat-modern-active .dropdown-menu:has(.column-filter-submit) > li:last-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+.dcat-modern-active .dropdown-menu:has(.column-filter-submit) > li > .btn {
+    display: inline-flex;
+    width: auto;
+    flex: 0 0 auto;
+    padding: 4px 12px;
+    border-radius: var(--dcat-modern-radius-control);
+}
 .dcat-modern-active .dropdown-item:hover,
 .dcat-modern-active .dropdown-menu > li > a:hover { background: var(--dcat-modern-surface-hover); }
 
@@ -803,7 +1059,7 @@
 .dcat-modern-active .collapse.show { display: block; }
 .dcat-modern-active tr.collapse.show { display: table-row; }
 
-.dcat-modern-active .alert { position: relative; padding: 10px 36px 10px 12px; border: 1px solid var(--dcat-modern-border); border-radius: var(--dcat-modern-radius-md); }
+.dcat-modern-active .alert { position: relative; margin-block: 16px; padding: 10px 36px 10px 12px; border: 1px solid var(--dcat-modern-border); border-radius: var(--dcat-modern-radius-md); }
 .dcat-modern-active .alert-danger { border-color: var(--dcat-modern-danger); background: var(--dcat-modern-danger-surface); color: var(--dcat-modern-danger); }
 .dcat-modern-active .alert-success { border-color: var(--dcat-modern-success); background: var(--dcat-modern-success-surface); color: var(--dcat-modern-success); }
 .dcat-modern-active .alert-warning { border-color: var(--dcat-modern-warning); background: var(--dcat-modern-warning-surface); color: var(--dcat-modern-warning); }
@@ -891,6 +1147,12 @@
 .dcat-modern-active:not(.horizontal-menu) > .wrapper > .main-menu {
     grid-column: 1;
     grid-row: 1 / span 2;
+    /* 侧栏不受 wrapper（不含页脚）的底边约束，避免滚到底时向上移动并露出空白。 */
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: calc(var(--dcat-modern-z-sticky) - 1);
+    height: 100vh;
+    height: 100dvh;
     min-width: 0;
     width: var(--dcat-shell-sidebar-width);
 }
@@ -900,15 +1162,23 @@
 }
 
 .dcat-modern-active .main-sidebar {
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: calc(var(--dcat-modern-z-sticky) - 1);
     width: var(--dcat-shell-sidebar-width);
-    height: 100vh;
+    height: 100%;
     overflow-y: auto;
     border-right: 1px solid var(--dcat-modern-border-subtle);
     background: var(--dcat-modern-surface);
     box-shadow: none !important;
+}
+
+.dcat-modern-active:not(.horizontal-menu) .main-sidebar > .navbar-header {
+    flex-shrink: 0;
+}
+
+.dcat-modern-active:not(.horizontal-menu) .main-sidebar > .sidebar {
+    overscroll-behavior-y: contain;
 }
 
 .dcat-modern-active:not(.horizontal-menu) > .wrapper > nav.header-navbar {
@@ -1071,10 +1341,52 @@
     align-items: center;
 }
 
+/* 扩展可能直接插入 li 导航项，不能仅依赖外层 ul.nav 隐藏列表标记。 */
+.dcat-modern-active .header-navbar .nav-item {
+    list-style: none;
+}
+
 .dcat-modern-active .header-navbar .nav-link {
     display: inline-flex;
     min-height: 40px;
     align-items: center;
+}
+
+/* 主题开关沿用旧 Widget 标记，但不是下拉菜单；图标与顶栏铃铛保持同尺寸。 */
+.dcat-modern-active .header-navbar .nav-link:has(.dark-mode-switcher)::after {
+    display: none;
+    content: none;
+}
+.dcat-modern-active .header-navbar .dark-mode-switcher {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 1;
+}
+.dcat-modern-active .header-navbar .dark-mode-switcher > i {
+    font-size: inherit;
+    line-height: inherit;
+}
+.dcat-modern-active .header-navbar .dark-mode-switcher svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 导航中的国旗等行内图片不能被preflight拆到文字上方。 */
+.dcat-modern-active .header-navbar .nav-link img,
+.dcat-modern-active .header-navbar .dropdown-menu img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dcat-modern-active .header-navbar .dropdown-language .nav-link > span {
+    width: auto;
+    white-space: nowrap;
+}
+
+.dcat-modern-active .header-navbar .dropdown-language .dropdown-item > a {
+    white-space: nowrap;
 }
 
 .dcat-modern-active .header-navbar .dropdown-user-link {
@@ -1250,7 +1562,79 @@
     background: var(--dcat-modern-surface-muted);
 }
 .dcat-modern-active .login-box { width: min(420px, 100%); }
-.dcat-modern-active .login-logo { text-align: center; color: var(--dcat-modern-heading); font-size: 24px; font-weight: 700; }
+.dcat-modern-active .login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    color: var(--dcat-modern-heading);
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* 自定义登录模板保留原节点；补齐图标、浮动标签和品牌的布局契约。 */
+.dcat-modern-active.full-page :is(.app-content.content, .content-body, section.content):has(.login-page) {
+    padding: 0;
+}
+.dcat-modern-active .login-page .login-box {
+    width: min(360px, 100%);
+    min-width: 0;
+}
+.dcat-modern-active .login-page .login-logo { margin-bottom: 32px !important; }
+.dcat-modern-active .login-page .login-logo > * { min-width: 0; }
+.dcat-modern-active .login-page .login-logo img { flex-shrink: 0; }
+.dcat-modern-active .login-page img { display: inline-block; vertical-align: middle; }
+.dcat-modern-active .login-page .login-card-body { padding: 24px; }
+.dcat-modern-active .login-page .card {
+    border-radius: 4px;
+    box-shadow: var(--dcat-modern-shadow-control);
+}
+.dcat-modern-active .login-page .login-box-msg {
+    margin: 8px 0 32px !important;
+    text-align: center;
+}
+.dcat-modern-active .login-page .form-label-group {
+    position: relative;
+    min-width: 0;
+    margin: 0 0 28px;
+    padding: 0;
+    border: 0;
+}
+.dcat-modern-active .login-page .has-icon-left > .form-control:not([data-dcat-ui-control]) {
+    padding-inline-start: 40px;
+}
+.dcat-modern-active .login-page .form-control-position {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: var(--dcat-modern-control-height);
+    color: var(--dcat-modern-muted);
+    pointer-events: none;
+}
+.dcat-modern-active .login-page .form-label-group > .form-control[placeholder] ~ label {
+    position: absolute;
+    inset-block-start: -22px;
+    inset-inline-start: 0;
+    margin: 0;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--dcat-modern-muted);
+    pointer-events: none;
+}
+.dcat-modern-active .login-page .form-label-group > .form-control:placeholder-shown ~ label {
+    opacity: 0;
+}
+.dcat-modern-active .login-page .login-card-body > .form-group:last-child { margin-top: 40px !important; }
+
+@media (max-width: 575.98px), (max-height: 700px) {
+    /* 避免消费应用旧模板的负 margin 在小视口裁掉品牌或表单。 */
+    .dcat-modern-active .login-page .login-box { margin-block: 0; }
+    .dcat-modern-active .login-page { padding: 16px; }
+}
 
 .dcat-modern-active .sr-only {
     position: absolute !important;

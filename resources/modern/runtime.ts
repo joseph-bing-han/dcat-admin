@@ -192,14 +192,37 @@ function nativeHelpers() {
             const dialog = document.createElement('dialog');
             dialog.className = 'dcat-modern-image-preview';
             dialog.setAttribute('aria-label', title || 'Image preview');
-            dialog.innerHTML = '<div class="dcat-modern-image-preview__card"><button type="button" aria-label="Close image preview">×</button><img></div>';
+            dialog.innerHTML = '<div class="dcat-modern-image-preview__card"><button type="button" aria-label="Close image preview">×</button><div class="dcat-modern-image-preview__status" role="status" aria-live="polite"></div><img hidden></div>';
             const image = dialog.querySelector('img')!;
-            image.src = url;
+            const status = dialog.querySelector<HTMLElement>('[role="status"]')!;
+            status.textContent = 'Loading image…';
+            dialog.setAttribute('aria-busy', 'true');
             image.alt = title || 'Image preview';
+            const loaded = () => {
+                image.hidden = false;
+                status.hidden = true;
+                dialog.setAttribute('aria-busy', 'false');
+            };
+            const failed = () => {
+                image.hidden = true;
+                status.hidden = false;
+                status.textContent = 'Unable to load image.';
+                dialog.setAttribute('aria-busy', 'false');
+            };
+            // 在设置src之前监听，覆盖缓存命中和立即失败的图片。
+            image.addEventListener('load', loaded);
+            image.addEventListener('error', failed);
+            image.src = url;
+            if (image.complete) {
+                if (image.naturalWidth > 0) loaded();
+                else failed();
+            }
             const close = () => { dialog.close(); };
             dialog.querySelector('button')!.addEventListener('click', close);
             dialog.addEventListener('click', (event) => { if (event.target === dialog) close(); });
             dialog.addEventListener('close', () => {
+                image.removeEventListener('load', loaded);
+                image.removeEventListener('error', failed);
                 dialog.remove();
                 if (previousFocus?.isConnected) previousFocus.focus();
             }, { once: true });
@@ -214,6 +237,33 @@ function notify(tone: string, message: unknown): void {
     window.dispatchEvent(new CustomEvent('dcat:notice', {
         detail: { tone, message: String(message ?? '') },
     }));
+}
+
+const pendingNoticeKey = 'dcat:pending-navigation-notice';
+
+function preserveNavigationNotice(tone: string, message: string, target: string): void {
+    const destination = new URL(target, location.href);
+    if (destination.origin !== location.origin) return;
+    try {
+        sessionStorage.setItem(pendingNoticeKey, JSON.stringify({ tone, message, target: destination.pathname + destination.search, created: Date.now() }));
+    } catch (_) {
+        // 存储不可用时仍继续导航，不让提示阻断保存后的跳转。
+    }
+}
+
+function restoreNavigationNotice(): void {
+    try {
+        const raw = sessionStorage.getItem(pendingNoticeKey);
+        if (!raw) return;
+        sessionStorage.removeItem(pendingNoticeKey);
+        const pending = JSON.parse(raw);
+        if (pending.target !== location.pathname + location.search || typeof pending.message !== 'string'
+            || !['success', 'danger', 'warning', 'neutral'].includes(pending.tone)
+            || typeof pending.created !== 'number' || Date.now() - pending.created > 60000) return;
+        queueMicrotask(() => notify(pending.tone, pending.message));
+    } catch (_) {
+        // 损坏或被禁用的会话存储不影响页面初始化。
+    }
 }
 
 function event(name: string, detail: Record<string, unknown> = {}): CustomEvent {
@@ -231,6 +281,17 @@ function canPreviewSidebar(): boolean {
 
 export function dismissSidebarPreview(): void {
     document.body?.classList.remove('sidebar-hover');
+}
+
+export function dismissSidebar(): void {
+    dismissSidebarPreview();
+    if (!document.body?.classList.contains('sidebar-open')) return;
+    document.body.classList.remove('sidebar-open');
+    syncSidebarToggleState();
+    document.dispatchEvent(event('dcat:sidebar:changed', {
+        collapsed: document.body.classList.contains('sidebar-collapse'),
+        open: false,
+    }));
 }
 
 function previewSidebar(): void {
@@ -310,7 +371,7 @@ function bindNativeShell(): void {
         } else if (sidebarFor(target) && target.closest('summary, .has-treeview > a[href="#"]')) {
             previewSidebar();
         } else if (!sidebarFor(target) || target.closest('a[href]:not([href=""]):not([href="#"])')) {
-            dismissSidebarPreview();
+            dismissSidebar();
         }
     });
 
@@ -324,21 +385,19 @@ function bindNativeShell(): void {
             return;
         }
         if (eventValue.key === 'Escape') {
-            if (document.body.classList.contains('sidebar-hover')) {
+            if (document.body.classList.contains('sidebar-hover') || document.body.classList.contains('sidebar-open')) {
                 eventValue.preventDefault();
-                dismissSidebarPreview();
+                dismissSidebar();
                 document.querySelector<HTMLElement>('[data-widget="pushmenu"], .menu-toggle')?.focus();
             }
-            document.body.classList.remove('sidebar-open');
-            syncSidebarToggleState();
         }
     });
 
     window.addEventListener('resize', syncSidebarToggleState);
-    document.addEventListener('dcat:pjax:start', dismissSidebarPreview);
-    document.addEventListener('dcat:pjax:before-replace', dismissSidebarPreview);
+    document.addEventListener('dcat:pjax:start', dismissSidebar);
+    document.addEventListener('dcat:pjax:before-replace', dismissSidebar);
     document.addEventListener('dcat:pjax:loaded', () => {
-        dismissSidebarPreview();
+        dismissSidebar();
         syncSidebarToggleState();
     });
     if (document.readyState === 'loading') {
@@ -374,7 +433,9 @@ function closeGridDropdowns(except: HTMLElement | null = null): void {
     document.querySelectorAll<HTMLElement>('.dcat-modern-grid-view .dropdown.show, .dcat-modern-grid-view .btn-group.show').forEach((dropdown) => {
         if (dropdown === except) return;
         dropdown.classList.remove('show');
-        const menu = dropdown.querySelector<HTMLElement>(':scope > .dropdown-menu');
+        // 列筛选菜单嵌套在 form 内，关闭必须使用与打开一致的查找范围。
+        const menu = dropdown.querySelector<HTMLElement>(':scope > .dropdown-menu')
+            ?? dropdown.querySelector<HTMLElement>('.dropdown-menu');
         menu?.classList.remove('show');
         if (menu && gridMenuStyles.has(menu)) {
             const style = gridMenuStyles.get(menu);
@@ -515,19 +576,21 @@ function updateGridSelection(root: HTMLElement): void {
     }));
 }
 
-function formUrl(form: HTMLFormElement): string {
+function formUrl(form: HTMLFormElement, preserveQuery = false): string {
     const url = new URL(form.action || location.href, location.href);
-    url.search = '';
-    const params = new URLSearchParams();
-    new FormData(form).forEach((value, key) => {
+    const params = new URLSearchParams(preserveQuery ? url.search : '');
+    const data = new FormData(form);
+    // 列筛选 action 保留其它筛选和排序；本次字段替换旧值，仍支持同名多值。
+    data.forEach((_value, key) => params.delete(key));
+    data.forEach((value, key) => {
         if (typeof value === 'string') params.append(key, value);
     });
     url.search = params.toString();
     return url.href;
 }
 
-function submitNativeGridGetForm(dcat: NativeDcat, form: HTMLFormElement): void {
-    void nativePjax(dcat, formUrl(form));
+function submitNativeGridGetForm(dcat: NativeDcat, form: HTMLFormElement, preserveQuery = false): void {
+    void nativePjax(dcat, formUrl(form, preserveQuery));
 }
 
 function scheduleQuickSearch(dcat: NativeDcat, input: HTMLInputElement): void {
@@ -655,6 +718,14 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
     if (gridInteractionsBound) return;
     gridInteractionsBound = true;
 
+    // 表头的 React Aria press 不能接管菜单触发器与排序链接的指针序列。
+    document.addEventListener('pointerdown', (eventValue) => {
+        const target = eventValue.target instanceof DOMElement ? eventValue.target : null;
+        if (modernGridRoot(target) && target?.closest('[data-toggle="dropdown"], a.grid-sort')) {
+            eventValue.stopImmediatePropagation();
+        }
+    }, true);
+
     document.addEventListener('click', (eventValue) => {
         const target = eventValue.target instanceof DOMElement ? eventValue.target : null;
         if (!target) return;
@@ -681,6 +752,20 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
             return;
         }
         root.dataset.dcatGridInteractions = 'native';
+        const sort = target.closest<HTMLAnchorElement>('a.grid-sort[href]');
+        if (sort) {
+            // 兼容表头内的普通链接也需要避开表头 press，修饰键仍交给浏览器。
+            eventValue.stopImmediatePropagation();
+            const url = new URL(sort.href, location.href);
+            if (eventValue.button === 0 && !eventValue.ctrlKey && !eventValue.metaKey && !eventValue.altKey && !eventValue.shiftKey
+                && (!sort.target || sort.target === '_self') && !sort.hasAttribute('download')
+                && url.origin === location.origin && /^https?:$/.test(url.protocol)) {
+                eventValue.preventDefault();
+                closeGridDropdowns();
+                void nativePjax(dcat, url.href);
+            }
+            return;
+        }
         // 选择框由原生 change 处理，避免 React Aria 表头点击取消默认勾选。
         if (target.matches('[data-dcat-grid-select-all="1"], [data-dcat-grid-row-selector="1"]')) {
             eventValue.stopImmediatePropagation();
@@ -696,7 +781,7 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
                 eventValue.preventDefault();
                 eventValue.stopImmediatePropagation();
                 checkbox.checked = !checkbox.checked;
-                updateGridSelection(root);
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
                 return;
             }
         }
@@ -759,8 +844,37 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
             return;
         }
 
+        const columnReset = target.closest<HTMLAnchorElement>('.dropdown-menu a.btn-default');
+        if (columnReset?.closest('form[pjax-container]')?.querySelector('.column-filter-submit')) {
+            // 重置链接也不能依赖被表头 press 拦截的默认跳转。
+            eventValue.preventDefault();
+            eventValue.stopImmediatePropagation();
+            closeGridDropdowns();
+            void nativePjax(dcat, columnReset.href);
+            return;
+        }
+
+        const columnSubmit = target.closest<HTMLButtonElement>('button.column-filter-submit');
+        const columnForm = columnSubmit?.form;
+        if (columnForm?.hasAttribute('pjax-container') && columnForm.method.toLowerCase() === 'get') {
+            // 先触发表单校验与 submit，避免隐藏按钮或表头 press 取消默认提交。
+            eventValue.preventDefault();
+            eventValue.stopImmediatePropagation();
+            columnForm.requestSubmit(columnSubmit!);
+            return;
+        }
+
+        // 筛选输入和标签的点击保留菜单，不能被捕获阶段的外部关闭逻辑拦截。
+        if (target.closest('.dropdown-menu') && target.closest('input, select, textarea, label')) return;
         closeGridDropdowns();
     }, true);
+
+    // 兼容选择器先处理单选互斥、数量限制，再同步最终的 Grid 状态。
+    document.addEventListener('change', (eventValue) => {
+        const input = eventValue.target instanceof HTMLInputElement ? eventValue.target : null;
+        const root = modernGridRoot(input);
+        if (root && input?.matches('[data-dcat-grid-row-selector="1"]')) updateGridSelection(root);
+    });
 
     document.addEventListener('change', (eventValue) => {
         const input = eventValue.target instanceof HTMLInputElement ? eventValue.target : null;
@@ -768,14 +882,14 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
         if (!input || !root) return;
 
         if (input.matches('[data-dcat-grid-row-selector="1"]')) {
-            eventValue.stopImmediatePropagation();
-            updateGridSelection(root);
             return;
         }
         if (input.matches('input.select-all') && !input.closest('.column-selector')) {
             eventValue.stopImmediatePropagation();
+            const checked = input.checked;
             root.querySelectorAll<HTMLInputElement>('[data-dcat-grid-row-selector="1"]:not(:disabled)').forEach((checkbox) => {
-                checkbox.checked = input.checked;
+                checkbox.checked = checked;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
             });
             updateGridSelection(root);
             return;
@@ -804,12 +918,15 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
     document.addEventListener('submit', (eventValue) => {
         const form = eventValue.target instanceof HTMLFormElement ? eventValue.target : null;
         const root = modernGridRoot(form);
-        if (!form || !root || (!form.matches('.quick-search-form') && !form.matches('.grid-filter-form'))) return;
+        if (!form || !root) return;
+        const columnFilter = form.hasAttribute('pjax-container') && !!form.querySelector('.column-filter-submit');
+        if (!columnFilter && !form.matches('.quick-search-form, .grid-filter-form')) return;
         if ((form.method || 'get').toLowerCase() !== 'get') return;
         eventValue.preventDefault();
         eventValue.stopImmediatePropagation();
         closeGridFilterPanel();
-        submitNativeGridGetForm(dcat, form);
+        if (columnFilter) closeGridDropdowns();
+        submitNativeGridGetForm(dcat, form, columnFilter);
     }, true);
 
     document.addEventListener('keydown', (eventValue) => {
@@ -841,6 +958,17 @@ function bindNativeGridInteractions(dcat: NativeDcat): void {
         }
         const target = eventValue.target instanceof DOMElement ? eventValue.target : null;
         const root = modernGridRoot(target);
+        if (root && target instanceof HTMLInputElement && eventValue.key === 'Enter' && !eventValue.isComposing) {
+            const form = target.form;
+            const submit = form?.querySelector<HTMLButtonElement>('button.column-filter-submit:not(:disabled)');
+            if (form?.hasAttribute('pjax-container') && form.method.toLowerCase() === 'get' && submit) {
+                // 表头键盘 press 同样可能取消隐式提交，Enter 使用同一表单入口。
+                eventValue.preventDefault();
+                eventValue.stopImmediatePropagation();
+                form.requestSubmit(submit);
+                return;
+            }
+        }
         const toggle = target?.closest<HTMLElement>('[data-toggle="dropdown"]');
         if (!root || !toggle || (eventValue.key !== 'ArrowDown' && eventValue.key !== 'ArrowUp')) return;
         eventValue.preventDefault();
@@ -902,6 +1030,44 @@ class NativeDcat {
     lang: ReturnType<typeof translator>;
     helpers: ReturnType<typeof nativeHelpers>;
     colors: unknown;
+    darkMode = {
+        initSwitcher: (selector: string) => {
+            const dcat = this;
+            const sync = () => {
+                const dark = document.body.classList.contains('dark-mode');
+                document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+                    element.setAttribute('aria-pressed', String(dark));
+                    const icon = element.querySelector('.feather');
+                    icon?.classList.toggle('icon-sun', dark);
+                    icon?.classList.toggle('icon-moon', !dark);
+                });
+            };
+            this.init(selector, function (this: HTMLElement) {
+                const element = this;
+                // 旧 Widget 使用 span，补齐键盘和辅助技术的按钮语义。
+                if (element.tagName !== 'BUTTON') {
+                    element.setAttribute('role', 'button');
+                    element.tabIndex = 0;
+                }
+                if (!element.hasAttribute('aria-label')) element.setAttribute('aria-label', 'Toggle dark mode');
+                const toggle = () => {
+                    document.body.classList.toggle('dark-mode');
+                    dcat.config.dark_mode = document.body.classList.contains('dark-mode');
+                    sync();
+                };
+                element.addEventListener('click', (eventValue) => {
+                    eventValue.preventDefault();
+                    toggle();
+                });
+                if (element.tagName !== 'BUTTON') element.addEventListener('keydown', (eventValue) => {
+                    if (eventValue.key !== 'Enter' && eventValue.key !== ' ') return;
+                    eventValue.preventDefault();
+                    if (!eventValue.repeat) toggle();
+                });
+                sync();
+            });
+        },
+    };
     grid = {
         selected: (name?: string) => {
             const root = this.gridRoot(name);
@@ -926,6 +1092,7 @@ class NativeDcat {
         bindNativeGridInteractions(this);
         bindNativeWidgetInteractions();
         bindNativeDataActions(this);
+        restoreNavigationNotice();
     }
 
     Translator(values: Record<string, unknown> = {}) {
@@ -1131,9 +1298,10 @@ class NativeDcat {
             : typeof response.message === 'string'
                 ? response.message
                 : '';
+        let tone = 'success';
         if (message) {
             const requestedTone = typeof data.type === 'string' ? data.type : '';
-            const tone = requestedTone === 'error' || requestedTone === 'danger' || response.status === false || response.success === false
+            tone = requestedTone === 'error' || requestedTone === 'danger' || response.status === false || response.success === false
                 ? 'danger'
                 : requestedTone === 'warning'
                     ? 'warning'
@@ -1143,6 +1311,13 @@ class NativeDcat {
             notify(tone, message);
         }
 
+        const prepareNavigation = (target = location.href, fullPage = false) => {
+            const selector = String(this.config.pjax_container_selector || '');
+            if (message && (fullPage || !selector || !document.querySelector(selector))) {
+                preserveNavigationNotice(tone, message, target);
+            }
+        };
+
         const then = data.then && typeof data.then === 'object'
             ? data.then as Record<string, unknown>
             : null;
@@ -1150,12 +1325,15 @@ class NativeDcat {
             const value = typeof then.value === 'string' ? then.value : '';
             switch (then.action) {
                 case 'refresh':
+                    prepareNavigation();
                     this.reload();
                     break;
                 case 'redirect':
+                    prepareNavigation(value || location.href);
                     this.reload(value || undefined);
                     break;
                 case 'location':
+                    prepareNavigation(value || location.href, true);
                     if (value) location.assign(value);
                     else location.reload();
                     break;
@@ -1169,8 +1347,13 @@ class NativeDcat {
         }
 
         const redirect = typeof response.redirect === 'string' ? response.redirect : null;
-        if (redirect) this.reload(redirect);
-        else if (response.refresh || response.reload) this.reload();
+        if (redirect) {
+            prepareNavigation(redirect);
+            this.reload(redirect);
+        } else if (response.refresh || response.reload) {
+            prepareNavigation();
+            this.reload();
+        }
         return response;
     }
 }

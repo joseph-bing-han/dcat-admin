@@ -235,7 +235,7 @@ if (errors.length) finish();
 if (checkOnly) {
     if (!fs.existsSync(outputPath)) fail(`Form capability registry is missing: ${relative(outputPath)}`);
     else if (JSON.stringify(JSON.parse(fs.readFileSync(outputPath, 'utf8'))) !== JSON.stringify(registry)) {
-        fail('Form capability registry is stale; run npm run modern:form-capabilities:update');
+        fail('Form capability registry is stale; run npm run form-capabilities:update');
     }
     finish();
     console.log(`Form capability registry OK: ${fields.length} fields (${registry.summary.nativeB6} B6 native; B7 ${registry.summary.nativeB7} native, ${registry.summary.vendorAdapterB7} vendor-adapter, ${registry.summary.compatIslandB7} compat-island, ${registry.summary.helperB7} helper, ${registry.summary.pendingB7} pending).`);

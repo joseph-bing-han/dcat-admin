@@ -5,7 +5,7 @@
 ## 项目结构与模块组织
 
 - `src/` 是主 PHP 包，使用 `Dcat\\Admin\\` PSR-4 命名空间；按 `Form`、`Grid`、`Models`、`Http` 等领域组织类。
-- `resources/assets/` 存放待编译资源，`resources/views/` 存放 Blade 模板，`resources/dist/` 存放构建后的发布资源。
+- `resources/modern/` 存放新版视图源码，`resources/assets/` 存放插件与静态资源，`resources/views/` 存放 Blade 模板，`resources/dist/` 存放构建后的发布资源。
 - `config/` 保存包配置；数据库结构变更必须新增 `database/migrations/` 迁移文件。
 - `tests/` 包含 `Feature`、`Browser` 测试、测试模型与资源；`tests/bin/` 保存 Dusk 环境脚本。
 
@@ -20,7 +20,7 @@
 
 ## 编码风格与命名约定
 
-PHP 遵循 Laravel/PSR-4 风格，使用 4 个空格缩进；类名使用 `StudlyCase`，方法和变量使用 `camelCase`。YAML 使用 2 个空格缩进，JavaScript 延续现有 `webpack.mix.js` 风格。`.styleci.yml` 使用 Laravel preset。新增类、配置键和视图文件应采用所在模块已有命名模式。
+PHP 遵循 Laravel/PSR-4 风格，使用 4 个空格缩进；类名使用 `StudlyCase`，方法和变量使用 `camelCase`。YAML 使用 2 个空格缩进，JavaScript 延续现有 Vite 配置与构建脚本风格。`.styleci.yml` 使用 Laravel preset。新增类、配置键和视图文件应采用所在模块已有命名模式。
 
 ## 测试指南
 

@@ -42,6 +42,41 @@ async function render(html: string, data: FormViewPayload | null = null) {
 }
 
 describe('Form payload and compatibility ownership', () => {
+    it('retains formWidth wrappers, card attributes and field spacing', async () => {
+        const { host, unmount } = await render(
+            '<div class="row" style="padding-top:4px"><div class="col-md-8"><div class="card" id="expense-card"><div class="box-body" style="margin-top:6px"><div class="fields-group" style="padding:8px"><div class="form-group row"><label class="col-md-2 control-label asterisk">Description</label><div class="col-md-8"><div class="input-group"><span class="input-group-prepend"><i class="feather icon-edit-2"></i></span><input name="description"></div></div></div></div></div></div></div></div>',
+            payload([field('description')]),
+        );
+        const card = host.querySelector<HTMLElement>('#expense-card')!;
+        expect(card.classList.contains('card')).toBe(true);
+        expect(card.parentElement?.className).toBe('col-md-8');
+        expect(card.parentElement?.parentElement?.className).toBe('row');
+        expect(card.parentElement?.parentElement?.style.paddingTop).toBe('4px');
+        expect(host.querySelector<HTMLElement>('.box-body')?.style.marginTop).toBe('6px');
+        expect(host.querySelector<HTMLElement>('.fields-group')?.style.padding).toBe('8px');
+        expect(host.querySelector('.dcat-modern-form-affix .icon-edit-2')).not.toBeNull();
+        expect(host.querySelector('.help-block .icon-help-circle')).not.toBeNull();
+        expect(host.querySelector('label')?.firstElementChild?.className).toBe('dcat-modern-form-required');
+        await unmount();
+    });
+
+    it('keeps fixed readonly input widths with affixes and submitted values', async () => {
+        const rate = field('deduction_rate', false);
+        rate.control!.append = '%';
+        rate.control!.attributes = { readonly: true, style: 'flex:none;width:80px;text-align:right;' };
+        const { form, host, unmount } = await render('<div class="box-body"><div class="fields-group"><div class="form-group row"><label class="control-label">Rate</label><div><input name="deduction_rate"></div></div></div></div>', payload([rate]));
+        const input = host.querySelector<HTMLInputElement>('[name="deduction_rate"]')!;
+        expect(input.readOnly).toBe(true);
+        expect(input.style.textAlign).toBe('right');
+        expect(input.parentElement?.style.width).toBe('80px');
+        expect(input.parentElement?.style.flex).toBe('0 0 auto');
+        expect(input.parentElement?.nextElementSibling?.textContent).toBe('%');
+        // 挂载层会禁用 fallback；此处只验证新控件的序列化。
+        form.querySelector<HTMLInputElement>('[data-dcat-modern-fallback] input')!.disabled = true;
+        expect(new FormData(form).get('deduction_rate')).toBe('server value');
+        await unmount();
+    });
+
     it('retains the complete step extension container and its generated navigation', async () => {
         const { host, unmount } = await render(
             '<div class="box-body"><div class="fields-group dcat-step-box" style="max-width:950px"><ul class="dcat-step"><li>1</li></ul><div class="dcat-step-form"><div id="first-step">Fields</div></div><div class="sw-toolbar"><button class="sw-btn-next" type="button">Next</button></div></div></div>',
@@ -63,7 +98,7 @@ describe('Form payload and compatibility ownership', () => {
         expect(input.value).toBe('server value');
         expect(input.name).toBe('username');
         expect(input.required).toBe(true);
-        expect(host.querySelector('label[for="native-username"] > span')?.textContent).toBe('username');
+        expect(host.querySelector('label[for="native-username"] > span:last-child')?.textContent).toBe('username');
         expect(host.querySelector('label[for="native-username"] .dcat-modern-form-required')?.textContent).toBe('*');
         expect(host.querySelector<HTMLInputElement>('[name="_token"]')?.value).toBe('csrf');
         expect(host.querySelector<HTMLInputElement>('[name="_method"]')?.value).toBe('PUT');
@@ -85,7 +120,7 @@ describe('Form payload and compatibility ownership', () => {
         expect(host.querySelector('label[for="native-username"] .dcat-modern-form-required')?.getAttribute('aria-hidden')).toBe('true');
         expect(input.getAttribute('aria-invalid')).toBe('true');
         expect(input.getAttribute('aria-describedby')).toBe('native-username-help native-username-errors');
-        expect(help.textContent).toBe('Public name');
+        expect(help.textContent?.trim()).toBe('Public name');
         expect(Array.from(error.children).map((message) => message.textContent)).toEqual([
             'Username is already taken',
             'Choose a different name',

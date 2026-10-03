@@ -11,7 +11,7 @@ import { type FC, type HTMLAttributes, useState } from 'react';
 import { RouterProvider } from 'react-aria-components';
 import { NavItemBase } from '@/components/application/app-navigation/base-components/nav-item';
 import { navigation, type NavigationHost } from '../navigation';
-import { dismissSidebarPreview } from '../runtime';
+import { dismissSidebar } from '../runtime';
 
 export interface ShellMenuNode {
     id: string;
@@ -81,7 +81,7 @@ function ShellMenuLeaf({ item, defaultIcon }: { item: ShellMenuNode; defaultIcon
                 current={item.active}
                 icon={createMenuIcon(iconClassFor(item, defaultIcon))}
                 truncate={false}
-                onClick={dismissSidebarPreview}
+                onClick={dismissSidebar}
             >
                 {item.title}
             </NavItemBase>

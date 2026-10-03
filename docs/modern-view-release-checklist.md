@@ -8,7 +8,7 @@ Required gates:
 
 These are local verification gates. GitHub Actions and `.github` configuration are intentionally absent by the maintainer's 2026-09-26 decision.
 
-- `npm ci && npm run modern:verify` succeeds from a clean checkout.
+- `npm ci && npm run verify` succeeds from a clean checkout.
 - Published `resources/dist/modern/manifest.json` resolves one hashed IIFE entry plus scoped CSS.
 - Report modern JS/CSS/total raw and gzip measurements; no absolute, relative, per-asset or incremental-chunk size limit applies.
 - No modern source uses dynamic `import()`, runtime ESM chunks, `:has()`, external fonts or unscoped CSS.

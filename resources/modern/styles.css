@@ -590,6 +590,7 @@
     margin: auto;
     width: min(480px, calc(100vw - 32px));
     max-width: 100%;
+    max-height: calc(100dvh - 32px);
     padding: 0;
     border: 0;
     border-radius: var(--dcat-modern-radius-lg);
@@ -614,15 +615,33 @@
 }
 .dcat-modern-active .dcat-modern-image-preview::backdrop { background: var(--dcat-modern-overlay-scrim); }
 .dcat-modern-active .dcat-modern-image-preview__card { position: relative; padding: 48px 16px 16px; }
-.dcat-modern-active .dcat-modern-image-preview img { display: block; max-width: calc(100vw - 64px); max-height: calc(100vh - 96px); width: auto; height: auto; object-fit: contain; }
+.dcat-modern-active .dcat-modern-image-preview img:not([hidden]) { display: block; max-width: calc(100vw - 64px); max-height: calc(100vh - 96px); width: auto; height: auto; object-fit: contain; }
+.dcat-modern-active .dcat-modern-image-preview__status {
+    box-sizing: border-box;
+    width: min(320px, calc(100vw - 64px));
+    min-height: 160px;
+    padding: 24px;
+    color: var(--dcat-modern-muted);
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+.dcat-modern-active .dcat-modern-image-preview__status:not([hidden]) { display: grid; place-items: center; }
 .dcat-modern-active .dcat-modern-image-preview button { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border: 0; border-radius: var(--dcat-modern-radius-control); background: transparent; color: var(--dcat-modern-muted); font-size: 24px; cursor: pointer; }
 .dcat-modern-active .dcat-modern-image-preview button:hover { background: var(--dcat-modern-surface-hover); }
 .dcat-modern-active .dcat-modern-image-preview button:focus-visible { outline: none; box-shadow: var(--dcat-modern-focus); }
 
 .dcat-modern-active .dcat-modern-confirm-card {
     display: grid;
+    /* 长文件名不能以默认 min-content 宽度撑开弹窗内容列。 */
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
     padding: 24px;
+}
+
+.dcat-modern-active .dcat-modern-confirm-title,
+.dcat-modern-active .dcat-modern-confirm-content {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .dcat-modern-active .dcat-modern-confirm-title {
@@ -638,6 +657,7 @@
 
 .dcat-modern-active .dcat-modern-confirm-actions {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: 8px;
 }
@@ -764,6 +784,24 @@
     white-space: nowrap;
 }
 
+/* affix 与上游输入容器相接，显式宽度由 Input 适配层负责。 */
+.dcat-modern-active .dcat-modern-form-input-group > .dcat-modern-upstream-input {
+    min-width: 0;
+    border-radius: 0;
+}
+
+.dcat-modern-active .dcat-modern-form-input-group > .dcat-modern-upstream-input:has(+ .dcat-modern-form-affix) {
+    margin-inline-end: -1px;
+}
+
+.dcat-modern-active .dcat-modern-form-affix + .dcat-modern-upstream-input {
+    margin-inline-start: -1px;
+}
+
+.dcat-modern-active .dcat-modern-upstream-input:has(input[readonly]) {
+    background: var(--dcat-modern-surface-muted);
+}
+
 .dcat-modern-active .dcat-modern-form-input-group > :first-child,
 .dcat-modern-active .dcat-modern-form-color > :first-child {
     border-radius: var(--dcat-modern-radius-sm) 0 0 var(--dcat-modern-radius-sm);
@@ -866,6 +904,12 @@
     border-radius: 0 0 var(--dcat-modern-radius-panel) var(--dcat-modern-radius-panel);
 }
 
+@media (max-width: 767.98px) {
+    .dcat-modern-active .dcat-modern-form-view .box-footer .btn-group {
+        margin-block: 4px;
+    }
+}
+
 .dcat-modern-active .web-uploader .placeholder {
     border: 1px dashed var(--dcat-modern-border);
     border-radius: var(--dcat-modern-radius-control);
@@ -881,15 +925,20 @@
 
 .dcat-modern-active .web-uploader .placeholder .webuploader-pick,
 .dcat-modern-active .web-uploader .webuploader-pick {
-    border: 1px solid var(--dcat-modern-border);
+    border: 1px solid var(--dcat-modern-primary);
     border-radius: var(--dcat-modern-radius-control);
-    background: var(--dcat-modern-surface);
-    color: var(--dcat-modern-text);
+    background: var(--dcat-modern-primary);
+    color: var(--dcat-modern-on-primary);
     box-shadow: var(--dcat-modern-shadow-control);
     font-weight: 500;
     min-height: var(--dcat-modern-control-height);
     line-height: 20px;
     padding: 8px 16px;
+}
+
+.dcat-modern-active .web-uploader .webuploader-pick:hover {
+    border-color: var(--dcat-modern-primary-hover);
+    background: var(--dcat-modern-primary-hover);
 }
 
 .dcat-modern-active .webuploader-container:focus-within .webuploader-pick {
@@ -908,7 +957,37 @@
 }
 
 .dcat-modern-active .select2-container .select2-selection--single .select2-selection__arrow {
-    height: calc(var(--dcat-modern-control-height) - 2px);
+    display: grid;
+    place-items: center;
+    top: 0;
+    right: auto;
+    left: auto;
+    inset-inline-start: auto;
+    inset-inline-end: 10px;
+    width: 16px;
+    height: 100%;
+    color: var(--color-fg-quaternary);
+    pointer-events: none;
+}
+
+/* 与上游 NativeSelect 的 ChevronDown 共用路径、尺寸和描边，保留 Select2 原节点。 */
+.dcat-modern-active .select2-container .select2-selection--single .select2-selection__arrow b {
+    display: block;
+    position: static;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    border: 0 !important;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.dcat-modern-active .select2-container--open .select2-selection--single .select2-selection__arrow b {
+    transform: rotate(180deg);
+}
+
+.dcat-modern-active .select2-container .select2-selection--single .select2-selection__rendered {
+    padding-inline-end: 28px;
 }
 
 .dcat-modern-active .select2-container .select2-search__field {
@@ -964,9 +1043,8 @@
 }
 
 .dcat-modern-active .dcat-modern-form .btn-info {
-    color: var(--dcat-modern-on-primary) !important;
-    background-color: var(--dcat-modern-primary-hover) !important;
-    border-color: var(--dcat-modern-primary-hover) !important;
+    --dcat-btn-tone: var(--color-dcat-form-info);
+    --dcat-btn-hover: color-mix(in srgb, var(--color-dcat-form-info) 85%, black);
 }
 
 .dcat-modern-active .dcat-modern-scope .card,
@@ -1138,7 +1216,7 @@
 }
 
 .dcat-modern-active .dcat-modern-form-field[data-dcat-modern-field="native"] .dcat-modern-form-required {
-    margin-inline-start: 4px;
+    margin-inline-end: 4px;
     color: var(--dcat-modern-danger);
     font-weight: 500;
 }
@@ -1761,7 +1839,7 @@
 /* Blade 首屏和上游组件接管共用几何；不依赖挂载标记或延迟显示。 */
 .dcat-modern-active .dcat-modern-grid-table-card {
     overflow: hidden;
-    border-radius: var(--dcat-modern-radius-panel);
+    border-radius: 0 0 var(--dcat-modern-radius-panel) var(--dcat-modern-radius-panel);
     background: var(--dcat-modern-surface);
     box-shadow: 0 0 0 1px var(--dcat-modern-border-subtle);
 }
@@ -2041,27 +2119,50 @@
 }
 
 .dcat-modern-active .dcat-modern-grid-pagination {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
     gap: 12px;
     padding: 12px 16px;
 }
 
 .dcat-modern-active .dcat-modern-grid-pagination-range,
 .dcat-modern-active .dcat-modern-grid-pagination > span {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
     color: var(--dcat-modern-muted);
     font-size: 12px;
 }
 
-.dcat-modern-active .dcat-modern-grid-pagination > nav {
+.dcat-modern-active .dcat-modern-grid-pagination > nav,
+.dcat-modern-active .dcat-modern-grid-pagination > .pagination {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
     min-width: 0;
+    max-width: 100%;
+}
+
+.dcat-modern-active .dcat-modern-grid-pagination > .per-pages-selector {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    margin: 0 !important;
 }
 
 .dcat-modern-active .dcat-modern-grid-pagination .pagination {
+    justify-content: center;
     gap: 4px;
     margin: 0;
+}
+
+@media (max-width: 575.98px) {
+    .dcat-modern-active .dcat-modern-grid-pagination > nav,
+    .dcat-modern-active .dcat-modern-grid-pagination > .pagination {
+        grid-column: 1 / -1;
+    }
 }
 
 .dcat-modern-active .dcat-modern-grid-pagination .page-link {
