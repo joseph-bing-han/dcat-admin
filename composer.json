@@ -1,5 +1,6 @@
 {
     "name": "joseph-bing-han/laravel-admin",
+    "version": "3.0.0",
     "replace": {
         "dcat/laravel-admin": "2.2.2-beta"
     },

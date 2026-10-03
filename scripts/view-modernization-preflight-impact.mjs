@@ -194,7 +194,7 @@ function currentBuiltCss() {
     const entry = Object.values(manifest).find((value) => typeof value?.file === 'string' && value.file.endsWith('.css'));
     const file = entry?.file || null;
     if (!file) {
-        fail('无法从 resources/dist/modern/manifest.json 解析当前 CSS 产物；请先运行 modern:build');
+        fail('无法从 resources/dist/modern/manifest.json 解析当前 CSS 产物；请先运行 build');
     }
     return path.join('resources/dist/modern', file);
 }

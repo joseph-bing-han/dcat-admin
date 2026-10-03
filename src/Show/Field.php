@@ -388,22 +388,22 @@ class Field implements Renderable
                 }
 
                 $icon = Helper::getFileIcon($name);
+                $name = e($name);
+                $url = e($url);
 
                 return <<<HTML
 <li style="margin-bottom: 0;">
     <span class="mailbox-attachment-icon"><i class="{$icon}"></i></span>
     <div class="mailbox-attachment-info">
-        <div class="mailbox-attachment-name">
-            <i class="fa fa-paperclip"></i> {$name}
-        </div>
+        <a href="{$url}" class="mailbox-attachment-name" download target="_blank" rel="noopener">{$name}</a>
         <span class="mailbox-attachment-size">
             {$size}&nbsp;
-            <a href="{$url}" class="btn btn-white  btn-xs pull-right" target="_blank"><i class="fa fa-cloud-download"></i></a>
         </span>
+        <a href="{$url}" class="mailbox-attachment-download btn btn-white btn-xs" download target="_blank" rel="noopener" aria-label="Download {$name}"><i class="fa fa-cloud-download"></i></a>
     </div>
 </li>
 HTML;
-            })->implode('&nbsp;');
+            })->implode('');
 
             return "<ul class=\"mailbox-attachments clearfix\">{$list}</ul>";
         });

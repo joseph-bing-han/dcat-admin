@@ -165,6 +165,7 @@ function installLayerCompat() {
             panel.setAttribute('role', 'dialog');
             panel.setAttribute('aria-modal', 'true');
             Object.assign(panel.style, {
+                display: 'flex', flexDirection: 'column',
                 position: 'relative', maxWidth: 'calc(100vw - 32px)', maxHeight: 'calc(100vh - 32px)',
                 background: 'var(--dcat-modern-surface, #fff)', color: 'var(--dcat-modern-text, #111827)',
                 border: '1px solid var(--dcat-modern-border, #d1d5db)', borderRadius: 'var(--dcat-modern-radius-lg, 8px)',
@@ -179,20 +180,21 @@ function installLayerCompat() {
                 const title = document.createElement('header');
                 title.className = 'layui-layer-title';
                 title.innerHTML = String(settings.title);
-                Object.assign(title.style, { padding: '14px 48px 14px 16px', fontWeight: '600', borderBottom: '1px solid var(--dcat-modern-border-subtle, #e5e7eb)' });
+                Object.assign(title.style, { flexShrink: '0', padding: '14px 48px 14px 16px', fontWeight: '600', borderBottom: '1px solid var(--dcat-modern-border-subtle, #e5e7eb)' });
                 panel.appendChild(title);
             }
 
             const content = document.createElement('div');
             content.className = 'layui-layer-content';
-            Object.assign(content.style, { overflow: 'auto', maxHeight: 'calc(100vh - 96px)', height: area[1] ? '100%' : 'auto' });
+            // 标题与按钮占据固定空间，只有内容区在弹窗高度内伸缩和滚动。
+            Object.assign(content.style, { flex: '1 1 auto', minHeight: '0', overflow: 'auto' });
             appendContent(content, settings.content);
             panel.appendChild(content);
 
             if (Array.isArray(settings.btn) && settings.btn.length) {
                 const footer = document.createElement('footer');
                 footer.className = 'layui-layer-btn';
-                Object.assign(footer.style, { display: 'flex', justifyContent: 'flex-end', gap: '8px', padding: '12px 16px', borderTop: '1px solid var(--dcat-modern-border-subtle, #e5e7eb)' });
+                Object.assign(footer.style, { display: 'flex', flexShrink: '0', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '8px', padding: '12px 16px', borderTop: '1px solid var(--dcat-modern-border-subtle, #e5e7eb)' });
                 settings.btn.forEach((label, buttonIndex) => {
                     const button = document.createElement('button');
                     button.type = 'button';
@@ -223,6 +225,51 @@ function installLayerCompat() {
             root.appendChild(panel);
             document.body.appendChild(root);
 
+            const dragHandle = settings.move === false ? null : panel.querySelector('.layui-layer-title');
+            let drag = null;
+            const movePanel = (left, top) => {
+                const bounds = panel.getBoundingClientRect();
+                Object.assign(panel.style, {
+                    position: 'fixed', marginTop: '0',
+                    left: `${Math.max(16, Math.min(left, innerWidth - bounds.width - 16))}px`,
+                    top: `${Math.max(16, Math.min(top, innerHeight - bounds.height - 16))}px`,
+                });
+            };
+            const keepInViewport = () => {
+                if (!panel.style.left || !panel.getClientRects().length) return;
+                const bounds = panel.getBoundingClientRect();
+                movePanel(bounds.left, bounds.top);
+            };
+            const stopDrag = () => {
+                const pointerId = drag?.pointerId;
+                drag = null;
+                if (pointerId !== undefined && dragHandle?.hasPointerCapture?.(pointerId)) dragHandle.releasePointerCapture(pointerId);
+            };
+            const startDrag = (event) => {
+                if (event.button !== 0 || event.isPrimary === false || drag
+                    || event.target.closest('a, button, input, select, textarea, [contenteditable]')) return;
+                const bounds = panel.getBoundingClientRect();
+                drag = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: bounds.left, top: bounds.top };
+                event.preventDefault();
+                dragHandle.setPointerCapture?.(event.pointerId);
+            };
+            const onDrag = (event) => {
+                if (!drag || drag.pointerId !== event.pointerId) return;
+                movePanel(drag.left + event.clientX - drag.x, drag.top + event.clientY - drag.y);
+            };
+            const endDrag = (event) => {
+                if (drag?.pointerId === event.pointerId) stopDrag();
+            };
+            if (dragHandle) {
+                Object.assign(dragHandle.style, { cursor: 'move', touchAction: 'none', userSelect: 'none' });
+                dragHandle.addEventListener('pointerdown', startDrag);
+                dragHandle.addEventListener('pointermove', onDrag);
+                dragHandle.addEventListener('pointerup', endDrag);
+                dragHandle.addEventListener('pointercancel', endDrag);
+                dragHandle.addEventListener('lostpointercapture', endDrag);
+                window.addEventListener('resize', keepInViewport);
+            }
+
             const keydown = (event) => {
                 if (event.key === 'Escape') {
                     event.preventDefault();
@@ -231,7 +278,16 @@ function installLayerCompat() {
             };
             document.addEventListener('keydown', keydown);
             if (settings.shadeClose) root.addEventListener('click', (event) => { if (event.target === root) close(index, true); });
-            instances.set(index, { root, panel, options: settings, cleanup: () => document.removeEventListener('keydown', keydown) });
+            instances.set(index, { root, panel, options: settings, keepInViewport, cleanup: () => {
+                stopDrag();
+                dragHandle?.removeEventListener('pointerdown', startDrag);
+                dragHandle?.removeEventListener('pointermove', onDrag);
+                dragHandle?.removeEventListener('pointerup', endDrag);
+                dragHandle?.removeEventListener('pointercancel', endDrag);
+                dragHandle?.removeEventListener('lostpointercapture', endDrag);
+                window.removeEventListener('resize', keepInViewport);
+                document.removeEventListener('keydown', keydown);
+            } });
             // innerHTML 不会执行脚本，动态表单须先加载依赖再初始化字段。
             executePageScripts(content, () => root.isConnected)
                 .then(() => { if (root.isConnected) window.Dcat?.triggerReady(); })
@@ -250,7 +306,8 @@ function installLayerCompat() {
             const instance = instances.get(Number(index));
             if (!instance) return;
             instance.root.style.pointerEvents = 'auto';
-            instance.panel.style.display = '';
+            instance.panel.style.display = 'flex';
+            instance.keepInViewport?.();
         },
         tips(title, target, options = {}) {
             const element = target instanceof DOMElement ? target : $(target)[0];

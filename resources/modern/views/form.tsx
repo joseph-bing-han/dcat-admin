@@ -19,6 +19,8 @@ export interface FormControlPayload {
     multiple?: boolean;
     prepend?: string;
     append?: string;
+    prependIcon?: string;
+    appendIcon?: string;
     inputs?: Array<{
         key: string;
         id: string;
@@ -67,6 +69,7 @@ type FormItemModel = NativeFieldModel | NativeHiddenFieldModel | AdvancedFieldMo
 interface FieldsSectionModel {
     kind: 'fields';
     items: FormItemModel[];
+    props?: Record<string, unknown>;
 }
 
 export interface FormLayoutNodePayload {
@@ -105,6 +108,9 @@ export interface FormModel {
     sections: FormSectionModel[];
     footerNodes: Node[];
     hiddenNodes: Node[];
+    layoutWrappers?: Record<string, unknown>[];
+    surfaceProps?: Record<string, unknown>;
+    bodyProps?: Record<string, unknown>;
 }
 
 export interface FormFieldPayload {
@@ -212,7 +218,12 @@ function nativeFieldFromPayload(descriptor: FormFieldPayload, group?: HTMLElemen
         labelProps,
         label: descriptor.label,
         fieldProps,
-        control,
+        control: {
+            ...control,
+            // 图标 affix 的 HTML 不进入 payload 文本，保留服务端已有图标类。
+            prependIcon: group?.querySelector<HTMLElement>('.input-group-prepend i')?.className,
+            appendIcon: group?.querySelector<HTMLElement>('.input-group-append i')?.className,
+        },
         hasError: Boolean(initialErrors.length || group?.classList.contains('has-error') || group?.classList.contains('has-danger')),
         initialErrors,
     };
@@ -359,6 +370,19 @@ function readPayloadLayout(node: FormLayoutNodePayload, items: Map<string, FormI
     return { kind: node.kind, children } as NativeLayoutModel;
 }
 
+function surfaceLayoutProps(surface: HTMLElement, fallback: HTMLElement): Pick<FormModel, 'layoutWrappers' | 'surfaceProps' | 'bodyProps'> {
+    const layoutWrappers: Record<string, unknown>[] = [];
+    for (let node = surface.parentElement; surface !== fallback && node && node !== fallback; node = node.parentElement) {
+        layoutWrappers.unshift(safeStructuralProps(node));
+    }
+    const body = Array.from(surface.children).find((child) => child.classList.contains('box-body')) as HTMLElement | undefined;
+    return {
+        layoutWrappers,
+        surfaceProps: surface === fallback ? undefined : safeStructuralProps(surface),
+        bodyProps: body ? safeStructuralProps(body) : undefined,
+    };
+}
+
 export function readFormModel(form: HTMLElement, payload: FormViewPayload | null = null): FormModel {
     const fallback = directFallback(form);
     // 分步扩展拥有容器、导航和工具栏，必须整体保留，避免字段提取拆散插件结构。
@@ -381,8 +405,9 @@ export function readFormModel(form: HTMLElement, payload: FormViewPayload | null
         if (!body) throw new Error('Form fallback does not match the standard Dcat Form structure');
         const source = body.querySelector<HTMLElement>('.fields-group') ?? body;
         return {
+            ...surfaceLayoutProps(surface, fallback),
             headerNodes: header ? [header] : [],
-            sections: [{ kind: 'fields', items: readPayloadStack(source, payload) }],
+            sections: [{ kind: 'fields', items: readPayloadStack(source, payload), props: source === body ? undefined : safeStructuralProps(source) }],
             footerNodes: footer ? [footer] : [],
             hiddenNodes,
         };
@@ -404,6 +429,7 @@ export function readFormModel(form: HTMLElement, payload: FormViewPayload | null
         const header = Array.from(surface.children).find((child) => child.classList.contains('box-header')) as HTMLElement | undefined;
         const footer = Array.from(surface.children).find((child) => child.classList.contains('box-footer')) as HTMLElement | undefined;
         return {
+            ...surfaceLayoutProps(surface, fallback),
             headerNodes: header ? [header] : [],
             sections: [{ kind: 'native-layout', tree }],
             footerNodes: footer ? [footer] : [],
@@ -467,12 +493,12 @@ function stringValues(value: FormControlPayload['value']): string[] {
 }
 
 function AffixedControl({ control, children }: { control: FormControlPayload; children: React.ReactNode }) {
-    if (!control.prepend && !control.append) return <>{children}</>;
+    if (!control.prepend && !control.append && !control.prependIcon && !control.appendIcon) return <>{children}</>;
     return (
         <div className="dcat-modern-form-input-group">
-            {control.prepend ? <span className="dcat-modern-form-affix" aria-hidden="true">{control.prepend}</span> : null}
+            {control.prepend || control.prependIcon ? <span className="dcat-modern-form-affix" aria-hidden="true">{control.prependIcon ? <i className={control.prependIcon} /> : null}{control.prepend}</span> : null}
             {children}
-            {control.append ? <span className="dcat-modern-form-affix" aria-hidden="true">{control.append}</span> : null}
+            {control.append || control.appendIcon ? <span className="dcat-modern-form-affix" aria-hidden="true">{control.appendIcon ? <i className={control.appendIcon} /> : null}{control.append}</span> : null}
         </div>
     );
 }
@@ -699,8 +725,8 @@ function NativeField({ item }: { item: NativeFieldModel }) {
     const choiceLabelId = multipleChoice && item.label ? `${control.id}-label` : undefined;
     const labelContents = (
         <>
-            <span>{item.label}</span>
             {requiredAsterisk ? <span className="dcat-modern-form-required" aria-hidden="true">*</span> : null}
+            <span>{item.label}</span>
         </>
     );
     const labelFor = control.kind === 'range-pair'
@@ -725,7 +751,7 @@ function NativeField({ item }: { item: NativeFieldModel }) {
             ) : null}
             <div {...item.fieldProps} className={fieldClassName}>
                 <NativeControl control={control} describedBy={describedBy} invalid={item.hasError} labelledBy={choiceLabelId} />
-                {control.help ? <div id={helpId} className="help-block">{control.help}</div> : null}
+                {control.help ? <div id={helpId} className="help-block"><i className="feather icon-help-circle" aria-hidden="true" /> {control.help}</div> : null}
                 <div id={errorId} className="help-block with-errors" aria-live="polite">
                     {item.initialErrors.map((error, index) => <span key={`${index}-${error}`} className="dcat-modern-form-error">{error}</span>)}
                 </div>
@@ -810,7 +836,7 @@ function NativeLayout({ node }: { node: NativeLayoutModel }) {
 
 function FormSection({ section }: { section: FormSectionModel }) {
     if (section.kind === 'native-layout') return <NativeLayout node={section.tree} />;
-    return <div className="fields-group dcat-modern-form-fields"><FormItems items={section.items} /></div>;
+    return <div {...section.props} className={`${section.props?.className ?? 'fields-group'} dcat-modern-form-fields`}><FormItems items={section.items} /></div>;
 }
 
 export function FormView({ model }: { model: FormModel }) {
@@ -830,14 +856,15 @@ export function FormView({ model }: { model: FormModel }) {
 
     if (model.compatNodes) return <LegacyNodesIsland nodes={model.compatNodes} kind="form-custom-view" />;
 
-    return (
-        <div ref={viewRef} className="dcat-modern-form-view" data-dcat-modern-form-renderer="react-layout">
+    const view = (
+        <div {...model.surfaceProps} ref={viewRef} className={`${model.surfaceProps?.className ?? ''} dcat-modern-form-view`.trim()} data-dcat-modern-form-renderer="react-layout">
             {model.headerNodes.length ? <LegacyNodesIsland nodes={model.headerNodes} kind="form-header" /> : null}
-            <div className="box-body dcat-modern-form-body">
+            <div {...model.bodyProps} className={`${model.bodyProps?.className ?? 'box-body'} dcat-modern-form-body`}>
                 {model.sections.map((section, index) => <FormSection key={index} section={section} />)}
             </div>
             {model.footerNodes.length ? <LegacyNodesIsland nodes={model.footerNodes} kind="form-footer" /> : null}
             {model.hiddenNodes.length ? <LegacyNodesIsland nodes={model.hiddenNodes} kind="form-hidden" hidden /> : null}
         </div>
     );
+    return (model.layoutWrappers ?? []).reduceRight<React.ReactNode>((children, props, index) => <div key={index} {...props}>{children}</div>, view);
 }

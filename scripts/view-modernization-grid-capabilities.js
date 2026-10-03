@@ -184,7 +184,7 @@ if (errors.length) finish();
 if (checkOnly) {
     if (!fs.existsSync(outputPath)) fail(`Grid capability registry is missing: ${relative(outputPath)}`);
     else if (JSON.stringify(JSON.parse(fs.readFileSync(outputPath, 'utf8'))) !== JSON.stringify(registry)) {
-        fail('Grid capability registry is stale; run npm run modern:grid-capabilities:update');
+        fail('Grid capability registry is stale; run npm run grid-capabilities:update');
     }
     finish();
     console.log(`Grid capability registry OK: ${displayers.length} displayers (${registry.summary.displayers.native} native), ${filters.length} filters (${registry.summary.filters.compat} compat), ${actions.length} actions/tools (${registry.summary.actions.native} native).`);

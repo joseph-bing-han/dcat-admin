@@ -211,6 +211,11 @@ if (!function_exists('admin_trans_option')) {
             return admin_trans("{$slug}.options.{$field}", $replace, $locale);
         }
 
+        // Eloquent 布尔字段使用 0/1 选项键，false 不能插值为空字符串。
+        if (is_bool($optionValue)) {
+            $optionValue = (int) $optionValue;
+        }
+
         return admin_trans("{$slug}.options.{$field}.{$optionValue}", $replace, $locale);
     }
 }

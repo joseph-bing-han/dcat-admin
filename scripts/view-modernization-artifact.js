@@ -12,7 +12,7 @@ const noticesPath = path.join(dist, 'THIRD_PARTY_NOTICES.txt');
 const errors = [];
 
 if (!fs.existsSync(manifestPath)) {
-    fail('Modern manifest is missing. Run npm run modern:build first.');
+    fail('Modern manifest is missing. Run npm run build first.');
     finish();
 }
 

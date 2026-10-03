@@ -7,6 +7,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
+import { loginCompatGeometry } from './login-compat-geometry.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const registry = JSON.parse(fs.readFileSync(path.join(root, 'resources/modern/legacy-assets.json'), 'utf8'));
@@ -56,6 +57,12 @@ server.on('request', (request, response) => {
         return;
     }
 
+    if (requestUrl.pathname === '/login-compat-geometry.mjs') {
+        response.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8' });
+        response.end(fs.readFileSync(path.join(root, 'scripts/login-compat-geometry.mjs')));
+        return;
+    }
+
     if (requestUrl.pathname.startsWith('/vendor/dcat-admin/')) {
         serveFile(requestUrl.pathname, response);
         return;
@@ -87,6 +94,29 @@ function fixtureHtml() {
     <div id="panel-one" class="tab-pane active">Panel one</div><div id="panel-two" class="tab-pane">Panel two</div>
     <div class="dropdown"><button id="dropdown-trigger" data-toggle="dropdown" aria-expanded="false">Actions</button><div class="dropdown-menu"><button id="dropdown-first">First action</button><button id="dropdown-last">Last action</button></div></div>
   </main>
+  <div class="dcat-modern-active full-page">
+    <div class="app-content content"><div class="content-body"><section class="content">
+      <div class="row"><div class="col-md-12"><div class="login-page"><div class="login-box" style="margin-top:-10rem;padding:5px">
+        <div class="login-logo"><svg width="80" height="80" aria-label="Logo"></svg><span>Example Admin</span></div>
+        <div class="card"><div class="card-body login-card-body">
+          <p class="login-box-msg">Welcome back</p>
+          <form onsubmit="return false">
+            <fieldset class="form-label-group form-group has-icon-left">
+              <input id="compat-login-email" class="form-control" placeholder="Email" name="username">
+              <div class="form-control-position">@</div><label for="compat-login-email">Email</label>
+              <div class="help-block with-errors"></div>
+            </fieldset>
+            <fieldset class="form-label-group form-group has-icon-left">
+              <input id="compat-login-password" class="form-control" placeholder="Password" type="password" name="password">
+              <div class="form-control-position">*</div><label for="compat-login-password">Password</label>
+              <div class="help-block with-errors"></div>
+            </fieldset>
+            <div><a class="btn btn-success login-btn">Register</a><button class="btn btn-primary pull-right login-btn">Login</button></div>
+          </form>
+        </div></div>
+      </div></div></div></div>
+    </section></div></div>
+  </div>
 </body>
 </html>`;
 }
@@ -110,11 +140,17 @@ async function run() {
 
     await new Promise((resolve, reject) => {
         server.once('error', reject);
-        server.listen(0, '127.0.0.1', resolve);
+        server.listen(Number(process.env.DCAT_FACADE_PORT || 0), process.env.DCAT_FACADE_HOST || '127.0.0.1', resolve);
     });
     const address = server.address();
     assert.ok(address && typeof address === 'object');
     const baseUrl = `http://127.0.0.1:${address.port}`;
+    // 扩展连接验证复用同一 fixture，避免另起一套页面或浏览器配置。
+    if (process.argv.includes('--serve-only')) {
+        console.log(`Facade fixture ready: ${baseUrl}/fixture`);
+        await new Promise((resolve) => process.once('SIGINT', resolve));
+        return;
+    }
     browser = await chromium.launch({
         executablePath: chromePath,
         headless: true,
@@ -194,6 +230,29 @@ async function run() {
         assert.equal(await page.evaluate(() => document.activeElement?.id), 'dropdown-last');
         await page.keyboard.press('Escape');
         assert.equal(await page.evaluate(() => document.activeElement?.id), 'dropdown-trigger');
+
+        for (const width of [1280, 375, 320]) {
+            await page.setViewportSize({ width, height: 812 });
+            for (const value of ['', 'layout-check']) {
+                await page.locator('#compat-login-email').fill(value);
+                await page.locator('#compat-login-password').fill(value);
+                const geometry = await page.evaluate(loginCompatGeometry);
+                assert.equal(geometry.fields.length, 2);
+                assert.ok(geometry.fields.every((field) => field.iconInside && field.textClearsIcon && field.labelCorrect), JSON.stringify(geometry));
+                assert.ok(geometry.brandSingleRow && geometry.buttonsSingleRow && geometry.noHorizontalOverflow, JSON.stringify(geometry));
+            }
+            const errorLayout = await page.evaluate(() => {
+                const groups = document.querySelectorAll('.form-label-group');
+                const error = groups[0].querySelector('.help-block');
+                error.textContent = 'Please enter a valid email address.';
+                const bounds = error.getBoundingClientRect();
+                const clear = bounds.top >= groups[0].querySelector('input').getBoundingClientRect().bottom
+                    && bounds.bottom <= groups[1].querySelector('label').getBoundingClientRect().top;
+                error.textContent = '';
+                return clear;
+            });
+            assert.ok(errorLayout, 'Validation feedback must not overlap the current input or next floating label.');
+        }
 
         assert.deepEqual(pageErrors, [], `The facade page should not emit page errors: ${pageErrors.join(' | ')}`);
         assert.deepEqual(failedRequests, [], `The facade page should not fail requests: ${failedRequests.join(' | ')}`);

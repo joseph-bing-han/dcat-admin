@@ -354,9 +354,11 @@ function unmount(root: ParentNode = document): void {
             unmountElement(element);
         }
     });
-    overlayStore.reset();
+    // 通知属于全局宿主，局部换页不能提前清空保存结果或重启计时。
+    const globalUnmount = root === document || root === document.body || root === document.documentElement;
+    overlayStore.reset({ preserveNotices: !globalUnmount });
     // 局部卸载（如 PJAX 换页）仍保留外壳，不能让全局样式在新页面挂载前失效。
-    if (root === document || root === document.body || root === document.documentElement) {
+    if (globalUnmount) {
         document.body.classList.remove('dcat-modern-request-enabled');
         document.body.classList.remove('dcat-modern-active');
     }
@@ -420,7 +422,7 @@ export const bridge: DcatReactApi = {
     unmount,
     start,
     stop,
-    notify: (message, tone = 'neutral', timeout = 4500) => overlayStore.notify(message, tone, timeout),
+    notify: (message, tone = 'neutral', timeout) => overlayStore.notify(message, tone, timeout),
     confirm: (options) => overlayStore.confirm(options),
     openDrawer: (options) => overlayStore.openDrawer(options),
     closeDrawer: (id) => overlayStore.closeDrawer(id),

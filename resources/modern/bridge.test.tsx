@@ -9,6 +9,38 @@ beforeEach(async () => {
 });
 
 describe('DcatReact bridge', () => {
+    it('keeps save notices through PJAX replacement and clears them on global stop', async () => {
+        vi.useFakeTimers();
+        try {
+            document.body.innerHTML = '<main id="pjax-container" data-dcat-modern-request="1"><p>Settings</p></main>';
+            await act(async () => {
+                bridge.start();
+                bridge.notify('Saved', 'success');
+            });
+            await act(async () => vi.advanceTimersByTime(1000));
+            await act(async () => {
+                document.getElementById('pjax-container')!.dispatchEvent(new CustomEvent('dcat:pjax:before-replace', {
+                    bubbles: true, detail: { container: '#pjax-container' },
+                }));
+                document.getElementById('pjax-container')!.innerHTML = '<p>Refreshed settings</p>';
+                document.dispatchEvent(new CustomEvent('dcat:pjax:loaded'));
+            });
+            expect(overlayStore.snapshot().notices.map((notice) => notice.message)).toEqual(['Saved']);
+            expect(document.querySelector('.dcat-modern-toasts')!.textContent).toContain('Saved');
+            await act(async () => vi.advanceTimersByTime(4999));
+            expect(overlayStore.snapshot().notices).toHaveLength(1);
+            await act(async () => vi.advanceTimersByTime(1));
+            expect(overlayStore.snapshot().notices).toEqual([]);
+            await act(async () => {
+                bridge.notify('Next notice', 'success');
+                bridge.stop();
+            });
+            expect(overlayStore.snapshot().notices).toEqual([]);
+        } finally {
+            vi.useRealTimers();
+        }
+    });
+
     it('mounts a registered capability once and cleans it up', async () => {
         const mount = vi.fn(() => vi.fn());
         bridge.register({
@@ -70,7 +102,7 @@ describe('DcatReact bridge', () => {
             expect(document.body.classList.contains('dcat-modern-active')).toBe(true);
             expect(document.body.classList.contains('dcat-modern-request-enabled')).toBe(true);
             expect(document.body.classList.contains('sidebar-collapse')).toBe(true);
-            expect(overlayStore.snapshot().notices).toHaveLength(0);
+            expect(overlayStore.snapshot().notices.map((notice) => notice.message)).toEqual(['Page notice']);
 
             container.innerHTML = '<div class="page-fixture">Next page</div>';
             await act(async () => document.dispatchEvent(new CustomEvent('dcat:pjax:loaded')));

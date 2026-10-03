@@ -100,6 +100,44 @@
     --color-fg-info-primary: rgb(23 92 211);
     --color-bg-info-primary: rgb(239 248 255);
     --color-bg-info-solid: rgb(23 92 211);
+    /* 旧表单的两种蓝色保存动作，与品牌色保存动作保持区分。 */
+    --color-dcat-form-info: rgb(66 119 207);
+    --color-dcat-blue-1: rgb(0 126 229);
+    /* 旧Dcat命名色供自定义颜色工具类使用，不覆盖现代语义色阶。 */
+    --color-dcat-blue: rgb(48 133 214);
+    --color-dcat-blue-2: rgb(65 153 222);
+    --color-dcat-blue-darker: rgb(35 107 176);
+    --color-dcat-indigo: rgb(92 107 198);
+    --color-dcat-indigo-darker: rgb(73 90 191);
+    --color-dcat-red: rgb(234 84 85);
+    --color-dcat-red-darker: rgb(189 65 71);
+    --color-dcat-orange: rgb(221 164 81);
+    --color-dcat-orange-1: rgb(255 204 128);
+    --color-dcat-orange-2: rgb(249 144 55);
+    --color-dcat-green: rgb(33 185 120);
+    --color-dcat-cyan: rgb(115 103 240);
+    --color-dcat-cyan-darker: rgb(99 85 238);
+    --color-dcat-purple: rgb(91 105 188);
+    --color-dcat-custom: rgb(89 169 248);
+    --color-dcat-pink: rgb(255 138 204);
+    --color-dcat-yellow: rgb(237 195 14);
+    --color-dcat-tear: rgb(1 132 127);
+    --color-dcat-tear-1: rgb(0 181 181);
+    --color-dcat-gray: rgb(185 195 205);
+    --color-dcat-default: rgb(210 214 222);
+    --color-dcat-light: rgb(247 247 249);
+    --color-dcat-dark: rgb(34 41 47);
+    --color-dcat-20: rgb(246 251 255);
+    --color-dcat-30: rgb(244 247 250);
+    --color-dcat-35: rgb(231 238 247);
+    --color-dcat-40: rgb(235 240 243);
+    --color-dcat-50: rgb(211 221 229);
+    --color-dcat-60: rgb(186 202 214);
+    --color-dcat-70: rgb(179 185 191);
+    --color-dcat-80: rgb(124 133 142);
+    --color-dcat-85: rgb(92 112 137);
+    --color-dcat-90: rgb(37 45 55);
+    --color-dcat-white50: rgb(255 255 255 / 50%);
     /* Dcat 的控件尺寸与层级扩展；其它旧变量仅作这些主题值的兼容别名。 */
     --radius-none: 0;
     --spacing-control: 2.5rem;

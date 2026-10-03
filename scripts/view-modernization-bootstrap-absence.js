@@ -9,6 +9,7 @@ const facadeMarker = '/*! Dcat-owned legacy asset facade. No Bootstrap or AdminL
 
 const removedPaths = [
     'packages',
+    'webpack.mix.js',
     'resources/assets/adminlte',
     'resources/assets/sass',
     'resources/assets/dcat/js/Dcat.js',
@@ -56,7 +57,7 @@ referenceRoots.forEach((relative) => {
     });
 });
 
-['webpack.mix.js', 'package.json'].forEach((relative) => {
+['scripts/build.mjs', 'vite.config.mts', 'package.json'].forEach((relative) => {
     const file = path.join(root, relative);
     if (!fs.existsSync(file)) {
         errors.push(`expected build entry is missing: ${relative}`);
